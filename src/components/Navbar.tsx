@@ -87,9 +87,9 @@ export default function Navbar() {
           <button className="hidden md:flex w-9 h-9 items-center justify-center rounded-lg text-gray-400 hover:text-white hover:bg-blue-600/10 transition-all">
             <Search className="w-4 h-4" />
           </button>
-          <button className="hidden md:flex w-9 h-9 items-center justify-center rounded-lg text-gray-400 hover:text-white hover:bg-blue-600/10 transition-all">
+          <Link href="/dashboard" className="hidden md:flex w-9 h-9 items-center justify-center rounded-lg text-gray-400 hover:text-white hover:bg-blue-600/10 transition-all">
             <User className="w-4 h-4" />
-          </button>
+          </Link>
 
           {/* Cart */}
           <button
@@ -130,6 +130,13 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          <Link
+            href="/dashboard"
+            onClick={() => setMobileOpen(false)}
+            className="block px-6 py-3.5 text-sm text-blue-400 hover:text-white hover:bg-blue-600/10 transition-colors"
+          >
+            My Account
+          </Link>
         </div>
       )}
     </header>
