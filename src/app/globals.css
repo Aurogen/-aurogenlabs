@@ -1,0 +1,124 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-950: #020810;
+  --color-navy-900: #050D1A;
+  --color-navy-800: #0A1628;
+  --color-navy-700: #0F2040;
+  --color-navy-600: #152A55;
+  --color-blue-600: #1B6BDE;
+  --color-blue-500: #2B7FEF;
+  --color-blue-400: #4DA3FF;
+  --color-blue-300: #7EC4FF;
+  --color-silver: #8EB4D4;
+  --color-text-primary: #E2EAF4;
+  --color-text-muted: #8A9BBF;
+
+  --font-heading: var(--font-rajdhani);
+  --font-body: var(--font-inter);
+}
+
+:root {
+  --background: #050D1A;
+  --foreground: #E2EAF4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-rajdhani), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0A1628;
+}
+::-webkit-scrollbar-thumb {
+  background: #1B6BDE;
+  border-radius: 3px;
+}
+
+/* Selection */
+::selection {
+  background: #1B6BDE40;
+  color: #E2EAF4;
+}
+
+/* Glow effects */
+.glow-blue {
+  box-shadow: 0 0 20px rgba(27, 107, 222, 0.4);
+}
+
+.text-glow {
+  text-shadow: 0 0 30px rgba(77, 163, 255, 0.5);
+}
+
+/* Card glass effect */
+.glass-card {
+  background: rgba(15, 32, 64, 0.6);
+  border: 1px solid rgba(27, 107, 222, 0.2);
+  backdrop-filter: blur(12px);
+}
+
+/* Gradient mesh background */
+.gradient-mesh {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(27, 107, 222, 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(77, 163, 255, 0.06) 0%, transparent 50%),
+    #050D1A;
+}
+
+/* Animated border */
+@keyframes border-pulse {
+  0%, 100% { border-color: rgba(27, 107, 222, 0.3); }
+  50% { border-color: rgba(77, 163, 255, 0.6); }
+}
+
+.border-animate {
+  animation: border-pulse 3s ease-in-out infinite;
+}
+
+/* Shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(77, 163, 255, 0.1) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Fade in */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Cart drawer transition */
+.cart-enter {
+  transform: translateX(100%);
+}
+.cart-enter-active {
+  transform: translateX(0);
+  transition: transform 0.3s ease-out;
+}

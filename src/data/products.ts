@@ -1,0 +1,256 @@
+export type Goal =
+  | "Fat Loss"
+  | "Muscle Growth"
+  | "Recovery"
+  | "Anti-Aging"
+  | "Skin & Hair"
+  | "Brain Health"
+  | "Performance";
+
+export interface Product {
+  id: string;
+  slug: string;
+  name: string;
+  compound: string;
+  concentration: string;
+  size: string;
+  price: number;
+  originalPrice?: number;
+  goals: Goal[];
+  description: string;
+  longDescription: string;
+  inStock: boolean;
+  featured: boolean;
+  purity: string;
+  sequence?: string;
+  molecularWeight?: string;
+  storage: string;
+  badge?: string;
+}
+
+export const GOALS: { label: Goal; icon: string; description: string; count: number }[] = [
+  { label: "Fat Loss", icon: "🔥", description: "Metabolic optimization & body recomposition", count: 4 },
+  { label: "Muscle Growth", icon: "💪", description: "Anabolic signaling & protein synthesis", count: 5 },
+  { label: "Recovery", icon: "⚡", description: "Tissue repair & inflammation modulation", count: 4 },
+  { label: "Anti-Aging", icon: "🧬", description: "Cellular rejuvenation & longevity pathways", count: 6 },
+  { label: "Skin & Hair", icon: "✨", description: "Collagen synthesis & follicle stimulation", count: 3 },
+  { label: "Brain Health", icon: "🧠", description: "Neuroprotection & cognitive enhancement", count: 3 },
+  { label: "Performance", icon: "🚀", description: "Energy, endurance & VO2 optimization", count: 4 },
+];
+
+export const PRODUCTS: Product[] = [
+  {
+    id: "1",
+    slug: "retatrutide-5mg",
+    name: "Retatrutide",
+    compound: "LY3437943",
+    concentration: "5mg",
+    size: "1 Vial",
+    price: 129.99,
+    originalPrice: 159.99,
+    goals: ["Fat Loss", "Performance"],
+    description: "Triple GIP/GLP-1/Glucagon receptor agonist for advanced metabolic research.",
+    longDescription: "Retatrutide (LY3437943) is a triple hormone receptor agonist targeting GIP, GLP-1, and glucagon receptors. Research applications include obesity modeling, metabolic syndrome studies, and cardiometabolic research protocols.",
+    inStock: true,
+    featured: true,
+    purity: "99.2%",
+    molecularWeight: "4731.4 g/mol",
+    storage: "2-8°C · Protect from light",
+    badge: "BEST SELLER",
+  },
+  {
+    id: "2",
+    slug: "semaglutide-5mg",
+    name: "Semaglutide",
+    compound: "Ozempic analog",
+    concentration: "5mg",
+    size: "1 Vial",
+    price: 109.99,
+    originalPrice: 139.99,
+    goals: ["Fat Loss", "Anti-Aging"],
+    description: "GLP-1 receptor agonist for metabolic and cardiovascular research models.",
+    longDescription: "Semaglutide is a GLP-1 receptor agonist with an extended half-life due to C18 fatty acid chain modification. Research applications include type 2 diabetes models, obesity research, and cardiovascular outcome studies.",
+    inStock: true,
+    featured: true,
+    purity: "99.5%",
+    molecularWeight: "4113.58 g/mol",
+    storage: "2-8°C · Protect from light",
+    badge: "POPULAR",
+  },
+  {
+    id: "3",
+    slug: "bpc-157-5mg",
+    name: "BPC-157",
+    compound: "Body Protection Compound",
+    concentration: "5mg",
+    size: "1 Vial",
+    price: 49.99,
+    goals: ["Recovery", "Skin & Hair"],
+    description: "Gastric pentadecapeptide with extensive tissue repair research applications.",
+    longDescription: "BPC-157 is a synthetic pentadecapeptide derived from human gastric juice. Research indicates roles in angiogenesis, tendon healing, muscle repair, and gut integrity models.",
+    inStock: true,
+    featured: true,
+    purity: "99.1%",
+    molecularWeight: "1419.55 g/mol",
+    storage: "2-8°C · Protect from light",
+  },
+  {
+    id: "4",
+    slug: "ipamorelin-5mg",
+    name: "Ipamorelin",
+    compound: "NNC 26-0161",
+    concentration: "5mg",
+    size: "1 Vial",
+    price: 34.99,
+    goals: ["Muscle Growth", "Anti-Aging"],
+    description: "Selective growth hormone secretagogue for GH pulse research.",
+    longDescription: "Ipamorelin is a pentapeptide GH secretagogue and ghrelin receptor agonist. It selectively stimulates growth hormone release without significant cortisol, prolactin, or ACTH elevation in research models.",
+    inStock: false,
+    featured: true,
+    purity: "99.0%",
+    molecularWeight: "711.85 g/mol",
+    storage: "2-8°C · Protect from light",
+  },
+  {
+    id: "5",
+    slug: "tirzepatide-5mg",
+    name: "Tirzepatide",
+    compound: "LY3298176",
+    concentration: "5mg",
+    size: "1 Vial",
+    price: 64.99,
+    goals: ["Fat Loss"],
+    description: "Dual GIP/GLP-1 receptor agonist for next-gen metabolic research.",
+    longDescription: "Tirzepatide is a once-weekly dual GIP and GLP-1 receptor agonist. Research applications focus on glycemic control modeling, body weight regulation, and lipid metabolism studies.",
+    inStock: true,
+    featured: true,
+    purity: "99.3%",
+    molecularWeight: "4813.47 g/mol",
+    storage: "2-8°C · Protect from light",
+  },
+  {
+    id: "6",
+    slug: "mots-c-10mg",
+    name: "MOTS-c",
+    compound: "Mitochondrial ORF of 12S rRNA type-c",
+    concentration: "10mg",
+    size: "1 Vial",
+    price: 44.99,
+    goals: ["Anti-Aging", "Performance"],
+    description: "Mitochondria-derived peptide targeting AMPK for longevity research.",
+    longDescription: "MOTS-c is an endogenous mitochondria-derived peptide that activates AMPK and regulates metabolic homeostasis. Research applications include longevity models, exercise adaptation, and insulin sensitivity studies.",
+    inStock: true,
+    featured: true,
+    purity: "98.9%",
+    molecularWeight: "2174.5 g/mol",
+    storage: "-20°C · Lyophilized",
+    badge: "NEW",
+  },
+  {
+    id: "7",
+    slug: "tb-500-5mg",
+    name: "TB-500",
+    compound: "Thymosin Beta-4 fragment",
+    concentration: "5mg",
+    size: "1 Vial",
+    price: 54.99,
+    goals: ["Recovery", "Muscle Growth"],
+    description: "Thymosin Beta-4 synthetic analog for wound healing and repair research.",
+    longDescription: "TB-500 is a synthetic peptide based on the active domain of Thymosin Beta-4. Research applications include wound healing models, angiogenesis studies, and musculoskeletal repair protocols.",
+    inStock: true,
+    featured: false,
+    purity: "99.0%",
+    molecularWeight: "2888.14 g/mol",
+    storage: "2-8°C · Protect from light",
+  },
+  {
+    id: "8",
+    slug: "selank-5mg",
+    name: "Selank",
+    compound: "Tuftsin analog",
+    concentration: "5mg",
+    size: "1 Vial",
+    price: 39.99,
+    goals: ["Brain Health"],
+    description: "Anxiolytic heptapeptide for neurological and stress response research.",
+    longDescription: "Selank is a synthetic analogue of the immunomodulatory peptide tuftsin. Research focuses on anxiolytic mechanisms, cognitive function, and neurological stress response modulation.",
+    inStock: false,
+    featured: false,
+    purity: "98.8%",
+    molecularWeight: "751.88 g/mol",
+    storage: "2-8°C · Protect from light",
+  },
+  {
+    id: "9",
+    slug: "cjc-1295-dac-5mg",
+    name: "CJC-1295 DAC",
+    compound: "GRF 1-29 DAC",
+    concentration: "5mg",
+    size: "1 Vial",
+    price: 44.99,
+    goals: ["Muscle Growth", "Anti-Aging"],
+    description: "Long-acting GHRH analog with drug affinity complex for extended GH research.",
+    longDescription: "CJC-1295 with DAC is a modified form of GHRH(1-29) with a Drug Affinity Complex that extends its half-life. Research applications include sustained GH elevation studies and IGF-1 secretion modeling.",
+    inStock: true,
+    featured: false,
+    purity: "99.1%",
+    molecularWeight: "3647.28 g/mol",
+    storage: "2-8°C · Protect from light",
+  },
+  {
+    id: "10",
+    slug: "hgh-fragment-176-191-2mg",
+    name: "HGH Fragment 176-191",
+    compound: "AOD-9604",
+    concentration: "2mg",
+    size: "1 Vial",
+    price: 29.99,
+    goals: ["Fat Loss"],
+    description: "C-terminal fragment of HGH for lipolysis research models.",
+    longDescription: "HGH Fragment 176-191 is the C-terminal region of human growth hormone responsible for lipolytic activity. Research applications include adipogenesis inhibition, beta-3 adrenergic stimulation, and body composition models.",
+    inStock: true,
+    featured: false,
+    purity: "99.0%",
+    molecularWeight: "1815.12 g/mol",
+    storage: "2-8°C · Protect from light",
+  },
+  {
+    id: "11",
+    slug: "igf-1-lr3-100mcg",
+    name: "IGF-1 LR3",
+    compound: "Long R3 IGF-1",
+    concentration: "100mcg",
+    size: "1 Vial",
+    price: 89.99,
+    goals: ["Muscle Growth", "Recovery"],
+    description: "Long-acting IGF-1 analog with superior receptor binding for anabolic research.",
+    longDescription: "IGF-1 LR3 is a recombinant protein and analogue of human IGF-1 with an N-terminal 13-amino acid extension. Research applications include satellite cell activation, anabolic signaling pathways, and muscle hypertrophy models.",
+    inStock: true,
+    featured: false,
+    purity: "98.5%",
+    molecularWeight: "9199.4 g/mol",
+    storage: "-20°C · Lyophilized",
+    badge: "PREMIUM",
+  },
+  {
+    id: "12",
+    slug: "epithalon-10mg",
+    name: "Epithalon",
+    compound: "Epitalon / Epithalamin",
+    concentration: "10mg",
+    size: "1 Vial",
+    price: 59.99,
+    goals: ["Anti-Aging", "Brain Health"],
+    description: "Tetrapeptide telomerase activator for aging and longevity research.",
+    longDescription: "Epithalon (Epitalon) is a synthetic tetrapeptide derived from the pineal gland polypeptide Epithalamin. Research shows potential in telomere length regulation, oxidative stress reduction, and circadian rhythm modulation.",
+    inStock: false,
+    featured: false,
+    purity: "99.2%",
+    molecularWeight: "390.35 g/mol",
+    storage: "2-8°C · Protect from light",
+  },
+];
+
+export const FEATURED_PRODUCTS = PRODUCTS.filter((p) => p.featured);
+export const getProductBySlug = (slug: string) => PRODUCTS.find((p) => p.slug === slug);
+export const getProductsByGoal = (goal: Goal) => PRODUCTS.filter((p) => p.goals.includes(goal));
