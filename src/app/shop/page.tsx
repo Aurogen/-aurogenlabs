@@ -9,11 +9,16 @@ import ProductCard from "@/components/ProductCard";
 function ShopContent() {
   const searchParams = useSearchParams();
   const initialGoal = searchParams.get("goal") as Goal | null;
+  const initialQ = searchParams.get("q") ?? "";
+  const urlSort = searchParams.get("sort");
+  const initialSort = (["price-asc", "price-desc", "name", "popular"].includes(urlSort ?? "")
+    ? urlSort
+    : "popular") as "price-asc" | "price-desc" | "name" | "popular";
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(initialQ);
   const [selectedGoal, setSelectedGoal] = useState<Goal | null>(initialGoal);
-  const [sortBy, setSortBy] = useState<"price-asc" | "price-desc" | "name" | "popular">("popular");
-  const [showFilters, setShowFilters] = useState(false);
+  const [sortBy, setSortBy] = useState<"price-asc" | "price-desc" | "name" | "popular">(initialSort);
+  const [showFilters, setShowFilters] = useState(!!initialGoal);
   const [inStockOnly, setInStockOnly] = useState(false);
 
   const filtered = useMemo(() => {

@@ -1,22 +1,23 @@
 import Link from "next/link";
 import Logo from "./Logo";
+import NewsletterForm from "./NewsletterForm";
 
 const LINKS = {
   Shop: [
-    { label: "Shop by Goal", href: "/shop?filter=goal" },
+    { label: "Shop by Goal", href: "/shop" },
     { label: "Shop by Compound", href: "/shop" },
-    { label: "New Arrivals", href: "/shop?sort=new" },
+    { label: "New Arrivals", href: "/shop?sort=popular" },
     { label: "Best Sellers", href: "/shop?sort=popular" },
   ],
   Research: [
     { label: "Protocols", href: "/protocols" },
     { label: "Research Center", href: "/research" },
     { label: "Reconstitution Guide", href: "/research#reconstitution" },
-    { label: "Safety Data Sheets", href: "/research#sds" },
+    { label: "Quality Standards", href: "/quality" },
   ],
   Company: [
     { label: "About Us", href: "/about" },
-    { label: "Quality Standards", href: "/quality" },
+    { label: "Quality & Testing", href: "/quality" },
     { label: "Affiliate Program", href: "/affiliates" },
     { label: "Contact", href: "/contact" },
   ],
@@ -40,21 +41,7 @@ export default function Footer() {
             </h3>
             <p className="text-gray-400 text-sm">New peptides, protocols, and research updates</p>
           </div>
-          <form className="flex gap-3 w-full md:w-auto">
-            <input
-              type="email"
-              placeholder="you@email.com"
-              className="flex-1 md:w-72 px-4 py-3 rounded-xl text-sm text-white placeholder-gray-600 border border-blue-900/30 focus:border-blue-500 focus:outline-none"
-              style={{ background: "#0A1628" }}
-            />
-            <button
-              type="submit"
-              className="px-6 py-3 rounded-xl font-bold text-white text-sm whitespace-nowrap transition-all hover:scale-105"
-              style={{ background: "linear-gradient(135deg, #1B6BDE, #2B7FEF)" }}
-            >
-              SUSCRIBIRSE
-            </button>
-          </form>
+          <NewsletterForm />
         </div>
       </div>
 

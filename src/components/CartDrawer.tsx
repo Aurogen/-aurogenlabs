@@ -29,7 +29,7 @@ export default function CartDrawer() {
           <div className="flex items-center gap-3">
             <ShoppingCart className="w-5 h-5 text-blue-400" />
             <h2 className="text-white font-bold text-lg tracking-wide" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-              CARRITO
+              CART
             </h2>
             <span
               className="px-2 py-0.5 rounded-full text-xs font-bold text-white"
@@ -57,8 +57,8 @@ export default function CartDrawer() {
                 <ShoppingCart className="w-8 h-8 text-gray-600" />
               </div>
               <div>
-                <p className="text-gray-400 font-medium mb-1">Tu carrito está vacío</p>
-                <p className="text-gray-600 text-sm">Agrega productos para continuar</p>
+                <p className="text-gray-400 font-medium mb-1">Your cart is empty</p>
+                <p className="text-gray-600 text-sm">Add research compounds to get started</p>
               </div>
               <Link
                 href="/shop"
@@ -66,7 +66,7 @@ export default function CartDrawer() {
                 className="px-6 py-2.5 rounded-xl text-sm font-semibold text-white transition-all hover:scale-105"
                 style={{ background: "linear-gradient(135deg, #1B6BDE, #2B7FEF)" }}
               >
-                Ver Productos
+                Browse Products
               </Link>
             </div>
           ) : (
@@ -148,11 +148,11 @@ export default function CartDrawer() {
               className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-white transition-all hover:scale-[1.02] active:scale-[0.98]"
               style={{ background: "linear-gradient(135deg, #1B6BDE, #2B7FEF)" }}
             >
-              Proceder al Pago
+              Proceed to Checkout
               <ArrowRight className="w-4 h-4" />
             </Link>
             <p className="text-center text-gray-600 text-xs mt-3">
-              🔒 Pago seguro · SSL Encrypted
+              🔒 Secure payment · SSL Encrypted
             </p>
           </div>
         )}
