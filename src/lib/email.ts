@@ -1,7 +1,10 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const FROM = process.env.EMAIL_FROM ?? "onboarding@resend.dev";
+
+function getResend() {
+  return new Resend(process.env.RESEND_API_KEY);
+}
 
 interface OrderItem {
   name: string;
@@ -90,7 +93,7 @@ export async function sendOrderConfirmation(to: string, order: {
 </body>
 </html>`;
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to,
     subject: `Order Confirmed #${order.id} — Aurogen Labs`,
@@ -118,7 +121,7 @@ export async function sendNewsletterWelcome(to: string) {
 </body>
 </html>`;
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to,
     subject: "Welcome to Aurogen Labs — You're on the list",
@@ -150,7 +153,7 @@ export async function sendWaitlistConfirmation(to: string, productName: string) 
 </body>
 </html>`;
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to,
     subject: `Back in stock alert set — ${productName}`,
@@ -183,7 +186,7 @@ export async function sendAffiliateReceived(to: string, name: string) {
 </body>
 </html>`;
 
-  return resend.emails.send({
+  return getResend().emails.send({
     from: FROM,
     to,
     subject: "Affiliate application received — Aurogen Labs",
