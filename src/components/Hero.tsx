@@ -145,8 +145,8 @@ export default function Hero() {
             >
               <p className="text-gray-400 text-lg mb-2 font-medium">Pure. Tested. Trusted.</p>
               <p className="text-gray-500 text-sm mb-8 max-w-lg leading-relaxed">
-                Investigación de péptidos de la más alta pureza, producidos en instalaciones certificadas en EE.UU.
-                Exclusivamente para uso en laboratorio e investigación científica.
+                Highest-purity research peptides manufactured in US-certified facilities.
+                For laboratory and scientific research use only.
               </p>
             </motion.div>
 

@@ -26,7 +26,8 @@ import { useCart } from "@/context/CartContext";
 
 interface OrderItem {
   name: string;
-  qty: number;
+  concentration?: string;
+  quantity: number;
   price: number;
 }
 
@@ -43,8 +44,8 @@ const DEMO_ORDERS: Order[] = [
     id: "ORG-2501",
     date: "2025-01-15",
     items: [
-      { name: "Retatrutide 5mg", qty: 1, price: 129.99 },
-      { name: "BPC-157 5mg", qty: 1, price: 89.99 },
+      { name: "Retatrutide 5mg", concentration: "5mg", quantity: 1, price: 129.99 },
+      { name: "BPC-157 5mg", concentration: "5mg", quantity: 1, price: 89.99 },
     ],
     total: 219.98,
     status: "delivered",
@@ -52,7 +53,7 @@ const DEMO_ORDERS: Order[] = [
   {
     id: "ORG-2487",
     date: "2024-12-28",
-    items: [{ name: "Semaglutide 5mg", qty: 2, price: 109.99 }],
+    items: [{ name: "Semaglutide 5mg", concentration: "5mg", quantity: 2, price: 109.99 }],
     total: 219.98,
     status: "delivered",
   },
@@ -60,8 +61,8 @@ const DEMO_ORDERS: Order[] = [
     id: "ORG-2510",
     date: "2025-01-22",
     items: [
-      { name: "TB-500 5mg", qty: 1, price: 99.99 },
-      { name: "IGF-1 LR3 1mg", qty: 1, price: 129.99 },
+      { name: "TB-500 5mg", concentration: "5mg", quantity: 1, price: 99.99 },
+      { name: "IGF-1 LR3 1mg", concentration: "1mg", quantity: 1, price: 129.99 },
     ],
     total: 229.98,
     status: "shipped",
@@ -69,7 +70,7 @@ const DEMO_ORDERS: Order[] = [
   {
     id: "ORG-2531",
     date: "2025-01-28",
-    items: [{ name: "CJC-1295 2mg", qty: 1, price: 74.99 }],
+    items: [{ name: "CJC-1295 2mg", concentration: "2mg", quantity: 1, price: 74.99 }],
     total: 74.99,
     status: "processing",
   },
@@ -96,13 +97,47 @@ function formatDate(d: string) {
 export default function DashboardPage() {
   const { state: cartState, totalPrice, totalItems } = useCart();
   const [orders, setOrders] = useState<Order[]>([]);
+  const [userName, setUserName] = useState("RESEARCHER");
   const [activeTab, setActiveTab] = useState<"overview" | "orders" | "profile">("overview");
 
   useEffect(() => {
+    let email = "";
     try {
-      const saved = localStorage.getItem("aurogen_orders");
-      setOrders(saved ? JSON.parse(saved) : DEMO_ORDERS);
-    } catch {
+      const lastOrder = localStorage.getItem("aurogen_last_order");
+      if (lastOrder) {
+        const o = JSON.parse(lastOrder);
+        if (o.name) setUserName(o.name.split(" ")[0].toUpperCase());
+        if (o.email) email = o.email;
+      }
+    } catch { /* ignore */ }
+
+    if (email) {
+      fetch(`/api/orders?email=${encodeURIComponent(email)}`)
+        .then((r) => r.json())
+        .then(({ orders: dbOrders }) => {
+          if (Array.isArray(dbOrders) && dbOrders.length > 0) {
+            setOrders(dbOrders);
+          } else {
+            // No DB orders yet — fall back to localStorage
+            try {
+              const saved = localStorage.getItem("aurogen_orders");
+              const parsed: Order[] = saved ? JSON.parse(saved) : [];
+              setOrders(parsed.length > 0 ? parsed : DEMO_ORDERS);
+            } catch {
+              setOrders(DEMO_ORDERS);
+            }
+          }
+        })
+        .catch(() => {
+          try {
+            const saved = localStorage.getItem("aurogen_orders");
+            const parsed: Order[] = saved ? JSON.parse(saved) : [];
+            setOrders(parsed.length > 0 ? parsed : DEMO_ORDERS);
+          } catch {
+            setOrders(DEMO_ORDERS);
+          }
+        });
+    } else {
       setOrders(DEMO_ORDERS);
     }
   }, []);
@@ -150,7 +185,7 @@ export default function DashboardPage() {
                 className="text-white text-3xl font-bold"
                 style={{ fontFamily: "var(--font-heading, sans-serif)" }}
               >
-                WELCOME BACK, RESEARCHER
+                WELCOME BACK, {userName}
               </h1>
               <p className="text-gray-500 text-sm mt-0.5">researcher@aurogen.com · Member since Jan 2025</p>
             </div>
@@ -278,7 +313,7 @@ function OverviewTab({
                       </span>
                     </div>
                     <p className="text-gray-500 text-xs truncate">
-                      {order.items.map((i) => `${i.name} ×${i.qty}`).join(" · ")}
+                      {order.items.map((i) => `${i.name} ×${i.quantity}`).join(" · ")}
                     </p>
                     <p className="text-gray-600 text-xs mt-0.5">{formatDate(order.date)}</p>
                   </div>
@@ -381,7 +416,7 @@ function OverviewTab({
         </div>
       </div>
 
-      {/* Activity chart placeholder */}
+      {/* Activity chart */}
       <div className="p-6 rounded-2xl border border-blue-900/20" style={{ background: "#0A1628" }}>
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-white font-bold text-lg" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
@@ -392,25 +427,39 @@ function OverviewTab({
             Last 6 months
           </div>
         </div>
-        <SpendingChart />
+        <SpendingChart orders={orders} />
       </div>
     </div>
   );
 }
 
-function SpendingChart() {
-  const months = ["Aug", "Sep", "Oct", "Nov", "Dec", "Jan"];
-  const values = [0, 89.99, 0, 219.98, 219.98, 304.97];
-  const max = Math.max(...values);
+function SpendingChart({ orders }: { orders: Order[] }) {
+  // Build last 6 months labels and aggregate spending from real orders
+  const now = new Date();
+  const months = Array.from({ length: 6 }, (_, i) => {
+    const d = new Date(now.getFullYear(), now.getMonth() - 5 + i, 1);
+    return { label: d.toLocaleString("en-US", { month: "short" }), key: `${d.getFullYear()}-${d.getMonth()}` };
+  });
+
+  const values = months.map(({ key }) =>
+    orders
+      .filter((o) => {
+        const d = new Date(o.date);
+        return `${d.getFullYear()}-${d.getMonth()}` === key;
+      })
+      .reduce((s, o) => s + o.total, 0)
+  );
+
+  const max = Math.max(...values, 1);
 
   return (
     <div className="flex items-end gap-3 h-32">
-      {months.map((m, i) => (
-        <div key={m} className="flex-1 flex flex-col items-center gap-2">
+      {months.map(({ label }, i) => (
+        <div key={label + i} className="flex-1 flex flex-col items-center gap-2">
           <div className="w-full flex items-end justify-center" style={{ height: 96 }}>
             <motion.div
               initial={{ height: 0 }}
-              animate={{ height: `${max > 0 ? (values[i] / max) * 100 : 0}%` }}
+              animate={{ height: `${(values[i] / max) * 100}%` }}
               transition={{ duration: 0.6, delay: i * 0.08, ease: "easeOut" }}
               className="w-full rounded-t-lg"
               style={{
@@ -421,7 +470,7 @@ function SpendingChart() {
               }}
             />
           </div>
-          <span className="text-gray-600 text-[10px]">{m}</span>
+          <span className="text-gray-600 text-[10px]">{label}</span>
           {values[i] > 0 && (
             <span className="text-blue-400 text-[10px] font-medium">${values[i].toFixed(0)}</span>
           )}
@@ -476,7 +525,7 @@ function OrdersTab({ orders }: { orders: Order[] }) {
                     <div key={j} className="flex items-center gap-2 text-sm">
                       <FlaskConical className="w-3.5 h-3.5 text-blue-400/60 shrink-0" />
                       <span className="text-gray-300">{item.name}</span>
-                      <span className="text-gray-600">×{item.qty}</span>
+                      <span className="text-gray-600">×{item.quantity}</span>
                       <span className="text-gray-500 ml-auto">${item.price.toFixed(2)}</span>
                     </div>
                   ))}

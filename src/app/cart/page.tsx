@@ -14,12 +14,12 @@ export default function CartPage() {
           <ShoppingCart className="w-10 h-10 text-gray-600" />
         </div>
         <div className="text-center">
-          <h2 className="text-white text-2xl font-bold mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>TU CARRITO ESTÁ VACÍO</h2>
-          <p className="text-gray-500">Agrega productos de investigación para continuar</p>
+          <h2 className="text-white text-2xl font-bold mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>YOUR CART IS EMPTY</h2>
+          <p className="text-gray-500">Add research compounds to get started</p>
         </div>
         <Link href="/shop" className="flex items-center gap-2 px-8 py-3.5 rounded-xl font-bold text-white transition-all hover:scale-105" style={{ background: "linear-gradient(135deg, #1B6BDE, #2B7FEF)" }}>
           <ArrowLeft className="w-4 h-4" />
-          Explorar Productos
+          Browse Products
         </Link>
       </div>
     );
@@ -29,7 +29,7 @@ export default function CartPage() {
     <div className="min-h-screen py-10" style={{ background: "#020810" }}>
       <div className="max-w-6xl mx-auto px-4">
         <h1 className="text-white text-4xl font-bold mb-8" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-          CARRITO <span className="text-gray-600 text-2xl font-normal">({totalItems} items)</span>
+          CART <span className="text-gray-600 text-2xl font-normal">({totalItems} items)</span>
         </h1>
 
         <div className="grid lg:grid-cols-3 gap-8">
@@ -89,14 +89,14 @@ export default function CartPage() {
 
             <Link href="/shop" className="flex items-center gap-2 text-blue-400 hover:text-white transition-colors text-sm font-medium mt-2">
               <ArrowLeft className="w-4 h-4" />
-              Seguir comprando
+              Continue shopping
             </Link>
           </div>
 
           {/* Order summary */}
           <div className="lg:col-span-1">
             <div className="sticky top-24 p-6 rounded-2xl border border-blue-900/20" style={{ background: "#0A1628" }}>
-              <h2 className="text-white font-bold text-lg mb-5" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>RESUMEN DEL PEDIDO</h2>
+              <h2 className="text-white font-bold text-lg mb-5" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>ORDER SUMMARY</h2>
 
               <div className="space-y-3 mb-5">
                 <div className="flex justify-between text-sm">
@@ -120,7 +120,6 @@ export default function CartPage() {
                 </div>
               </div>
 
-              {/* Disclaimer */}
               <div className="mb-4 p-3 rounded-xl border border-yellow-600/15" style={{ background: "rgba(161, 130, 0, 0.04)" }}>
                 <p className="text-yellow-500/70 text-[11px] text-center">⚠️ For Research Use Only · Not for Human Consumption</p>
               </div>
@@ -130,15 +129,14 @@ export default function CartPage() {
                 className="w-full flex items-center justify-center gap-2 py-4 rounded-xl font-bold text-white transition-all hover:scale-[1.02] active:scale-[0.98]"
                 style={{ background: "linear-gradient(135deg, #1B6BDE, #2B7FEF)" }}
               >
-                PROCEDER AL PAGO
+                PROCEED TO CHECKOUT
                 <ArrowRight className="w-4 h-4" />
               </Link>
 
               <p className="text-center text-gray-600 text-xs mt-3">🔒 SSL Secured · Encrypted Checkout</p>
 
-              {/* Promo code */}
               <div className="mt-4">
-                <input type="text" placeholder="Código de descuento / Affiliado" className="w-full px-4 py-2.5 rounded-xl text-sm text-white placeholder-gray-600 border border-blue-900/30 focus:border-blue-500 focus:outline-none" style={{ background: "#050D1A" }} />
+                <input type="text" placeholder="Discount / Affiliate code" className="w-full px-4 py-2.5 rounded-xl text-sm text-white placeholder-gray-600 border border-blue-900/30 focus:border-blue-500 focus:outline-none" style={{ background: "#050D1A" }} />
               </div>
             </div>
           </div>

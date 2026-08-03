@@ -20,10 +20,22 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Aurogen Labs | Premium Peptides for Research",
+  title: {
+    default: "Aurogen Labs | Premium Peptides for Research",
+    template: "%s | Aurogen Labs",
+  },
   description:
-    "Premium quality research peptides — pure, tested, trusted. Exclusive for laboratory and scientific research use. Made in USA.",
-  keywords: ["peptides", "research peptides", "BPC-157", "semaglutide", "research only", "Aurogen Labs"],
+    "Premium quality research peptides — 99%+ purity, third-party tested, US manufactured. For laboratory and scientific research use only.",
+  keywords: ["peptides", "research peptides", "BPC-157", "semaglutide", "TB-500", "IGF-1", "peptide research", "Aurogen Labs"],
+  openGraph: {
+    siteName: "Aurogen Labs",
+    type: "website",
+    locale: "en_US",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({

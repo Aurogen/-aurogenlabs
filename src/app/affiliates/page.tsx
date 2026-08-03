@@ -7,14 +7,14 @@ const TIERS = [
   {
     name: "Researcher",
     commission: "10%",
-    sales: "$0 - $999/mo",
+    sales: "$0 – $999/mo",
     color: "#4DA3FF",
     perks: ["Personal referral link", "Monthly payouts", "Email support", "Dashboard access"],
   },
   {
     name: "Associate",
     commission: "15%",
-    sales: "$1,000 - $4,999/mo",
+    sales: "$1,000 – $4,999/mo",
     color: "#1B6BDE",
     perks: ["Everything in Researcher", "Priority support", "Dedicated manager", "Custom coupon code"],
     popular: true,
@@ -29,10 +29,10 @@ const TIERS = [
 ];
 
 const HOW_IT_WORKS = [
-  { step: "1", title: "Aplica y regístrate", desc: "Completa el formulario de solicitud. Revisamos tu perfil en 24-48 hrs." },
-  { step: "2", title: "Obtén tu link único", desc: "Recibes tu enlace de afiliado personalizado y código de descuento exclusivo." },
-  { step: "3", title: "Comparte y gana", desc: "Promociona entre tu audiencia investigadora. Por cada venta referida, ganas comisión." },
-  { step: "4", title: "Cobra tu comisión", desc: "Pagos vía PayPal, transferencia bancaria o crypto al alcanzar el umbral mínimo." },
+  { step: "1", title: "Apply & sign up", desc: "Complete the application form. We review your profile within 24–48 hours." },
+  { step: "2", title: "Get your unique link", desc: "Receive your personalized affiliate link and an exclusive discount code for your audience." },
+  { step: "3", title: "Share & earn", desc: "Promote to your research community. Earn a commission on every referred sale." },
+  { step: "4", title: "Get paid", desc: "Payouts via PayPal, bank transfer, or crypto once you hit the minimum threshold." },
 ];
 
 export default function AffiliatesPage() {
@@ -48,9 +48,18 @@ export default function AffiliatesPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    setLoading(false);
-    setSubmitted(true);
+    try {
+      await fetch("/api/affiliates", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+    } catch (err) {
+      console.error("Affiliate application error:", err);
+    } finally {
+      setLoading(false);
+      setSubmitted(true);
+    }
   }
 
   function copyDemo() {
@@ -76,18 +85,18 @@ export default function AffiliatesPage() {
             className="text-white text-5xl lg:text-6xl font-bold mb-4"
             style={{ fontFamily: "var(--font-heading, sans-serif)" }}
           >
-            PROGRAMA DE<br />
+            AFFILIATE<br />
             <span style={{ background: "linear-gradient(90deg, #4DA3FF, #1B6BDE)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}>
-              AFILIADOS
+              PROGRAM
             </span>
           </h1>
           <p className="text-gray-400 text-lg mb-8">
-            Gana hasta <span className="text-blue-300 font-bold">20% de comisión</span> por cada venta que refieras.
-            Únete a nuestra red de investigadores y referidores de confianza.
+            Earn up to <span className="text-blue-300 font-bold">20% commission</span> on every sale you refer.
+            Join our trusted network of researchers and partners.
           </p>
           <a href="#apply" className="inline-flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-white text-base transition-all hover:scale-105"
             style={{ background: "linear-gradient(135deg, #1B6BDE, #2B7FEF)" }}>
-            Aplicar Ahora <ArrowRight className="w-5 h-5" />
+            Apply Now <ArrowRight className="w-5 h-5" />
           </a>
         </div>
       </div>
@@ -96,10 +105,10 @@ export default function AffiliatesPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { icon: DollarSign, value: "20%", label: "Comisión máxima" },
-            { icon: Users, value: "500+", label: "Afiliados activos" },
-            { icon: Link2, value: "Instant", label: "Link generado" },
-            { icon: BarChart3, value: "30 días", label: "Ventana de cookies" },
+            { icon: DollarSign, value: "20%", label: "Max commission" },
+            { icon: Users, value: "500+", label: "Active affiliates" },
+            { icon: Link2, value: "Instant", label: "Link generation" },
+            { icon: BarChart3, value: "30 days", label: "Cookie window" },
           ].map(({ icon: Icon, value, label }) => (
             <div key={label} className="text-center p-6 rounded-2xl border border-blue-600/15" style={{ background: "#0A1628" }}>
               <Icon className="w-6 h-6 text-blue-400 mx-auto mb-3" />
@@ -112,7 +121,7 @@ export default function AffiliatesPage() {
         {/* How it works */}
         <div>
           <div className="text-center mb-10">
-            <h2 className="text-white text-4xl font-bold" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>CÓMO FUNCIONA</h2>
+            <h2 className="text-white text-4xl font-bold" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>HOW IT WORKS</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {HOW_IT_WORKS.map((step) => (
@@ -129,14 +138,14 @@ export default function AffiliatesPage() {
 
         {/* Link demo */}
         <div className="p-6 rounded-2xl border border-blue-600/20" style={{ background: "rgba(27, 107, 222, 0.04)" }}>
-          <p className="text-gray-400 text-sm mb-3">Tu link de afiliado se verá así:</p>
+          <p className="text-gray-400 text-sm mb-3">Your affiliate link will look like this:</p>
           <div className="flex items-center gap-3">
             <code className="flex-1 text-blue-300 text-sm px-4 py-3 rounded-xl border border-blue-900/30" style={{ background: "#050D1A" }}>
               https://aurogenlabs.com/ref/<span className="text-blue-400 font-bold">yourid</span>
             </code>
             <button onClick={copyDemo} className="flex items-center gap-2 px-4 py-3 rounded-xl font-medium text-sm text-white border border-blue-600/30 hover:border-blue-400 transition-all">
               {copied ? <Check className="w-4 h-4 text-green-400" /> : <Copy className="w-4 h-4" />}
-              {copied ? "Copiado!" : "Copiar"}
+              {copied ? "Copied!" : "Copy"}
             </button>
           </div>
         </div>
@@ -144,7 +153,7 @@ export default function AffiliatesPage() {
         {/* Tiers */}
         <div>
           <div className="text-center mb-10">
-            <h2 className="text-white text-4xl font-bold" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>NIVELES DE COMISIÓN</h2>
+            <h2 className="text-white text-4xl font-bold" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>COMMISSION TIERS</h2>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {TIERS.map((tier) => (
@@ -184,8 +193,8 @@ export default function AffiliatesPage() {
         {/* Application form */}
         <div id="apply">
           <div className="text-center mb-10">
-            <h2 className="text-white text-4xl font-bold mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>SOLICITUD DE AFILIADO</h2>
-            <p className="text-gray-500">Completa el formulario y nuestro equipo se pondrá en contacto en 24-48 horas</p>
+            <h2 className="text-white text-4xl font-bold mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>AFFILIATE APPLICATION</h2>
+            <p className="text-gray-500">Fill out the form and our team will be in touch within 24–48 hours</p>
           </div>
 
           {!submitted ? (
@@ -193,44 +202,44 @@ export default function AffiliatesPage() {
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-gray-400 text-xs mb-1.5 tracking-wide">NOMBRE COMPLETO *</label>
+                    <label className="block text-gray-400 text-xs mb-1.5 tracking-wide">FULL NAME *</label>
                     <input required name="name" value={form.name} onChange={handleChange} type="text" placeholder="Dr. John Smith" className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder-gray-600 border border-blue-900/30 focus:border-blue-500 focus:outline-none" style={{ background: "#050D1A" }} />
                   </div>
                   <div>
                     <label className="block text-gray-400 text-xs mb-1.5 tracking-wide">EMAIL *</label>
-                    <input required name="email" value={form.email} onChange={handleChange} type="email" placeholder="tu@email.com" className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder-gray-600 border border-blue-900/30 focus:border-blue-500 focus:outline-none" style={{ background: "#050D1A" }} />
+                    <input required name="email" value={form.email} onChange={handleChange} type="email" placeholder="you@email.com" className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder-gray-600 border border-blue-900/30 focus:border-blue-500 focus:outline-none" style={{ background: "#050D1A" }} />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-gray-400 text-xs mb-1.5 tracking-wide">SITIO WEB / REDES SOCIALES</label>
-                  <input name="website" value={form.website} onChange={handleChange} type="url" placeholder="https://tuwebsite.com o @tuinstagram" className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder-gray-600 border border-blue-900/30 focus:border-blue-500 focus:outline-none" style={{ background: "#050D1A" }} />
+                  <label className="block text-gray-400 text-xs mb-1.5 tracking-wide">WEBSITE / SOCIAL MEDIA</label>
+                  <input name="website" value={form.website} onChange={handleChange} type="url" placeholder="https://yoursite.com or @yourhandle" className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder-gray-600 border border-blue-900/30 focus:border-blue-500 focus:outline-none" style={{ background: "#050D1A" }} />
                 </div>
                 <div>
-                  <label className="block text-gray-400 text-xs mb-1.5 tracking-wide">TIPO DE AUDIENCIA *</label>
+                  <label className="block text-gray-400 text-xs mb-1.5 tracking-wide">AUDIENCE TYPE *</label>
                   <select required name="audience" value={form.audience} onChange={handleChange} className="w-full px-4 py-3 rounded-xl text-sm text-white border border-blue-900/30 focus:border-blue-500 focus:outline-none appearance-none" style={{ background: "#050D1A" }}>
-                    <option value="">Selecciona una opción...</option>
-                    <option>Investigadores y científicos</option>
-                    <option>Comunidad fitness / bodybuilding</option>
-                    <option>Profesionales de salud</option>
+                    <option value="">Select an option...</option>
+                    <option>Researchers &amp; scientists</option>
+                    <option>Fitness / bodybuilding community</option>
+                    <option>Healthcare professionals</option>
                     <option>Blog / Influencer</option>
-                    <option>Laboratorio o institución</option>
-                    <option>Otro</option>
+                    <option>Laboratory or institution</option>
+                    <option>Other</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-gray-400 text-xs mb-1.5 tracking-wide">¿CÓMO PLANEAS PROMOCIONAR AUROGEN LABS?</label>
-                  <textarea name="message" value={form.message} onChange={handleChange} rows={4} placeholder="Cuéntanos sobre tu audiencia y estrategia de promoción..." className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder-gray-600 border border-blue-900/30 focus:border-blue-500 focus:outline-none resize-none" style={{ background: "#050D1A" }} />
+                  <label className="block text-gray-400 text-xs mb-1.5 tracking-wide">HOW DO YOU PLAN TO PROMOTE AUROGEN LABS?</label>
+                  <textarea name="message" value={form.message} onChange={handleChange} rows={4} placeholder="Tell us about your audience and promotion strategy..." className="w-full px-4 py-3 rounded-xl text-sm text-white placeholder-gray-600 border border-blue-900/30 focus:border-blue-500 focus:outline-none resize-none" style={{ background: "#050D1A" }} />
                 </div>
                 <button type="submit" disabled={loading} className="w-full py-4 rounded-xl font-bold text-white text-base transition-all hover:scale-[1.02] disabled:opacity-50" style={{ background: "linear-gradient(135deg, #1B6BDE, #2B7FEF)" }}>
-                  {loading ? "Enviando solicitud..." : "ENVIAR SOLICITUD DE AFILIADO"}
+                  {loading ? "Submitting..." : "SUBMIT AFFILIATE APPLICATION"}
                 </button>
               </form>
             </div>
           ) : (
             <div className="max-w-2xl mx-auto text-center p-12 rounded-2xl border border-green-600/20" style={{ background: "#0A1628" }}>
               <CheckCircle2 className="w-16 h-16 text-green-400 mx-auto mb-4" />
-              <h3 className="text-white text-2xl font-bold mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>¡Solicitud Recibida!</h3>
-              <p className="text-gray-400">Tu aplicación fue enviada exitosamente. Revisaremos tu perfil y te contactaremos en las próximas 24-48 horas.</p>
+              <h3 className="text-white text-2xl font-bold mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>Application Received!</h3>
+              <p className="text-gray-400">Your application was submitted successfully. We&apos;ll review your profile and be in touch within 24–48 hours.</p>
             </div>
           )}
         </div>
