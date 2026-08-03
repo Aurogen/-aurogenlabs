@@ -48,7 +48,7 @@ export default function OrderSuccessPage() {
 
       <div className="relative w-full max-w-lg">
 
-        {/* Checkmark animado */}
+        {/* Animated checkmark */}
         <div className="flex justify-center mb-8">
           <div className="relative">
             <motion.div
@@ -67,7 +67,7 @@ export default function OrderSuccessPage() {
               </motion.div>
             </motion.div>
 
-            {/* Partículas */}
+            {/* Particles */}
             {[...Array(8)].map((_, i) => (
               <motion.div
                 key={i}
