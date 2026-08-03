@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import { Scale } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Terms of Use",
+  description: "Aurogen Labs Terms of Use. All products are for research purposes only and not intended for human consumption.",
+  robots: { index: false, follow: false },
+};
 
 const SECTIONS = [
   {

@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { FlaskConical, Award, Users, Globe } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description: "Aurogen Labs is a US-based research peptide company committed to 99%+ purity, full COA transparency, and serving the scientific research community.",
+};
 
 const STATS = [
   { value: "99%+", label: "Purity Guaranteed" },

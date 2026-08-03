@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import { BookOpen, FlaskConical, Calculator, Video, FileCheck, Shield } from "lucide-react";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Research Center",
+  description: "Research resources for peptide scientists: reconstitution guides, dosing calculators, safety data sheets, and video protocols. For laboratory use only.",
+};
 
 const RESOURCES = [
   {

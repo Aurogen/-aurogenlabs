@@ -1,4 +1,10 @@
+import type { Metadata } from "next";
 import { Truck, Package, RotateCcw, Clock } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Shipping & Returns",
+  description: "Aurogen Labs ships research peptides in 2–5 business days from our US facility. Learn about our shipping options and returns policy.",
+};
 
 const SHIPPING_OPTIONS = [
   { name: "Standard Shipping", time: "3–5 Business Days", price: "Free on orders $150+", carrier: "USPS / UPS" },

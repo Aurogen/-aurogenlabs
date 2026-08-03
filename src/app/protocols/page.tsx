@@ -1,5 +1,11 @@
+import type { Metadata } from "next";
 import { FileText, Download, Clock, ChevronRight } from "lucide-react";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "Research Protocols",
+  description: "Download research protocols for BPC-157, Semaglutide, IGF-1 LR3, TB-500, and more. Detailed dosing, reconstitution, and study guides for researchers.",
+};
 
 const PROTOCOLS = [
   {

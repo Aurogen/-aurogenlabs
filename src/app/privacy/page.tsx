@@ -1,4 +1,11 @@
+import type { Metadata } from "next";
 import { Shield } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy",
+  description: "Aurogen Labs Privacy Policy. Learn how we collect, use, and protect your personal information.",
+  robots: { index: false, follow: false },
+};
 
 const SECTIONS = [
   {
