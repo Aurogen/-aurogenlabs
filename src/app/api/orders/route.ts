@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase-server";
+import { sendOrderConfirmation } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   try {
@@ -26,6 +27,11 @@ export async function POST(req: NextRequest) {
       console.error("Order insert error:", error);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
+
+    // Send confirmation email (non-blocking)
+    sendOrderConfirmation(email, { id, name, items, total, address }).catch((err) =>
+      console.error("Order email error:", err)
+    );
 
     return NextResponse.json({ success: true, id });
   } catch (err) {

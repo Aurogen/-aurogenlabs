@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase-server";
+import { sendWaitlistConfirmation } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   try {
@@ -17,6 +18,11 @@ export async function POST(req: NextRequest) {
       console.error("Waitlist insert error:", error);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
+
+    // Send confirmation email (non-blocking)
+    sendWaitlistConfirmation(email, product_name).catch((err) =>
+      console.error("Waitlist email error:", err)
+    );
 
     return NextResponse.json({ success: true });
   } catch (err) {
