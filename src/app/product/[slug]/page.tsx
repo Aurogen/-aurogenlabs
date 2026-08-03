@@ -227,7 +227,7 @@ export default function ProductPage({ params }: Props) {
                   }}
                 >
                   <ShoppingCart className="w-5 h-5" />
-                  {added ? "¡Agregado!" : "ADD TO CART"}
+                  {added ? "Added!" : "ADD TO CART"}
                 </motion.button>
               </div>
             ) : (

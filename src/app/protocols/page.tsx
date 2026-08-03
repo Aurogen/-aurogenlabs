@@ -115,10 +115,10 @@ export default function ProtocolsPage() {
 
         {/* CTA */}
         <div className="mt-12 text-center p-10 rounded-2xl border border-blue-600/15" style={{ background: "rgba(27, 107, 222, 0.03)" }}>
-          <h3 className="text-white text-2xl font-bold mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>¿Necesitas un Protocolo Personalizado?</h3>
-          <p className="text-gray-500 mb-5">Nuestro equipo de expertos puede ayudarte a diseñar protocolos de investigación específicos para tus objetivos.</p>
+          <h3 className="text-white text-2xl font-bold mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>Need a Custom Protocol?</h3>
+          <p className="text-gray-500 mb-5">Our expert team can help you design research protocols tailored to your specific compounds and objectives.</p>
           <Link href="/contact" className="inline-flex items-center gap-2 px-8 py-3 rounded-xl font-bold text-white transition-all hover:scale-105" style={{ background: "linear-gradient(135deg, #1B6BDE, #2B7FEF)" }}>
-            Contactar Expertos
+            Contact Our Experts
           </Link>
         </div>
       </div>

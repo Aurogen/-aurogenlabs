@@ -3,38 +3,38 @@ import { FlaskConical, ShieldCheck, Award, Microscope, Truck, HeartHandshake } f
 const FEATURES = [
   {
     icon: FlaskConical,
-    title: "COA en Cada Lote",
-    desc: "Certificate of Analysis verificado por laboratorio independiente con cada envío.",
+    title: "CoA Every Batch",
+    desc: "Third-party Certificate of Analysis included with every shipment — batch number, purity, identity.",
     color: "#1B6BDE",
   },
   {
     icon: ShieldCheck,
-    title: "Pureza 99%+",
-    desc: "Pureza verificada por HPLC garantizada en todos nuestros compuestos.",
+    title: "99%+ Purity",
+    desc: "HPLC-verified purity guaranteed across all compounds. Batches below threshold are rejected.",
     color: "#4DA3FF",
   },
   {
     icon: Award,
     title: "Made in USA",
-    desc: "Producción en instalaciones certificadas bajo los más altos estándares de calidad.",
+    desc: "Manufactured in FDA-registered US facilities under cGMP-compliant conditions.",
     color: "#6BB4FF",
   },
   {
     icon: Microscope,
     title: "Research Grade",
-    desc: "Formulados exclusivamente para investigación científica y estudios de laboratorio.",
+    desc: "Formulated exclusively for scientific research and controlled laboratory studies.",
     color: "#1B6BDE",
   },
   {
     icon: Truck,
-    title: "Envío Rápido",
-    desc: "Entregas discretas y seguras en 2-5 días hábiles dentro de EE.UU.",
+    title: "Fast Shipping",
+    desc: "Discreet, secure delivery in 2–5 business days anywhere in the continental US.",
     color: "#4DA3FF",
   },
   {
     icon: HeartHandshake,
-    title: "Soporte Experto",
-    desc: "Equipo especializado en péptidos disponible para consultas técnicas y protocolos.",
+    title: "Expert Support",
+    desc: "Peptide-specialized team available for technical queries and reconstitution guidance.",
     color: "#6BB4FF",
   },
 ];
@@ -50,10 +50,10 @@ export default function TrustSection() {
             className="text-white text-4xl lg:text-5xl font-bold mb-4"
             style={{ fontFamily: "var(--font-heading, sans-serif)" }}
           >
-            CONFIANZA Y TRANSPARENCIA
+            TRUST &amp; TRANSPARENCY
           </h2>
           <p className="text-gray-500 max-w-lg mx-auto text-sm">
-            Nuestra misión es proveer a investigadores con los compuestos más puros y confiables del mercado
+            Our mission is to supply researchers with the purest, most reliable compounds on the market.
           </p>
         </div>
 
@@ -82,10 +82,10 @@ export default function TrustSection() {
         {/* Stats */}
         <div className="mt-14 grid grid-cols-2 lg:grid-cols-4 gap-4">
           {[
-            { value: "100+", label: "Péptidos disponibles" },
-            { value: "99%+", label: "Pureza garantizada" },
-            { value: "2-5", label: "Días de entrega USA" },
-            { value: "24/7", label: "Soporte técnico" },
+            { value: "100+", label: "Peptides available" },
+            { value: "99%+", label: "Guaranteed purity" },
+            { value: "2-5", label: "Day US delivery" },
+            { value: "24/7", label: "Technical support" },
           ].map((stat) => (
             <div
               key={stat.label}

@@ -40,15 +40,15 @@ export default function FeaturedProducts() {
           style={{ background: "linear-gradient(135deg, rgba(27, 107, 222, 0.08), rgba(10, 22, 40, 0.8))" }}
         >
           <p className="text-white font-bold text-xl mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-            MÁS DE 100 PÉPTIDOS DISPONIBLES
+            100+ PEPTIDES AVAILABLE
           </p>
-          <p className="text-gray-400 mb-5 text-sm">Explora nuestro catálogo completo de compuestos para investigación</p>
+          <p className="text-gray-400 mb-5 text-sm">Explore our full catalog of research-grade compounds</p>
           <Link
             href="/shop"
             className="inline-flex items-center gap-2 px-8 py-3 rounded-xl font-bold text-white transition-all hover:scale-105"
             style={{ background: "linear-gradient(135deg, #1B6BDE, #2B7FEF)" }}
           >
-            VER CATÁLOGO COMPLETO
+            VIEW FULL CATALOG
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
