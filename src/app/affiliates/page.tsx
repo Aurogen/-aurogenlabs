@@ -48,9 +48,18 @@ export default function AffiliatesPage() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 1000));
-    setLoading(false);
-    setSubmitted(true);
+    try {
+      await fetch("/api/affiliates", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+    } catch (err) {
+      console.error("Affiliate application error:", err);
+    } finally {
+      setLoading(false);
+      setSubmitted(true);
+    }
   }
 
   function copyDemo() {

@@ -16,11 +16,20 @@ export default function NotifyModal({ productName, onClose }: Props) {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!email && !phone) return;
+    if (!email) return;
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 800));
-    setLoading(false);
-    setSubmitted(true);
+    try {
+      await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, product_name: productName }),
+      });
+    } catch (err) {
+      console.error("Waitlist error:", err);
+    } finally {
+      setLoading(false);
+      setSubmitted(true);
+    }
   }
 
   return (
@@ -76,6 +85,7 @@ export default function NotifyModal({ productName, onClose }: Props) {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="you@email.com"
+                      required
                       className="w-full pl-10 pr-4 py-3 rounded-xl text-sm text-white placeholder-gray-600 border border-blue-900/30 focus:border-blue-500 focus:outline-none transition-colors"
                       style={{ background: "#050D1A" }}
                     />

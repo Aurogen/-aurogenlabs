@@ -101,20 +101,45 @@ export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState<"overview" | "orders" | "profile">("overview");
 
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("aurogen_orders");
-      const parsed: Order[] = saved ? JSON.parse(saved) : [];
-      setOrders(parsed.length > 0 ? parsed : DEMO_ORDERS);
-    } catch {
-      setOrders(DEMO_ORDERS);
-    }
+    let email = "";
     try {
       const lastOrder = localStorage.getItem("aurogen_last_order");
       if (lastOrder) {
         const o = JSON.parse(lastOrder);
         if (o.name) setUserName(o.name.split(" ")[0].toUpperCase());
+        if (o.email) email = o.email;
       }
     } catch { /* ignore */ }
+
+    if (email) {
+      fetch(`/api/orders?email=${encodeURIComponent(email)}`)
+        .then((r) => r.json())
+        .then(({ orders: dbOrders }) => {
+          if (Array.isArray(dbOrders) && dbOrders.length > 0) {
+            setOrders(dbOrders);
+          } else {
+            // No DB orders yet — fall back to localStorage
+            try {
+              const saved = localStorage.getItem("aurogen_orders");
+              const parsed: Order[] = saved ? JSON.parse(saved) : [];
+              setOrders(parsed.length > 0 ? parsed : DEMO_ORDERS);
+            } catch {
+              setOrders(DEMO_ORDERS);
+            }
+          }
+        })
+        .catch(() => {
+          try {
+            const saved = localStorage.getItem("aurogen_orders");
+            const parsed: Order[] = saved ? JSON.parse(saved) : [];
+            setOrders(parsed.length > 0 ? parsed : DEMO_ORDERS);
+          } catch {
+            setOrders(DEMO_ORDERS);
+          }
+        });
+    } else {
+      setOrders(DEMO_ORDERS);
+    }
   }, []);
 
   const totalSpent = orders.reduce((s, o) => s + o.total, 0);

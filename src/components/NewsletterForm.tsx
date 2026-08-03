@@ -12,9 +12,18 @@ export default function NewsletterForm() {
     e.preventDefault();
     if (!email) return;
     setLoading(true);
-    await new Promise((r) => setTimeout(r, 800));
-    setLoading(false);
-    setSubmitted(true);
+    try {
+      await fetch("/api/newsletter", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+    } catch (err) {
+      console.error("Newsletter subscribe error:", err);
+    } finally {
+      setLoading(false);
+      setSubmitted(true);
+    }
   }
 
   if (submitted) {

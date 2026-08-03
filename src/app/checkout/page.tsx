@@ -28,7 +28,7 @@ export default function CheckoutPage() {
     setForm((prev) => ({ ...prev, [field]: value }));
   }
 
-  function handlePlaceOrder() {
+  async function handlePlaceOrder() {
     if (!canSubmit) return;
     setPlacing(true);
 
@@ -49,10 +49,19 @@ export default function CheckoutPage() {
       status: "processing",
     };
 
-    // Save last order for confirmation page
-    localStorage.setItem("aurogen_last_order", JSON.stringify(order));
+    // Save to Supabase
+    try {
+      await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(order),
+      });
+    } catch (err) {
+      console.error("Failed to save order to DB:", err);
+    }
 
-    // Append to order history
+    // Save locally as fallback / confirmation page reference
+    localStorage.setItem("aurogen_last_order", JSON.stringify(order));
     try {
       const existing = JSON.parse(localStorage.getItem("aurogen_orders") || "[]");
       localStorage.setItem("aurogen_orders", JSON.stringify([order, ...existing]));
