@@ -36,14 +36,14 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <h3 className="text-white font-bold text-2xl mb-1" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-              MANTENTE ACTUALIZADO
+              STAY IN THE LOOP
             </h3>
-            <p className="text-gray-400 text-sm">Nuevos péptidos, protocolos y novedades de investigación</p>
+            <p className="text-gray-400 text-sm">New peptides, protocols, and research updates</p>
           </div>
           <form className="flex gap-3 w-full md:w-auto">
             <input
               type="email"
-              placeholder="tu@email.com"
+              placeholder="you@email.com"
               className="flex-1 md:w-72 px-4 py-3 rounded-xl text-sm text-white placeholder-gray-600 border border-blue-900/30 focus:border-blue-500 focus:outline-none"
               style={{ background: "#0A1628" }}
             />
@@ -97,7 +97,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-blue-900/20 py-6 px-4">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-gray-600">
-          <p>© 2024 Aurogen Labs · All rights reserved.</p>
+          <p>© 2025 Aurogen Labs · All rights reserved.</p>
           <div className="flex items-center gap-4">
             <span className="px-2 py-1 rounded border border-yellow-600/20 text-yellow-600/70 text-[10px] tracking-wide">
               ⚠️ FOR RESEARCH USE ONLY · NOT FOR HUMAN CONSUMPTION
