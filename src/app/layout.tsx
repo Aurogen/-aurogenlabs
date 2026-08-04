@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Rajdhani, Inter } from "next/font/google";
 import "./globals.css";
+import { ClerkProvider } from "@clerk/nextjs";
 import { CartProvider } from "@/context/CartContext";
 import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
@@ -44,17 +45,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${rajdhani.variable} ${inter.variable} h-full`}>
-      <body className="min-h-full flex flex-col" style={{ background: "#050D1A" }}>
-        <CartProvider>
-          <AgeGate />
-          <ResearchBanner />
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <CartDrawer />
-        </CartProvider>
-      </body>
-    </html>
+    <ClerkProvider afterSignOutUrl="/" signInUrl="/sign-in" signUpUrl="/sign-up">
+      <html lang="en" className={`${rajdhani.variable} ${inter.variable} h-full`}>
+        <body className="min-h-full flex flex-col" style={{ background: "#050D1A" }}>
+          <CartProvider>
+            <AgeGate />
+            <ResearchBanner />
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <CartDrawer />
+          </CartProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

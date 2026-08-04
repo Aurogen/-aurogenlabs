@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Search, User, Menu, X, ChevronDown } from "lucide-react";
+import { ShoppingCart, Search, Menu, X, ChevronDown } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
+import { useUser, UserButton, SignInButton } from "@clerk/nextjs";
 import Logo from "./Logo";
 import SearchModal from "./SearchModal";
 
@@ -22,6 +23,7 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const { totalItems, openCart } = useCart();
+  const { isSignedIn } = useUser();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -94,9 +96,23 @@ export default function Navbar() {
             >
               <Search className="w-4 h-4" />
             </button>
-            <Link href="/dashboard" className="hidden md:flex w-9 h-9 items-center justify-center rounded-lg text-gray-400 hover:text-white hover:bg-blue-600/10 transition-all">
-              <User className="w-4 h-4" />
-            </Link>
+            {isSignedIn ? (
+              <div className="hidden md:flex items-center">
+                <UserButton
+                  appearance={{
+                    elements: {
+                      avatarBox: "w-8 h-8",
+                    },
+                  }}
+                />
+              </div>
+            ) : (
+              <SignInButton mode="redirect" fallbackRedirectUrl="/dashboard">
+                <button className="hidden md:flex w-9 h-9 items-center justify-center rounded-lg text-gray-400 hover:text-white hover:bg-blue-600/10 transition-all">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </button>
+              </SignInButton>
+            )}
 
             {/* Cart */}
             <button

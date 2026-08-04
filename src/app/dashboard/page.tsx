@@ -17,11 +17,10 @@ import {
   CheckCircle2,
   Truck,
   AlertCircle,
-  User,
   Settings,
   BarChart2,
-  LogOut,
 } from "lucide-react";
+import { useUser, UserButton } from "@clerk/nextjs";
 import { useCart } from "@/context/CartContext";
 
 interface OrderItem {
@@ -96,20 +95,17 @@ function formatDate(d: string) {
 
 export default function DashboardPage() {
   const { state: cartState, totalPrice, totalItems } = useCart();
+  const { user, isLoaded } = useUser();
   const [orders, setOrders] = useState<Order[]>([]);
-  const [userName, setUserName] = useState("RESEARCHER");
   const [activeTab, setActiveTab] = useState<"overview" | "orders" | "profile">("overview");
 
+  const userName = isLoaded && user
+    ? (user.firstName ?? user.emailAddresses[0]?.emailAddress?.split("@")[0] ?? "RESEARCHER").toUpperCase()
+    : "RESEARCHER";
+
   useEffect(() => {
-    let email = "";
-    try {
-      const lastOrder = localStorage.getItem("aurogen_last_order");
-      if (lastOrder) {
-        const o = JSON.parse(lastOrder);
-        if (o.name) setUserName(o.name.split(" ")[0].toUpperCase());
-        if (o.email) email = o.email;
-      }
-    } catch { /* ignore */ }
+    if (!isLoaded) return;
+    const email = user?.primaryEmailAddress?.emailAddress ?? "";
 
     if (email) {
       fetch(`/api/orders?email=${encodeURIComponent(email)}`)
@@ -118,7 +114,6 @@ export default function DashboardPage() {
           if (Array.isArray(dbOrders) && dbOrders.length > 0) {
             setOrders(dbOrders);
           } else {
-            // No DB orders yet — fall back to localStorage
             try {
               const saved = localStorage.getItem("aurogen_orders");
               const parsed: Order[] = saved ? JSON.parse(saved) : [];
@@ -128,19 +123,11 @@ export default function DashboardPage() {
             }
           }
         })
-        .catch(() => {
-          try {
-            const saved = localStorage.getItem("aurogen_orders");
-            const parsed: Order[] = saved ? JSON.parse(saved) : [];
-            setOrders(parsed.length > 0 ? parsed : DEMO_ORDERS);
-          } catch {
-            setOrders(DEMO_ORDERS);
-          }
-        });
+        .catch(() => setOrders(DEMO_ORDERS));
     } else {
       setOrders(DEMO_ORDERS);
     }
-  }, []);
+  }, [isLoaded, user]);
 
   const totalSpent = orders.reduce((s, o) => s + o.total, 0);
   const uniqueCompounds = new Set(orders.flatMap((o) => o.items.map((i) => i.name.split(" ")[0]))).size;
@@ -171,11 +158,10 @@ export default function DashboardPage() {
             className="flex items-center gap-4"
           >
             {/* Avatar */}
-            <div
-              className="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl font-bold text-white border border-blue-600/30"
-              style={{ background: "linear-gradient(135deg, #1B6BDE22, #1B6BDE44)" }}
-            >
-              R
+            <div className="w-14 h-14 rounded-2xl overflow-hidden border border-blue-600/30 flex items-center justify-center" style={{ background: "linear-gradient(135deg, #1B6BDE22, #1B6BDE44)" }}>
+              <UserButton
+                appearance={{ elements: { avatarBox: "w-14 h-14 rounded-2xl", userButtonPopoverCard: "z-50" } }}
+                              />
             </div>
             <div>
               <p className="text-blue-400 text-xs font-medium tracking-[0.3em] uppercase mb-1">
@@ -551,6 +537,8 @@ function OrdersTab({ orders }: { orders: Order[] }) {
 }
 
 function ProfileTab() {
+  const { user } = useUser();
+
   return (
     <div className="max-w-2xl space-y-6">
       <h2 className="text-white font-bold text-xl" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
@@ -560,7 +548,7 @@ function ProfileTab() {
       {/* Personal info */}
       <div className="p-6 rounded-2xl border border-blue-900/20" style={{ background: "#0A1628" }}>
         <div className="flex items-center gap-2 mb-5">
-          <User className="w-4 h-4 text-blue-400" />
+          <Settings className="w-4 h-4 text-blue-400" />
           <h3 className="text-white font-bold">Personal Information</h3>
         </div>
         <div className="space-y-4">
@@ -568,16 +556,18 @@ function ProfileTab() {
             <div>
               <label className="block text-gray-400 text-xs mb-1.5 tracking-wide">FIRST NAME</label>
               <input
-                defaultValue="Researcher"
-                className="w-full px-4 py-2.5 rounded-xl text-sm text-white border border-blue-900/30 focus:border-blue-500 focus:outline-none"
+                defaultValue={user?.firstName ?? ""}
+                readOnly
+                className="w-full px-4 py-2.5 rounded-xl text-sm text-white border border-blue-900/30 focus:outline-none opacity-70"
                 style={{ background: "#050D1A" }}
               />
             </div>
             <div>
               <label className="block text-gray-400 text-xs mb-1.5 tracking-wide">LAST NAME</label>
               <input
-                defaultValue="—"
-                className="w-full px-4 py-2.5 rounded-xl text-sm text-white border border-blue-900/30 focus:border-blue-500 focus:outline-none"
+                defaultValue={user?.lastName ?? ""}
+                readOnly
+                className="w-full px-4 py-2.5 rounded-xl text-sm text-white border border-blue-900/30 focus:outline-none opacity-70"
                 style={{ background: "#050D1A" }}
               />
             </div>
@@ -585,20 +575,14 @@ function ProfileTab() {
           <div>
             <label className="block text-gray-400 text-xs mb-1.5 tracking-wide">EMAIL</label>
             <input
-              defaultValue="researcher@aurogen.com"
+              defaultValue={user?.primaryEmailAddress?.emailAddress ?? ""}
+              readOnly
               type="email"
-              className="w-full px-4 py-2.5 rounded-xl text-sm text-white border border-blue-900/30 focus:border-blue-500 focus:outline-none"
+              className="w-full px-4 py-2.5 rounded-xl text-sm text-white border border-blue-900/30 focus:outline-none opacity-70"
               style={{ background: "#050D1A" }}
             />
           </div>
-          <div>
-            <label className="block text-gray-400 text-xs mb-1.5 tracking-wide">INSTITUTION / LAB</label>
-            <input
-              placeholder="Research Institute Name"
-              className="w-full px-4 py-2.5 rounded-xl text-sm text-white border border-blue-900/30 focus:border-blue-500 focus:outline-none"
-              style={{ background: "#050D1A" }}
-            />
-          </div>
+          <p className="text-gray-600 text-xs">To update your profile, use the account menu in the top navigation bar.</p>
         </div>
       </div>
 
@@ -629,22 +613,6 @@ function ProfileTab() {
             </label>
           ))}
         </div>
-      </div>
-
-      {/* Actions */}
-      <div className="flex gap-3">
-        <button
-          className="flex-1 py-3 rounded-xl font-bold text-white text-sm"
-          style={{ background: "linear-gradient(135deg, #1B6BDE, #2B7FEF)" }}
-        >
-          Save Changes
-        </button>
-        <button
-          className="flex items-center gap-2 px-5 py-3 rounded-xl text-sm text-gray-400 border border-blue-900/30 hover:text-white hover:border-red-500/30 transition-all"
-        >
-          <LogOut className="w-4 h-4" />
-          Sign Out
-        </button>
       </div>
     </div>
   );
