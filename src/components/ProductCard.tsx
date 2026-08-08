@@ -30,12 +30,11 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
       >
         <Tilt3D className="relative h-full" intensity={10}>
           <div
-            className="relative rounded-2xl overflow-hidden border border-blue-900/20 hover:border-blue-600/40 transition-colors duration-300 flex flex-col h-full"
-            style={{ background: "#0A1628" }}
+            className="relative rounded-2xl overflow-hidden transition-colors duration-300 flex flex-col h-full"
+            style={{ background: "#111111", border: "1px solid rgba(201, 146, 42, 0.12)" }}
+            onMouseEnter={e => ((e.currentTarget as HTMLDivElement).style.borderColor = "rgba(201, 146, 42, 0.3)")}
+            onMouseLeave={e => ((e.currentTarget as HTMLDivElement).style.borderColor = "rgba(201, 146, 42, 0.12)")}
           >
-            {/* Animated top border glow */}
-            <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent opacity-0 group-hover:opacity-100" />
-
             {/* Badge */}
             {product.badge && (
               <div className="absolute top-3 left-3 z-10">
@@ -44,9 +43,9 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                   animate={{ scale: 1, opacity: 1 }}
                   className="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest"
                   style={{
-                    background: product.badge === "NEW" ? "rgba(16, 185, 129, 0.15)" : "rgba(27, 107, 222, 0.15)",
-                    color: product.badge === "NEW" ? "#10B981" : "#4DA3FF",
-                    border: `1px solid ${product.badge === "NEW" ? "rgba(16, 185, 129, 0.3)" : "rgba(77, 163, 255, 0.3)"}`,
+                    background: product.badge === "NEW" ? "rgba(16, 185, 129, 0.15)" : "rgba(201, 146, 42, 0.12)",
+                    color: product.badge === "NEW" ? "#10B981" : "#F0B429",
+                    border: `1px solid ${product.badge === "NEW" ? "rgba(16, 185, 129, 0.3)" : "rgba(201, 146, 42, 0.3)"}`,
                   }}
                 >
                   {product.badge}
@@ -63,52 +62,52 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
               </div>
             )}
 
-            {/* Product image area — 3D layered */}
+            {/* Product image area */}
             <Link href={`/product/${product.slug}`} className="block">
               <div
                 className="relative h-52 flex items-center justify-center overflow-hidden"
                 style={{
-                  background: "linear-gradient(135deg, #020810 0%, #0A1A35 50%, #020810 100%)",
-                  borderBottom: "1px solid rgba(27, 107, 222, 0.1)",
+                  background: "linear-gradient(135deg, #060606 0%, #0E0E0E 50%, #060606 100%)",
+                  borderBottom: "1px solid rgba(201, 146, 42, 0.08)",
                 }}
               >
                 {/* Animated background radial */}
                 <motion.div
                   className="absolute inset-0"
                   style={{
-                    background: "radial-gradient(ellipse at center, rgba(27, 107, 222, 0.12) 0%, transparent 70%)",
+                    background: "radial-gradient(ellipse at center, rgba(201, 146, 42, 0.07) 0%, transparent 70%)",
                   }}
-                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  animate={{ opacity: [0.4, 0.9, 0.4] }}
                   transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 />
 
-                {/* DNA grid lines */}
-                <div className="absolute inset-0 overflow-hidden opacity-15">
-                  <div className="absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-transparent via-blue-500 to-transparent" />
-                  <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-blue-400 to-transparent" />
+                {/* Vertical accent lines */}
+                <div className="absolute inset-0 overflow-hidden opacity-10">
+                  <div className="absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-transparent via-amber-600 to-transparent" />
+                  <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-amber-500 to-transparent" />
                 </div>
 
-                {/* 3D floating vial — deeper Z layer */}
+                {/* 3D floating vial */}
                 <motion.div
-                  style={{ transformStyle: "preserve-3d", translateZ: 30 }}
+                  style={{ transformStyle: "preserve-3d", translateZ: 30, filter: "drop-shadow(0 20px 40px rgba(201, 146, 42, 0.3))" }}
                   animate={{ y: [0, -6, 0] }}
                   transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: index * 0.3 }}
-                  className="relative z-10 drop-shadow-[0_20px_40px_rgba(27,107,222,0.5)]"
+                  className="relative z-10"
                 >
                   <ProductVialDetailed index={index} />
                 </motion.div>
 
                 {/* Reflection */}
                 <motion.div
-                  className="absolute bottom-2 left-1/2 -translate-x-1/2 w-16 h-3 rounded-full opacity-30"
-                  style={{ background: "radial-gradient(ellipse, rgba(27, 107, 222, 0.8), transparent)" }}
-                  animate={{ opacity: [0.2, 0.4, 0.2], scaleX: [0.8, 1.1, 0.8] }}
+                  className="absolute bottom-2 left-1/2 -translate-x-1/2 w-16 h-3 rounded-full opacity-25"
+                  style={{ background: "radial-gradient(ellipse, rgba(201, 146, 42, 0.7), transparent)" }}
+                  animate={{ opacity: [0.15, 0.3, 0.15], scaleX: [0.8, 1.1, 0.8] }}
                   transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: index * 0.3 }}
                 />
 
                 {/* Out-of-stock dim */}
                 {!product.inStock && (
-                  <div className="absolute inset-0" style={{ background: "rgba(2, 8, 16, 0.55)" }} />
+                  <div className="absolute inset-0" style={{ background: "rgba(5, 5, 5, 0.55)" }} />
                 )}
               </div>
             </Link>
@@ -122,9 +121,9 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                     key={g}
                     className="px-2 py-0.5 rounded text-[10px] font-medium tracking-wide"
                     style={{
-                      background: "rgba(27, 107, 222, 0.08)",
-                      color: "#8EB4D4",
-                      border: "1px solid rgba(27, 107, 222, 0.15)",
+                      background: "rgba(201, 146, 42, 0.07)",
+                      color: "#C9922A",
+                      border: "1px solid rgba(201, 146, 42, 0.18)",
                     }}
                   >
                     {g}
@@ -134,8 +133,10 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
 
               <Link href={`/product/${product.slug}`} className="block mb-1">
                 <h3
-                  className="text-white font-bold text-lg leading-tight hover:text-blue-300 transition-colors"
+                  className="text-white font-bold text-lg leading-tight transition-colors"
                   style={{ fontFamily: "var(--font-heading, sans-serif)" }}
+                  onMouseEnter={e => ((e.currentTarget as HTMLHeadingElement).style.color = "#F0B429")}
+                  onMouseLeave={e => ((e.currentTarget as HTMLHeadingElement).style.color = "#FFFFFF")}
                 >
                   {product.name}
                 </h3>
@@ -146,7 +147,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
               </p>
 
               <div className="flex items-center gap-1 mb-2">
-                <FlaskConical className="w-3 h-3 text-blue-400/60" />
+                <FlaskConical className="w-3 h-3" style={{ color: "rgba(201, 146, 42, 0.5)" }} />
                 <span className="text-[11px] text-gray-500">{product.purity} purity</span>
               </div>
 
@@ -179,10 +180,10 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                     style={{
                       background: added
                         ? "linear-gradient(135deg, #10B981, #059669)"
-                        : "linear-gradient(135deg, #1B6BDE, #2B7FEF)",
+                        : "linear-gradient(135deg, #C9922A, #D4A03A)",
                       boxShadow: added
-                        ? "0 0 20px rgba(16, 185, 129, 0.3)"
-                        : "0 0 20px rgba(27, 107, 222, 0.3)",
+                        ? "0 0 20px rgba(16, 185, 129, 0.25)"
+                        : "0 0 20px rgba(201, 146, 42, 0.25)",
                       transition: "background 0.3s, box-shadow 0.3s",
                     }}
                   >
@@ -195,9 +196,9 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                     whileTap={{ scale: 0.92 }}
                     className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold border transition-all"
                     style={{
-                      borderColor: "rgba(77, 163, 255, 0.3)",
-                      color: "#4DA3FF",
-                      background: "rgba(27, 107, 222, 0.05)",
+                      borderColor: "rgba(201, 146, 42, 0.3)",
+                      color: "#C9922A",
+                      background: "rgba(201, 146, 42, 0.05)",
                     }}
                   >
                     <Bell className="w-4 h-4" />
@@ -220,8 +221,8 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
   );
 }
 
-// Unique vial color per index
-const VIAL_ACCENTS = ["#1B6BDE", "#10B981", "#8B5CF6", "#F59E0B", "#EF4444", "#06B6D4"];
+// Unique vial color per index — gold-based palette with variety
+const VIAL_ACCENTS = ["#C9922A", "#10B981", "#8B5CF6", "#F59E0B", "#EF4444", "#06B6D4"];
 
 function ProductVialDetailed({ index }: { index: number }) {
   const accent = VIAL_ACCENTS[index % VIAL_ACCENTS.length];
@@ -231,7 +232,7 @@ function ProductVialDetailed({ index }: { index: number }) {
     <svg width="76" height="106" viewBox="0 0 76 106" fill="none" xmlns="http://www.w3.org/2000/svg">
       {/* Cap */}
       <rect x="23" y="0" width="30" height="13" rx="5" fill={`url(#${id}cap)`} />
-      <rect x="28" y="11" width="20" height="5" rx="2.5" fill="#8EB4D4" opacity="0.7" />
+      <rect x="28" y="11" width="20" height="5" rx="2.5" fill="#AAAAAA" opacity="0.6" />
       {/* Body */}
       <rect x="14" y="15" width="48" height="82" rx="12" fill={`url(#${id}body)`} />
       {/* Inner shine */}
@@ -251,17 +252,17 @@ function ProductVialDetailed({ index }: { index: number }) {
       <rect x="20" y="84" width="12" height="9" rx="3" fill="white" opacity="0.04" />
       <defs>
         <linearGradient id={`${id}cap`} x1="23" y1="0" x2="53" y2="13" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#7EC4FF" />
-          <stop offset="100%" stopColor="#4DA3FF" />
+          <stop offset="0%" stopColor="#C8C8C8" />
+          <stop offset="100%" stopColor="#888888" />
         </linearGradient>
         <linearGradient id={`${id}body`} x1="14" y1="15" x2="62" y2="97" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#1A3666" />
-          <stop offset="45%" stopColor="#0D2244" />
-          <stop offset="100%" stopColor="#050D1A" />
+          <stop offset="0%" stopColor="#1E1E1E" />
+          <stop offset="45%" stopColor="#121212" />
+          <stop offset="100%" stopColor="#070707" />
         </linearGradient>
         <linearGradient id={`${id}label`} x1="20" y1="30" x2="56" y2="80" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#0F2040" />
-          <stop offset="100%" stopColor="#0A1628" />
+          <stop offset="0%" stopColor="#1A1A1A" />
+          <stop offset="100%" stopColor="#111111" />
         </linearGradient>
       </defs>
     </svg>

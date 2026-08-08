@@ -5,47 +5,47 @@ const FEATURES = [
     icon: FlaskConical,
     title: "CoA Every Batch",
     desc: "Third-party Certificate of Analysis included with every shipment — batch number, purity, identity.",
-    color: "#1B6BDE",
+    color: "#C9922A",
   },
   {
     icon: ShieldCheck,
     title: "99%+ Purity",
     desc: "HPLC-verified purity guaranteed across all compounds. Batches below threshold are rejected.",
-    color: "#4DA3FF",
+    color: "#F0B429",
   },
   {
     icon: Award,
     title: "Made in USA",
     desc: "Manufactured in FDA-registered US facilities under cGMP-compliant conditions.",
-    color: "#6BB4FF",
+    color: "#D4A03A",
   },
   {
     icon: Microscope,
     title: "Research Grade",
     desc: "Formulated exclusively for scientific research and controlled laboratory studies.",
-    color: "#1B6BDE",
+    color: "#C9922A",
   },
   {
     icon: Truck,
     title: "Fast Shipping",
     desc: "Discreet, secure delivery in 2–5 business days anywhere in the continental US.",
-    color: "#4DA3FF",
+    color: "#F0B429",
   },
   {
     icon: HeartHandshake,
     title: "Expert Support",
     desc: "Peptide-specialized team available for technical queries and reconstitution guidance.",
-    color: "#6BB4FF",
+    color: "#D4A03A",
   },
 ];
 
 export default function TrustSection() {
   return (
-    <section className="py-20 px-4" style={{ background: "#050D1A" }}>
+    <section className="py-20 px-4" style={{ background: "#0C0C0C" }}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14">
-          <p className="text-blue-400 text-xs font-medium tracking-[0.3em] uppercase mb-3">Why researchers choose us</p>
+          <p className="text-xs font-medium tracking-[0.3em] uppercase mb-3" style={{ color: "#C9922A" }}>Why researchers choose us</p>
           <h2
             className="text-white text-4xl lg:text-5xl font-bold mb-4"
             style={{ fontFamily: "var(--font-heading, sans-serif)" }}
@@ -62,12 +62,23 @@ export default function TrustSection() {
           {FEATURES.map((f) => (
             <div
               key={f.title}
-              className="group p-6 rounded-2xl border border-blue-900/20 hover:border-blue-600/30 transition-all duration-300 hover:shadow-[0_4px_20px_rgba(27,107,222,0.1)]"
-              style={{ background: "#0A1628" }}
+              className="group p-6 rounded-2xl transition-all duration-300"
+              style={{
+                background: "#111111",
+                border: "1px solid rgba(201, 146, 42, 0.12)",
+              }}
+              onMouseEnter={e => {
+                (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(201, 146, 42, 0.3)";
+                (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 20px rgba(201, 146, 42, 0.08)";
+              }}
+              onMouseLeave={e => {
+                (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(201, 146, 42, 0.12)";
+                (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
+              }}
             >
               <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
-                style={{ background: `${f.color}15`, border: `1px solid ${f.color}30` }}
+                style={{ background: `${f.color}12`, border: `1px solid ${f.color}30` }}
               >
                 <f.icon className="w-6 h-6" style={{ color: f.color }} />
               </div>
@@ -89,12 +100,12 @@ export default function TrustSection() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="text-center p-6 rounded-2xl border border-blue-600/15"
-              style={{ background: "rgba(27, 107, 222, 0.04)" }}
+              className="text-center p-6 rounded-2xl"
+              style={{ background: "rgba(201, 146, 42, 0.03)", border: "1px solid rgba(201, 146, 42, 0.12)" }}
             >
               <p
-                className="text-blue-400 font-bold text-4xl mb-1"
-                style={{ fontFamily: "var(--font-heading, sans-serif)" }}
+                className="font-bold text-4xl mb-1"
+                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#C9922A" }}
               >
                 {stat.value}
               </p>

@@ -70,7 +70,7 @@ const GOAL_CONFIG: Record<
 
 export default function ShopByGoal() {
   return (
-    <section className="py-20 px-4" style={{ background: "#050D1A" }}>
+    <section className="py-20 px-4" style={{ background: "#0C0C0C" }}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
@@ -78,7 +78,8 @@ export default function ShopByGoal() {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-blue-400 text-xs font-medium tracking-[0.3em] uppercase mb-3"
+            className="text-xs font-medium tracking-[0.3em] uppercase mb-3"
+            style={{ color: "#C9922A" }}
           >
             Browse by objective
           </motion.p>
@@ -128,7 +129,8 @@ export default function ShopByGoal() {
         >
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 text-blue-400 hover:text-white transition-colors font-medium group"
+            className="inline-flex items-center gap-2 hover:text-white transition-colors font-medium group"
+            style={{ color: "#C9922A" }}
           >
             View All Products
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

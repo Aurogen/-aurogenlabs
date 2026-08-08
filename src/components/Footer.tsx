@@ -31,15 +31,15 @@ const LINKS = {
 
 export default function Footer() {
   return (
-    <footer style={{ background: "#020810", borderTop: "1px solid rgba(27, 107, 222, 0.15)" }}>
+    <footer style={{ background: "#060606", borderTop: "1px solid rgba(201, 146, 42, 0.12)" }}>
       {/* Newsletter */}
-      <div className="border-b border-blue-900/20 py-12 px-4">
+      <div className="py-12 px-4" style={{ borderBottom: "1px solid rgba(201, 146, 42, 0.08)" }}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <h3 className="text-white font-bold text-2xl mb-1" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
               STAY IN THE LOOP
             </h3>
-            <p className="text-gray-400 text-sm">New peptides, protocols, and research updates</p>
+            <p className="text-gray-500 text-sm">New peptides, protocols, and research updates</p>
           </div>
           <NewsletterForm />
         </div>
@@ -54,7 +54,7 @@ export default function Footer() {
               <Logo size={32} />
               <div>
                 <p className="text-white font-bold text-base tracking-widest" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>AUROGEN</p>
-                <p className="text-blue-400 text-[9px] tracking-[0.4em] -mt-0.5">LABS</p>
+                <p className="text-[9px] tracking-[0.4em] -mt-0.5" style={{ color: "#C9922A" }}>LABS</p>
               </div>
             </Link>
             <p className="text-gray-500 text-xs leading-relaxed mb-4">
@@ -82,7 +82,7 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-blue-900/20 py-6 px-4">
+      <div className="py-6 px-4" style={{ borderTop: "1px solid rgba(201, 146, 42, 0.08)" }}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-gray-600">
           <p>© 2025 Aurogen Labs · All rights reserved.</p>
           <div className="flex items-center gap-4">

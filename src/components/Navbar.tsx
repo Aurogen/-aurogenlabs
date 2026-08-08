@@ -33,9 +33,9 @@ export default function Navbar() {
       <header
         className="sticky top-0 z-40 w-full"
         style={{
-          background: "rgba(5, 13, 26, 0.96)",
+          background: "rgba(5, 5, 5, 0.96)",
           backdropFilter: "blur(12px)",
-          borderBottom: "1px solid rgba(27, 107, 222, 0.2)",
+          borderBottom: "1px solid rgba(201, 146, 42, 0.15)",
         }}
       >
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between gap-4">
@@ -43,10 +43,10 @@ export default function Navbar() {
           <Link href="/" className="flex items-center gap-2.5 shrink-0 group">
             <Logo size={34} />
             <div>
-              <p className="text-white font-bold text-lg leading-none tracking-widest group-hover:text-blue-300 transition-colors" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
+              <p className="text-white font-bold text-lg leading-none tracking-widest transition-colors" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
                 AUROGEN
               </p>
-              <p className="text-blue-400 text-[9px] tracking-[0.4em] leading-none mt-0.5">LABS</p>
+              <p className="text-[9px] tracking-[0.4em] leading-none mt-0.5" style={{ color: "#C9922A" }}>LABS</p>
             </div>
           </Link>
 
@@ -69,14 +69,17 @@ export default function Navbar() {
 
                 {link.sub && activeDropdown === link.label && (
                   <div
-                    className="absolute top-full left-0 w-52 rounded-xl overflow-hidden shadow-2xl border border-blue-600/20"
-                    style={{ background: "#0A1628" }}
+                    className="absolute top-full left-0 w-52 rounded-xl overflow-hidden shadow-2xl"
+                    style={{ background: "#111111", border: "1px solid rgba(201, 146, 42, 0.15)" }}
                   >
                     {link.sub.map((item) => (
                       <Link
                         key={item}
                         href={`/shop?goal=${encodeURIComponent(item)}`}
-                        className="block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-blue-600/10 transition-colors border-b border-blue-900/30 last:border-0"
+                        className="block px-4 py-2.5 text-sm text-gray-300 hover:text-white transition-colors border-b last:border-0"
+                        style={{ borderColor: "rgba(201, 146, 42, 0.1)" }}
+                        onMouseEnter={e => (e.currentTarget.style.background = "rgba(201, 146, 42, 0.06)")}
+                        onMouseLeave={e => (e.currentTarget.style.background = "")}
                       >
                         {item}
                       </Link>
@@ -91,7 +94,10 @@ export default function Navbar() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setSearchOpen(true)}
-              className="hidden md:flex w-9 h-9 items-center justify-center rounded-lg text-gray-400 hover:text-white hover:bg-blue-600/10 transition-all"
+              className="hidden md:flex w-9 h-9 items-center justify-center rounded-lg text-gray-400 hover:text-white transition-all"
+              style={{}}
+              onMouseEnter={e => (e.currentTarget.style.background = "rgba(201, 146, 42, 0.08)")}
+              onMouseLeave={e => (e.currentTarget.style.background = "")}
               aria-label="Search"
             >
               <Search className="w-4 h-4" />
@@ -108,7 +114,10 @@ export default function Navbar() {
               </div>
             ) : (
               <SignInButton mode="redirect" fallbackRedirectUrl="/dashboard">
-                <button className="hidden md:flex w-9 h-9 items-center justify-center rounded-lg text-gray-400 hover:text-white hover:bg-blue-600/10 transition-all">
+                <button className="hidden md:flex w-9 h-9 items-center justify-center rounded-lg text-gray-400 hover:text-white transition-all"
+                  onMouseEnter={e => (e.currentTarget.style.background = "rgba(201, 146, 42, 0.08)")}
+                  onMouseLeave={e => (e.currentTarget.style.background = "")}
+                >
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 </button>
               </SignInButton>
@@ -117,13 +126,15 @@ export default function Navbar() {
             {/* Cart */}
             <button
               onClick={openCart}
-              className="relative flex w-9 h-9 items-center justify-center rounded-lg text-gray-400 hover:text-white hover:bg-blue-600/10 transition-all"
+              className="relative flex w-9 h-9 items-center justify-center rounded-lg text-gray-400 hover:text-white transition-all"
+              onMouseEnter={e => (e.currentTarget.style.background = "rgba(201, 146, 42, 0.08)")}
+              onMouseLeave={e => (e.currentTarget.style.background = "")}
             >
               <ShoppingCart className="w-4 h-4" />
               {totalItems > 0 && (
                 <span
                   className="absolute -top-1 -right-1 w-4.5 h-4.5 rounded-full text-white text-[10px] font-bold flex items-center justify-center"
-                  style={{ background: "#1B6BDE", minWidth: "18px", minHeight: "18px" }}
+                  style={{ background: "#C9922A", minWidth: "18px", minHeight: "18px" }}
                 >
                   {totalItems}
                 </span>
@@ -142,10 +153,13 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="lg:hidden border-t border-blue-900/30" style={{ background: "#0A1628" }}>
+          <div className="lg:hidden border-t" style={{ background: "#0F0F0F", borderColor: "rgba(201, 146, 42, 0.12)" }}>
             <button
               onClick={() => { setSearchOpen(true); setMobileOpen(false); }}
-              className="w-full flex items-center gap-3 px-6 py-3.5 text-sm text-gray-300 hover:text-white hover:bg-blue-600/10 border-b border-blue-900/20 transition-colors"
+              className="w-full flex items-center gap-3 px-6 py-3.5 text-sm text-gray-300 hover:text-white border-b transition-colors"
+              style={{ borderColor: "rgba(201, 146, 42, 0.1)" }}
+              onMouseEnter={e => (e.currentTarget.style.background = "rgba(201, 146, 42, 0.05)")}
+              onMouseLeave={e => (e.currentTarget.style.background = "")}
             >
               <Search className="w-4 h-4" /> Search
             </button>
@@ -154,7 +168,10 @@ export default function Navbar() {
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="block px-6 py-3.5 text-sm text-gray-300 hover:text-white hover:bg-blue-600/10 border-b border-blue-900/20 transition-colors"
+                className="block px-6 py-3.5 text-sm text-gray-300 hover:text-white border-b transition-colors"
+                style={{ borderColor: "rgba(201, 146, 42, 0.1)" }}
+                onMouseEnter={e => (e.currentTarget.style.background = "rgba(201, 146, 42, 0.05)")}
+                onMouseLeave={e => (e.currentTarget.style.background = "")}
               >
                 {link.label}
               </Link>
@@ -162,7 +179,10 @@ export default function Navbar() {
             <Link
               href="/dashboard"
               onClick={() => setMobileOpen(false)}
-              className="block px-6 py-3.5 text-sm text-blue-400 hover:text-white hover:bg-blue-600/10 transition-colors"
+              className="block px-6 py-3.5 text-sm hover:text-white transition-colors"
+              style={{ color: "#C9922A" }}
+              onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = "#F2EFE8"; (e.currentTarget as HTMLAnchorElement).style.background = "rgba(201, 146, 42, 0.05)"; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = "#C9922A"; (e.currentTarget as HTMLAnchorElement).style.background = ""; }}
             >
               My Account
             </Link>

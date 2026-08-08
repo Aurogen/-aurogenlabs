@@ -5,12 +5,12 @@ import ProductCard from "./ProductCard";
 
 export default function FeaturedProducts() {
   return (
-    <section className="py-20 px-4" style={{ background: "#020810" }}>
+    <section className="py-20 px-4" style={{ background: "#080808" }}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
           <div>
-            <p className="text-blue-400 text-xs font-medium tracking-[0.3em] uppercase mb-3">Top sellers</p>
+            <p className="text-xs font-medium tracking-[0.3em] uppercase mb-3" style={{ color: "#C9922A" }}>Top sellers</p>
             <h2
               className="text-white text-4xl lg:text-5xl font-bold"
               style={{ fontFamily: "var(--font-heading, sans-serif)" }}
@@ -20,7 +20,10 @@ export default function FeaturedProducts() {
           </div>
           <Link
             href="/shop"
-            className="flex items-center gap-2 text-blue-400 hover:text-white transition-colors text-sm font-medium group"
+            className="flex items-center gap-2 transition-colors text-sm font-medium group"
+            style={{ color: "#C9922A" }}
+            onMouseEnter={e => ((e.currentTarget as HTMLAnchorElement).style.color = "#F2EFE8")}
+            onMouseLeave={e => ((e.currentTarget as HTMLAnchorElement).style.color = "#C9922A")}
           >
             View All Products
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -36,8 +39,11 @@ export default function FeaturedProducts() {
 
         {/* CTA bar */}
         <div
-          className="mt-12 rounded-2xl p-8 border border-blue-600/20 text-center"
-          style={{ background: "linear-gradient(135deg, rgba(27, 107, 222, 0.08), rgba(10, 22, 40, 0.8))" }}
+          className="mt-12 rounded-2xl p-8 text-center"
+          style={{
+            background: "linear-gradient(135deg, rgba(201, 146, 42, 0.06), rgba(18, 14, 8, 0.9))",
+            border: "1px solid rgba(201, 146, 42, 0.18)",
+          }}
         >
           <p className="text-white font-bold text-xl mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
             100+ PEPTIDES AVAILABLE
@@ -46,7 +52,7 @@ export default function FeaturedProducts() {
           <Link
             href="/shop"
             className="inline-flex items-center gap-2 px-8 py-3 rounded-xl font-bold text-white transition-all hover:scale-105"
-            style={{ background: "linear-gradient(135deg, #1B6BDE, #2B7FEF)" }}
+            style={{ background: "linear-gradient(135deg, #C9922A, #D4A03A)" }}
           >
             VIEW FULL CATALOG
             <ArrowRight className="w-4 h-4" />

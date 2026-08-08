@@ -7,13 +7,13 @@ export default function ResearchBanner() {
     <div
       className="w-full z-50 text-center py-2 px-4"
       style={{
-        background: "linear-gradient(90deg, #0A1628 0%, #0F2040 50%, #0A1628 100%)",
-        borderBottom: "1px solid rgba(27, 107, 222, 0.3)",
+        background: "linear-gradient(90deg, #0C0C0C 0%, #141410 50%, #0C0C0C 100%)",
+        borderBottom: "1px solid rgba(201, 146, 42, 0.2)",
       }}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-center gap-3 flex-wrap">
-        <FlaskConical className="w-3.5 h-3.5 text-blue-400 shrink-0" />
-        <p className="text-xs text-blue-200 tracking-widest uppercase font-medium">
+        <FlaskConical className="w-3.5 h-3.5 shrink-0" style={{ color: "#C9922A" }} />
+        <p className="text-xs tracking-widest uppercase font-medium" style={{ color: "#C9922A" }}>
           For Research Use Only · Not for Human Consumption · 18+ Only
         </p>
         <AlertTriangle className="w-3.5 h-3.5 text-yellow-500/70 shrink-0" />
