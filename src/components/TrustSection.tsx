@@ -1,3 +1,5 @@
+"use client";
+
 import { FlaskConical, ShieldCheck, Award, Microscope, Truck, HeartHandshake } from "lucide-react";
 
 const FEATURES = [
