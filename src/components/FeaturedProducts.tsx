@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { FEATURED_PRODUCTS } from "@/data/products";
@@ -22,10 +20,7 @@ export default function FeaturedProducts() {
           </div>
           <Link
             href="/shop"
-            className="flex items-center gap-2 transition-colors text-sm font-medium group"
-            style={{ color: "#C9922A" }}
-            onMouseEnter={e => ((e.currentTarget as HTMLAnchorElement).style.color = "#F2EFE8")}
-            onMouseLeave={e => ((e.currentTarget as HTMLAnchorElement).style.color = "#C9922A")}
+            className="flex items-center gap-2 transition-colors text-sm font-medium group text-blue-600 hover:text-white"
           >
             View All Products
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

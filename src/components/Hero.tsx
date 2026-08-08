@@ -150,19 +150,7 @@ export default function Hero() {
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
                 <Link
                   href="/protocols"
-                  className="flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-base transition-all"
-                  style={{
-                    color: "#C9922A",
-                    border: "1px solid rgba(201, 146, 42, 0.35)",
-                  }}
-                  onMouseEnter={e => {
-                    (e.currentTarget as HTMLAnchorElement).style.color = "#F2EFE8";
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(201, 146, 42, 0.7)";
-                  }}
-                  onMouseLeave={e => {
-                    (e.currentTarget as HTMLAnchorElement).style.color = "#C9922A";
-                    (e.currentTarget as HTMLAnchorElement).style.borderColor = "rgba(201, 146, 42, 0.35)";
-                  }}
+                  className="flex items-center gap-2 px-8 py-4 rounded-xl font-bold text-base transition-all text-blue-600 hover:text-white border border-blue-600/35 hover:border-blue-600/70"
                 >
                   EXPLORE PROTOCOLS
                 </Link>

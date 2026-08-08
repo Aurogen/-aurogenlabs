@@ -1,5 +1,3 @@
-"use client";
-
 import { FlaskConical, ShieldCheck, Award, Microscope, Truck, HeartHandshake } from "lucide-react";
 
 const FEATURES = [
@@ -47,7 +45,7 @@ export default function TrustSection() {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14">
-          <p className="text-xs font-medium tracking-[0.3em] uppercase mb-3" style={{ color: "#C9922A" }}>Why researchers choose us</p>
+          <p className="text-blue-600 text-xs font-medium tracking-[0.3em] uppercase mb-3">Why researchers choose us</p>
           <h2
             className="text-white text-4xl lg:text-5xl font-bold mb-4"
             style={{ fontFamily: "var(--font-heading, sans-serif)" }}
@@ -64,19 +62,8 @@ export default function TrustSection() {
           {FEATURES.map((f) => (
             <div
               key={f.title}
-              className="group p-6 rounded-2xl transition-all duration-300"
-              style={{
-                background: "#111111",
-                border: "1px solid rgba(201, 146, 42, 0.12)",
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(201, 146, 42, 0.3)";
-                (e.currentTarget as HTMLDivElement).style.boxShadow = "0 4px 20px rgba(201, 146, 42, 0.08)";
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(201, 146, 42, 0.12)";
-                (e.currentTarget as HTMLDivElement).style.boxShadow = "none";
-              }}
+              className="group p-6 rounded-2xl border border-blue-900/30 hover:border-blue-600/40 transition-all duration-300 hover:shadow-[0_4px_20px_rgba(201,146,42,0.08)]"
+              style={{ background: "#111111" }}
             >
               <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
@@ -102,12 +89,12 @@ export default function TrustSection() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="text-center p-6 rounded-2xl"
-              style={{ background: "rgba(201, 146, 42, 0.03)", border: "1px solid rgba(201, 146, 42, 0.12)" }}
+              className="text-center p-6 rounded-2xl border border-blue-900/20"
+              style={{ background: "rgba(201, 146, 42, 0.03)" }}
             >
               <p
-                className="font-bold text-4xl mb-1"
-                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#C9922A" }}
+                className="text-blue-600 font-bold text-4xl mb-1"
+                style={{ fontFamily: "var(--font-heading, sans-serif)" }}
               >
                 {stat.value}
               </p>

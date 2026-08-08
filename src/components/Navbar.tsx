@@ -76,10 +76,8 @@ export default function Navbar() {
                       <Link
                         key={item}
                         href={`/shop?goal=${encodeURIComponent(item)}`}
-                        className="block px-4 py-2.5 text-sm text-gray-300 hover:text-white transition-colors border-b last:border-0"
+                        className="block px-4 py-2.5 text-sm text-gray-300 hover:text-white hover:bg-blue-600/6 transition-colors border-b last:border-0"
                         style={{ borderColor: "rgba(201, 146, 42, 0.1)" }}
-                        onMouseEnter={e => (e.currentTarget.style.background = "rgba(201, 146, 42, 0.06)")}
-                        onMouseLeave={e => (e.currentTarget.style.background = "")}
                       >
                         {item}
                       </Link>
@@ -94,10 +92,7 @@ export default function Navbar() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setSearchOpen(true)}
-              className="hidden md:flex w-9 h-9 items-center justify-center rounded-lg text-gray-400 hover:text-white transition-all"
-              style={{}}
-              onMouseEnter={e => (e.currentTarget.style.background = "rgba(201, 146, 42, 0.08)")}
-              onMouseLeave={e => (e.currentTarget.style.background = "")}
+              className="hidden md:flex w-9 h-9 items-center justify-center rounded-lg text-gray-400 hover:text-white hover:bg-blue-600/8 transition-all"
               aria-label="Search"
             >
               <Search className="w-4 h-4" />
@@ -114,9 +109,7 @@ export default function Navbar() {
               </div>
             ) : (
               <SignInButton mode="redirect" fallbackRedirectUrl="/dashboard">
-                <button className="hidden md:flex w-9 h-9 items-center justify-center rounded-lg text-gray-400 hover:text-white transition-all"
-                  onMouseEnter={e => (e.currentTarget.style.background = "rgba(201, 146, 42, 0.08)")}
-                  onMouseLeave={e => (e.currentTarget.style.background = "")}
+                <button className="hidden md:flex w-9 h-9 items-center justify-center rounded-lg text-gray-400 hover:text-white hover:bg-blue-600/8 transition-all"
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 </button>
@@ -126,9 +119,7 @@ export default function Navbar() {
             {/* Cart */}
             <button
               onClick={openCart}
-              className="relative flex w-9 h-9 items-center justify-center rounded-lg text-gray-400 hover:text-white transition-all"
-              onMouseEnter={e => (e.currentTarget.style.background = "rgba(201, 146, 42, 0.08)")}
-              onMouseLeave={e => (e.currentTarget.style.background = "")}
+              className="relative flex w-9 h-9 items-center justify-center rounded-lg text-gray-400 hover:text-white hover:bg-blue-600/8 transition-all"
             >
               <ShoppingCart className="w-4 h-4" />
               {totalItems > 0 && (
@@ -156,10 +147,8 @@ export default function Navbar() {
           <div className="lg:hidden border-t" style={{ background: "#0F0F0F", borderColor: "rgba(201, 146, 42, 0.12)" }}>
             <button
               onClick={() => { setSearchOpen(true); setMobileOpen(false); }}
-              className="w-full flex items-center gap-3 px-6 py-3.5 text-sm text-gray-300 hover:text-white border-b transition-colors"
+              className="w-full flex items-center gap-3 px-6 py-3.5 text-sm text-gray-300 hover:text-white hover:bg-blue-600/5 border-b transition-colors"
               style={{ borderColor: "rgba(201, 146, 42, 0.1)" }}
-              onMouseEnter={e => (e.currentTarget.style.background = "rgba(201, 146, 42, 0.05)")}
-              onMouseLeave={e => (e.currentTarget.style.background = "")}
             >
               <Search className="w-4 h-4" /> Search
             </button>
@@ -168,10 +157,8 @@ export default function Navbar() {
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="block px-6 py-3.5 text-sm text-gray-300 hover:text-white border-b transition-colors"
+                className="block px-6 py-3.5 text-sm text-gray-300 hover:text-white hover:bg-blue-600/5 border-b transition-colors"
                 style={{ borderColor: "rgba(201, 146, 42, 0.1)" }}
-                onMouseEnter={e => (e.currentTarget.style.background = "rgba(201, 146, 42, 0.05)")}
-                onMouseLeave={e => (e.currentTarget.style.background = "")}
               >
                 {link.label}
               </Link>
@@ -179,10 +166,7 @@ export default function Navbar() {
             <Link
               href="/dashboard"
               onClick={() => setMobileOpen(false)}
-              className="block px-6 py-3.5 text-sm hover:text-white transition-colors"
-              style={{ color: "#C9922A" }}
-              onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = "#F2EFE8"; (e.currentTarget as HTMLAnchorElement).style.background = "rgba(201, 146, 42, 0.05)"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = "#C9922A"; (e.currentTarget as HTMLAnchorElement).style.background = ""; }}
+              className="block px-6 py-3.5 text-sm text-blue-600 hover:text-white hover:bg-blue-600/5 transition-colors"
             >
               My Account
             </Link>
