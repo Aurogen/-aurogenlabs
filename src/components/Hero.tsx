@@ -112,38 +112,86 @@ function HeroVialStatic() {
   return (
     <svg
       width="200"
-      height="280"
-      viewBox="0 0 90 126"
+      height="520"
+      viewBox="0 0 70 182"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      style={{ filter: "drop-shadow(0 40px 80px rgba(0,0,0,0.18))" }}
+      style={{ filter: "drop-shadow(0 32px 64px rgba(0,0,0,0.22))" }}
     >
-      <rect x="25" y="0" width="40" height="16" rx="6" fill="url(#hvcap)" />
-      <rect x="32" y="13" width="26" height="6" rx="3" fill="#AAAAAA" opacity="0.6" />
-      <rect x="16" y="18" width="58" height="98" rx="14" fill="url(#hvbody)" />
-      <rect x="20" y="20" width="9" height="94" rx="4.5" fill="white" opacity="0.04" />
-      <rect x="22" y="34" width="46" height="60" rx="6" fill="url(#hvlabel)" />
-      <rect x="22" y="34" width="46" height="3" rx="1.5" fill="#C9922A" opacity="0.7" />
-      <text x="45" y="56" textAnchor="middle" fill="white" fontSize="13" fontWeight="bold" opacity="0.95" fontFamily="sans-serif">A</text>
-      <text x="45" y="67" textAnchor="middle" fill="#C9922A" fontSize="5.5" fontWeight="bold" letterSpacing="1.5" fontFamily="sans-serif">AUROGEN</text>
-      <text x="45" y="75" textAnchor="middle" fill="#AAAAAA" fontSize="4.5" letterSpacing="1" fontFamily="sans-serif">LABS</text>
-      <text x="45" y="85" textAnchor="middle" fill="white" fontSize="9" fontWeight="bold" fontFamily="sans-serif">5MG</text>
-      <text x="45" y="93" textAnchor="middle" fill="white" fontSize="4" fontFamily="sans-serif" opacity="0.5">RESEARCH ONLY</text>
-      <rect x="18" y="98" width="54" height="16" rx="7" fill="#C9922A" opacity="0.18" />
-      <rect x="24" y="100" width="14" height="12" rx="3" fill="white" opacity="0.04" />
+      {/* ── CRIMPED CAP (gold aluminium) ── */}
+      {/* Main cap cylinder */}
+      <rect x="18" y="7" width="34" height="20" rx="4" fill="url(#hvcap)" />
+      {/* Flip-off disc (slightly raised center) */}
+      <rect x="22" y="0" width="26" height="15" rx="6" fill="url(#hvcapTop)" />
+      {/* Cap knurl lines */}
+      <rect x="19" y="16" width="32" height="1.2" rx="0.5" fill="rgba(255,255,255,0.18)" />
+      <rect x="19" y="20" width="32" height="1" rx="0.5" fill="rgba(0,0,0,0.22)" />
+      {/* Cap highlight left edge */}
+      <rect x="19" y="7" width="3" height="19" rx="1" fill="rgba(255,255,255,0.14)" />
+
+      {/* ── RUBBER STOPPER ── */}
+      <rect x="23" y="18" width="24" height="12" rx="3" fill="#8A8A8A" opacity="0.9" />
+      <rect x="25" y="19" width="7" height="10" rx="2" fill="white" opacity="0.06" />
+
+      {/* ── NECK ── */}
+      <rect x="23" y="27" width="24" height="8" fill="url(#hvglass)" />
+
+      {/* ── SHOULDER (trapezoid fill, left + right) ── */}
+      <path d="M23 33 L12 40 L12 38 L23 31 Z" fill="url(#hvglass)" />
+      <path d="M47 33 L58 40 L58 38 L47 31 Z" fill="url(#hvglass)" />
+
+      {/* ── GLASS BODY ── */}
+      <rect x="10" y="38" width="50" height="136" rx="13" fill="url(#hvglass)" />
+
+      {/* Inner left shine (refraction) */}
+      <rect x="12" y="40" width="9" height="132" rx="4.5" fill="white" opacity="0.055" />
+      {/* Right edge rim light */}
+      <rect x="57" y="42" width="2" height="128" rx="1" fill="white" opacity="0.045" />
+
+      {/* ── LABEL ── */}
+      <rect x="13" y="56" width="44" height="86" rx="5" fill="url(#hvlabel)" />
+      {/* Gold top rule */}
+      <rect x="13" y="56" width="44" height="2" rx="1" fill="#C9922A" opacity="0.9" />
+      {/* Gold bottom rule */}
+      <rect x="13" y="140" width="44" height="2" rx="1" fill="#C9922A" opacity="0.30" />
+
+      {/* "A" monogram */}
+      <text x="35" y="82" textAnchor="middle" fill="white" fontSize="16" fontWeight="bold" opacity="0.95" fontFamily="Georgia, serif">A</text>
+      {/* Brand */}
+      <text x="35" y="95" textAnchor="middle" fill="#C9922A" fontSize="5.5" fontWeight="bold" letterSpacing="2.2" fontFamily="sans-serif">AUROGEN</text>
+      <text x="35" y="104" textAnchor="middle" fill="#AAAAAA" fontSize="4" letterSpacing="1.5" fontFamily="sans-serif">LABS</text>
+      {/* Thin separator rule */}
+      <rect x="27" y="108" width="16" height="0.6" rx="0.3" fill="rgba(201,146,42,0.45)" />
+      {/* Concentration */}
+      <text x="35" y="121" textAnchor="middle" fill="white" fontSize="12" fontWeight="bold" fontFamily="sans-serif">5MG</text>
+      {/* Lot designation */}
+      <text x="35" y="132" textAnchor="middle" fill="white" fontSize="3.8" fontFamily="sans-serif" opacity="0.38" letterSpacing="0.3">FOR RESEARCH ONLY</text>
+
+      {/* ── LYOPHILISED POWDER (white, bottom) ── */}
+      <rect x="12" y="150" width="46" height="20" rx="9" fill="white" opacity="0.07" />
+      <ellipse cx="35" cy="150" rx="22" ry="3.5" fill="white" opacity="0.09" />
+
+      {/* ── BOTTOM SHADOW (ground reflection) ── */}
+      <ellipse cx="35" cy="178" rx="24" ry="3.5" fill="rgba(0,0,0,0.14)" />
+
       <defs>
-        <linearGradient id="hvcap" x1="25" y1="0" x2="65" y2="16" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#C8C8C8" />
-          <stop offset="100%" stopColor="#909090" />
+        <linearGradient id="hvcap" x1="18" y1="7" x2="52" y2="27" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#D4A84B" />
+          <stop offset="55%" stopColor="#C9922A" />
+          <stop offset="100%" stopColor="#A57218" />
         </linearGradient>
-        <linearGradient id="hvbody" x1="16" y1="18" x2="74" y2="116" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#282828" />
-          <stop offset="45%" stopColor="#181818" />
+        <linearGradient id="hvcapTop" x1="22" y1="0" x2="48" y2="15" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#EAC46A" />
+          <stop offset="100%" stopColor="#C9922A" />
+        </linearGradient>
+        <linearGradient id="hvglass" x1="10" y1="38" x2="60" y2="174" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#2E2E30" />
+          <stop offset="45%" stopColor="#1C1C1E" />
           <stop offset="100%" stopColor="#0A0A0A" />
         </linearGradient>
-        <linearGradient id="hvlabel" x1="22" y1="34" x2="68" y2="94" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#1E1E1E" />
-          <stop offset="100%" stopColor="#131313" />
+        <linearGradient id="hvlabel" x1="13" y1="56" x2="57" y2="142" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#272728" />
+          <stop offset="100%" stopColor="#161617" />
         </linearGradient>
       </defs>
     </svg>
