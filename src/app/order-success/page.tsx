@@ -34,59 +34,29 @@ export default function OrderSuccessPage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center py-16 px-4" style={{ background: "#696969" }}>
+    <div className="min-h-screen flex flex-col items-center justify-center py-16 px-4" style={{ background: "#F6F6F8" }}>
+      <div className="w-full max-w-lg">
 
-      {/* Glow bg */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <motion.div
-          className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full opacity-10"
-          style={{ background: "radial-gradient(circle, #10B981, transparent 70%)" }}
-          animate={{ scale: [1, 1.15, 1] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-        />
-      </div>
-
-      <div className="relative w-full max-w-lg">
-
-        {/* Animated checkmark */}
+        {/* Check icon */}
         <div className="flex justify-center mb-8">
-          <div className="relative">
+          <motion.div
+            className="w-24 h-24 rounded-full flex items-center justify-center"
+            style={{
+              background: "rgba(27,122,69,0.08)",
+              border: "1.5px solid rgba(27,122,69,0.25)",
+            }}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", stiffness: 200, damping: 18 }}
+          >
             <motion.div
-              className="w-28 h-28 rounded-full flex items-center justify-center"
-              style={{ background: "rgba(16, 185, 129, 0.1)", border: "2px solid rgba(16, 185, 129, 0.3)" }}
-              initial={{ scale: 0, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ type: "spring", stiffness: 200, damping: 15 }}
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.2, type: "spring", stiffness: 280, damping: 22 }}
             >
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.2, type: "spring", stiffness: 300, damping: 20 }}
-              >
-                <CheckCircle className="w-14 h-14 text-green-400" strokeWidth={1.5} />
-              </motion.div>
+              <CheckCircle className="w-12 h-12" style={{ color: "#1B7A45" }} strokeWidth={1.5} />
             </motion.div>
-
-            {/* Particles */}
-            {[...Array(8)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="absolute w-2 h-2 rounded-full"
-                style={{
-                  background: i % 2 === 0 ? "#10B981" : "#1B6BDE",
-                  top: "50%", left: "50%",
-                }}
-                initial={{ x: 0, y: 0, opacity: 1, scale: 1 }}
-                animate={{
-                  x: Math.cos((i / 8) * Math.PI * 2) * 70,
-                  y: Math.sin((i / 8) * Math.PI * 2) * 70,
-                  opacity: 0,
-                  scale: 0,
-                }}
-                transition={{ delay: 0.3, duration: 0.7, ease: "easeOut" }}
-              />
-            ))}
-          </div>
+          </motion.div>
         </div>
 
         {/* Headline */}
@@ -94,48 +64,56 @@ export default function OrderSuccessPage() {
           className="text-center mb-8"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
+          transition={{ delay: 0.35 }}
         >
           <h1
-            className="text-4xl font-bold text-white mb-2"
-            style={{ fontFamily: "var(--font-heading, sans-serif)" }}
+            className="text-4xl font-bold mb-2"
+            style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
-            ORDER CONFIRMED
+            Order Confirmed
           </h1>
-          <p className="text-gray-400 text-base">
+          <p style={{ color: "#6E6E73" }}>
             Your research compounds are being prepared for shipment.
           </p>
         </motion.div>
 
         {/* Order card */}
         <motion.div
-          className="rounded-2xl border border-white/10 overflow-hidden mb-6"
-          style={{ background: "#1C1C1E" }}
+          className="rounded-2xl overflow-hidden mb-5"
+          style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.45 }}
         >
           {/* Order number */}
-          <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between">
+          <div
+            className="px-6 py-4 flex items-center justify-between"
+            style={{ borderBottom: "1px solid rgba(0,0,0,0.07)" }}
+          >
             <div className="flex items-center gap-2">
-              <Package className="w-4 h-4 text-blue-400" />
-              <span className="text-gray-400 text-sm">Order</span>
+              <Package className="w-4 h-4" style={{ color: "#C9922A" }} />
+              <span className="text-sm" style={{ color: "#6E6E73" }}>Order</span>
             </div>
-            <span className="text-blue-400 font-mono font-bold text-sm">
+            <span className="font-mono font-bold text-sm" style={{ color: "#1D1D1F" }}>
               #{order?.id ?? "—"}
             </span>
           </div>
 
           {/* Items */}
           {order && order.items.length > 0 && (
-            <div className="px-6 py-4 space-y-3 border-b border-white/10">
+            <div
+              className="px-6 py-4 space-y-3"
+              style={{ borderBottom: "1px solid rgba(0,0,0,0.07)" }}
+            >
               {order.items.map((item, i) => (
                 <div key={i} className="flex justify-between items-center">
                   <div>
-                    <p className="text-white text-sm font-medium">{item.name}</p>
-                    <p className="text-gray-500 text-xs">{item.concentration} · Qty {item.quantity}</p>
+                    <p className="text-sm font-medium" style={{ color: "#1D1D1F" }}>{item.name}</p>
+                    <p className="text-xs" style={{ color: "#9E9EA8" }}>
+                      {item.concentration} · Qty {item.quantity}
+                    </p>
                   </div>
-                  <span className="text-white text-sm font-semibold">
+                  <span className="text-sm font-semibold" style={{ color: "#1D1D1F" }}>
                     ${(item.price * item.quantity).toFixed(2)}
                   </span>
                 </div>
@@ -143,15 +121,15 @@ export default function OrderSuccessPage() {
             </div>
           )}
 
-          {/* Total + shipping */}
+          {/* Total */}
           <div className="px-6 py-4 space-y-2">
-            <div className="flex justify-between text-sm text-gray-400">
-              <span>Shipping</span>
-              <span className="text-green-400 font-medium">FREE</span>
+            <div className="flex justify-between text-sm">
+              <span style={{ color: "#6E6E73" }}>Shipping</span>
+              <span className="font-medium" style={{ color: "#1B7A45" }}>FREE</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-white font-bold">Total</span>
-              <span className="text-white font-bold text-xl">
+              <span className="font-bold" style={{ color: "#1D1D1F" }}>Total</span>
+              <span className="font-bold text-xl" style={{ color: "#1D1D1F" }}>
                 ${order?.total.toFixed(2) ?? "—"}
               </span>
             </div>
@@ -160,23 +138,29 @@ export default function OrderSuccessPage() {
 
         {/* Estimated delivery */}
         <motion.div
-          className="rounded-xl border border-white/10 px-5 py-4 mb-8 flex items-center gap-4"
-          style={{ background: "rgba(27, 107, 222, 0.06)" }}
+          className="rounded-xl px-5 py-4 mb-8 flex items-center gap-4"
+          style={{
+            background: "#FFFFFF",
+            border: "1px solid rgba(0,0,0,0.08)",
+          }}
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
+          transition={{ delay: 0.55 }}
         >
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(27,107,222,0.15)" }}>
-            <Package className="w-5 h-5 text-blue-400" />
+          <div
+            className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+            style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
+          >
+            <Package className="w-5 h-5" style={{ color: "#C9922A" }} />
           </div>
-          <div>
-            <p className="text-white text-sm font-semibold">Estimated Delivery</p>
-            <p className="text-gray-400 text-xs">2–5 business days · Ships from US</p>
+          <div className="flex-1">
+            <p className="text-sm font-semibold" style={{ color: "#1D1D1F" }}>Estimated Delivery</p>
+            <p className="text-xs" style={{ color: "#6E6E73" }}>2–5 business days · Ships from US</p>
           </div>
           {order?.email && (
-            <div className="ml-auto text-right">
-              <p className="text-gray-500 text-xs">Confirmation sent to</p>
-              <p className="text-blue-400 text-xs font-medium">{order.email}</p>
+            <div className="text-right">
+              <p className="text-xs" style={{ color: "#9E9EA8" }}>Confirmation sent to</p>
+              <p className="text-xs font-medium" style={{ color: "#1D1D1F" }}>{order.email}</p>
             </div>
           )}
         </motion.div>
@@ -186,36 +170,35 @@ export default function OrderSuccessPage() {
           className="flex flex-col sm:flex-row gap-3"
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7 }}
+          transition={{ delay: 0.65 }}
         >
           <Link
             href="/dashboard"
-            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-bold text-white text-sm transition-opacity hover:opacity-90"
-            style={{ background: "linear-gradient(135deg, #1B6BDE, #2B7FEF)" }}
+            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-full font-semibold text-white text-sm transition-opacity hover:opacity-85"
+            style={{ background: "#1D1D1F" }}
           >
             <LayoutDashboard className="w-4 h-4" />
-            VIEW MY ORDERS
+            View My Orders
           </Link>
           <Link
             href="/shop"
-            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold text-gray-300 text-sm border border-white/10 hover:border-blue-600/50 transition-colors"
-            style={{ background: "#1C1C1E" }}
+            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-full font-semibold text-sm transition-colors hover:bg-black/5"
+            style={{ border: "1px solid rgba(0,0,0,0.2)", color: "#1D1D1F" }}
           >
             <ShoppingBag className="w-4 h-4" />
-            CONTINUE SHOPPING
+            Continue Shopping
             <ArrowRight className="w-3 h-3" />
           </Link>
         </motion.div>
 
-        {/* Disclaimer */}
         <motion.p
-          className="text-center text-gray-600 text-xs mt-6 leading-relaxed"
+          className="text-center text-xs mt-6"
+          style={{ color: "#C0C0C5" }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.9 }}
+          transition={{ delay: 0.8 }}
         >
-          All compounds are shipped for research use only.
-          Not for human consumption.
+          All compounds are shipped for research use only. Not for human consumption.
         </motion.p>
       </div>
     </div>

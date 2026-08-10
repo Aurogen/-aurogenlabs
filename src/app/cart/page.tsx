@@ -9,45 +9,65 @@ export default function CartPage() {
 
   if (state.items.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-6" style={{ background: "#696969" }}>
-        <div className="w-24 h-24 rounded-3xl flex items-center justify-center border border-white/10" style={{ background: "rgba(27, 107, 222, 0.05)" }}>
-          <ShoppingCart className="w-10 h-10 text-gray-600" />
+      <div className="min-h-screen flex flex-col items-center justify-center gap-6" style={{ background: "#F6F6F8" }}>
+        <div className="w-24 h-24 rounded-3xl flex items-center justify-center" style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}>
+          <ShoppingCart className="w-10 h-10" style={{ color: "#C9922A" }} />
         </div>
         <div className="text-center">
-          <h2 className="text-white text-2xl font-bold mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>YOUR CART IS EMPTY</h2>
-          <p className="text-gray-500">Add research compounds to get started</p>
+          <h2 className="text-2xl font-bold mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}>
+            Your Cart Is Empty
+          </h2>
+          <p style={{ color: "#6E6E73" }}>Add research compounds to get started.</p>
         </div>
-        <Link href="/shop" className="flex items-center gap-2 px-8 py-3.5 rounded-xl font-bold text-white transition-all hover:scale-105" style={{ background: "linear-gradient(135deg, #1B6BDE, #2B7FEF)" }}>
+        <Link
+          href="/shop"
+          className="flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-sm text-white transition-opacity hover:opacity-85"
+          style={{ background: "#1D1D1F" }}
+        >
           <ArrowLeft className="w-4 h-4" />
-          Browse Products
+          Browse Catalog
         </Link>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen py-10" style={{ background: "#696969" }}>
-      <div className="max-w-6xl mx-auto px-4">
-        <h1 className="text-white text-4xl font-bold mb-8" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-          CART <span className="text-gray-600 text-2xl font-normal">({totalItems} items)</span>
+    <div className="min-h-screen py-10" style={{ background: "#F6F6F8" }}>
+      <div className="max-w-6xl mx-auto px-4 md:px-8">
+        <h1
+          className="text-4xl font-bold mb-8"
+          style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
+        >
+          Cart{" "}
+          <span className="text-2xl font-normal" style={{ color: "#6E6E73" }}>
+            ({totalItems} {totalItems === 1 ? "item" : "items"})
+          </span>
         </h1>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Items */}
           <div className="lg:col-span-2 space-y-4">
             {state.items.map((item) => (
-              <div key={item.product.id} className="flex gap-4 p-5 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
-                {/* Image */}
-                <div className="w-20 h-20 rounded-xl shrink-0 flex items-center justify-center border border-white/10" style={{ background: "linear-gradient(135deg, #050D1A, #0F2040)" }}>
-                  <svg width="32" height="44" viewBox="0 0 32 44" fill="none">
-                    <rect x="10" y="0" width="12" height="6" rx="2.5" fill="#4DA3FF" opacity="0.8" />
-                    <rect x="6" y="5" width="20" height="34" rx="6" fill="url(#cVial)" />
-                    <rect x="8" y="14" width="16" height="18" rx="3" fill="#0F2040" opacity="0.8" />
-                    <rect x="8" y="36" width="16" height="4" rx="2" fill="#1B6BDE" opacity="0.2" />
+              <div
+                key={item.product.id}
+                className="flex gap-4 p-5 rounded-2xl"
+                style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+              >
+                {/* Vial thumb */}
+                <div
+                  className="w-20 h-20 rounded-xl shrink-0 flex items-center justify-center"
+                  style={{ background: "#F5F2EC", border: "1px solid rgba(0,0,0,0.06)" }}
+                >
+                  <svg width="28" height="40" viewBox="0 0 28 40" fill="none">
+                    <rect x="9" y="0" width="10" height="5" rx="2" fill="#C9C9C9" />
+                    <rect x="5" y="4" width="18" height="32" rx="5" fill="url(#cartVial)" />
+                    <rect x="7" y="12" width="14" height="16" rx="2.5" fill="#1E1E1E" opacity="0.85" />
+                    <text x="14" y="23" textAnchor="middle" fill="#C9922A" fontSize="5" fontWeight="bold" fontFamily="sans-serif">A</text>
+                    <rect x="5" y="32" width="18" height="5" rx="2.5" fill="#C9922A" opacity="0.18" />
                     <defs>
-                      <linearGradient id="cVial" x1="6" y1="5" x2="26" y2="39" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stopColor="#152A55" />
-                        <stop offset="100%" stopColor="#050D1A" />
+                      <linearGradient id="cartVial" x1="5" y1="4" x2="23" y2="36" gradientUnits="userSpaceOnUse">
+                        <stop offset="0%" stopColor="#2A2A2A" />
+                        <stop offset="100%" stopColor="#111111" />
                       </linearGradient>
                     </defs>
                   </svg>
@@ -57,37 +77,71 @@ export default function CartPage() {
                 <div className="flex-1">
                   <div className="flex justify-between items-start gap-2">
                     <div>
-                      <Link href={`/product/${item.product.slug}`} className="text-white font-bold text-lg hover:text-blue-300 transition-colors" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
+                      <Link
+                        href={`/product/${item.product.slug}`}
+                        className="font-bold text-lg hover:opacity-70 transition-opacity"
+                        style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
+                      >
                         {item.product.name}
                       </Link>
-                      <p className="text-gray-500 text-sm">{item.product.concentration} · {item.product.size}</p>
-                      <p className="text-gray-600 text-xs mt-0.5">{item.product.purity} purity</p>
+                      <p className="text-sm mt-0.5" style={{ color: "#6E6E73" }}>
+                        {item.product.concentration} · {item.product.size}
+                      </p>
+                      <p className="text-xs" style={{ color: "#9E9EA8" }}>{item.product.purity} purity</p>
                     </div>
-                    <button onClick={() => removeItem(item.product.id)} className="text-gray-600 hover:text-red-400 transition-colors p-1">
+                    <button
+                      onClick={() => removeItem(item.product.id)}
+                      className="p-1.5 rounded-lg transition-colors hover:bg-red-50"
+                      style={{ color: "#9E9EA8" }}
+                    >
                       <Trash2 className="w-4 h-4" />
                     </button>
                   </div>
 
                   <div className="flex items-center justify-between mt-4">
-                    <div className="flex items-center gap-2 border border-white/10 rounded-xl" style={{ background: "#050D1A" }}>
-                      <button onClick={() => updateQty(item.product.id, item.quantity - 1)} className="px-3 py-2 text-gray-400 hover:text-white transition-colors">
+                    <div
+                      className="flex items-center gap-0 rounded-xl overflow-hidden"
+                      style={{ border: "1px solid rgba(0,0,0,0.12)", background: "#FFFFFF" }}
+                    >
+                      <button
+                        onClick={() => updateQty(item.product.id, item.quantity - 1)}
+                        className="px-3 py-2 transition-colors hover:bg-black/5"
+                        style={{ color: "#6E6E73" }}
+                      >
                         <Minus className="w-3.5 h-3.5" />
                       </button>
-                      <span className="text-white font-medium px-1 min-w-6 text-center">{item.quantity}</span>
-                      <button onClick={() => updateQty(item.product.id, item.quantity + 1)} className="px-3 py-2 text-gray-400 hover:text-white transition-colors">
+                      <span
+                        className="font-semibold text-sm px-3 min-w-8 text-center"
+                        style={{ color: "#1D1D1F" }}
+                      >
+                        {item.quantity}
+                      </span>
+                      <button
+                        onClick={() => updateQty(item.product.id, item.quantity + 1)}
+                        className="px-3 py-2 transition-colors hover:bg-black/5"
+                        style={{ color: "#6E6E73" }}
+                      >
                         <Plus className="w-3.5 h-3.5" />
                       </button>
                     </div>
                     <div className="text-right">
-                      <p className="text-white font-bold text-xl">${(item.product.price * item.quantity).toFixed(2)}</p>
-                      <p className="text-gray-500 text-xs">${item.product.price} / unit</p>
+                      <p className="font-bold text-xl" style={{ color: "#1B7A45" }}>
+                        ${(item.product.price * item.quantity).toFixed(2)}
+                      </p>
+                      <p className="text-xs" style={{ color: "#9E9EA8" }}>
+                        ${item.product.price.toFixed(2)} / unit
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
             ))}
 
-            <Link href="/shop" className="flex items-center gap-2 text-blue-400 hover:text-white transition-colors text-sm font-medium mt-2">
+            <Link
+              href="/shop"
+              className="flex items-center gap-2 text-sm font-medium transition-opacity hover:opacity-70"
+              style={{ color: "#6E6E73" }}
+            >
               <ArrowLeft className="w-4 h-4" />
               Continue shopping
             </Link>
@@ -95,48 +149,70 @@ export default function CartPage() {
 
           {/* Order summary */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24 p-6 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
-              <h2 className="text-white font-bold text-lg mb-5" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>ORDER SUMMARY</h2>
+            <div
+              className="sticky top-24 p-6 rounded-2xl"
+              style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+            >
+              <h2
+                className="font-bold text-lg mb-5"
+                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
+              >
+                Order Summary
+              </h2>
 
               <div className="space-y-3 mb-5">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Subtotal ({totalItems} items)</span>
-                  <span className="text-white font-medium">${totalPrice.toFixed(2)}</span>
+                  <span style={{ color: "#6E6E73" }}>Subtotal ({totalItems} items)</span>
+                  <span className="font-medium" style={{ color: "#1D1D1F" }}>${totalPrice.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Shipping</span>
-                  <span className="text-green-400 text-xs font-medium">Calculated at checkout</span>
+                  <span style={{ color: "#6E6E73" }}>Shipping</span>
+                  <span className="text-xs font-medium" style={{ color: "#1B7A45" }}>Calculated at checkout</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-400">Taxes</span>
-                  <span className="text-gray-400 text-xs">Calculated at checkout</span>
+                  <span style={{ color: "#6E6E73" }}>Taxes</span>
+                  <span className="text-xs" style={{ color: "#9E9EA8" }}>Calculated at checkout</span>
                 </div>
               </div>
 
-              <div className="border-t border-white/10 pt-4 mb-5">
+              <div className="pt-4 mb-5" style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }}>
                 <div className="flex justify-between">
-                  <span className="text-white font-bold text-lg">Total</span>
-                  <span className="text-white font-bold text-2xl">${totalPrice.toFixed(2)}</span>
+                  <span className="font-bold" style={{ color: "#1D1D1F" }}>Total</span>
+                  <span className="font-bold text-2xl" style={{ color: "#1D1D1F" }}>${totalPrice.toFixed(2)}</span>
                 </div>
               </div>
 
-              <div className="mb-4 p-3 rounded-xl border border-yellow-600/15" style={{ background: "rgba(161, 130, 0, 0.04)" }}>
-                <p className="text-yellow-500/70 text-[11px] text-center">⚠️ For Research Use Only · Not for Human Consumption</p>
+              <div
+                className="mb-4 p-3 rounded-xl text-center text-xs"
+                style={{ background: "rgba(201,146,42,0.06)", border: "1px solid rgba(201,146,42,0.15)", color: "#A07520" }}
+              >
+                For Research Use Only · Not for Human Consumption
               </div>
 
               <Link
                 href="/checkout"
-                className="w-full flex items-center justify-center gap-2 py-4 rounded-xl font-bold text-white transition-all hover:scale-[1.02] active:scale-[0.98]"
-                style={{ background: "linear-gradient(135deg, #1B6BDE, #2B7FEF)" }}
+                className="w-full flex items-center justify-center gap-2 py-4 rounded-full font-semibold text-white text-sm transition-opacity hover:opacity-85"
+                style={{ background: "#1D1D1F" }}
               >
-                PROCEED TO CHECKOUT
+                Proceed to Checkout
                 <ArrowRight className="w-4 h-4" />
               </Link>
 
-              <p className="text-center text-gray-600 text-xs mt-3">🔒 SSL Secured · Encrypted Checkout</p>
+              <p className="text-center text-xs mt-3" style={{ color: "#9E9EA8" }}>
+                🔒 SSL encrypted checkout
+              </p>
 
               <div className="mt-4">
-                <input type="text" placeholder="Discount / Affiliate code" className="w-full px-4 py-2.5 rounded-xl text-sm text-white placeholder-gray-600 border border-white/10 focus:border-blue-500 focus:outline-none" style={{ background: "#050D1A" }} />
+                <input
+                  type="text"
+                  placeholder="Discount or affiliate code"
+                  className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none transition-colors"
+                  style={{
+                    background: "#F6F6F8",
+                    border: "1px solid rgba(0,0,0,0.10)",
+                    color: "#1D1D1F",
+                  }}
+                />
               </div>
             </div>
           </div>
