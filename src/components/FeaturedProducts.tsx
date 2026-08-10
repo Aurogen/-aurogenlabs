@@ -2,19 +2,19 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import { ArrowRight, ChevronLeft, ChevronRight, Star, ShoppingCart } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
 import { motion } from "framer-motion";
 import { FEATURED_PRODUCTS } from "@/data/products";
 import type { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 
-const CARD_STYLES = [
-  { bg: "linear-gradient(160deg, #2C1800 0%, #100900 100%)", accent: "#C9922A", glow: "rgba(201,146,42,0.18)" },
-  { bg: "linear-gradient(160deg, #001E18 0%, #000A08 100%)", accent: "#10B981", glow: "rgba(16,185,129,0.18)" },
-  { bg: "linear-gradient(160deg, #1C0D32 0%, #09050E 100%)", accent: "#A78BFA", glow: "rgba(167,139,250,0.18)" },
-  { bg: "linear-gradient(160deg, #0A1530 0%, #04080E 100%)", accent: "#60A5FA", glow: "rgba(96,165,250,0.18)" },
-  { bg: "linear-gradient(160deg, #001A28 0%, #00080F 100%)", accent: "#22D3EE", glow: "rgba(34,211,238,0.18)" },
-  { bg: "linear-gradient(160deg, #0A2012 0%, #040D07 100%)", accent: "#4ADE80", glow: "rgba(74,222,128,0.18)" },
+const ACCENT_COLORS = [
+  "#C9922A",
+  "#10B981",
+  "#A78BFA",
+  "#60A5FA",
+  "#22D3EE",
+  "#4ADE80",
 ];
 
 export default function FeaturedProducts() {
@@ -22,11 +22,11 @@ export default function FeaturedProducts() {
 
   function scroll(dir: "left" | "right") {
     if (!scrollRef.current) return;
-    scrollRef.current.scrollBy({ left: dir === "right" ? 300 : -300, behavior: "smooth" });
+    scrollRef.current.scrollBy({ left: dir === "right" ? 280 : -280, behavior: "smooth" });
   }
 
   return (
-    <section className="py-24 overflow-hidden" style={{ background: "#F5F5F7", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
+    <section className="py-24 overflow-hidden" style={{ background: "#EEEAE2", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
       {/* Header */}
       <div className="px-6 md:px-16 mb-12 flex items-end justify-between max-w-[1440px] mx-auto">
         <div>
@@ -91,24 +91,24 @@ export default function FeaturedProducts() {
           <LineupCard
             key={product.id}
             product={product}
-            style={CARD_STYLES[i % CARD_STYLES.length]}
+            accent={ACCENT_COLORS[i % ACCENT_COLORS.length]}
             index={i}
           />
         ))}
 
         {/* View all card */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: FEATURED_PRODUCTS.length * 0.07 }}
-          className="shrink-0 rounded-3xl flex flex-col items-center justify-center gap-4"
+          transition={{ duration: 0.45, delay: FEATURED_PRODUCTS.length * 0.06 }}
+          className="shrink-0 rounded-2xl flex flex-col items-center justify-center gap-4"
           style={{
             width: 220,
-            height: 440,
+            height: 400,
             scrollSnapAlign: "start",
-            background: "#E8E8ED",
-            border: "1px solid rgba(0,0,0,0.08)",
+            background: "#FFFFFF",
+            border: "1px solid rgba(0,0,0,0.07)",
           }}
         >
           <p
@@ -122,8 +122,8 @@ export default function FeaturedProducts() {
           </p>
           <Link
             href="/shop"
-            className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-black"
-            style={{ background: "#C9922A" }}
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white"
+            style={{ background: "#1D1D1F" }}
           >
             Full catalog <ArrowRight className="w-3.5 h-3.5" />
           </Link>
@@ -135,28 +135,28 @@ export default function FeaturedProducts() {
 
 function LineupCard({
   product,
-  style,
+  accent,
   index,
 }: {
   product: Product;
-  style: (typeof CARD_STYLES)[0];
+  accent: string;
   index: number;
 }) {
   const { addItem } = useCart();
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.07 }}
-      className="relative shrink-0 rounded-3xl overflow-hidden flex flex-col"
+      transition={{ duration: 0.45, delay: index * 0.06 }}
+      className="relative shrink-0 rounded-2xl overflow-hidden flex flex-col"
       style={{
-        width: 260,
-        height: 440,
-        background: style.bg,
+        width: 240,
+        height: 400,
         scrollSnapAlign: "start",
-        border: "1px solid rgba(255,255,255,0.06)",
+        background: "#FFFFFF",
+        border: "1px solid rgba(0,0,0,0.07)",
       }}
     >
       {/* Badge */}
@@ -165,9 +165,9 @@ function LineupCard({
           <span
             className="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest"
             style={{
-              background: `${style.accent}18`,
-              color: style.accent,
-              border: `1px solid ${style.accent}35`,
+              background: `${accent}14`,
+              color: accent,
+              border: `1px solid ${accent}30`,
               fontFamily: "var(--font-body, sans-serif)",
             }}
           >
@@ -178,56 +178,34 @@ function LineupCard({
 
       {!product.inStock && (
         <div className="absolute top-4 left-4 z-10">
-          <span className="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest bg-white/5 text-white/40 border border-white/10"
-            style={{ fontFamily: "var(--font-body, sans-serif)" }}>
+          <span
+            className="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest"
+            style={{ background: "rgba(0,0,0,0.05)", color: "#9D9D9D", border: "1px solid rgba(0,0,0,0.1)", fontFamily: "var(--font-body, sans-serif)" }}
+          >
             OUT OF STOCK
           </span>
         </div>
       )}
 
       {/* Vial display */}
-      <Link href={`/product/${product.slug}`} className="flex-1 flex items-center justify-center relative pt-8 pb-4">
-        <div
-          className="absolute inset-0 flex items-center justify-center pointer-events-none"
-          style={{
-            background: `radial-gradient(ellipse 55% 45% at 50% 55%, ${style.glow}, transparent)`,
-          }}
-        />
-        <motion.div
-          animate={{ y: [0, -9, 0] }}
-          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: index * 0.35 }}
-          className="relative z-10"
-          style={{ filter: `drop-shadow(0 24px 48px ${style.accent}50)` }}
-        >
-          <LineupVial accent={style.accent} index={index} />
-        </motion.div>
-
-        {/* Reflection */}
-        <motion.div
-          className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full"
-          style={{ width: 56, height: 8, background: `radial-gradient(ellipse, ${style.accent}50, transparent)`, filter: "blur(5px)" }}
-          animate={{ opacity: [0.2, 0.45, 0.2], scaleX: [0.8, 1.15, 0.8] }}
-          transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: index * 0.35 }}
-        />
+      <Link
+        href={`/product/${product.slug}`}
+        className="flex-1 flex items-center justify-center"
+        style={{ background: "#F5F2EC" }}
+      >
+        <LineupVial accent={accent} index={index} />
       </Link>
 
       {/* Info */}
-      <div className="px-5 pb-5 pt-1">
-        {/* Stars */}
-        <div className="flex items-center gap-0.5 mb-2">
-          {[...Array(5)].map((_, i) => (
-            <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
-          ))}
-          <span className="text-[10px] ml-1" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "var(--font-body)" }}>(4.9)</span>
-        </div>
-
+      <div className="px-5 pb-5 pt-4">
         <h3
-          className="text-white font-bold mb-1"
+          className="font-bold mb-1"
           style={{
             fontFamily: "var(--font-heading, sans-serif)",
-            fontSize: "clamp(18px, 2vw, 22px)",
+            fontSize: "clamp(16px, 2vw, 19px)",
             letterSpacing: "-0.01em",
             lineHeight: 1.1,
+            color: "#1D1D1F",
           }}
         >
           {product.name}
@@ -235,7 +213,7 @@ function LineupCard({
 
         <p
           className="text-xs mb-3 leading-relaxed line-clamp-2"
-          style={{ color: "rgba(255,255,255,0.38)", fontFamily: "var(--font-body, sans-serif)" }}
+          style={{ color: "#6E6E73", fontFamily: "var(--font-body, sans-serif)" }}
         >
           {product.description}
         </p>
@@ -243,8 +221,8 @@ function LineupCard({
         <p
           className="font-bold mb-4"
           style={{
-            fontSize: "1.5rem",
-            color: "white",
+            fontSize: "1.4rem",
+            color: "#1D1D1F",
             fontFamily: "var(--font-body, sans-serif)",
             letterSpacing: "-0.02em",
           }}
@@ -255,9 +233,10 @@ function LineupCard({
         <div className="flex items-center gap-3">
           <Link
             href={`/product/${product.slug}`}
-            className="flex-1 text-center py-2.5 rounded-full text-sm font-semibold text-black transition-opacity hover:opacity-90"
+            className="flex-1 text-center py-2.5 rounded-full text-sm font-semibold transition-opacity hover:opacity-85"
             style={{
-              background: style.accent,
+              background: "#1D1D1F",
+              color: "#FFFFFF",
               fontFamily: "var(--font-body, sans-serif)",
             }}
           >
@@ -267,12 +246,12 @@ function LineupCard({
             <button
               onClick={() => addItem(product)}
               className="p-2.5 rounded-full flex items-center justify-center transition-all hover:scale-105"
-              style={{ background: "rgba(255,255,255,0.08)" }}
+              style={{ background: "rgba(0,0,0,0.06)" }}
             >
-              <ShoppingCart className="w-4 h-4" style={{ color: "rgba(255,255,255,0.7)" }} />
+              <ShoppingCart className="w-4 h-4" style={{ color: "#3D3D3F" }} />
             </button>
           ) : (
-            <span className="text-xs" style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-body)" }}>
+            <span className="text-xs" style={{ color: "#9D9D9D", fontFamily: "var(--font-body)" }}>
               Sold out
             </span>
           )}

@@ -19,7 +19,7 @@ export default function Hero() {
     <section
       ref={ref}
       className="relative flex flex-col justify-center overflow-hidden"
-      style={{ background: "#1D1D1F", minHeight: "92vh" }}
+      style={{ background: "#EEEAE2", minHeight: "92vh" }}
     >
       {/* Text — centered */}
       <div className="flex flex-col items-center text-center px-4 py-28 mx-auto w-full max-w-4xl">
@@ -28,7 +28,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55 }}
           className="text-xs font-semibold tracking-[0.3em] uppercase mb-6"
-          style={{ color: "#C9922A" }}
+          style={{ color: "#A07520" }}
         >
           Research-Grade Peptides
         </motion.p>
@@ -41,7 +41,7 @@ export default function Hero() {
           style={{
             fontFamily: "var(--font-heading, sans-serif)",
             fontSize: "clamp(52px, 8vw, 104px)",
-            color: "#F5F5F7",
+            color: "#1D1D1F",
           }}
         >
           Engineering<br />
@@ -54,7 +54,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.18 }}
           className="text-lg mb-12 max-w-lg leading-relaxed"
-          style={{ color: "rgba(245,245,247,0.60)" }}
+          style={{ color: "#6E6E73" }}
         >
           Highest-purity compounds for advanced scientific investigation.
           Third-party tested. cGMP certified.
@@ -68,15 +68,15 @@ export default function Hero() {
         >
           <Link
             href="/shop"
-            className="flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-black text-sm transition-opacity hover:opacity-90"
-            style={{ background: "#C9922A" }}
+            className="flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-white text-sm transition-opacity hover:opacity-90"
+            style={{ background: "#1D1D1F" }}
           >
             Shop Now <ArrowRight className="w-4 h-4" />
           </Link>
           <Link
             href="/protocols"
-            className="px-8 py-3.5 rounded-full font-semibold text-sm transition-colors hover:bg-white/10"
-            style={{ border: "1px solid rgba(245,245,247,0.25)", color: "rgba(245,245,247,0.85)" }}
+            className="px-8 py-3.5 rounded-full font-semibold text-sm transition-colors"
+            style={{ border: "1px solid rgba(0,0,0,0.2)", color: "#1D1D1F" }}
           >
             Explore Protocols
           </Link>
@@ -84,12 +84,12 @@ export default function Hero() {
       </div>
 
       {/* Trust strip */}
-      <div className="py-5 px-4" style={{ borderTop: "1px solid rgba(255,255,255,0.08)" }}>
+      <div className="py-5 px-4" style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }}>
         <div className="max-w-3xl mx-auto flex flex-wrap justify-center gap-7 lg:gap-12">
           {BADGES.map(({ icon: Icon, label }) => (
             <div key={label} className="flex items-center gap-2">
               <Icon className="w-4 h-4 shrink-0" style={{ color: "#C9922A" }} />
-              <span className="text-sm" style={{ color: "rgba(245,245,247,0.50)" }}>{label}</span>
+              <span className="text-sm" style={{ color: "#6E6E73" }}>{label}</span>
             </div>
           ))}
         </div>

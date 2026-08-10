@@ -70,7 +70,7 @@ const GOAL_CONFIG: Record<
 
 export default function ShopByGoal() {
   return (
-    <section className="py-20 px-4" style={{ background: "#F5F5F7", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
+    <section className="py-20 px-4" style={{ background: "#EEEAE2", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
