@@ -54,12 +54,12 @@ function ShopContent() {
   }, [search, selectedGoal, sortBy, inStockOnly]);
 
   return (
-    <div className="min-h-screen" style={{ background: "#020810" }}>
+    <div className="min-h-screen" style={{ background: "#000000" }}>
       {/* Page header */}
       <div
         className="relative py-14 px-4 text-center overflow-hidden"
         style={{
-          background: "linear-gradient(180deg, #0A1628, #020810)",
+          background: "linear-gradient(180deg, #111111, #000000)",
           borderBottom: "1px solid rgba(27, 107, 222, 0.15)",
         }}
       >
@@ -90,7 +90,7 @@ function ShopContent() {
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search peptides, compounds..."
               className="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm text-white placeholder-gray-600 border border-blue-900/30 focus:border-blue-500 focus:outline-none transition-colors"
-              style={{ background: "#0A1628" }}
+              style={{ background: "#111111" }}
             />
           </div>
 
@@ -100,7 +100,7 @@ function ShopContent() {
               onClick={() => setShowFilters(!showFilters)}
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border transition-all"
               style={{
-                background: showFilters ? "rgba(27, 107, 222, 0.15)" : "#0A1628",
+                background: showFilters ? "rgba(27, 107, 222, 0.15)" : "#111111",
                 borderColor: showFilters ? "#1B6BDE" : "rgba(27, 107, 222, 0.2)",
                 color: showFilters ? "#4DA3FF" : "#94A3B8",
               }}
@@ -115,7 +115,7 @@ function ShopContent() {
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
                 className="appearance-none pl-4 pr-8 py-2.5 rounded-xl text-sm text-gray-300 border border-blue-900/30 focus:outline-none cursor-pointer"
-                style={{ background: "#0A1628" }}
+                style={{ background: "#111111" }}
               >
                 <option value="popular">Most Popular</option>
                 <option value="price-asc">Price: Low to High</option>
@@ -133,7 +133,7 @@ function ShopContent() {
         {showFilters && (
           <div
             className="mb-6 p-5 rounded-2xl border border-blue-900/20"
-            style={{ background: "#0A1628" }}
+            style={{ background: "#111111" }}
           >
             <div className="flex flex-wrap gap-4 items-center">
               {/* Goals */}
@@ -195,7 +195,7 @@ function ShopContent() {
 
 export default function ShopPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen" style={{ background: "#020810" }} />}>
+    <Suspense fallback={<div className="min-h-screen" style={{ background: "#000000" }} />}>
       <ShopContent />
     </Suspense>
   );

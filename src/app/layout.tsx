@@ -5,7 +5,6 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { CartProvider } from "@/context/CartContext";
 import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
-import ResearchBanner from "@/components/ResearchBanner";
 import AgeGate from "@/components/AgeGate";
 import Footer from "@/components/Footer";
 
@@ -47,10 +46,9 @@ export default function RootLayout({
   return (
     <ClerkProvider afterSignOutUrl="/" signInUrl="/sign-in" signUpUrl="/sign-up">
       <html lang="en" className={`${rajdhani.variable} ${inter.variable} h-full`}>
-        <body className="min-h-full flex flex-col" style={{ background: "#080808" }}>
+        <body className="min-h-full flex flex-col" style={{ background: "#000000" }}>
           <CartProvider>
             <AgeGate />
-            <ResearchBanner />
             <Navbar />
             <main className="flex-1">{children}</main>
             <Footer />

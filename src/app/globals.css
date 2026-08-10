@@ -23,7 +23,7 @@
 }
 
 :root {
-  --background: #080808;
+  --background: #000000;
   --foreground: #F2EFE8;
 }
 
@@ -37,7 +37,16 @@ body {
   font-family: var(--font-inter), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  line-height: 1.6;
 }
+
+/* Hide scrollbar utility */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Lineup scroll — hide webkit scrollbar via inline styles + this */
+[data-lineup-scroll]::-webkit-scrollbar { display: none; }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-rajdhani), system-ui, sans-serif;

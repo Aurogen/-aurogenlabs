@@ -34,7 +34,7 @@ export default function OrderSuccessPage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center py-16 px-4" style={{ background: "#020810" }}>
+    <div className="min-h-screen flex flex-col items-center justify-center py-16 px-4" style={{ background: "#000000" }}>
 
       {/* Glow bg */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
@@ -110,7 +110,7 @@ export default function OrderSuccessPage() {
         {/* Order card */}
         <motion.div
           className="rounded-2xl border border-blue-900/30 overflow-hidden mb-6"
-          style={{ background: "#0A1628" }}
+          style={{ background: "#111111" }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
@@ -199,7 +199,7 @@ export default function OrderSuccessPage() {
           <Link
             href="/shop"
             className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold text-gray-300 text-sm border border-blue-900/30 hover:border-blue-600/50 transition-colors"
-            style={{ background: "#0A1628" }}
+            style={{ background: "#111111" }}
           >
             <ShoppingBag className="w-4 h-4" />
             CONTINUE SHOPPING

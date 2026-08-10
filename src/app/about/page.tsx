@@ -38,7 +38,7 @@ const VALUES = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#020810" }}>
+    <div className="min-h-screen py-16 px-4" style={{ background: "#000000" }}>
       <div className="max-w-4xl mx-auto">
 
         {/* Hero */}
@@ -55,7 +55,7 @@ export default function AboutPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
           {STATS.map((s) => (
-            <div key={s.label} className="p-6 rounded-2xl border border-blue-900/20 text-center" style={{ background: "#0A1628" }}>
+            <div key={s.label} className="p-6 rounded-2xl border border-blue-900/20 text-center" style={{ background: "#111111" }}>
               <p className="text-3xl font-bold text-blue-400 mb-1" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>{s.value}</p>
               <p className="text-gray-500 text-xs">{s.label}</p>
             </div>
@@ -63,7 +63,7 @@ export default function AboutPage() {
         </div>
 
         {/* Story */}
-        <div className="mb-16 p-8 rounded-2xl border border-blue-900/20" style={{ background: "#0A1628" }}>
+        <div className="mb-16 p-8 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
           <h2 className="text-white font-bold text-2xl mb-5" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
             OUR STORY
           </h2>
@@ -87,7 +87,7 @@ export default function AboutPage() {
           </h2>
           <div className="grid md:grid-cols-2 gap-5">
             {VALUES.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="p-6 rounded-2xl border border-blue-900/20" style={{ background: "#0A1628" }}>
+              <div key={title} className="p-6 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: "rgba(27,107,222,0.1)" }}>
                     <Icon className="w-5 h-5 text-blue-400" />

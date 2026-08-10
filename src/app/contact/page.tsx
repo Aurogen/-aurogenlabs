@@ -24,7 +24,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#020810" }}>
+    <div className="min-h-screen py-16 px-4" style={{ background: "#000000" }}>
       <div className="max-w-4xl mx-auto">
 
         {/* Header */}
@@ -51,7 +51,7 @@ export default function ContactPage() {
               { icon: Clock, label: "Response Time", value: "Within 1–2 business days" },
               { icon: Mail, label: "Order Support", value: "Reference your order number" },
             ].map(({ icon: Icon, label, value }) => (
-              <div key={label} className="p-5 rounded-2xl border border-blue-900/20" style={{ background: "#0A1628" }}>
+              <div key={label} className="p-5 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
                 <div className="flex items-start gap-3">
                   <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ background: "rgba(27,107,222,0.1)" }}>
                     <Icon className="w-4 h-4 text-blue-400" />
@@ -71,7 +71,7 @@ export default function ContactPage() {
 
           {/* Form */}
           <div className="md:col-span-2">
-            <div className="p-7 rounded-2xl border border-blue-900/20" style={{ background: "#0A1628" }}>
+            <div className="p-7 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
               <AnimatePresence mode="wait">
                 {sent ? (
                   <motion.div

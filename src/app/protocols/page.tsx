@@ -60,9 +60,9 @@ const PROTOCOLS = [
 
 export default function ProtocolsPage() {
   return (
-    <div className="min-h-screen" style={{ background: "#020810" }}>
+    <div className="min-h-screen" style={{ background: "#000000" }}>
       {/* Header */}
-      <div className="relative py-16 px-4 text-center" style={{ background: "linear-gradient(180deg, #0A1628, #020810)", borderBottom: "1px solid rgba(27, 107, 222, 0.15)" }}>
+      <div className="relative py-16 px-4 text-center" style={{ background: "linear-gradient(180deg, #111111, #000000)", borderBottom: "1px solid rgba(27, 107, 222, 0.15)" }}>
         <p className="text-blue-400 text-xs font-medium tracking-[0.3em] uppercase mb-3">Research library</p>
         <h1 className="text-white text-5xl lg:text-6xl font-bold mb-4" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>PROTOCOLS</h1>
         <p className="text-gray-400 max-w-xl mx-auto">
@@ -76,7 +76,7 @@ export default function ProtocolsPage() {
             <div
               key={p.name}
               className="group p-6 rounded-2xl border border-blue-900/20 hover:border-blue-600/30 transition-all cursor-pointer"
-              style={{ background: "#0A1628" }}
+              style={{ background: "#111111" }}
             >
               <div className="flex items-start justify-between gap-3 mb-3">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(27, 107, 222, 0.1)" }}>

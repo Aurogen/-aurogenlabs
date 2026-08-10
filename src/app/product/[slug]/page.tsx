@@ -80,7 +80,7 @@ export default function ProductPage({ params }: Props) {
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: "#020810" }}>
+    <div className="min-h-screen" style={{ background: "#000000" }}>
       <div className="max-w-7xl mx-auto px-4 py-10">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm text-gray-500 mb-8">
@@ -212,7 +212,7 @@ export default function ProductPage({ params }: Props) {
             {/* Qty + Add */}
             {resolvedProduct.inStock ? (
               <div className="flex gap-3 mb-3">
-                <div className="flex items-center rounded-xl border border-blue-900/30" style={{ background: "#0A1628" }}>
+                <div className="flex items-center rounded-xl border border-blue-900/30" style={{ background: "#111111" }}>
                   <button onClick={() => setQty(Math.max(1, qty - 1))} className="px-3 py-3 text-gray-400 hover:text-white transition-colors">−</button>
                   <span className="px-3 text-white font-medium min-w-8 text-center">{qty}</span>
                   <button onClick={() => setQty(qty + 1)} className="px-3 py-3 text-gray-400 hover:text-white transition-colors">+</button>
@@ -245,7 +245,7 @@ export default function ProductPage({ params }: Props) {
             </button>
 
             {/* ── Inline Dosing Calculator ── */}
-            <div className="rounded-2xl border border-blue-600/20 overflow-hidden" style={{ background: "#0A1628" }}>
+            <div className="rounded-2xl border border-blue-600/20 overflow-hidden" style={{ background: "#111111" }}>
               <div className="px-5 py-3 border-b border-blue-900/20 flex items-center gap-2" style={{ background: "rgba(27,107,222,0.07)" }}>
                 <Calculator className="w-4 h-4 text-blue-400" />
                 <h3 className="text-white font-bold text-sm" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
@@ -351,7 +351,7 @@ export default function ProductPage({ params }: Props) {
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.25 }}
               className="p-6 rounded-2xl border border-blue-900/20"
-              style={{ background: "#0A1628" }}
+              style={{ background: "#111111" }}
             >
               {/* Description */}
               {activeTab === "desc" && (
@@ -662,7 +662,7 @@ function ProductDetailVial() {
         </linearGradient>
         <linearGradient id="dlabel" x1="44" y1="55" x2="116" y2="145" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#0F2040" />
-          <stop offset="100%" stopColor="#0A1628" />
+          <stop offset="100%" stopColor="#111111" />
         </linearGradient>
       </defs>
     </svg>

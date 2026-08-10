@@ -74,7 +74,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen py-10" style={{ background: "#020810" }}>
+    <div className="min-h-screen py-10" style={{ background: "#000000" }}>
       <div className="max-w-5xl mx-auto px-4">
 
         {/* Header */}
@@ -94,7 +94,7 @@ export default function CheckoutPage() {
           <div className="lg:col-span-3 space-y-6">
 
             {/* Contact */}
-            <div className="p-6 rounded-2xl border border-blue-900/20" style={{ background: "#0A1628" }}>
+            <div className="p-6 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
               <h2 className="text-white font-bold text-lg mb-4" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
                 CONTACT INFORMATION
               </h2>
@@ -136,7 +136,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Shipping */}
-            <div className="p-6 rounded-2xl border border-blue-900/20" style={{ background: "#0A1628" }}>
+            <div className="p-6 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
               <h2 className="text-white font-bold text-lg mb-4" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
                 SHIPPING ADDRESS
               </h2>
@@ -187,7 +187,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Payment - WHOP coming */}
-            <div className="p-6 rounded-2xl border border-blue-600/20" style={{ background: "#0A1628" }}>
+            <div className="p-6 rounded-2xl border border-blue-600/20" style={{ background: "#111111" }}>
               <h2 className="text-white font-bold text-lg mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
                 PAYMENT
               </h2>
@@ -225,7 +225,7 @@ export default function CheckoutPage() {
 
           {/* Right: Summary */}
           <div className="lg:col-span-2">
-            <div className="sticky top-24 p-6 rounded-2xl border border-blue-900/20" style={{ background: "#0A1628" }}>
+            <div className="sticky top-24 p-6 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
               <h2 className="text-white font-bold text-lg mb-4" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
                 ORDER SUMMARY
               </h2>

@@ -48,7 +48,7 @@ const SECTIONS = [
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#020810" }}>
+    <div className="min-h-screen py-16 px-4" style={{ background: "#000000" }}>
       <div className="max-w-3xl mx-auto">
 
         <div className="mb-12">

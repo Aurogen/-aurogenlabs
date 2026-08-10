@@ -9,7 +9,7 @@ export default function CartPage() {
 
   if (state.items.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-6" style={{ background: "#020810" }}>
+      <div className="min-h-screen flex flex-col items-center justify-center gap-6" style={{ background: "#000000" }}>
         <div className="w-24 h-24 rounded-3xl flex items-center justify-center border border-blue-900/30" style={{ background: "rgba(27, 107, 222, 0.05)" }}>
           <ShoppingCart className="w-10 h-10 text-gray-600" />
         </div>
@@ -26,7 +26,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen py-10" style={{ background: "#020810" }}>
+    <div className="min-h-screen py-10" style={{ background: "#000000" }}>
       <div className="max-w-6xl mx-auto px-4">
         <h1 className="text-white text-4xl font-bold mb-8" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
           CART <span className="text-gray-600 text-2xl font-normal">({totalItems} items)</span>
@@ -36,7 +36,7 @@ export default function CartPage() {
           {/* Items */}
           <div className="lg:col-span-2 space-y-4">
             {state.items.map((item) => (
-              <div key={item.product.id} className="flex gap-4 p-5 rounded-2xl border border-blue-900/20" style={{ background: "#0A1628" }}>
+              <div key={item.product.id} className="flex gap-4 p-5 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
                 {/* Image */}
                 <div className="w-20 h-20 rounded-xl shrink-0 flex items-center justify-center border border-blue-900/30" style={{ background: "linear-gradient(135deg, #050D1A, #0F2040)" }}>
                   <svg width="32" height="44" viewBox="0 0 32 44" fill="none">
@@ -95,7 +95,7 @@ export default function CartPage() {
 
           {/* Order summary */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24 p-6 rounded-2xl border border-blue-900/20" style={{ background: "#0A1628" }}>
+            <div className="sticky top-24 p-6 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
               <h2 className="text-white font-bold text-lg mb-5" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>ORDER SUMMARY</h2>
 
               <div className="space-y-3 mb-5">

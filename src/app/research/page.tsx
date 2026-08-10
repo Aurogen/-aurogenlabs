@@ -83,12 +83,12 @@ const RECON_STEPS = [
 
 export default function ResearchPage() {
   return (
-    <div className="min-h-screen" style={{ background: "#020810" }}>
+    <div className="min-h-screen" style={{ background: "#000000" }}>
       {/* Header */}
       <div
         className="relative py-16 px-4 text-center border-b"
         style={{
-          background: "linear-gradient(180deg, #0A1628, #020810)",
+          background: "linear-gradient(180deg, #111111, #000000)",
           borderColor: "rgba(27, 107, 222, 0.15)",
         }}
       >
@@ -114,7 +114,7 @@ export default function ResearchPage() {
               key={r.title}
               href={r.href}
               className="group p-6 rounded-2xl border border-blue-900/20 hover:border-blue-600/30 transition-all"
-              style={{ background: "#0A1628" }}
+              style={{ background: "#111111" }}
             >
               <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
@@ -137,7 +137,7 @@ export default function ResearchPage() {
         <div
           id="reconstitution"
           className="p-8 rounded-2xl border border-blue-600/20"
-          style={{ background: "#0A1628" }}
+          style={{ background: "#111111" }}
         >
           <h2
             className="text-white text-3xl font-bold mb-6"

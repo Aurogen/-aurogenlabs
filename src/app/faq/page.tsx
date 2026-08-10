@@ -84,7 +84,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   return (
     <div
       className="border border-blue-900/20 rounded-xl overflow-hidden cursor-pointer"
-      style={{ background: "#0A1628" }}
+      style={{ background: "#111111" }}
       onClick={() => setOpen(!open)}
     >
       <div className="flex items-center justify-between px-5 py-4 gap-4">
@@ -113,7 +113,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 export default function FaqPage() {
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#020810" }}>
+    <div className="min-h-screen py-16 px-4" style={{ background: "#000000" }}>
       <div className="max-w-3xl mx-auto">
 
         <div className="mb-12">

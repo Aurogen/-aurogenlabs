@@ -45,12 +45,12 @@ const SPECS = [
 
 export default function QualityPage() {
   return (
-    <div className="min-h-screen" style={{ background: "#020810", color: "#E8EDF5" }}>
+    <div className="min-h-screen" style={{ background: "#000000", color: "#E8EDF5" }}>
       {/* Hero */}
       <section
         className="relative py-24 px-4 text-center border-b"
         style={{
-          background: "linear-gradient(180deg, #0A1628 0%, #020810 100%)",
+          background: "linear-gradient(180deg, #111111 0%, #000000 100%)",
           borderColor: "rgba(27, 107, 222, 0.15)",
         }}
       >
