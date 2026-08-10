@@ -59,21 +59,21 @@ function ShopContent() {
       <div
         className="py-14 px-4 text-center"
         style={{
-          background: "#1C1C1E",
-          borderBottom: "1px solid rgba(255,255,255,0.06)",
+          background: "#FFFFFF",
+          borderBottom: "1px solid rgba(0,0,0,0.08)",
         }}
       >
-        <p className="text-xs font-semibold tracking-[0.28em] uppercase mb-3" style={{ color: "rgba(245,245,247,0.5)" }}>
+        <p className="text-xs font-semibold tracking-[0.28em] uppercase mb-3" style={{ color: "#9E9EA8" }}>
           Research compounds
         </p>
         <h1
           className="font-bold"
-          style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(36px, 6vw, 72px)", letterSpacing: "-0.01em", color: "#F6F6F8" }}
+          style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(36px, 6vw, 72px)", letterSpacing: "-0.01em", color: "#1D1D1F" }}
         >
           {selectedGoal ? selectedGoal : "All Peptides"}
         </h1>
         {selectedGoal && (
-          <button onClick={() => setSelectedGoal(null)} className="mt-3 text-sm flex items-center gap-1 mx-auto transition-colors" style={{ color: "rgba(255,255,255,0.45)" }}>
+          <button onClick={() => setSelectedGoal(null)} className="mt-3 text-sm flex items-center gap-1 mx-auto transition-colors" style={{ color: "#9E9EA8" }}>
             <X className="w-3 h-3" /> Clear filter
           </button>
         )}

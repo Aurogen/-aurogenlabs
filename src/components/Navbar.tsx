@@ -79,8 +79,9 @@ export default function Navbar() {
                 </Link>
 
                 {link.sub && activeDropdown === link.label && (
+                  <div className="absolute top-full left-0 w-52 pt-1">
                   <div
-                    className="absolute top-full left-0 w-52 rounded-xl overflow-hidden shadow-xl mt-1"
+                    className="rounded-xl overflow-hidden shadow-xl"
                     style={{
                       background: "rgba(251,251,253,0.96)",
                       backdropFilter: "blur(20px)",
@@ -108,6 +109,7 @@ export default function Navbar() {
                         {item}
                       </Link>
                     ))}
+                  </div>
                   </div>
                 )}
               </div>
