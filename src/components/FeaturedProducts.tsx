@@ -35,20 +35,14 @@ export default function FeaturedProducts() {
         </div>
 
         {/* CTA bar */}
-        <div
-          className="mt-12 rounded-2xl p-8 text-center"
-          style={{
-            background: "linear-gradient(135deg, rgba(201, 146, 42, 0.06), rgba(18, 14, 8, 0.9))",
-            border: "1px solid rgba(201, 146, 42, 0.18)",
-          }}
-        >
-          <p className="text-white font-bold text-xl mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-            100+ PEPTIDES AVAILABLE
+        <div className="mt-16 text-center">
+          <p className="text-white font-bold text-3xl mb-3" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
+            100+ Peptide Compounds
           </p>
-          <p className="text-gray-400 mb-5 text-sm">Explore our full catalog of research-grade compounds</p>
+          <p className="text-gray-500 mb-7 text-sm max-w-md mx-auto">Explore our complete catalog of research-grade compounds, all third-party tested.</p>
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 px-8 py-3 rounded-xl font-bold text-white transition-all hover:scale-105"
+            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl font-bold text-white transition-all hover:opacity-90 hover:scale-105"
             style={{ background: "linear-gradient(135deg, #C9922A, #D4A03A)" }}
           >
             VIEW FULL CATALOG

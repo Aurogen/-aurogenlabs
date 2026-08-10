@@ -129,7 +129,7 @@ export default function ProductPage({ params }: Props) {
               {[
                 { label: "Third-Party Tested", icon: CheckCircle },
                 { label: resolvedProduct.purity + " Purity", icon: FlaskConical },
-                { label: "Made in USA", icon: Package },
+                { label: "COA Verified", icon: FileText },
               ].map(({ label, icon: Icon }) => (
                 <div key={label} className="flex flex-col items-center gap-1.5 p-3 rounded-xl border border-blue-900/20 text-center" style={{ background: "rgba(15,32,64,0.4)" }}>
                   <Icon className="w-4 h-4 text-blue-400" />

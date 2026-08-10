@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useUser } from "@clerk/nextjs";
 import { X, Bell, Mail, Phone, CheckCircle2 } from "lucide-react";
 
 interface Props {
@@ -9,7 +10,10 @@ interface Props {
 }
 
 export default function NotifyModal({ productName, onClose }: Props) {
-  const [email, setEmail] = useState("");
+  const { user } = useUser();
+  const userEmail = user?.emailAddresses[0]?.emailAddress ?? "";
+
+  const [email, setEmail] = useState(userEmail);
   const [phone, setPhone] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -37,15 +41,15 @@ export default function NotifyModal({ productName, onClose }: Props) {
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" onClick={onClose} />
 
       <div
-        className="relative w-full max-w-md rounded-2xl overflow-hidden border border-blue-600/30 shadow-2xl"
-        style={{ background: "#0A1628" }}
+        className="relative w-full max-w-md rounded-2xl overflow-hidden shadow-2xl"
+        style={{ background: "#161616", border: "1px solid rgba(201,146,42,0.2)" }}
       >
-        <div className="h-0.5 bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
+        <div className="h-0.5" style={{ background: "linear-gradient(90deg, transparent, #C9922A, transparent)" }} />
 
         <div className="p-6">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-blue-600/10"
+            className="absolute top-4 right-4 w-8 h-8 rounded-lg flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/5 transition-colors"
           >
             <X className="w-4 h-4" />
           </button>
@@ -55,9 +59,9 @@ export default function NotifyModal({ productName, onClose }: Props) {
               <div className="flex items-center gap-3 mb-5">
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center"
-                  style={{ background: "rgba(27, 107, 222, 0.15)" }}
+                  style={{ background: "rgba(201,146,42,0.1)", border: "1px solid rgba(201,146,42,0.2)" }}
                 >
-                  <Bell className="w-6 h-6 text-blue-400" />
+                  <Bell className="w-6 h-6" style={{ color: "#C9922A" }} />
                 </div>
                 <div>
                   <h3 className="text-white font-bold text-lg" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
@@ -68,10 +72,10 @@ export default function NotifyModal({ productName, onClose }: Props) {
               </div>
 
               <div
-                className="mb-5 p-3 rounded-xl border border-blue-900/30"
-                style={{ background: "rgba(27, 107, 222, 0.05)" }}
+                className="mb-5 p-3 rounded-xl"
+                style={{ background: "rgba(201,146,42,0.05)", border: "1px solid rgba(201,146,42,0.15)" }}
               >
-                <p className="text-blue-300 text-sm text-center font-medium">{productName}</p>
+                <p className="text-sm text-center font-medium" style={{ color: "#C9922A" }}>{productName}</p>
                 <p className="text-gray-500 text-xs text-center mt-0.5">Out of stock · Restock estimated soon</p>
               </div>
 
@@ -83,12 +87,22 @@ export default function NotifyModal({ productName, onClose }: Props) {
                     <input
                       type="email"
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      onChange={(e) => !userEmail && setEmail(e.target.value)}
+                      readOnly={!!userEmail}
                       placeholder="you@email.com"
                       required
-                      className="w-full pl-10 pr-4 py-3 rounded-xl text-sm text-white placeholder-gray-600 border border-blue-900/30 focus:border-blue-500 focus:outline-none transition-colors"
-                      style={{ background: "#050D1A" }}
+                      className="w-full pl-10 pr-20 py-3 rounded-xl text-sm text-white placeholder-gray-600 focus:outline-none transition-colors"
+                      style={{
+                        background: "#222222",
+                        border: "1px solid rgba(201,146,42,0.25)",
+                        cursor: userEmail ? "default" : "text",
+                      }}
                     />
+                    {userEmail && (
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] tracking-wide font-medium" style={{ color: "#C9922A" }}>
+                        AUTO-FILLED
+                      </span>
+                    )}
                   </div>
                 </div>
 
@@ -103,8 +117,8 @@ export default function NotifyModal({ productName, onClose }: Props) {
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="+1 (555) 000-0000"
-                      className="w-full pl-10 pr-4 py-3 rounded-xl text-sm text-white placeholder-gray-600 border border-blue-900/30 focus:border-blue-500 focus:outline-none transition-colors"
-                      style={{ background: "#050D1A" }}
+                      className="w-full pl-10 pr-4 py-3 rounded-xl text-sm text-white placeholder-gray-600 focus:outline-none transition-colors"
+                      style={{ background: "#222222", border: "1px solid rgba(201,146,42,0.15)" }}
                     />
                   </div>
                 </div>
@@ -112,8 +126,8 @@ export default function NotifyModal({ productName, onClose }: Props) {
                 <button
                   type="submit"
                   disabled={loading || !email}
-                  className="w-full py-3 rounded-xl font-bold text-white transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
-                  style={{ background: "linear-gradient(135deg, #1B6BDE, #2B7FEF)" }}
+                  className="w-full py-3 rounded-xl font-bold text-white transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+                  style={{ background: "linear-gradient(135deg, #C9922A, #D4A03A)" }}
                 >
                   {loading ? "Registering..." : "Notify me when available"}
                 </button>
@@ -125,17 +139,20 @@ export default function NotifyModal({ productName, onClose }: Props) {
             </>
           ) : (
             <div className="py-8 text-center">
-              <CheckCircle2 className="w-16 h-16 text-green-400 mx-auto mb-4" />
+              <CheckCircle2 className="w-16 h-16 mx-auto mb-4" style={{ color: "#C9922A" }} />
               <h3 className="text-white font-bold text-xl mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
                 You&apos;re on the list!
               </h3>
               <p className="text-gray-400 text-sm mb-1">
-                We&apos;ll email you as soon as <span className="text-blue-300">{productName}</span> is back in stock.
+                We&apos;ll email you as soon as{" "}
+                <span className="font-medium" style={{ color: "#C9922A" }}>{productName}</span>{" "}
+                is back in stock.
               </p>
               <p className="text-gray-500 text-xs mb-6">Check your inbox to confirm your notification.</p>
               <button
                 onClick={onClose}
-                className="px-6 py-2.5 rounded-xl text-sm font-semibold text-white border border-blue-600/40 hover:border-blue-400 transition-colors"
+                className="px-6 py-2.5 rounded-xl text-sm font-semibold text-white border transition-colors hover:border-white/20"
+                style={{ borderColor: "rgba(201,146,42,0.3)" }}
               >
                 Close
               </button>

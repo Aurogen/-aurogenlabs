@@ -67,25 +67,17 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
               <div
                 className="relative h-52 flex items-center justify-center overflow-hidden"
                 style={{
-                  background: "linear-gradient(135deg, #060606 0%, #0E0E0E 50%, #060606 100%)",
+                  background: "#0A0A0A",
                   borderBottom: "1px solid rgba(201, 146, 42, 0.08)",
                 }}
               >
-                {/* Animated background radial */}
-                <motion.div
-                  className="absolute inset-0"
+                {/* Subtle ambient glow */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
                   style={{
-                    background: "radial-gradient(ellipse at center, rgba(201, 146, 42, 0.07) 0%, transparent 70%)",
+                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201, 146, 42, 0.05) 0%, transparent 100%)",
                   }}
-                  animate={{ opacity: [0.4, 0.9, 0.4] }}
-                  transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
                 />
-
-                {/* Vertical accent lines */}
-                <div className="absolute inset-0 overflow-hidden opacity-10">
-                  <div className="absolute top-0 left-1/3 w-px h-full bg-gradient-to-b from-transparent via-amber-600 to-transparent" />
-                  <div className="absolute top-0 right-1/3 w-px h-full bg-gradient-to-b from-transparent via-amber-500 to-transparent" />
-                </div>
 
                 {/* 3D floating vial */}
                 <motion.div

@@ -18,7 +18,6 @@ const LINKS = {
   Company: [
     { label: "About Us", href: "/about" },
     { label: "Quality & Testing", href: "/quality" },
-    { label: "Affiliate Program", href: "/affiliates" },
     { label: "Contact", href: "/contact" },
   ],
   Support: [
@@ -60,7 +59,7 @@ export default function Footer() {
             <p className="text-gray-500 text-xs leading-relaxed mb-4">
               Engineering the Future of Peptide Research. Premium compounds for advanced scientific investigation.
             </p>
-            <p className="text-gray-600 text-[11px]">🇺🇸 Made in USA · COA Available</p>
+            <p className="text-gray-600 text-[11px]">COA Available · cGMP Certified</p>
           </div>
 
           {/* Nav columns */}

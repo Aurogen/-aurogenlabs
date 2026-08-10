@@ -1,4 +1,4 @@
-import { FlaskConical, ShieldCheck, Award, Microscope, Truck, HeartHandshake } from "lucide-react";
+import { FlaskConical, ShieldCheck, Microscope, Truck, HeartHandshake } from "lucide-react";
 
 const FEATURES = [
   {
@@ -12,12 +12,6 @@ const FEATURES = [
     title: "99%+ Purity",
     desc: "HPLC-verified purity guaranteed across all compounds. Batches below threshold are rejected.",
     color: "#F0B429",
-  },
-  {
-    icon: Award,
-    title: "Made in USA",
-    desc: "Manufactured in FDA-registered US facilities under cGMP-compliant conditions.",
-    color: "#D4A03A",
   },
   {
     icon: Microscope,
@@ -58,7 +52,7 @@ export default function TrustSection() {
         </div>
 
         {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
           {FEATURES.map((f) => (
             <div
               key={f.title}

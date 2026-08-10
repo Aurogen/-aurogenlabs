@@ -87,7 +87,7 @@ export async function sendOrderConfirmation(to: string, order: {
     <!-- Footer -->
     <div style="text-align:center;padding-top:20px;border-top:1px solid #1a2e4a;">
       <p style="color:#334155;font-size:12px;margin:0;">© 2025 Aurogen Labs · All rights reserved</p>
-      <p style="color:#334155;font-size:11px;margin:6px 0 0;">🇺🇸 Made in USA · COA Available on every product</p>
+      <p style="color:#334155;font-size:11px;margin:6px 0 0;">COA Available on every product</p>
     </div>
   </div>
 </body>

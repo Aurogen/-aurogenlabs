@@ -9,7 +9,7 @@ const BADGES = [
   { icon: Shield, label: "Third-Party Tested" },
   { icon: FlaskConical, label: "99%+ Purity" },
   { icon: Award, label: "Batch Verified" },
-  { icon: Truck, label: "Ships 2-5 Days USA" },
+  { icon: Truck, label: "Ships 2–5 Business Days" },
 ];
 
 const VIAL_COLORS = ["#C9922A", "#10B981", "#B45309", "#8B5CF6"];
@@ -27,41 +27,13 @@ export default function Hero() {
       className="relative min-h-[92vh] flex flex-col justify-center overflow-hidden"
       style={{ background: "linear-gradient(180deg, #040404 0%, #080808 50%, #0F0F0F 100%)" }}
     >
-      {/* Subtle noise texture overlay */}
-      <motion.div
+      {/* Subtle ambient glow */}
+      <div
         className="absolute inset-0 pointer-events-none"
-        style={{ opacity: 0.015, y: bgY }}
-      >
-        <div
-          style={{
-            backgroundImage: "linear-gradient(rgba(201,146,42,1) 1px, transparent 1px), linear-gradient(90deg, rgba(201,146,42,1) 1px, transparent 1px)",
-            backgroundSize: "80px 80px",
-            width: "100%",
-            height: "120%",
-          }}
-        />
-      </motion.div>
-
-      {/* Warm amber orb — top left */}
-      <motion.div
-        className="absolute top-1/4 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(201, 146, 42, 0.07) 0%, transparent 70%)", filter: "blur(60px)" }}
-        animate={{ scale: [1, 1.15, 1], opacity: [0.5, 0.85, 0.5] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+        style={{
+          background: "radial-gradient(ellipse 80% 50% at 50% 0%, rgba(201,146,42,0.05) 0%, transparent 100%)",
+        }}
       />
-      {/* Soft warm orb — bottom right */}
-      <motion.div
-        className="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(240, 180, 41, 0.04) 0%, transparent 70%)", filter: "blur(50px)" }}
-        animate={{ scale: [1, 1.25, 1], opacity: [0.4, 0.8, 0.4] }}
-        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-      />
-
-      {/* Vertical accent lines — gold */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 right-16 w-px h-full opacity-[0.06]" style={{ background: "linear-gradient(180deg, transparent, #F0B429 30%, #C9922A 70%, transparent)" }} />
-        <div className="absolute top-0 right-32 w-px h-full opacity-[0.03]" style={{ background: "linear-gradient(180deg, transparent, #F0B429, transparent)" }} />
-      </div>
 
       <div className="relative max-w-7xl mx-auto px-4 py-20 w-full">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
@@ -73,17 +45,10 @@ export default function Hero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] }}
-              className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border"
-              style={{ background: "rgba(201, 146, 42, 0.06)", borderColor: "rgba(201, 146, 42, 0.25)" }}
+              className="inline-flex items-center gap-2 mb-6"
             >
-              <motion.span
-                className="w-2 h-2 rounded-full"
-                style={{ background: "#C9922A" }}
-                animate={{ scale: [1, 1.3, 1], opacity: [0.7, 1, 0.7] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              />
-              <span className="text-xs font-medium tracking-widest uppercase" style={{ color: "#C9922A" }}>
-                Premium Quality Peptides
+              <span className="text-xs font-semibold tracking-[0.25em] uppercase" style={{ color: "#C9922A" }}>
+                Research-Grade Peptides
               </span>
             </motion.div>
 
@@ -99,19 +64,9 @@ export default function Hero() {
               <br />
               <span style={{ color: "#F2EFE8" }}>THE FUTURE OF</span>
               <br />
-              <motion.span
-                style={{
-                  background: "linear-gradient(90deg, #C9922A, #F0B429, #C9922A)",
-                  backgroundSize: "200% auto",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-                animate={{ backgroundPosition: ["0% center", "200% center"] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
-              >
+              <span style={{ color: "#C9922A" }}>
                 PEPTIDE RESEARCH
-              </motion.span>
+              </span>
             </motion.h1>
 
             {/* Subtitle */}
@@ -122,7 +77,7 @@ export default function Hero() {
             >
               <p className="text-gray-300 text-lg mb-2 font-medium">Pure. Tested. Trusted.</p>
               <p className="text-gray-500 text-sm mb-8 max-w-lg leading-relaxed">
-                Highest-purity research peptides manufactured in US-certified facilities.
+                Highest-purity research peptides manufactured in cGMP-certified facilities.
                 For laboratory and scientific research use only.
               </p>
             </motion.div>
@@ -305,14 +260,14 @@ function HeroVials3D() {
         style={{
           background: "rgba(14, 12, 8, 0.92)",
           backdropFilter: "blur(12px)",
-          border: "1px solid rgba(16, 185, 129, 0.2)",
+          border: "1px solid rgba(201, 146, 42, 0.2)",
         }}
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 1.2, duration: 0.6 }}
       >
-        <p className="text-green-400 font-bold text-base">US Made</p>
-        <p className="text-gray-400 text-xs">cGMP Certified</p>
+        <p className="font-bold text-base" style={{ color: "#C9922A" }}>cGMP</p>
+        <p className="text-gray-400 text-xs">Certified Facility</p>
       </motion.div>
     </div>
   );

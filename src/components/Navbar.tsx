@@ -18,7 +18,6 @@ const NAV_LINKS = [
   { label: "Shop by Compound", href: "/shop" },
   { label: "Protocols", href: "/protocols" },
   { label: "Research Center", href: "/research" },
-  { label: "Affiliates", href: "/affiliates" },
 ];
 
 export default function Navbar() {
