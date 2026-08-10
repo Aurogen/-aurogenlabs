@@ -70,7 +70,7 @@ function ShopContent() {
           className="font-bold"
           style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(36px, 6vw, 72px)", letterSpacing: "-0.01em", color: "#EEEAE2" }}
         >
-          {selectedGoal ? selectedGoal.toUpperCase() : "ALL PEPTIDES"}
+          {selectedGoal ? selectedGoal : "All Peptides"}
         </h1>
         {selectedGoal && (
           <button onClick={() => setSelectedGoal(null)} className="mt-3 text-sm flex items-center gap-1 mx-auto transition-colors" style={{ color: "rgba(255,255,255,0.45)" }}>

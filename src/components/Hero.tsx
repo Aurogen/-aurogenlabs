@@ -49,7 +49,7 @@ export default function Hero() {
             className="font-bold leading-[1.0] mb-6 tracking-tight"
             style={{
               fontFamily: "var(--font-heading, sans-serif)",
-              fontSize: "clamp(48px, 6vw, 96px)",
+              fontSize: "clamp(54px, 7vw, 110px)",
               color: "#1D1D1F",
             }}
           >

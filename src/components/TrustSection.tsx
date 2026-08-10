@@ -44,7 +44,7 @@ export default function TrustSection() {
             className="text-4xl lg:text-5xl font-bold mb-4"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
-            TRUST &amp; TRANSPARENCY
+            Trust &amp; Transparency
           </h2>
           <p className="max-w-lg mx-auto text-sm" style={{ color: "#6E6E73" }}>
             Our mission is to supply researchers with the purest, most reliable compounds on the market.

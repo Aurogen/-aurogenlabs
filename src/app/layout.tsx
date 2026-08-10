@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Rajdhani, Inter } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { CartProvider } from "@/context/CartContext";
@@ -8,15 +8,17 @@ import CartDrawer from "@/components/CartDrawer";
 import AgeGate from "@/components/AgeGate";
 import Footer from "@/components/Footer";
 
-const rajdhani = Rajdhani({
-  variable: "--font-rajdhani",
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -45,7 +47,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider afterSignOutUrl="/" signInUrl="/sign-in" signUpUrl="/sign-up">
-      <html lang="en" className={`${rajdhani.variable} ${inter.variable} h-full`}>
+      <html lang="en" className={`${cormorant.variable} ${dmSans.variable} h-full`}>
         <body className="min-h-full flex flex-col" style={{ background: "#EEEAE2" }}>
           <CartProvider>
             <AgeGate />
