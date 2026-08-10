@@ -222,7 +222,7 @@ function LineupCard({
           className="font-bold mb-4"
           style={{
             fontSize: "1.4rem",
-            color: "#1D1D1F",
+            color: "#1B7A45",
             fontFamily: "var(--font-body, sans-serif)",
             letterSpacing: "-0.02em",
           }}

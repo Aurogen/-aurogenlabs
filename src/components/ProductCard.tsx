@@ -147,9 +147,9 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
               <div className="flex items-end justify-between mt-auto">
                 <div>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-white font-bold text-2xl">${product.price}</span>
+                    <span className="font-bold text-2xl" style={{ color: "#1B7A45" }}>${product.price}</span>
                     {product.originalPrice && (
-                      <span className="text-gray-600 text-sm line-through">${product.originalPrice}</span>
+                      <span className="text-sm line-through" style={{ color: "#9D9D9D" }}>${product.originalPrice}</span>
                     )}
                   </div>
                   <div className="flex items-center gap-0.5 mt-0.5">
@@ -164,15 +164,10 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                   <motion.button
                     onClick={handleAddToCart}
                     whileTap={{ scale: 0.92 }}
-                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold text-white"
+                    className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-85"
                     style={{
-                      background: added
-                        ? "linear-gradient(135deg, #10B981, #059669)"
-                        : "linear-gradient(135deg, #C9922A, #D4A03A)",
-                      boxShadow: added
-                        ? "0 0 20px rgba(16, 185, 129, 0.25)"
-                        : "0 0 20px rgba(201, 146, 42, 0.25)",
-                      transition: "background 0.3s, box-shadow 0.3s",
+                      background: added ? "#1B7A45" : "#1D1D1F",
+                      transition: "background 0.3s",
                     }}
                   >
                     <ShoppingCart className="w-4 h-4" />
@@ -184,9 +179,9 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                     whileTap={{ scale: 0.92 }}
                     className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl text-sm font-semibold border transition-all"
                     style={{
-                      borderColor: "rgba(201, 146, 42, 0.3)",
-                      color: "#C9922A",
-                      background: "rgba(201, 146, 42, 0.05)",
+                      borderColor: "rgba(0,0,0,0.15)",
+                      color: "#1D1D1F",
+                      background: "rgba(0,0,0,0.04)",
                     }}
                   >
                     <Bell className="w-4 h-4" />
