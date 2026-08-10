@@ -11,11 +11,13 @@ export const metadata: Metadata = {
 };
 import FeaturedProducts from "@/components/FeaturedProducts";
 import TrustSection from "@/components/TrustSection";
+import CredentialsStrip from "@/components/CredentialsStrip";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
+      <CredentialsStrip />
       <FeaturedProducts />
       <TrustSection />
     </>

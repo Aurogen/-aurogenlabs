@@ -26,7 +26,7 @@ export default function FeaturedProducts() {
   }
 
   return (
-    <section className="py-24 overflow-hidden" style={{ background: "#EEEAE2", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
+    <section className="py-24 overflow-hidden" style={{ background: "#F6F6F8", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
       {/* Header */}
       <div className="px-6 md:px-16 mb-12 flex items-end justify-between max-w-[1440px] mx-auto">
         <div>

@@ -35,7 +35,7 @@ const FEATURES = [
 
 export default function TrustSection() {
   return (
-    <section className="py-20 px-4" style={{ background: "#EEEAE2", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
+    <section className="py-20 px-4" style={{ background: "#F6F6F8", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14">

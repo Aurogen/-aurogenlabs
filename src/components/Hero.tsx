@@ -15,7 +15,7 @@ export default function Hero() {
   return (
     <section
       className="relative overflow-hidden flex flex-col"
-      style={{ background: "#EEEAE2", minHeight: "92vh" }}
+      style={{ background: "#F6F6F8", minHeight: "92vh" }}
     >
       {/* Two-column layout */}
       <div className="flex-1 flex items-center w-full max-w-7xl mx-auto px-6 md:px-16 py-20">
@@ -80,14 +80,14 @@ export default function Hero() {
               className="flex items-center gap-2 px-8 py-3.5 rounded-full font-semibold text-white text-sm transition-opacity hover:opacity-85"
               style={{ background: "#1D1D1F" }}
             >
-              Shop Now <ArrowRight className="w-4 h-4" />
+              Browse Catalog <ArrowRight className="w-4 h-4" />
             </Link>
             <Link
-              href="/protocols"
+              href="/research"
               className="px-8 py-3.5 rounded-full font-semibold text-sm transition-colors hover:bg-black/5"
               style={{ border: "1px solid rgba(0,0,0,0.2)", color: "#1D1D1F" }}
             >
-              Explore Protocols
+              Research Center
             </Link>
           </motion.div>
         </div>

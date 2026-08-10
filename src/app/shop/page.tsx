@@ -54,7 +54,7 @@ function ShopContent() {
   }, [search, selectedGoal, sortBy, inStockOnly]);
 
   return (
-    <div className="min-h-screen" style={{ background: "#EEEAE2" }}>
+    <div className="min-h-screen" style={{ background: "#F6F6F8" }}>
       {/* Page header */}
       <div
         className="py-14 px-4 text-center"
@@ -68,7 +68,7 @@ function ShopContent() {
         </p>
         <h1
           className="font-bold"
-          style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(36px, 6vw, 72px)", letterSpacing: "-0.01em", color: "#EEEAE2" }}
+          style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(36px, 6vw, 72px)", letterSpacing: "-0.01em", color: "#F6F6F8" }}
         >
           {selectedGoal ? selectedGoal : "All Peptides"}
         </h1>
@@ -196,7 +196,7 @@ function ShopContent() {
 
 export default function ShopPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen" style={{ background: "#EEEAE2" }} />}>
+    <Suspense fallback={<div className="min-h-screen" style={{ background: "#F6F6F8" }} />}>
       <ShopContent />
     </Suspense>
   );

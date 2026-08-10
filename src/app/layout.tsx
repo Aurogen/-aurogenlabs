@@ -48,7 +48,7 @@ export default function RootLayout({
   return (
     <ClerkProvider afterSignOutUrl="/" signInUrl="/sign-in" signUpUrl="/sign-up">
       <html lang="en" className={`${cormorant.variable} ${dmSans.variable} h-full`}>
-        <body className="min-h-full flex flex-col" style={{ background: "#EEEAE2" }}>
+        <body className="min-h-full flex flex-col" style={{ background: "#F6F6F8" }}>
           <CartProvider>
             <AgeGate />
             <Navbar />
