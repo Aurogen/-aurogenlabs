@@ -46,7 +46,7 @@ export default function RootLayout({
   return (
     <ClerkProvider afterSignOutUrl="/" signInUrl="/sign-in" signUpUrl="/sign-up">
       <html lang="en" className={`${rajdhani.variable} ${inter.variable} h-full`}>
-        <body className="min-h-full flex flex-col" style={{ background: "#696969" }}>
+        <body className="min-h-full flex flex-col" style={{ background: "#F5F5F7" }}>
           <CartProvider>
             <AgeGate />
             <Navbar />

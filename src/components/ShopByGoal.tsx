@@ -70,7 +70,7 @@ const GOAL_CONFIG: Record<
 
 export default function ShopByGoal() {
   return (
-    <section className="py-20 px-4" style={{ background: "#0C0C0C" }}>
+    <section className="py-20 px-4" style={{ background: "#F5F5F7", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
@@ -79,7 +79,7 @@ export default function ShopByGoal() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-xs font-medium tracking-[0.3em] uppercase mb-3"
-            style={{ color: "#C9922A" }}
+            style={{ color: "#6E6E73" }}
           >
             Browse by objective
           </motion.p>
@@ -88,8 +88,8 @@ export default function ShopByGoal() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.07 }}
-            className="text-white text-4xl lg:text-5xl font-bold mb-4"
-            style={{ fontFamily: "var(--font-heading, sans-serif)" }}
+            className="text-4xl lg:text-5xl font-bold mb-4"
+            style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
             SHOP BY GOAL
           </motion.h2>
@@ -98,7 +98,8 @@ export default function ShopByGoal() {
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.14 }}
-            className="text-gray-500 max-w-xl mx-auto"
+            className="max-w-xl mx-auto"
+            style={{ color: "#6E6E73" }}
           >
             Find the right peptide compounds for your specific research objectives
           </motion.p>
@@ -129,7 +130,7 @@ export default function ShopByGoal() {
         >
           <Link
             href="/shop"
-            className="inline-flex items-center gap-2 hover:text-white transition-colors font-medium group"
+            className="inline-flex items-center gap-2 font-medium group transition-opacity hover:opacity-75"
             style={{ color: "#C9922A" }}
           >
             View All Products

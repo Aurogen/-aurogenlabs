@@ -54,7 +54,7 @@ function ShopContent() {
   }, [search, selectedGoal, sortBy, inStockOnly]);
 
   return (
-    <div className="min-h-screen" style={{ background: "#696969" }}>
+    <div className="min-h-screen" style={{ background: "#F5F5F7" }}>
       {/* Page header */}
       <div
         className="py-14 px-4 text-center"
@@ -63,12 +63,12 @@ function ShopContent() {
           borderBottom: "1px solid rgba(255,255,255,0.06)",
         }}
       >
-        <p className="text-xs font-semibold tracking-[0.28em] uppercase mb-3" style={{ color: "#C9922A" }}>
+        <p className="text-xs font-semibold tracking-[0.28em] uppercase mb-3" style={{ color: "rgba(245,245,247,0.5)" }}>
           Research compounds
         </p>
         <h1
-          className="text-white font-bold"
-          style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(36px, 6vw, 72px)", letterSpacing: "-0.01em" }}
+          className="font-bold"
+          style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(36px, 6vw, 72px)", letterSpacing: "-0.01em", color: "#F5F5F7" }}
         >
           {selectedGoal ? selectedGoal.toUpperCase() : "ALL PEPTIDES"}
         </h1>
@@ -90,8 +90,8 @@ function ShopContent() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search peptides, compounds..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm text-white placeholder-white/30 focus:outline-none transition-colors"
-              style={{ background: "#1C1C1E", border: "1px solid rgba(255,255,255,0.12)" }}
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm focus:outline-none transition-colors"
+              style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F" }}
             />
           </div>
 
@@ -101,9 +101,9 @@ function ShopContent() {
               onClick={() => setShowFilters(!showFilters)}
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border transition-all"
               style={{
-                background: showFilters ? "rgba(201,146,42,0.15)" : "#1C1C1E",
-                borderColor: showFilters ? "#C9922A" : "rgba(255,255,255,0.12)",
-                color: showFilters ? "#C9922A" : "rgba(255,255,255,0.6)",
+                background: showFilters ? "rgba(201,146,42,0.12)" : "#FFFFFF",
+                borderColor: showFilters ? "#C9922A" : "rgba(0,0,0,0.12)",
+                color: showFilters ? "#C9922A" : "#6E6E73",
               }}
             >
               <SlidersHorizontal className="w-4 h-4" />
@@ -116,7 +116,7 @@ function ShopContent() {
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
                 className="appearance-none pl-4 pr-8 py-2.5 rounded-xl text-sm focus:outline-none cursor-pointer"
-                style={{ background: "#1C1C1E", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.7)" }}
+                style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F" }}
               >
                 <option value="popular">Most Popular</option>
                 <option value="price-asc">Price: Low to High</option>
@@ -126,7 +126,7 @@ function ShopContent() {
               <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500 pointer-events-none" />
             </div>
 
-            <p className="text-gray-500 text-sm">{filtered.length} products</p>
+            <p className="text-sm" style={{ color: "#6E6E73" }}>{filtered.length} products</p>
           </div>
         </div>
 
@@ -134,7 +134,7 @@ function ShopContent() {
         {showFilters && (
           <div
             className="mb-6 p-5 rounded-2xl"
-            style={{ background: "#1C1C1E", border: "1px solid rgba(255,255,255,0.08)" }}
+            style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
           >
             <div className="flex flex-wrap gap-4 items-center">
               {/* Goals */}
@@ -147,9 +147,9 @@ function ShopContent() {
                       onClick={() => setSelectedGoal(selectedGoal === g.label ? null : g.label)}
                       className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
                       style={{
-                        background: selectedGoal === g.label ? "rgba(201,146,42,0.15)" : "rgba(255,255,255,0.06)",
-                        border: `1px solid ${selectedGoal === g.label ? "#C9922A" : "rgba(255,255,255,0.12)"}`,
-                        color: selectedGoal === g.label ? "#C9922A" : "rgba(255,255,255,0.6)",
+                        background: selectedGoal === g.label ? "rgba(201,146,42,0.12)" : "rgba(0,0,0,0.04)",
+                        border: `1px solid ${selectedGoal === g.label ? "#C9922A" : "rgba(0,0,0,0.10)"}`,
+                        color: selectedGoal === g.label ? "#C9922A" : "#6E6E73",
                       }}
                     >
                       {g.icon} {g.label}
@@ -164,12 +164,12 @@ function ShopContent() {
                 <label className="flex items-center gap-2 cursor-pointer">
                   <div
                     className="relative w-10 h-5 rounded-full transition-colors"
-                    style={{ background: inStockOnly ? "#C9922A" : "rgba(255,255,255,0.15)" }}
+                    style={{ background: inStockOnly ? "#C9922A" : "rgba(0,0,0,0.12)" }}
                     onClick={() => setInStockOnly(!inStockOnly)}
                   >
                     <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform ${inStockOnly ? "translate-x-5" : "translate-x-0.5"}`} />
                   </div>
-                  <span className="text-sm text-gray-400">In Stock Only</span>
+                  <span className="text-sm" style={{ color: "#6E6E73" }}>In Stock Only</span>
                 </label>
               </div>
             </div>
@@ -196,7 +196,7 @@ function ShopContent() {
 
 export default function ShopPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen" style={{ background: "#696969" }} />}>
+    <Suspense fallback={<div className="min-h-screen" style={{ background: "#F5F5F7" }} />}>
       <ShopContent />
     </Suspense>
   );

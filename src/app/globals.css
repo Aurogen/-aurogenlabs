@@ -23,8 +23,8 @@
 }
 
 :root {
-  --background: #696969;
-  --foreground: #F2EFE8;
+  --background: #F5F5F7;
+  --foreground: #1D1D1F;
 }
 
 * {
@@ -59,7 +59,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #111111;
+  background: #E8E8ED;
 }
 ::-webkit-scrollbar-thumb {
   background: #C9922A;

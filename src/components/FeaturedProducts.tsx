@@ -26,22 +26,23 @@ export default function FeaturedProducts() {
   }
 
   return (
-    <section className="py-24 overflow-hidden" style={{ background: "#696969" }}>
+    <section className="py-24 overflow-hidden" style={{ background: "#F5F5F7", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
       {/* Header */}
       <div className="px-6 md:px-16 mb-12 flex items-end justify-between max-w-[1440px] mx-auto">
         <div>
           <p
             className="text-xs font-semibold tracking-[0.28em] uppercase mb-4"
-            style={{ color: "rgba(255,255,255,0.6)", fontFamily: "var(--font-body, sans-serif)" }}
+            style={{ color: "#6E6E73", fontFamily: "var(--font-body, sans-serif)" }}
           >
             Top sellers
           </p>
           <h2
-            className="text-white font-bold leading-[1.0]"
+            className="font-bold leading-[1.0]"
             style={{
               fontFamily: "var(--font-heading, sans-serif)",
               fontSize: "clamp(32px, 5vw, 56px)",
               letterSpacing: "-0.01em",
+              color: "#1D1D1F",
             }}
           >
             Explore the lineup.
@@ -51,23 +52,23 @@ export default function FeaturedProducts() {
         <div className="flex items-center gap-3">
           <Link
             href="/shop"
-            className="hidden sm:flex items-center gap-1.5 text-sm font-medium transition-colors"
-            style={{ color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-body, sans-serif)" }}
+            className="hidden sm:flex items-center gap-1.5 text-sm font-medium transition-opacity hover:opacity-60"
+            style={{ color: "#6E6E73", fontFamily: "var(--font-body, sans-serif)" }}
           >
             View all <ArrowRight className="w-3.5 h-3.5" />
           </Link>
           <div className="flex items-center gap-2 ml-4">
             <button
               onClick={() => scroll("left")}
-              className="w-9 h-9 rounded-full flex items-center justify-center transition-all hover:bg-white/10"
-              style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.7)" }}
+              className="w-9 h-9 rounded-full flex items-center justify-center transition-all hover:bg-black/10"
+              style={{ background: "rgba(0,0,0,0.06)", color: "#3D3D3F" }}
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={() => scroll("right")}
-              className="w-9 h-9 rounded-full flex items-center justify-center transition-all hover:bg-white/10"
-              style={{ background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.7)" }}
+              className="w-9 h-9 rounded-full flex items-center justify-center transition-all hover:bg-black/10"
+              style={{ background: "rgba(0,0,0,0.06)", color: "#3D3D3F" }}
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -106,17 +107,17 @@ export default function FeaturedProducts() {
             width: 220,
             height: 440,
             scrollSnapAlign: "start",
-            background: "#555555",
-            border: "1px solid rgba(255,255,255,0.06)",
+            background: "#E8E8ED",
+            border: "1px solid rgba(0,0,0,0.08)",
           }}
         >
           <p
-            className="text-white font-bold text-center text-lg px-6 leading-snug"
-            style={{ fontFamily: "var(--font-heading, sans-serif)" }}
+            className="font-bold text-center text-lg px-6 leading-snug"
+            style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
             100+ Compounds
           </p>
-          <p className="text-xs text-center px-8" style={{ color: "rgba(255,255,255,0.35)" }}>
+          <p className="text-xs text-center px-8" style={{ color: "#6E6E73" }}>
             Research-grade. Third-party tested.
           </p>
           <Link
