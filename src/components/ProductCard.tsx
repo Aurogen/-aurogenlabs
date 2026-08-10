@@ -30,10 +30,8 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
       >
         <Tilt3D className="relative h-full" intensity={10}>
           <div
-            className="relative rounded-2xl overflow-hidden transition-colors duration-300 flex flex-col h-full"
-            style={{ background: "#111111", border: "1px solid rgba(201, 146, 42, 0.12)" }}
-            onMouseEnter={e => ((e.currentTarget as HTMLDivElement).style.borderColor = "rgba(201, 146, 42, 0.3)")}
-            onMouseLeave={e => ((e.currentTarget as HTMLDivElement).style.borderColor = "rgba(201, 146, 42, 0.12)")}
+            className="relative rounded-2xl overflow-hidden flex flex-col h-full transition-all duration-300 hover:shadow-[0_8px_40px_rgba(0,0,0,0.6)]"
+            style={{ background: "#1C1C1E", border: "1px solid rgba(255,255,255,0.06)" }}
           >
             {/* Badge */}
             {product.badge && (
@@ -67,15 +65,15 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
               <div
                 className="relative h-52 flex items-center justify-center overflow-hidden"
                 style={{
-                  background: "#0A0A0A",
-                  borderBottom: "1px solid rgba(201, 146, 42, 0.08)",
+                  background: "#141414",
+                  borderBottom: "1px solid rgba(255,255,255,0.05)",
                 }}
               >
                 {/* Subtle ambient glow */}
                 <div
                   className="absolute inset-0 pointer-events-none"
                   style={{
-                    background: "radial-gradient(ellipse 60% 60% at 50% 50%, rgba(201, 146, 42, 0.05) 0%, transparent 100%)",
+                    background: "radial-gradient(ellipse 50% 50% at 50% 60%, rgba(255,255,255,0.03) 0%, transparent 100%)",
                   }}
                 />
 
@@ -113,9 +111,9 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                     key={g}
                     className="px-2 py-0.5 rounded text-[10px] font-medium tracking-wide"
                     style={{
-                      background: "rgba(201, 146, 42, 0.07)",
-                      color: "#C9922A",
-                      border: "1px solid rgba(201, 146, 42, 0.18)",
+                      background: "rgba(255,255,255,0.06)",
+                      color: "rgba(255,255,255,0.55)",
+                      border: "1px solid rgba(255,255,255,0.08)",
                     }}
                   >
                     {g}
@@ -125,10 +123,8 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
 
               <Link href={`/product/${product.slug}`} className="block mb-1">
                 <h3
-                  className="text-white font-bold text-lg leading-tight transition-colors"
+                  className="text-white font-bold text-lg leading-tight"
                   style={{ fontFamily: "var(--font-heading, sans-serif)" }}
-                  onMouseEnter={e => ((e.currentTarget as HTMLHeadingElement).style.color = "#F0B429")}
-                  onMouseLeave={e => ((e.currentTarget as HTMLHeadingElement).style.color = "#FFFFFF")}
                 >
                   {product.name}
                 </h3>

@@ -35,11 +35,11 @@ const FEATURES = [
 
 export default function TrustSection() {
   return (
-    <section className="py-20 px-4" style={{ background: "#0C0C0C" }}>
+    <section className="py-20 px-4" style={{ background: "#000000" }}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14">
-          <p className="text-blue-600 text-xs font-medium tracking-[0.3em] uppercase mb-3">Why researchers choose us</p>
+          <p className="text-xs font-medium tracking-[0.3em] uppercase mb-3" style={{ color: "#C9922A" }}>Why researchers choose us</p>
           <h2
             className="text-white text-4xl lg:text-5xl font-bold mb-4"
             style={{ fontFamily: "var(--font-heading, sans-serif)" }}
@@ -56,8 +56,8 @@ export default function TrustSection() {
           {FEATURES.map((f) => (
             <div
               key={f.title}
-              className="group p-6 rounded-2xl border border-blue-900/30 hover:border-blue-600/40 transition-all duration-300 hover:shadow-[0_4px_20px_rgba(201,146,42,0.08)]"
-              style={{ background: "#111111" }}
+              className="group p-6 rounded-2xl transition-all duration-300 hover:shadow-[0_4px_24px_rgba(0,0,0,0.6)]"
+              style={{ background: "#1C1C1E", border: "1px solid rgba(255,255,255,0.06)" }}
             >
               <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
@@ -83,12 +83,12 @@ export default function TrustSection() {
           ].map((stat) => (
             <div
               key={stat.label}
-              className="text-center p-6 rounded-2xl border border-blue-900/20"
-              style={{ background: "rgba(201, 146, 42, 0.03)" }}
+              className="text-center p-6 rounded-2xl"
+              style={{ background: "#1C1C1E", border: "1px solid rgba(255,255,255,0.06)" }}
             >
               <p
-                className="text-blue-600 font-bold text-4xl mb-1"
-                style={{ fontFamily: "var(--font-heading, sans-serif)" }}
+                className="font-bold text-4xl mb-1"
+                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#C9922A" }}
               >
                 {stat.value}
               </p>

@@ -5,7 +5,7 @@ import ProductCard from "./ProductCard";
 
 export default function FeaturedProducts() {
   return (
-    <section className="py-20 px-4" style={{ background: "#080808" }}>
+    <section className="py-20 px-4" style={{ background: "#000000" }}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
@@ -20,7 +20,8 @@ export default function FeaturedProducts() {
           </div>
           <Link
             href="/shop"
-            className="flex items-center gap-2 transition-colors text-sm font-medium group text-blue-600 hover:text-white"
+            className="flex items-center gap-2 transition-colors text-sm font-medium group hover:text-white"
+            style={{ color: "rgba(255,255,255,0.45)" }}
           >
             View All Products
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
