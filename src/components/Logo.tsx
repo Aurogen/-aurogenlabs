@@ -1,8 +1,9 @@
-export default function Logo({ size = 36 }: { size?: number }) {
+export default function Logo({ size = 36, variant = "dark" }: { size?: number; variant?: "dark" | "light" }) {
+  const letterColor = variant === "light" ? "#1D1D1F" : "white";
   return (
     <svg width={size} height={size} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
       <circle cx="20" cy="20" r="19" stroke="url(#g1)" strokeWidth="1.5" />
-      <path d="M20 8L28 28H24L22 23H18L16 28H12L20 8Z" fill="white" opacity="0.95" />
+      <path d="M20 8L28 28H24L22 23H18L16 28H12L20 8Z" fill={letterColor} opacity="0.95" />
       <path d="M19.2 20.5H20.8L20 17.5Z" fill="#C9922A" />
       <circle cx="32" cy="13" r="1.8" fill="#F0B429" opacity="0.9" />
       <circle cx="8" cy="13" r="1.8" fill="#F0B429" opacity="0.9" />

@@ -37,7 +37,7 @@ const FAQ = [
 
 export default function ShippingPage() {
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#000000" }}>
+    <div className="min-h-screen py-16 px-4" style={{ background: "#696969" }}>
       <div className="max-w-3xl mx-auto">
 
         {/* Header */}

@@ -74,7 +74,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen py-10" style={{ background: "#000000" }}>
+    <div className="min-h-screen py-10" style={{ background: "#696969" }}>
       <div className="max-w-5xl mx-auto px-4">
 
         {/* Header */}

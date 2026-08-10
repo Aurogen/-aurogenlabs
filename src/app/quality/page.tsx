@@ -45,7 +45,7 @@ const SPECS = [
 
 export default function QualityPage() {
   return (
-    <div className="min-h-screen" style={{ background: "#000000", color: "#E8EDF5" }}>
+    <div className="min-h-screen" style={{ background: "#696969", color: "#E8EDF5" }}>
       {/* Hero */}
       <section
         className="relative py-24 px-4 text-center border-b"

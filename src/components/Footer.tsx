@@ -30,7 +30,7 @@ const LINKS = {
 
 export default function Footer() {
   return (
-    <footer style={{ background: "#060606", borderTop: "1px solid rgba(201, 146, 42, 0.12)" }}>
+    <footer style={{ background: "#3A3A3A", borderTop: "1px solid rgba(255,255,255,0.08)" }}>
       {/* Newsletter */}
       <div className="py-12 px-4" style={{ borderBottom: "1px solid rgba(201, 146, 42, 0.08)" }}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">

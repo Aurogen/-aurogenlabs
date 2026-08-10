@@ -60,7 +60,7 @@ const PROTOCOLS = [
 
 export default function ProtocolsPage() {
   return (
-    <div className="min-h-screen" style={{ background: "#000000" }}>
+    <div className="min-h-screen" style={{ background: "#696969" }}>
       {/* Header */}
       <div className="relative py-16 px-4 text-center" style={{ background: "linear-gradient(180deg, #111111, #000000)", borderBottom: "1px solid rgba(27, 107, 222, 0.15)" }}>
         <p className="text-blue-400 text-xs font-medium tracking-[0.3em] uppercase mb-3">Research library</p>

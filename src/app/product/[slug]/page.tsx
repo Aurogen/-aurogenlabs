@@ -80,7 +80,7 @@ export default function ProductPage({ params }: Props) {
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: "#000000" }}>
+    <div className="min-h-screen" style={{ background: "#696969" }}>
       <div className="max-w-7xl mx-auto px-4 py-10">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm text-gray-500 mb-8">

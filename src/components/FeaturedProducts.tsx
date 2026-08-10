@@ -26,7 +26,7 @@ export default function FeaturedProducts() {
   }
 
   return (
-    <section className="py-24 overflow-hidden" style={{ background: "#000000" }}>
+    <section className="py-24 overflow-hidden" style={{ background: "#696969" }}>
       {/* Header */}
       <div className="px-6 md:px-16 mb-12 flex items-end justify-between max-w-[1440px] mx-auto">
         <div>
@@ -106,7 +106,7 @@ export default function FeaturedProducts() {
             width: 220,
             height: 440,
             scrollSnapAlign: "start",
-            background: "#0A0A0A",
+            background: "#555555",
             border: "1px solid rgba(255,255,255,0.06)",
           }}
         >

@@ -34,7 +34,7 @@ export default function OrderSuccessPage() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center py-16 px-4" style={{ background: "#000000" }}>
+    <div className="min-h-screen flex flex-col items-center justify-center py-16 px-4" style={{ background: "#696969" }}>
 
       {/* Glow bg */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">

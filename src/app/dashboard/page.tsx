@@ -141,7 +141,7 @@ export default function DashboardPage() {
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: "#000000" }}>
+    <div className="min-h-screen" style={{ background: "#696969" }}>
       {/* Header */}
       <div
         className="relative py-10 px-4 border-b"

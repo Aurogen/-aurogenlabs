@@ -9,7 +9,7 @@ export default function CartPage() {
 
   if (state.items.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-6" style={{ background: "#000000" }}>
+      <div className="min-h-screen flex flex-col items-center justify-center gap-6" style={{ background: "#696969" }}>
         <div className="w-24 h-24 rounded-3xl flex items-center justify-center border border-blue-900/30" style={{ background: "rgba(27, 107, 222, 0.05)" }}>
           <ShoppingCart className="w-10 h-10 text-gray-600" />
         </div>
@@ -26,7 +26,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen py-10" style={{ background: "#000000" }}>
+    <div className="min-h-screen py-10" style={{ background: "#696969" }}>
       <div className="max-w-6xl mx-auto px-4">
         <h1 className="text-white text-4xl font-bold mb-8" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
           CART <span className="text-gray-600 text-2xl font-normal">({totalItems} items)</span>

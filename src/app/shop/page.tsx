@@ -54,25 +54,26 @@ function ShopContent() {
   }, [search, selectedGoal, sortBy, inStockOnly]);
 
   return (
-    <div className="min-h-screen" style={{ background: "#000000" }}>
+    <div className="min-h-screen" style={{ background: "#696969" }}>
       {/* Page header */}
       <div
-        className="relative py-14 px-4 text-center overflow-hidden"
+        className="py-14 px-4 text-center"
         style={{
-          background: "linear-gradient(180deg, #111111, #000000)",
-          borderBottom: "1px solid rgba(27, 107, 222, 0.15)",
+          background: "#1C1C1E",
+          borderBottom: "1px solid rgba(255,255,255,0.06)",
         }}
       >
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: "linear-gradient(rgba(27,107,222,1) 1px, transparent 1px), linear-gradient(90deg, rgba(27,107,222,1) 1px, transparent 1px)", backgroundSize: "50px 50px" }} />
-        <p className="text-blue-400 text-xs font-medium tracking-[0.3em] uppercase mb-3 relative">Research compounds</p>
+        <p className="text-xs font-semibold tracking-[0.28em] uppercase mb-3" style={{ color: "#C9922A" }}>
+          Research compounds
+        </p>
         <h1
-          className="text-white text-4xl lg:text-6xl font-bold relative"
-          style={{ fontFamily: "var(--font-heading, sans-serif)" }}
+          className="text-white font-bold"
+          style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(36px, 6vw, 72px)", letterSpacing: "-0.01em" }}
         >
           {selectedGoal ? selectedGoal.toUpperCase() : "ALL PEPTIDES"}
         </h1>
         {selectedGoal && (
-          <button onClick={() => setSelectedGoal(null)} className="mt-3 text-gray-400 hover:text-white text-sm flex items-center gap-1 mx-auto transition-colors">
+          <button onClick={() => setSelectedGoal(null)} className="mt-3 text-sm flex items-center gap-1 mx-auto transition-colors" style={{ color: "rgba(255,255,255,0.45)" }}>
             <X className="w-3 h-3" /> Clear filter
           </button>
         )}
@@ -89,8 +90,8 @@ function ShopContent() {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search peptides, compounds..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm text-white placeholder-gray-600 border border-blue-900/30 focus:border-blue-500 focus:outline-none transition-colors"
-              style={{ background: "#111111" }}
+              className="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm text-white placeholder-white/30 focus:outline-none transition-colors"
+              style={{ background: "#1C1C1E", border: "1px solid rgba(255,255,255,0.12)" }}
             />
           </div>
 
@@ -100,9 +101,9 @@ function ShopContent() {
               onClick={() => setShowFilters(!showFilters)}
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border transition-all"
               style={{
-                background: showFilters ? "rgba(27, 107, 222, 0.15)" : "#111111",
-                borderColor: showFilters ? "#1B6BDE" : "rgba(27, 107, 222, 0.2)",
-                color: showFilters ? "#4DA3FF" : "#94A3B8",
+                background: showFilters ? "rgba(201,146,42,0.15)" : "#1C1C1E",
+                borderColor: showFilters ? "#C9922A" : "rgba(255,255,255,0.12)",
+                color: showFilters ? "#C9922A" : "rgba(255,255,255,0.6)",
               }}
             >
               <SlidersHorizontal className="w-4 h-4" />
@@ -114,8 +115,8 @@ function ShopContent() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                className="appearance-none pl-4 pr-8 py-2.5 rounded-xl text-sm text-gray-300 border border-blue-900/30 focus:outline-none cursor-pointer"
-                style={{ background: "#111111" }}
+                className="appearance-none pl-4 pr-8 py-2.5 rounded-xl text-sm focus:outline-none cursor-pointer"
+                style={{ background: "#1C1C1E", border: "1px solid rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.7)" }}
               >
                 <option value="popular">Most Popular</option>
                 <option value="price-asc">Price: Low to High</option>
@@ -132,8 +133,8 @@ function ShopContent() {
         {/* Expanded filters */}
         {showFilters && (
           <div
-            className="mb-6 p-5 rounded-2xl border border-blue-900/20"
-            style={{ background: "#111111" }}
+            className="mb-6 p-5 rounded-2xl"
+            style={{ background: "#1C1C1E", border: "1px solid rgba(255,255,255,0.08)" }}
           >
             <div className="flex flex-wrap gap-4 items-center">
               {/* Goals */}
@@ -146,9 +147,9 @@ function ShopContent() {
                       onClick={() => setSelectedGoal(selectedGoal === g.label ? null : g.label)}
                       className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
                       style={{
-                        background: selectedGoal === g.label ? "rgba(27, 107, 222, 0.2)" : "rgba(15, 32, 64, 0.5)",
-                        border: `1px solid ${selectedGoal === g.label ? "#1B6BDE" : "rgba(27, 107, 222, 0.15)"}`,
-                        color: selectedGoal === g.label ? "#4DA3FF" : "#94A3B8",
+                        background: selectedGoal === g.label ? "rgba(201,146,42,0.15)" : "rgba(255,255,255,0.06)",
+                        border: `1px solid ${selectedGoal === g.label ? "#C9922A" : "rgba(255,255,255,0.12)"}`,
+                        color: selectedGoal === g.label ? "#C9922A" : "rgba(255,255,255,0.6)",
                       }}
                     >
                       {g.icon} {g.label}
@@ -163,7 +164,7 @@ function ShopContent() {
                 <label className="flex items-center gap-2 cursor-pointer">
                   <div
                     className="relative w-10 h-5 rounded-full transition-colors"
-                    style={{ background: inStockOnly ? "#1B6BDE" : "#152A55" }}
+                    style={{ background: inStockOnly ? "#C9922A" : "rgba(255,255,255,0.15)" }}
                     onClick={() => setInStockOnly(!inStockOnly)}
                   >
                     <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform ${inStockOnly ? "translate-x-5" : "translate-x-0.5"}`} />
@@ -195,7 +196,7 @@ function ShopContent() {
 
 export default function ShopPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen" style={{ background: "#000000" }} />}>
+    <Suspense fallback={<div className="min-h-screen" style={{ background: "#696969" }} />}>
       <ShopContent />
     </Suspense>
   );

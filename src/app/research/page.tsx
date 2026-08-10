@@ -83,7 +83,7 @@ const RECON_STEPS = [
 
 export default function ResearchPage() {
   return (
-    <div className="min-h-screen" style={{ background: "#000000" }}>
+    <div className="min-h-screen" style={{ background: "#696969" }}>
       {/* Header */}
       <div
         className="relative py-16 px-4 text-center border-b"

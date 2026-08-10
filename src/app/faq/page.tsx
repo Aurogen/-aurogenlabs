@@ -113,7 +113,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 export default function FaqPage() {
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#000000" }}>
+    <div className="min-h-screen py-16 px-4" style={{ background: "#696969" }}>
       <div className="max-w-3xl mx-auto">
 
         <div className="mb-12">
