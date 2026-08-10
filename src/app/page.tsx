@@ -9,7 +9,6 @@ export const metadata: Metadata = {
     description: "Shop 100+ research-grade peptides with 99%+ purity. Third-party tested, US manufactured.",
   },
 };
-import ShopByGoal from "@/components/ShopByGoal";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import TrustSection from "@/components/TrustSection";
 
@@ -17,7 +16,6 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <ShopByGoal />
       <FeaturedProducts />
       <TrustSection />
     </>
