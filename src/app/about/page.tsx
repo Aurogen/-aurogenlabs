@@ -38,16 +38,21 @@ const VALUES = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#696969" }}>
+    <div className="min-h-screen py-16 px-4" style={{ background: "#F6F6F8" }}>
       <div className="max-w-4xl mx-auto">
 
-        {/* Hero */}
+        {/* Header */}
         <div className="text-center mb-16">
-          <span className="text-blue-400 text-sm font-medium tracking-widest uppercase">About Aurogen Labs</span>
-          <h1 className="text-5xl font-bold text-white mt-3 mb-5" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-            BUILT FOR SCIENCE
+          <p className="text-xs font-semibold tracking-[0.3em] uppercase mb-3" style={{ color: "#6E6E73" }}>
+            About Aurogen Labs
+          </p>
+          <h1
+            className="text-5xl font-bold mb-5"
+            style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
+          >
+            Built for Science
           </h1>
-          <p className="text-gray-400 leading-relaxed max-w-xl mx-auto">
+          <p className="leading-relaxed max-w-xl mx-auto" style={{ color: "#6E6E73" }}>
             Aurogen Labs was founded with a single mission: to provide the scientific research community with the highest-purity peptides and research compounds available in the United States, backed by full transparency and rigorous quality control.
           </p>
         </div>
@@ -55,19 +60,34 @@ export default function AboutPage() {
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
           {STATS.map((s) => (
-            <div key={s.label} className="p-6 rounded-2xl border border-white/10 text-center" style={{ background: "#1C1C1E" }}>
-              <p className="text-3xl font-bold text-blue-400 mb-1" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>{s.value}</p>
-              <p className="text-gray-500 text-xs">{s.label}</p>
+            <div
+              key={s.label}
+              className="p-6 rounded-2xl text-center"
+              style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+            >
+              <p
+                className="text-3xl font-bold mb-1"
+                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#C9922A" }}
+              >
+                {s.value}
+              </p>
+              <p className="text-xs" style={{ color: "#6E6E73" }}>{s.label}</p>
             </div>
           ))}
         </div>
 
         {/* Story */}
-        <div className="mb-16 p-8 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
-          <h2 className="text-white font-bold text-2xl mb-5" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-            OUR STORY
+        <div
+          className="mb-16 p-8 rounded-2xl"
+          style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+        >
+          <h2
+            className="font-bold text-2xl mb-5"
+            style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
+          >
+            Our Story
           </h2>
-          <div className="space-y-4 text-gray-400 text-sm leading-relaxed">
+          <div className="space-y-4 text-sm leading-relaxed" style={{ color: "#6E6E73" }}>
             <p>
               Aurogen Labs was born out of frustration with the status quo in the research peptide market — inconsistent quality, opaque sourcing, and a lack of resources for researchers trying to do serious scientific work.
             </p>
@@ -82,19 +102,29 @@ export default function AboutPage() {
 
         {/* Values */}
         <div>
-          <h2 className="text-white font-bold text-2xl mb-6 text-center" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-            OUR VALUES
+          <h2
+            className="font-bold text-2xl mb-6 text-center"
+            style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
+          >
+            Our Values
           </h2>
           <div className="grid md:grid-cols-2 gap-5">
             {VALUES.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="p-6 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
+              <div
+                key={title}
+                className="p-6 rounded-2xl"
+                style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+              >
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-9 h-9 rounded-lg flex items-center justify-center" style={{ background: "rgba(27,107,222,0.1)" }}>
-                    <Icon className="w-5 h-5 text-blue-400" />
+                  <div
+                    className="w-9 h-9 rounded-lg flex items-center justify-center"
+                    style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
+                  >
+                    <Icon className="w-5 h-5" style={{ color: "#C9922A" }} />
                   </div>
-                  <h3 className="text-white font-bold text-sm">{title}</h3>
+                  <h3 className="font-bold text-sm" style={{ color: "#1D1D1F" }}>{title}</h3>
                 </div>
-                <p className="text-gray-400 text-sm leading-relaxed">{desc}</p>
+                <p className="text-sm leading-relaxed" style={{ color: "#6E6E73" }}>{desc}</p>
               </div>
             ))}
           </div>

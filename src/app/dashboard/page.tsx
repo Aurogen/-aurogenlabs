@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import {
   Package,
   DollarSign,
@@ -76,17 +75,17 @@ const DEMO_ORDERS: Order[] = [
 ];
 
 const QUICK_ACTIONS = [
-  { icon: ShoppingBag, label: "Shop Now", desc: "Browse all peptides", href: "/shop", color: "#1B6BDE" },
-  { icon: BookOpen, label: "Research Center", desc: "Guides & resources", href: "/research", color: "#10B981" },
-  { icon: FileText, label: "Protocols", desc: "Research protocols", href: "/protocols", color: "#8B5CF6" },
-  { icon: Users, label: "Affiliates", desc: "Earn commissions", href: "/affiliates", color: "#F59E0B" },
+  { icon: ShoppingBag, label: "Shop Now", desc: "Browse all peptides", href: "/shop" },
+  { icon: BookOpen, label: "Research Center", desc: "Guides & resources", href: "/research" },
+  { icon: FileText, label: "Protocols", desc: "Research protocols", href: "/protocols" },
+  { icon: Users, label: "Affiliates", desc: "Earn commissions", href: "/affiliates" },
 ];
 
 const STATUS_CONFIG = {
-  delivered: { label: "Delivered", color: "#10B981", bg: "rgba(16,185,129,0.1)", icon: CheckCircle2 },
-  shipped: { label: "Shipped", color: "#4DA3FF", bg: "rgba(77,163,255,0.1)", icon: Truck },
-  processing: { label: "Processing", color: "#F59E0B", bg: "rgba(245,158,11,0.1)", icon: Clock },
-  pending: { label: "Pending", color: "#9CA3AF", bg: "rgba(156,163,175,0.1)", icon: AlertCircle },
+  delivered: { label: "Delivered", color: "#1B7A45", bg: "rgba(27,122,69,0.08)", icon: CheckCircle2 },
+  shipped: { label: "Shipped", color: "#C9922A", bg: "rgba(201,146,42,0.08)", icon: Truck },
+  processing: { label: "Processing", color: "#D97706", bg: "rgba(217,119,6,0.08)", icon: Clock },
+  pending: { label: "Pending", color: "#9E9EA8", bg: "rgba(158,158,168,0.10)", icon: AlertCircle },
 };
 
 function formatDate(d: string) {
@@ -100,8 +99,8 @@ export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState<"overview" | "orders" | "profile">("overview");
 
   const userName = isLoaded && user
-    ? (user.firstName ?? user.emailAddresses[0]?.emailAddress?.split("@")[0] ?? "RESEARCHER").toUpperCase()
-    : "RESEARCHER";
+    ? (user.firstName ?? user.emailAddresses[0]?.emailAddress?.split("@")[0] ?? "Researcher")
+    : "Researcher";
 
   useEffect(() => {
     if (!isLoaded) return;
@@ -134,60 +133,53 @@ export default function DashboardPage() {
   const loyaltyPoints = Math.round(totalSpent * 3.7);
 
   const STATS = [
-    { icon: Package, label: "Total Orders", value: orders.length.toString(), color: "#4DA3FF" },
-    { icon: DollarSign, label: "Total Spent", value: `$${totalSpent.toFixed(0)}`, color: "#10B981" },
-    { icon: FlaskConical, label: "Compounds", value: uniqueCompounds.toString(), color: "#8B5CF6" },
-    { icon: Star, label: "Loyalty Points", value: loyaltyPoints.toLocaleString(), color: "#F59E0B" },
+    { icon: Package, label: "Total Orders", value: orders.length.toString(), accent: "#C9922A" },
+    { icon: DollarSign, label: "Total Spent", value: `$${totalSpent.toFixed(0)}`, accent: "#1B7A45" },
+    { icon: FlaskConical, label: "Compounds", value: uniqueCompounds.toString(), accent: "#C9922A" },
+    { icon: Star, label: "Loyalty Points", value: loyaltyPoints.toLocaleString(), accent: "#C9922A" },
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: "#696969" }}>
+    <div className="min-h-screen" style={{ background: "#F6F6F8", color: "#1D1D1F" }}>
       {/* Header */}
       <div
-        className="relative py-10 px-4 border-b"
-        style={{
-          background: "linear-gradient(180deg, #111111, #000000)",
-          borderColor: "rgba(27, 107, 222, 0.15)",
-        }}
+        className="py-10 px-4"
+        style={{ background: "#FFFFFF", borderBottom: "1px solid rgba(0,0,0,0.08)" }}
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 flex-wrap">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center gap-4"
-          >
-            {/* Avatar */}
-            <div className="w-14 h-14 rounded-2xl overflow-hidden border border-blue-600/30 flex items-center justify-center" style={{ background: "linear-gradient(135deg, #1B6BDE22, #1B6BDE44)" }}>
+          <div className="flex items-center gap-4">
+            <div
+              className="w-14 h-14 rounded-2xl overflow-hidden flex items-center justify-center"
+              style={{ background: "rgba(201,146,42,0.06)", border: "1px solid rgba(201,146,42,0.18)" }}
+            >
               <UserButton
                 appearance={{ elements: { avatarBox: "w-14 h-14 rounded-2xl", userButtonPopoverCard: "z-50" } }}
-                              />
+              />
             </div>
             <div>
-              <p className="text-blue-400 text-xs font-medium tracking-[0.3em] uppercase mb-1">
+              <p className="text-xs font-bold tracking-[0.25em] mb-1" style={{ color: "#6E6E73" }}>
                 Researcher Account
               </p>
               <h1
-                className="text-white text-3xl font-bold"
-                style={{ fontFamily: "var(--font-heading, sans-serif)" }}
+                className="text-2xl font-bold"
+                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
-                WELCOME BACK, {userName}
+                Welcome back, {userName}
               </h1>
-              <p className="text-gray-500 text-sm mt-0.5">researcher@aurogen.com · Member since Jan 2025</p>
+              <p className="text-sm mt-0.5" style={{ color: "#9E9EA8" }}>
+                {user?.primaryEmailAddress?.emailAddress ?? "researcher@aurogen.com"} · Member since Jan 2025
+              </p>
             </div>
-          </motion.div>
+          </div>
 
           {/* Tier badge */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl border"
-            style={{ background: "rgba(245,158,11,0.08)", borderColor: "rgba(245,158,11,0.2)" }}
+          <div
+            className="flex items-center gap-2 px-4 py-2 rounded-xl"
+            style={{ background: "rgba(201,146,42,0.06)", border: "1px solid rgba(201,146,42,0.18)" }}
           >
-            <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-            <span className="text-yellow-400 font-bold text-sm">RESEARCHER PRO</span>
-          </motion.div>
+            <Star className="w-4 h-4 fill-current" style={{ color: "#C9922A" }} />
+            <span className="font-bold text-sm" style={{ color: "#C9922A" }}>Researcher Pro</span>
+          </div>
         </div>
 
         {/* Tabs */}
@@ -196,11 +188,11 @@ export default function DashboardPage() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className="px-5 py-2 rounded-lg text-sm font-medium transition-all capitalize"
+              className="px-5 py-2 rounded-full text-sm font-medium transition-all capitalize"
               style={
                 activeTab === tab
-                  ? { background: "rgba(27, 107, 222, 0.15)", color: "#4DA3FF", border: "1px solid rgba(27,107,222,0.3)" }
-                  : { color: "#6B7280", border: "1px solid transparent" }
+                  ? { background: "#1D1D1F", color: "#FFFFFF" }
+                  : { color: "#6E6E73", background: "transparent" }
               }
             >
               {tab === "overview" ? "Overview" : tab === "orders" ? "My Orders" : "Profile"}
@@ -233,7 +225,7 @@ function OverviewTab({
   totalItems,
   totalPrice,
 }: {
-  stats: { icon: React.ElementType; label: string; value: string; color: string }[];
+  stats: { icon: React.ElementType; label: string; value: string; accent: string }[];
   orders: Order[];
   cartItems: { product: { id: string; name: string; concentration: string; price: number }; quantity: number }[];
   totalItems: number;
@@ -245,51 +237,62 @@ function OverviewTab({
     <div className="space-y-8">
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {stats.map((s, i) => (
-          <motion.div
+        {stats.map((s) => (
+          <div
             key={s.label}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: i * 0.08 }}
-            className="p-5 rounded-2xl border border-white/10"
-            style={{ background: "#1C1C1E" }}
+            className="p-5 rounded-2xl"
+            style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
           >
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
-              style={{ background: `${s.color}15` }}
+              style={{ background: `${s.accent}14`, border: `1px solid ${s.accent}30` }}
             >
-              <s.icon className="w-5 h-5" style={{ color: s.color }} />
+              <s.icon className="w-5 h-5" style={{ color: s.accent }} />
             </div>
-            <p className="text-gray-500 text-xs mb-1">{s.label}</p>
-            <p className="text-white font-bold text-2xl" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
+            <p className="text-xs mb-1" style={{ color: "#6E6E73" }}>{s.label}</p>
+            <p
+              className="font-bold text-2xl"
+              style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
+            >
               {s.value}
             </p>
-          </motion.div>
+          </div>
         ))}
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Recent orders */}
-        <div className="lg:col-span-2 rounded-2xl border border-white/10 overflow-hidden" style={{ background: "#1C1C1E" }}>
-          <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between">
-            <h2 className="text-white font-bold text-lg" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-              RECENT ORDERS
-            </h2>
-            <button
-              className="text-blue-400 text-sm hover:text-white transition-colors"
+        <div
+          className="lg:col-span-2 rounded-2xl overflow-hidden"
+          style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+        >
+          <div
+            className="px-6 py-4 flex items-center justify-between"
+            style={{ borderBottom: "1px solid rgba(0,0,0,0.06)" }}
+          >
+            <h2
+              className="font-bold text-lg"
+              style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
             >
+              Recent Orders
+            </h2>
+            <button className="text-sm font-medium transition-opacity hover:opacity-70" style={{ color: "#C9922A" }}>
               View all →
             </button>
           </div>
-          <div className="divide-y divide-blue-900/20">
-            {recentOrders.map((order) => {
+          <div>
+            {recentOrders.map((order, i) => {
               const sc = STATUS_CONFIG[order.status];
               const StatusIcon = sc.icon;
               return (
-                <div key={order.id} className="px-6 py-4 flex items-center justify-between gap-4">
+                <div
+                  key={order.id}
+                  className="px-6 py-4 flex items-center justify-between gap-4"
+                  style={{ borderBottom: i < recentOrders.length - 1 ? "1px solid rgba(0,0,0,0.05)" : "none" }}
+                >
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-white font-bold text-sm">{order.id}</span>
+                      <span className="font-bold text-sm" style={{ color: "#1D1D1F" }}>{order.id}</span>
                       <span
                         className="flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold"
                         style={{ background: sc.bg, color: sc.color }}
@@ -298,13 +301,13 @@ function OverviewTab({
                         {sc.label}
                       </span>
                     </div>
-                    <p className="text-gray-500 text-xs truncate">
+                    <p className="text-xs truncate" style={{ color: "#6E6E73" }}>
                       {order.items.map((i) => `${i.name} ×${i.quantity}`).join(" · ")}
                     </p>
-                    <p className="text-gray-600 text-xs mt-0.5">{formatDate(order.date)}</p>
+                    <p className="text-xs mt-0.5" style={{ color: "#9E9EA8" }}>{formatDate(order.date)}</p>
                   </div>
                   <div className="text-right shrink-0">
-                    <p className="text-white font-bold">${order.total.toFixed(2)}</p>
+                    <p className="font-bold" style={{ color: "#1B7A45" }}>${order.total.toFixed(2)}</p>
                   </div>
                 </div>
               );
@@ -316,29 +319,37 @@ function OverviewTab({
         <div className="space-y-5">
           {/* Cart summary */}
           {totalItems > 0 && (
-            <div className="p-5 rounded-2xl border border-white/10" style={{ background: "rgba(27,107,222,0.06)" }}>
-              <h3 className="text-white font-bold mb-3 text-sm" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-                CART IN PROGRESS
+            <div
+              className="p-5 rounded-2xl"
+              style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+            >
+              <h3
+                className="font-bold mb-3 text-sm"
+                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
+              >
+                Cart in Progress
               </h3>
               <div className="space-y-2 mb-4">
                 {cartItems.slice(0, 3).map((item) => (
                   <div key={item.product.id} className="flex justify-between text-xs">
-                    <span className="text-gray-400 truncate">{item.product.name} × {item.quantity}</span>
-                    <span className="text-white ml-2">${(item.product.price * item.quantity).toFixed(2)}</span>
+                    <span className="truncate" style={{ color: "#6E6E73" }}>{item.product.name} × {item.quantity}</span>
+                    <span className="ml-2 font-medium" style={{ color: "#1D1D1F" }}>
+                      ${(item.product.price * item.quantity).toFixed(2)}
+                    </span>
                   </div>
                 ))}
                 {cartItems.length > 3 && (
-                  <p className="text-gray-600 text-xs">+{cartItems.length - 3} more items</p>
+                  <p className="text-xs" style={{ color: "#9E9EA8" }}>+{cartItems.length - 3} more items</p>
                 )}
               </div>
               <div className="flex justify-between mb-3">
-                <span className="text-gray-400 text-sm">Total</span>
-                <span className="text-white font-bold">${totalPrice.toFixed(2)}</span>
+                <span className="text-sm" style={{ color: "#6E6E73" }}>Total</span>
+                <span className="font-bold" style={{ color: "#1B7A45" }}>${totalPrice.toFixed(2)}</span>
               </div>
               <Link
                 href="/checkout"
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-bold text-white"
-                style={{ background: "linear-gradient(135deg, #1B6BDE, #2B7FEF)" }}
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-85"
+                style={{ background: "#1D1D1F" }}
               >
                 Proceed to Checkout
                 <ChevronRight className="w-4 h-4" />
@@ -347,18 +358,21 @@ function OverviewTab({
           )}
 
           {/* Loyalty progress */}
-          <div className="p-5 rounded-2xl border border-yellow-600/20" style={{ background: "rgba(245,158,11,0.04)" }}>
+          <div
+            className="p-5 rounded-2xl"
+            style={{ background: "rgba(201,146,42,0.04)", border: "1px solid rgba(201,146,42,0.15)" }}
+          >
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-white font-bold text-sm" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-                LOYALTY STATUS
+              <h3 className="font-bold text-sm" style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}>
+                Loyalty Status
               </h3>
-              <Star className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+              <Star className="w-4 h-4 fill-current" style={{ color: "#C9922A" }} />
             </div>
-            <p className="text-yellow-400 font-bold text-xl mb-1">Researcher Pro</p>
-            <div className="w-full rounded-full h-2 mb-2" style={{ background: "rgba(245,158,11,0.15)" }}>
-              <div className="h-2 rounded-full" style={{ width: "68%", background: "linear-gradient(90deg, #F59E0B, #FCD34D)" }} />
+            <p className="font-bold text-xl mb-2" style={{ color: "#C9922A" }}>Researcher Pro</p>
+            <div className="w-full rounded-full h-1.5 mb-2" style={{ background: "rgba(201,146,42,0.15)" }}>
+              <div className="h-1.5 rounded-full" style={{ width: "68%", background: "#C9922A" }} />
             </div>
-            <p className="text-gray-500 text-xs">680 pts to Elite tier · Earn 3.7 pts per $1</p>
+            <p className="text-xs" style={{ color: "#A07520" }}>680 pts to Elite tier · Earn 3.7 pts per $1</p>
           </div>
         </div>
       </div>
@@ -366,51 +380,49 @@ function OverviewTab({
       {/* Quick actions */}
       <div>
         <h2
-          className="text-white font-bold text-lg mb-4"
-          style={{ fontFamily: "var(--font-heading, sans-serif)" }}
+          className="font-bold text-lg mb-4"
+          style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
         >
-          QUICK ACTIONS
+          Quick Actions
         </h2>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {QUICK_ACTIONS.map((a, i) => (
-            <motion.div
+          {QUICK_ACTIONS.map((a) => (
+            <Link
               key={a.label}
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 + i * 0.07 }}
+              href={a.href}
+              className="group flex flex-col gap-3 p-5 rounded-2xl transition-all duration-300 hover:shadow-[0_4px_20px_rgba(0,0,0,0.07)]"
+              style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
             >
-              <Link
-                href={a.href}
-                className="group flex flex-col gap-3 p-5 rounded-2xl border border-white/10 hover:border-blue-600/30 transition-all"
-                style={{ background: "#1C1C1E" }}
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
+                style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
               >
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform"
-                  style={{ background: `${a.color}15` }}
-                >
-                  <a.icon className="w-5 h-5" style={{ color: a.color }} />
-                </div>
-                <div>
-                  <p className="text-white font-bold text-sm group-hover:text-blue-300 transition-colors">
-                    {a.label}
-                  </p>
-                  <p className="text-gray-500 text-xs">{a.desc}</p>
-                </div>
-              </Link>
-            </motion.div>
+                <a.icon className="w-5 h-5" style={{ color: "#C9922A" }} />
+              </div>
+              <div>
+                <p className="font-bold text-sm" style={{ color: "#1D1D1F" }}>{a.label}</p>
+                <p className="text-xs mt-0.5" style={{ color: "#6E6E73" }}>{a.desc}</p>
+              </div>
+            </Link>
           ))}
         </div>
       </div>
 
       {/* Activity chart */}
-      <div className="p-6 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
+      <div
+        className="p-6 rounded-2xl"
+        style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+      >
         <div className="flex items-center justify-between mb-5">
-          <h2 className="text-white font-bold text-lg" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-            SPENDING ACTIVITY
+          <h2
+            className="font-bold text-lg"
+            style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
+          >
+            Spending Activity
           </h2>
-          <div className="flex items-center gap-1 text-gray-500 text-xs">
+          <div className="flex items-center gap-1" style={{ color: "#9E9EA8" }}>
             <BarChart2 className="w-3.5 h-3.5" />
-            Last 6 months
+            <span className="text-xs">Last 6 months</span>
           </div>
         </div>
         <SpendingChart orders={orders} />
@@ -420,7 +432,6 @@ function OverviewTab({
 }
 
 function SpendingChart({ orders }: { orders: Order[] }) {
-  // Build last 6 months labels and aggregate spending from real orders
   const now = new Date();
   const months = Array.from({ length: 6 }, (_, i) => {
     const d = new Date(now.getFullYear(), now.getMonth() - 5 + i, 1);
@@ -443,22 +454,18 @@ function SpendingChart({ orders }: { orders: Order[] }) {
       {months.map(({ label }, i) => (
         <div key={label + i} className="flex-1 flex flex-col items-center gap-2">
           <div className="w-full flex items-end justify-center" style={{ height: 96 }}>
-            <motion.div
-              initial={{ height: 0 }}
-              animate={{ height: `${(values[i] / max) * 100}%` }}
-              transition={{ duration: 0.6, delay: i * 0.08, ease: "easeOut" }}
-              className="w-full rounded-t-lg"
+            <div
+              className="w-full rounded-t-lg transition-all duration-700"
               style={{
-                background: values[i] > 0
-                  ? "linear-gradient(180deg, #1B6BDE, #0D2244)"
-                  : "rgba(27,107,222,0.08)",
+                height: `${(values[i] / max) * 100}%`,
+                background: values[i] > 0 ? "#C9922A" : "rgba(201,146,42,0.12)",
                 minHeight: 4,
               }}
             />
           </div>
-          <span className="text-gray-600 text-[10px]">{label}</span>
+          <span className="text-[10px]" style={{ color: "#9E9EA8" }}>{label}</span>
           {values[i] > 0 && (
-            <span className="text-blue-400 text-[10px] font-medium">${values[i].toFixed(0)}</span>
+            <span className="text-[10px] font-medium" style={{ color: "#C9922A" }}>${values[i].toFixed(0)}</span>
           )}
         </div>
       ))}
@@ -470,30 +477,30 @@ function OrdersTab({ orders }: { orders: Order[] }) {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-white font-bold text-xl" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-          ORDER HISTORY
+        <h2
+          className="font-bold text-xl"
+          style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
+        >
+          Order History
         </h2>
-        <span className="text-gray-500 text-sm">{orders.length} orders total</span>
+        <span className="text-sm" style={{ color: "#6E6E73" }}>{orders.length} orders total</span>
       </div>
 
-      {orders.map((order, i) => {
+      {orders.map((order) => {
         const sc = STATUS_CONFIG[order.status];
         const StatusIcon = sc.icon;
         return (
-          <motion.div
+          <div
             key={order.id}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.07 }}
-            className="p-6 rounded-2xl border border-white/10"
-            style={{ background: "#1C1C1E" }}
+            className="p-6 rounded-2xl"
+            style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
           >
             <div className="flex items-start justify-between gap-4 flex-wrap">
               <div>
                 <div className="flex items-center gap-3 mb-2">
                   <span
-                    className="text-white font-bold text-lg"
-                    style={{ fontFamily: "var(--font-heading, sans-serif)" }}
+                    className="font-bold text-lg"
+                    style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
                   >
                     {order.id}
                   </span>
@@ -505,31 +512,37 @@ function OrdersTab({ orders }: { orders: Order[] }) {
                     {sc.label}
                   </span>
                 </div>
-                <p className="text-gray-500 text-sm mb-3">{formatDate(order.date)}</p>
+                <p className="text-sm mb-3" style={{ color: "#9E9EA8" }}>{formatDate(order.date)}</p>
                 <div className="space-y-1.5">
                   {order.items.map((item, j) => (
                     <div key={j} className="flex items-center gap-2 text-sm">
-                      <FlaskConical className="w-3.5 h-3.5 text-blue-400/60 shrink-0" />
-                      <span className="text-gray-300">{item.name}</span>
-                      <span className="text-gray-600">×{item.quantity}</span>
-                      <span className="text-gray-500 ml-auto">${item.price.toFixed(2)}</span>
+                      <FlaskConical className="w-3.5 h-3.5 shrink-0" style={{ color: "rgba(201,146,42,0.6)" }} />
+                      <span style={{ color: "#1D1D1F" }}>{item.name}</span>
+                      <span style={{ color: "#9E9EA8" }}>×{item.quantity}</span>
+                      <span className="ml-auto" style={{ color: "#6E6E73" }}>${item.price.toFixed(2)}</span>
                     </div>
                   ))}
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-gray-500 text-xs mb-1">Order Total</p>
-                <p className="text-white font-bold text-2xl">${order.total.toFixed(2)}</p>
+                <p className="text-xs mb-1" style={{ color: "#6E6E73" }}>Order Total</p>
+                <p
+                  className="font-bold text-2xl"
+                  style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1B7A45" }}
+                >
+                  ${order.total.toFixed(2)}
+                </p>
                 <Link
                   href="/shop"
-                  className="inline-flex items-center gap-1 mt-3 text-blue-400 text-sm hover:text-white transition-colors"
+                  className="inline-flex items-center gap-1 mt-3 text-sm font-medium transition-opacity hover:opacity-70"
+                  style={{ color: "#C9922A" }}
                 >
                   Reorder
                   <ChevronRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
             </div>
-          </motion.div>
+          </div>
         );
       })}
     </div>
@@ -541,56 +554,73 @@ function ProfileTab() {
 
   return (
     <div className="max-w-2xl space-y-6">
-      <h2 className="text-white font-bold text-xl" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-        PROFILE SETTINGS
+      <h2
+        className="font-bold text-xl"
+        style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
+      >
+        Profile Settings
       </h2>
 
       {/* Personal info */}
-      <div className="p-6 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
+      <div
+        className="p-6 rounded-2xl"
+        style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+      >
         <div className="flex items-center gap-2 mb-5">
-          <Settings className="w-4 h-4 text-blue-400" />
-          <h3 className="text-white font-bold">Personal Information</h3>
+          <Settings className="w-4 h-4" style={{ color: "#C9922A" }} />
+          <h3 className="font-bold" style={{ color: "#1D1D1F" }}>Personal Information</h3>
         </div>
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-gray-400 text-xs mb-1.5 tracking-wide">FIRST NAME</label>
+              <label className="block text-xs mb-1.5 tracking-[0.12em] font-medium" style={{ color: "#9E9EA8" }}>
+                FIRST NAME
+              </label>
               <input
                 defaultValue={user?.firstName ?? ""}
                 readOnly
-                className="w-full px-4 py-2.5 rounded-xl text-sm text-white border border-white/10 focus:outline-none opacity-70"
-                style={{ background: "#050D1A" }}
+                className="w-full px-4 py-2.5 rounded-xl text-sm border focus:outline-none opacity-70"
+                style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.10)", color: "#1D1D1F" }}
               />
             </div>
             <div>
-              <label className="block text-gray-400 text-xs mb-1.5 tracking-wide">LAST NAME</label>
+              <label className="block text-xs mb-1.5 tracking-[0.12em] font-medium" style={{ color: "#9E9EA8" }}>
+                LAST NAME
+              </label>
               <input
                 defaultValue={user?.lastName ?? ""}
                 readOnly
-                className="w-full px-4 py-2.5 rounded-xl text-sm text-white border border-white/10 focus:outline-none opacity-70"
-                style={{ background: "#050D1A" }}
+                className="w-full px-4 py-2.5 rounded-xl text-sm border focus:outline-none opacity-70"
+                style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.10)", color: "#1D1D1F" }}
               />
             </div>
           </div>
           <div>
-            <label className="block text-gray-400 text-xs mb-1.5 tracking-wide">EMAIL</label>
+            <label className="block text-xs mb-1.5 tracking-[0.12em] font-medium" style={{ color: "#9E9EA8" }}>
+              EMAIL
+            </label>
             <input
               defaultValue={user?.primaryEmailAddress?.emailAddress ?? ""}
               readOnly
               type="email"
-              className="w-full px-4 py-2.5 rounded-xl text-sm text-white border border-white/10 focus:outline-none opacity-70"
-              style={{ background: "#050D1A" }}
+              className="w-full px-4 py-2.5 rounded-xl text-sm border focus:outline-none opacity-70"
+              style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.10)", color: "#1D1D1F" }}
             />
           </div>
-          <p className="text-gray-600 text-xs">To update your profile, use the account menu in the top navigation bar.</p>
+          <p className="text-xs" style={{ color: "#9E9EA8" }}>
+            To update your profile, use the account menu in the top navigation bar.
+          </p>
         </div>
       </div>
 
       {/* Preferences */}
-      <div className="p-6 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
+      <div
+        className="p-6 rounded-2xl"
+        style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+      >
         <div className="flex items-center gap-2 mb-5">
-          <Settings className="w-4 h-4 text-blue-400" />
-          <h3 className="text-white font-bold">Preferences</h3>
+          <Settings className="w-4 h-4" style={{ color: "#C9922A" }} />
+          <h3 className="font-bold" style={{ color: "#1D1D1F" }}>Preferences</h3>
         </div>
         <div className="space-y-4">
           {[
@@ -600,13 +630,13 @@ function ProfileTab() {
             { label: "Research protocol updates", checked: true },
           ].map((pref) => (
             <label key={pref.label} className="flex items-center justify-between cursor-pointer group">
-              <span className="text-gray-300 text-sm group-hover:text-white transition-colors">{pref.label}</span>
+              <span className="text-sm" style={{ color: "#1D1D1F" }}>{pref.label}</span>
               <div
                 className="w-10 h-5 rounded-full relative transition-colors"
-                style={{ background: pref.checked ? "#1B6BDE" : "rgba(27,107,222,0.15)" }}
+                style={{ background: pref.checked ? "#C9922A" : "rgba(0,0,0,0.12)" }}
               >
                 <div
-                  className="absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all"
+                  className="absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all shadow-sm"
                   style={{ left: pref.checked ? "calc(100% - 18px)" : "2px" }}
                 />
               </div>

@@ -4,6 +4,15 @@ import { useState } from "react";
 import { Mail, MessageSquare, Clock, CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+const INPUT_STYLE = {
+  background: "#FFFFFF",
+  border: "1px solid rgba(0,0,0,0.12)",
+  color: "#1D1D1F",
+};
+const INPUT_CLASS = "w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-colors";
+const LABEL_CLASS = "block text-xs font-semibold tracking-[0.08em] uppercase mb-1.5";
+const LABEL_STYLE = { color: "#9E9EA8" };
+
 export default function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [sent, setSent] = useState(false);
@@ -17,27 +26,30 @@ export default function ContactPage() {
     e.preventDefault();
     if (!form.name || !form.email || !form.message) return;
     setSending(true);
-    setTimeout(() => {
-      setSending(false);
-      setSent(true);
-    }, 1200);
+    setTimeout(() => { setSending(false); setSent(true); }, 1200);
   }
 
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#696969" }}>
+    <div className="min-h-screen py-16 px-4" style={{ background: "#F6F6F8" }}>
       <div className="max-w-4xl mx-auto">
 
         {/* Header */}
         <div className="text-center mb-14">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "rgba(27,107,222,0.12)" }}>
-              <Mail className="w-5 h-5 text-blue-400" />
+          <div className="flex items-center justify-center mb-4">
+            <div
+              className="w-10 h-10 rounded-xl flex items-center justify-center"
+              style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
+            >
+              <Mail className="w-5 h-5" style={{ color: "#C9922A" }} />
             </div>
           </div>
-          <h1 className="text-4xl font-bold text-white mb-3" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-            CONTACT US
+          <h1
+            className="text-4xl font-bold mb-3"
+            style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
+          >
+            Contact Us
           </h1>
-          <p className="text-gray-400 text-sm max-w-md mx-auto">
+          <p className="text-sm max-w-md mx-auto" style={{ color: "#6E6E73" }}>
             Have a question about our compounds, an order, or a research inquiry? We&apos;re here to help.
           </p>
         </div>
@@ -51,27 +63,40 @@ export default function ContactPage() {
               { icon: Clock, label: "Response Time", value: "Within 1–2 business days" },
               { icon: Mail, label: "Order Support", value: "Reference your order number" },
             ].map(({ icon: Icon, label, value }) => (
-              <div key={label} className="p-5 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
+              <div
+                key={label}
+                className="p-5 rounded-2xl"
+                style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+              >
                 <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ background: "rgba(27,107,222,0.1)" }}>
-                    <Icon className="w-4 h-4 text-blue-400" />
+                  <div
+                    className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
+                    style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.15)" }}
+                  >
+                    <Icon className="w-4 h-4" style={{ color: "#C9922A" }} />
                   </div>
                   <div>
-                    <p className="text-white font-semibold text-sm mb-0.5">{label}</p>
-                    <p className="text-gray-500 text-xs leading-relaxed">{value}</p>
+                    <p className="font-semibold text-sm mb-0.5" style={{ color: "#1D1D1F" }}>{label}</p>
+                    <p className="text-xs leading-relaxed" style={{ color: "#6E6E73" }}>{value}</p>
                   </div>
                 </div>
               </div>
             ))}
 
-            <div className="p-5 rounded-2xl border border-yellow-600/20 text-xs text-yellow-400/70 leading-relaxed" style={{ background: "rgba(161,130,0,0.04)" }}>
+            <div
+              className="p-4 rounded-xl text-xs leading-relaxed"
+              style={{ background: "rgba(201,146,42,0.04)", border: "1px solid rgba(201,146,42,0.15)", color: "#A07520" }}
+            >
               For research use inquiries only. We do not provide medical advice or therapeutic guidance.
             </div>
           </div>
 
           {/* Form */}
           <div className="md:col-span-2">
-            <div className="p-7 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
+            <div
+              className="p-7 rounded-2xl"
+              style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+            >
               <AnimatePresence mode="wait">
                 {sent ? (
                   <motion.div
@@ -80,13 +105,19 @@ export default function ContactPage() {
                     animate={{ opacity: 1, scale: 1 }}
                     className="flex flex-col items-center justify-center py-12 text-center"
                   >
-                    <div className="w-16 h-16 rounded-full flex items-center justify-center mb-5" style={{ background: "rgba(16,185,129,0.1)" }}>
-                      <CheckCircle className="w-8 h-8 text-green-400" />
+                    <div
+                      className="w-16 h-16 rounded-full flex items-center justify-center mb-5"
+                      style={{ background: "rgba(27,122,69,0.08)", border: "1.5px solid rgba(27,122,69,0.25)" }}
+                    >
+                      <CheckCircle className="w-8 h-8" style={{ color: "#1B7A45" }} />
                     </div>
-                    <h3 className="text-white font-bold text-xl mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-                      MESSAGE SENT
+                    <h3
+                      className="font-bold text-xl mb-2"
+                      style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
+                    >
+                      Message Sent
                     </h3>
-                    <p className="text-gray-400 text-sm">
+                    <p className="text-sm" style={{ color: "#6E6E73" }}>
                       We&apos;ll get back to you within 1–2 business days.
                     </p>
                   </motion.div>
@@ -100,37 +131,22 @@ export default function ContactPage() {
                   >
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-gray-400 text-xs mb-1.5">NAME</label>
-                        <input
-                          value={form.name}
-                          onChange={(e) => set("name", e.target.value)}
-                          required
-                          className="w-full px-4 py-3 rounded-xl text-sm text-white border border-white/10 focus:border-blue-500 focus:outline-none transition-colors"
-                          style={{ background: "#050D1A" }}
-                          placeholder="Dr. Smith"
-                        />
+                        <label className={LABEL_CLASS} style={LABEL_STYLE}>Name</label>
+                        <input value={form.name} onChange={(e) => set("name", e.target.value)} required className={INPUT_CLASS} style={INPUT_STYLE} placeholder="Dr. Smith" />
                       </div>
                       <div>
-                        <label className="block text-gray-400 text-xs mb-1.5">EMAIL</label>
-                        <input
-                          type="email"
-                          value={form.email}
-                          onChange={(e) => set("email", e.target.value)}
-                          required
-                          className="w-full px-4 py-3 rounded-xl text-sm text-white border border-white/10 focus:border-blue-500 focus:outline-none transition-colors"
-                          style={{ background: "#050D1A" }}
-                          placeholder="you@research.com"
-                        />
+                        <label className={LABEL_CLASS} style={LABEL_STYLE}>Email</label>
+                        <input type="email" value={form.email} onChange={(e) => set("email", e.target.value)} required className={INPUT_CLASS} style={INPUT_STYLE} placeholder="you@research.com" />
                       </div>
                     </div>
 
                     <div>
-                      <label className="block text-gray-400 text-xs mb-1.5">SUBJECT</label>
+                      <label className={LABEL_CLASS} style={LABEL_STYLE}>Subject</label>
                       <select
                         value={form.subject}
                         onChange={(e) => set("subject", e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl text-sm text-white border border-white/10 focus:border-blue-500 focus:outline-none transition-colors"
-                        style={{ background: "#050D1A" }}
+                        className={INPUT_CLASS}
+                        style={INPUT_STYLE}
                       >
                         <option value="">Select a topic</option>
                         <option>Order Inquiry</option>
@@ -143,34 +159,33 @@ export default function ContactPage() {
                     </div>
 
                     <div>
-                      <label className="block text-gray-400 text-xs mb-1.5">MESSAGE</label>
+                      <label className={LABEL_CLASS} style={LABEL_STYLE}>Message</label>
                       <textarea
                         value={form.message}
                         onChange={(e) => set("message", e.target.value)}
                         required
                         rows={5}
-                        className="w-full px-4 py-3 rounded-xl text-sm text-white border border-white/10 focus:border-blue-500 focus:outline-none transition-colors resize-none"
-                        style={{ background: "#050D1A" }}
+                        className={INPUT_CLASS + " resize-none"}
+                        style={INPUT_STYLE}
                         placeholder="Describe your question or inquiry..."
                       />
                     </div>
 
-                    <motion.button
+                    <button
                       type="submit"
                       disabled={sending}
-                      whileTap={{ scale: 0.97 }}
-                      className="w-full py-4 rounded-xl font-bold text-white text-sm flex items-center justify-center gap-2 transition-opacity"
-                      style={{ background: "linear-gradient(135deg, #1B6BDE, #2B7FEF)" }}
+                      className="w-full py-4 rounded-full font-semibold text-white text-sm flex items-center justify-center gap-2 transition-opacity hover:opacity-85"
+                      style={{ background: sending ? "rgba(0,0,0,0.2)" : "#1D1D1F" }}
                     >
                       {sending ? (
                         <>
                           <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          SENDING...
+                          Sending…
                         </>
                       ) : (
-                        "SEND MESSAGE"
+                        "Send Message"
                       )}
-                    </motion.button>
+                    </button>
                   </motion.form>
                 )}
               </AnimatePresence>
