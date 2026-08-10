@@ -35,11 +35,11 @@ const FEATURES = [
 
 export default function TrustSection() {
   return (
-    <section className="py-20 px-4" style={{ background: "#696969" }}>
+    <section className="py-20 px-4" style={{ background: "#5C5C5C" }}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-14">
-          <p className="text-xs font-medium tracking-[0.3em] uppercase mb-3" style={{ color: "#C9922A" }}>Why researchers choose us</p>
+          <p className="text-xs font-medium tracking-[0.3em] uppercase mb-3" style={{ color: "rgba(255,255,255,0.6)" }}>Why researchers choose us</p>
           <h2
             className="text-white text-4xl lg:text-5xl font-bold mb-4"
             style={{ fontFamily: "var(--font-heading, sans-serif)" }}

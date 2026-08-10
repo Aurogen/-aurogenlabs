@@ -10,7 +10,7 @@ export default function CartPage() {
   if (state.items.length === 0) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-6" style={{ background: "#696969" }}>
-        <div className="w-24 h-24 rounded-3xl flex items-center justify-center border border-blue-900/30" style={{ background: "rgba(27, 107, 222, 0.05)" }}>
+        <div className="w-24 h-24 rounded-3xl flex items-center justify-center border border-white/10" style={{ background: "rgba(27, 107, 222, 0.05)" }}>
           <ShoppingCart className="w-10 h-10 text-gray-600" />
         </div>
         <div className="text-center">
@@ -36,9 +36,9 @@ export default function CartPage() {
           {/* Items */}
           <div className="lg:col-span-2 space-y-4">
             {state.items.map((item) => (
-              <div key={item.product.id} className="flex gap-4 p-5 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
+              <div key={item.product.id} className="flex gap-4 p-5 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
                 {/* Image */}
-                <div className="w-20 h-20 rounded-xl shrink-0 flex items-center justify-center border border-blue-900/30" style={{ background: "linear-gradient(135deg, #050D1A, #0F2040)" }}>
+                <div className="w-20 h-20 rounded-xl shrink-0 flex items-center justify-center border border-white/10" style={{ background: "linear-gradient(135deg, #050D1A, #0F2040)" }}>
                   <svg width="32" height="44" viewBox="0 0 32 44" fill="none">
                     <rect x="10" y="0" width="12" height="6" rx="2.5" fill="#4DA3FF" opacity="0.8" />
                     <rect x="6" y="5" width="20" height="34" rx="6" fill="url(#cVial)" />
@@ -69,7 +69,7 @@ export default function CartPage() {
                   </div>
 
                   <div className="flex items-center justify-between mt-4">
-                    <div className="flex items-center gap-2 border border-blue-900/30 rounded-xl" style={{ background: "#050D1A" }}>
+                    <div className="flex items-center gap-2 border border-white/10 rounded-xl" style={{ background: "#050D1A" }}>
                       <button onClick={() => updateQty(item.product.id, item.quantity - 1)} className="px-3 py-2 text-gray-400 hover:text-white transition-colors">
                         <Minus className="w-3.5 h-3.5" />
                       </button>
@@ -95,7 +95,7 @@ export default function CartPage() {
 
           {/* Order summary */}
           <div className="lg:col-span-1">
-            <div className="sticky top-24 p-6 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
+            <div className="sticky top-24 p-6 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
               <h2 className="text-white font-bold text-lg mb-5" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>ORDER SUMMARY</h2>
 
               <div className="space-y-3 mb-5">
@@ -113,7 +113,7 @@ export default function CartPage() {
                 </div>
               </div>
 
-              <div className="border-t border-blue-900/20 pt-4 mb-5">
+              <div className="border-t border-white/10 pt-4 mb-5">
                 <div className="flex justify-between">
                   <span className="text-white font-bold text-lg">Total</span>
                   <span className="text-white font-bold text-2xl">${totalPrice.toFixed(2)}</span>
@@ -136,7 +136,7 @@ export default function CartPage() {
               <p className="text-center text-gray-600 text-xs mt-3">🔒 SSL Secured · Encrypted Checkout</p>
 
               <div className="mt-4">
-                <input type="text" placeholder="Discount / Affiliate code" className="w-full px-4 py-2.5 rounded-xl text-sm text-white placeholder-gray-600 border border-blue-900/30 focus:border-blue-500 focus:outline-none" style={{ background: "#050D1A" }} />
+                <input type="text" placeholder="Discount / Affiliate code" className="w-full px-4 py-2.5 rounded-xl text-sm text-white placeholder-gray-600 border border-white/10 focus:border-blue-500 focus:outline-none" style={{ background: "#050D1A" }} />
               </div>
             </div>
           </div>

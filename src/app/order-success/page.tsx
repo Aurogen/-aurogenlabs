@@ -109,14 +109,14 @@ export default function OrderSuccessPage() {
 
         {/* Order card */}
         <motion.div
-          className="rounded-2xl border border-blue-900/30 overflow-hidden mb-6"
-          style={{ background: "#111111" }}
+          className="rounded-2xl border border-white/10 overflow-hidden mb-6"
+          style={{ background: "#1C1C1E" }}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
         >
           {/* Order number */}
-          <div className="px-6 py-4 border-b border-blue-900/20 flex items-center justify-between">
+          <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Package className="w-4 h-4 text-blue-400" />
               <span className="text-gray-400 text-sm">Order</span>
@@ -128,7 +128,7 @@ export default function OrderSuccessPage() {
 
           {/* Items */}
           {order && order.items.length > 0 && (
-            <div className="px-6 py-4 space-y-3 border-b border-blue-900/20">
+            <div className="px-6 py-4 space-y-3 border-b border-white/10">
               {order.items.map((item, i) => (
                 <div key={i} className="flex justify-between items-center">
                   <div>
@@ -160,7 +160,7 @@ export default function OrderSuccessPage() {
 
         {/* Estimated delivery */}
         <motion.div
-          className="rounded-xl border border-blue-900/20 px-5 py-4 mb-8 flex items-center gap-4"
+          className="rounded-xl border border-white/10 px-5 py-4 mb-8 flex items-center gap-4"
           style={{ background: "rgba(27, 107, 222, 0.06)" }}
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
@@ -198,8 +198,8 @@ export default function OrderSuccessPage() {
           </Link>
           <Link
             href="/shop"
-            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold text-gray-300 text-sm border border-blue-900/30 hover:border-blue-600/50 transition-colors"
-            style={{ background: "#111111" }}
+            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl font-semibold text-gray-300 text-sm border border-white/10 hover:border-blue-600/50 transition-colors"
+            style={{ background: "#1C1C1E" }}
           >
             <ShoppingBag className="w-4 h-4" />
             CONTINUE SHOPPING

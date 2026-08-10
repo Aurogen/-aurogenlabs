@@ -113,8 +113,8 @@ export default function ResearchPage() {
             <a
               key={r.title}
               href={r.href}
-              className="group p-6 rounded-2xl border border-blue-900/20 hover:border-blue-600/30 transition-all"
-              style={{ background: "#111111" }}
+              className="group p-6 rounded-2xl border border-white/10 hover:border-blue-600/30 transition-all"
+              style={{ background: "#1C1C1E" }}
             >
               <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform"
@@ -136,8 +136,8 @@ export default function ResearchPage() {
         {/* Reconstitution guide */}
         <div
           id="reconstitution"
-          className="p-8 rounded-2xl border border-blue-600/20"
-          style={{ background: "#111111" }}
+          className="p-8 rounded-2xl border border-white/10"
+          style={{ background: "#1C1C1E" }}
         >
           <h2
             className="text-white text-3xl font-bold mb-6"

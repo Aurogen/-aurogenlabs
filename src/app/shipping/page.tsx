@@ -63,7 +63,7 @@ export default function ShippingPage() {
           </h2>
           <div className="space-y-3">
             {SHIPPING_OPTIONS.map((opt) => (
-              <div key={opt.name} className="p-5 rounded-2xl border border-blue-900/20 flex items-center gap-5" style={{ background: "#111111" }}>
+              <div key={opt.name} className="p-5 rounded-2xl border border-white/10 flex items-center gap-5" style={{ background: "#1C1C1E" }}>
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(27,107,222,0.1)" }}>
                   <Clock className="w-5 h-5 text-blue-400" />
                 </div>
@@ -85,7 +85,7 @@ export default function ShippingPage() {
               RETURNS POLICY
             </h2>
           </div>
-          <div className="p-5 rounded-2xl border border-blue-900/20 text-sm text-gray-400 leading-relaxed" style={{ background: "#111111" }}>
+          <div className="p-5 rounded-2xl border border-white/10 text-sm text-gray-400 leading-relaxed" style={{ background: "#1C1C1E" }}>
             <p className="mb-3">
               Due to the sensitive nature of research compounds, <strong className="text-white">all sales are final</strong>. We do not accept returns or exchanges.
             </p>
@@ -111,7 +111,7 @@ export default function ShippingPage() {
           </div>
           <div className="space-y-4">
             {FAQ.map((item) => (
-              <div key={item.q} className="p-5 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
+              <div key={item.q} className="p-5 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
                 <p className="text-white font-semibold mb-2 text-sm">{item.q}</p>
                 <p className="text-gray-400 text-sm leading-relaxed">{item.a}</p>
               </div>

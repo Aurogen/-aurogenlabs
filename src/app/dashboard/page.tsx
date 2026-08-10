@@ -251,8 +251,8 @@ function OverviewTab({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: i * 0.08 }}
-            className="p-5 rounded-2xl border border-blue-900/20"
-            style={{ background: "#111111" }}
+            className="p-5 rounded-2xl border border-white/10"
+            style={{ background: "#1C1C1E" }}
           >
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
@@ -270,8 +270,8 @@ function OverviewTab({
 
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Recent orders */}
-        <div className="lg:col-span-2 rounded-2xl border border-blue-900/20 overflow-hidden" style={{ background: "#111111" }}>
-          <div className="px-6 py-4 border-b border-blue-900/20 flex items-center justify-between">
+        <div className="lg:col-span-2 rounded-2xl border border-white/10 overflow-hidden" style={{ background: "#1C1C1E" }}>
+          <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between">
             <h2 className="text-white font-bold text-lg" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
               RECENT ORDERS
             </h2>
@@ -316,7 +316,7 @@ function OverviewTab({
         <div className="space-y-5">
           {/* Cart summary */}
           {totalItems > 0 && (
-            <div className="p-5 rounded-2xl border border-blue-600/20" style={{ background: "rgba(27,107,222,0.06)" }}>
+            <div className="p-5 rounded-2xl border border-white/10" style={{ background: "rgba(27,107,222,0.06)" }}>
               <h3 className="text-white font-bold mb-3 text-sm" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
                 CART IN PROGRESS
               </h3>
@@ -381,8 +381,8 @@ function OverviewTab({
             >
               <Link
                 href={a.href}
-                className="group flex flex-col gap-3 p-5 rounded-2xl border border-blue-900/20 hover:border-blue-600/30 transition-all"
-                style={{ background: "#111111" }}
+                className="group flex flex-col gap-3 p-5 rounded-2xl border border-white/10 hover:border-blue-600/30 transition-all"
+                style={{ background: "#1C1C1E" }}
               >
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform"
@@ -403,7 +403,7 @@ function OverviewTab({
       </div>
 
       {/* Activity chart */}
-      <div className="p-6 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
+      <div className="p-6 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
         <div className="flex items-center justify-between mb-5">
           <h2 className="text-white font-bold text-lg" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
             SPENDING ACTIVITY
@@ -485,8 +485,8 @@ function OrdersTab({ orders }: { orders: Order[] }) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.07 }}
-            className="p-6 rounded-2xl border border-blue-900/20"
-            style={{ background: "#111111" }}
+            className="p-6 rounded-2xl border border-white/10"
+            style={{ background: "#1C1C1E" }}
           >
             <div className="flex items-start justify-between gap-4 flex-wrap">
               <div>
@@ -546,7 +546,7 @@ function ProfileTab() {
       </h2>
 
       {/* Personal info */}
-      <div className="p-6 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
+      <div className="p-6 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
         <div className="flex items-center gap-2 mb-5">
           <Settings className="w-4 h-4 text-blue-400" />
           <h3 className="text-white font-bold">Personal Information</h3>
@@ -558,7 +558,7 @@ function ProfileTab() {
               <input
                 defaultValue={user?.firstName ?? ""}
                 readOnly
-                className="w-full px-4 py-2.5 rounded-xl text-sm text-white border border-blue-900/30 focus:outline-none opacity-70"
+                className="w-full px-4 py-2.5 rounded-xl text-sm text-white border border-white/10 focus:outline-none opacity-70"
                 style={{ background: "#050D1A" }}
               />
             </div>
@@ -567,7 +567,7 @@ function ProfileTab() {
               <input
                 defaultValue={user?.lastName ?? ""}
                 readOnly
-                className="w-full px-4 py-2.5 rounded-xl text-sm text-white border border-blue-900/30 focus:outline-none opacity-70"
+                className="w-full px-4 py-2.5 rounded-xl text-sm text-white border border-white/10 focus:outline-none opacity-70"
                 style={{ background: "#050D1A" }}
               />
             </div>
@@ -578,7 +578,7 @@ function ProfileTab() {
               defaultValue={user?.primaryEmailAddress?.emailAddress ?? ""}
               readOnly
               type="email"
-              className="w-full px-4 py-2.5 rounded-xl text-sm text-white border border-blue-900/30 focus:outline-none opacity-70"
+              className="w-full px-4 py-2.5 rounded-xl text-sm text-white border border-white/10 focus:outline-none opacity-70"
               style={{ background: "#050D1A" }}
             />
           </div>
@@ -587,7 +587,7 @@ function ProfileTab() {
       </div>
 
       {/* Preferences */}
-      <div className="p-6 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
+      <div className="p-6 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
         <div className="flex items-center gap-2 mb-5">
           <Settings className="w-4 h-4 text-blue-400" />
           <h3 className="text-white font-bold">Preferences</h3>

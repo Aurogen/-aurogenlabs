@@ -32,7 +32,7 @@ export default function FeaturedProducts() {
         <div>
           <p
             className="text-xs font-semibold tracking-[0.28em] uppercase mb-4"
-            style={{ color: "#C9922A", fontFamily: "var(--font-body, sans-serif)" }}
+            style={{ color: "rgba(255,255,255,0.6)", fontFamily: "var(--font-body, sans-serif)" }}
           >
             Top sellers
           </p>

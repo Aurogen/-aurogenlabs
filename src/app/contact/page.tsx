@@ -51,7 +51,7 @@ export default function ContactPage() {
               { icon: Clock, label: "Response Time", value: "Within 1–2 business days" },
               { icon: Mail, label: "Order Support", value: "Reference your order number" },
             ].map(({ icon: Icon, label, value }) => (
-              <div key={label} className="p-5 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
+              <div key={label} className="p-5 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
                 <div className="flex items-start gap-3">
                   <div className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5" style={{ background: "rgba(27,107,222,0.1)" }}>
                     <Icon className="w-4 h-4 text-blue-400" />
@@ -71,7 +71,7 @@ export default function ContactPage() {
 
           {/* Form */}
           <div className="md:col-span-2">
-            <div className="p-7 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
+            <div className="p-7 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
               <AnimatePresence mode="wait">
                 {sent ? (
                   <motion.div
@@ -105,7 +105,7 @@ export default function ContactPage() {
                           value={form.name}
                           onChange={(e) => set("name", e.target.value)}
                           required
-                          className="w-full px-4 py-3 rounded-xl text-sm text-white border border-blue-900/30 focus:border-blue-500 focus:outline-none transition-colors"
+                          className="w-full px-4 py-3 rounded-xl text-sm text-white border border-white/10 focus:border-blue-500 focus:outline-none transition-colors"
                           style={{ background: "#050D1A" }}
                           placeholder="Dr. Smith"
                         />
@@ -117,7 +117,7 @@ export default function ContactPage() {
                           value={form.email}
                           onChange={(e) => set("email", e.target.value)}
                           required
-                          className="w-full px-4 py-3 rounded-xl text-sm text-white border border-blue-900/30 focus:border-blue-500 focus:outline-none transition-colors"
+                          className="w-full px-4 py-3 rounded-xl text-sm text-white border border-white/10 focus:border-blue-500 focus:outline-none transition-colors"
                           style={{ background: "#050D1A" }}
                           placeholder="you@research.com"
                         />
@@ -129,7 +129,7 @@ export default function ContactPage() {
                       <select
                         value={form.subject}
                         onChange={(e) => set("subject", e.target.value)}
-                        className="w-full px-4 py-3 rounded-xl text-sm text-white border border-blue-900/30 focus:border-blue-500 focus:outline-none transition-colors"
+                        className="w-full px-4 py-3 rounded-xl text-sm text-white border border-white/10 focus:border-blue-500 focus:outline-none transition-colors"
                         style={{ background: "#050D1A" }}
                       >
                         <option value="">Select a topic</option>
@@ -149,7 +149,7 @@ export default function ContactPage() {
                         onChange={(e) => set("message", e.target.value)}
                         required
                         rows={5}
-                        className="w-full px-4 py-3 rounded-xl text-sm text-white border border-blue-900/30 focus:border-blue-500 focus:outline-none transition-colors resize-none"
+                        className="w-full px-4 py-3 rounded-xl text-sm text-white border border-white/10 focus:border-blue-500 focus:outline-none transition-colors resize-none"
                         style={{ background: "#050D1A" }}
                         placeholder="Describe your question or inquiry..."
                       />

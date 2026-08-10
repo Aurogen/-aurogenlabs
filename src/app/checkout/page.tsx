@@ -94,7 +94,7 @@ export default function CheckoutPage() {
           <div className="lg:col-span-3 space-y-6">
 
             {/* Contact */}
-            <div className="p-6 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
+            <div className="p-6 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
               <h2 className="text-white font-bold text-lg mb-4" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
                 CONTACT INFORMATION
               </h2>
@@ -105,7 +105,7 @@ export default function CheckoutPage() {
                     <input
                       value={form.firstName}
                       onChange={(e) => set("firstName", e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl text-sm text-white border border-blue-900/30 focus:border-blue-500 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 rounded-xl text-sm text-white border border-white/10 focus:border-blue-500 focus:outline-none transition-colors"
                       style={{ background: "#050D1A" }}
                       placeholder="John"
                     />
@@ -115,7 +115,7 @@ export default function CheckoutPage() {
                     <input
                       value={form.lastName}
                       onChange={(e) => set("lastName", e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl text-sm text-white border border-blue-900/30 focus:border-blue-500 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 rounded-xl text-sm text-white border border-white/10 focus:border-blue-500 focus:outline-none transition-colors"
                       style={{ background: "#050D1A" }}
                       placeholder="Smith"
                     />
@@ -127,7 +127,7 @@ export default function CheckoutPage() {
                     type="email"
                     value={form.email}
                     onChange={(e) => set("email", e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl text-sm text-white border border-blue-900/30 focus:border-blue-500 focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 rounded-xl text-sm text-white border border-white/10 focus:border-blue-500 focus:outline-none transition-colors"
                     style={{ background: "#050D1A" }}
                     placeholder="john@research.com"
                   />
@@ -136,7 +136,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Shipping */}
-            <div className="p-6 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
+            <div className="p-6 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
               <h2 className="text-white font-bold text-lg mb-4" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
                 SHIPPING ADDRESS
               </h2>
@@ -146,7 +146,7 @@ export default function CheckoutPage() {
                   <input
                     value={form.address}
                     onChange={(e) => set("address", e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl text-sm text-white border border-blue-900/30 focus:border-blue-500 focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 rounded-xl text-sm text-white border border-white/10 focus:border-blue-500 focus:outline-none transition-colors"
                     style={{ background: "#050D1A" }}
                     placeholder="123 Research Blvd"
                   />
@@ -157,7 +157,7 @@ export default function CheckoutPage() {
                     <input
                       value={form.city}
                       onChange={(e) => set("city", e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl text-sm text-white border border-blue-900/30 focus:border-blue-500 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 rounded-xl text-sm text-white border border-white/10 focus:border-blue-500 focus:outline-none transition-colors"
                       style={{ background: "#050D1A" }}
                       placeholder="Miami"
                     />
@@ -167,7 +167,7 @@ export default function CheckoutPage() {
                     <input
                       value={form.stateField}
                       onChange={(e) => set("stateField", e.target.value)}
-                      className="w-full px-4 py-3 rounded-xl text-sm text-white border border-blue-900/30 focus:border-blue-500 focus:outline-none transition-colors"
+                      className="w-full px-4 py-3 rounded-xl text-sm text-white border border-white/10 focus:border-blue-500 focus:outline-none transition-colors"
                       style={{ background: "#050D1A" }}
                       placeholder="FL"
                     />
@@ -178,7 +178,7 @@ export default function CheckoutPage() {
                   <input
                     value={form.zip}
                     onChange={(e) => set("zip", e.target.value)}
-                    className="w-full px-4 py-3 rounded-xl text-sm text-white border border-blue-900/30 focus:border-blue-500 focus:outline-none transition-colors"
+                    className="w-full px-4 py-3 rounded-xl text-sm text-white border border-white/10 focus:border-blue-500 focus:outline-none transition-colors"
                     style={{ background: "#050D1A" }}
                     placeholder="33101"
                   />
@@ -187,7 +187,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Payment - WHOP coming */}
-            <div className="p-6 rounded-2xl border border-blue-600/20" style={{ background: "#111111" }}>
+            <div className="p-6 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
               <h2 className="text-white font-bold text-lg mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
                 PAYMENT
               </h2>
@@ -225,7 +225,7 @@ export default function CheckoutPage() {
 
           {/* Right: Summary */}
           <div className="lg:col-span-2">
-            <div className="sticky top-24 p-6 rounded-2xl border border-blue-900/20" style={{ background: "#111111" }}>
+            <div className="sticky top-24 p-6 rounded-2xl border border-white/10" style={{ background: "#1C1C1E" }}>
               <h2 className="text-white font-bold text-lg mb-4" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
                 ORDER SUMMARY
               </h2>
@@ -248,7 +248,7 @@ export default function CheckoutPage() {
                 </div>
               )}
 
-              <div className="border-t border-blue-900/20 pt-4 space-y-2 mb-6">
+              <div className="border-t border-white/10 pt-4 space-y-2 mb-6">
                 <div className="flex justify-between text-sm text-gray-500">
                   <span>Shipping</span>
                   <span className="text-green-400">FREE</span>

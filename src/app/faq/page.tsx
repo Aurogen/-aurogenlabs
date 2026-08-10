@@ -83,8 +83,8 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
   return (
     <div
-      className="border border-blue-900/20 rounded-xl overflow-hidden cursor-pointer"
-      style={{ background: "#111111" }}
+      className="border border-white/10 rounded-xl overflow-hidden cursor-pointer"
+      style={{ background: "#1C1C1E" }}
       onClick={() => setOpen(!open)}
     >
       <div className="flex items-center justify-between px-5 py-4 gap-4">
@@ -101,7 +101,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25 }}
           >
-            <div className="px-5 pb-4 border-t border-blue-900/20 pt-4">
+            <div className="px-5 pb-4 border-t border-white/10 pt-4">
               <p className="text-gray-400 text-sm leading-relaxed">{a}</p>
             </div>
           </motion.div>
@@ -134,7 +134,7 @@ export default function FaqPage() {
         <div className="space-y-10">
           {CATEGORIES.map((cat) => (
             <div key={cat.category}>
-              <h2 className="text-white font-bold text-lg mb-4 pb-2 border-b border-blue-900/20" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
+              <h2 className="text-white font-bold text-lg mb-4 pb-2 border-b border-white/10" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
                 {cat.category}
               </h2>
               <div className="space-y-2">

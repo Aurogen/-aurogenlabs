@@ -75,8 +75,8 @@ export default function ProtocolsPage() {
           {PROTOCOLS.map((p) => (
             <div
               key={p.name}
-              className="group p-6 rounded-2xl border border-blue-900/20 hover:border-blue-600/30 transition-all cursor-pointer"
-              style={{ background: "#111111" }}
+              className="group p-6 rounded-2xl border border-white/10 hover:border-blue-600/30 transition-all cursor-pointer"
+              style={{ background: "#1C1C1E" }}
             >
               <div className="flex items-start justify-between gap-3 mb-3">
                 <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(27, 107, 222, 0.1)" }}>

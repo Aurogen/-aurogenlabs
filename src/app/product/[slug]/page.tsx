@@ -99,7 +99,7 @@ export default function ProductPage({ params }: Props) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="rounded-2xl border border-blue-900/20 flex items-center justify-center relative overflow-hidden"
+              className="rounded-2xl border border-white/10 flex items-center justify-center relative overflow-hidden"
               style={{ background: "linear-gradient(135deg, #050D1A, #0F2040)", minHeight: 400 }}
             >
               {/* Glow */}
@@ -131,7 +131,7 @@ export default function ProductPage({ params }: Props) {
                 { label: resolvedProduct.purity + " Purity", icon: FlaskConical },
                 { label: "COA Verified", icon: FileText },
               ].map(({ label, icon: Icon }) => (
-                <div key={label} className="flex flex-col items-center gap-1.5 p-3 rounded-xl border border-blue-900/20 text-center" style={{ background: "rgba(15,32,64,0.4)" }}>
+                <div key={label} className="flex flex-col items-center gap-1.5 p-3 rounded-xl border border-white/10 text-center" style={{ background: "rgba(15,32,64,0.4)" }}>
                   <Icon className="w-4 h-4 text-blue-400" />
                   <span className="text-gray-400 text-[11px] leading-tight">{label}</span>
                 </div>
@@ -191,7 +191,7 @@ export default function ProductPage({ params }: Props) {
                 { icon: Thermometer, label: "Storage", value: resolvedProduct.storage },
                 { icon: Scale, label: "Mol. Weight", value: resolvedProduct.molecularWeight || "N/A" },
               ].map(({ icon: Icon, label, value }) => (
-                <div key={label} className="p-3 rounded-xl border border-blue-900/20" style={{ background: "rgba(15,32,64,0.4)" }}>
+                <div key={label} className="p-3 rounded-xl border border-white/10" style={{ background: "rgba(15,32,64,0.4)" }}>
                   <div className="flex items-center gap-1.5 mb-1">
                     <Icon className="w-3 h-3 text-blue-400" />
                     <span className="text-gray-500 text-[10px] tracking-wide">{label.toUpperCase()}</span>
@@ -212,7 +212,7 @@ export default function ProductPage({ params }: Props) {
             {/* Qty + Add */}
             {resolvedProduct.inStock ? (
               <div className="flex gap-3 mb-3">
-                <div className="flex items-center rounded-xl border border-blue-900/30" style={{ background: "#111111" }}>
+                <div className="flex items-center rounded-xl border border-white/10" style={{ background: "#1C1C1E" }}>
                   <button onClick={() => setQty(Math.max(1, qty - 1))} className="px-3 py-3 text-gray-400 hover:text-white transition-colors">−</button>
                   <span className="px-3 text-white font-medium min-w-8 text-center">{qty}</span>
                   <button onClick={() => setQty(qty + 1)} className="px-3 py-3 text-gray-400 hover:text-white transition-colors">+</button>
@@ -239,14 +239,14 @@ export default function ProductPage({ params }: Props) {
               </button>
             )}
 
-            <button className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium text-gray-400 border border-blue-900/20 hover:border-blue-600/30 hover:text-white transition-all mb-6">
+            <button className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium text-gray-400 border border-white/10 hover:border-blue-600/30 hover:text-white transition-all mb-6">
               <FileText className="w-4 h-4" />
               View Certificate of Analysis (COA)
             </button>
 
             {/* ── Inline Dosing Calculator ── */}
-            <div className="rounded-2xl border border-blue-600/20 overflow-hidden" style={{ background: "#111111" }}>
-              <div className="px-5 py-3 border-b border-blue-900/20 flex items-center gap-2" style={{ background: "rgba(27,107,222,0.07)" }}>
+            <div className="rounded-2xl border border-white/10 overflow-hidden" style={{ background: "#1C1C1E" }}>
+              <div className="px-5 py-3 border-b border-white/10 flex items-center gap-2" style={{ background: "rgba(27,107,222,0.07)" }}>
                 <Calculator className="w-4 h-4 text-blue-400" />
                 <h3 className="text-white font-bold text-sm" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
                   DOSING CALCULATOR
@@ -256,7 +256,7 @@ export default function ProductPage({ params }: Props) {
                 <div className="grid grid-cols-3 gap-3">
                   <div>
                     <label className="block text-gray-500 text-[10px] mb-1.5 tracking-wide uppercase">Peptide (mg)</label>
-                    <div className="px-3 py-2.5 rounded-lg text-sm text-blue-300 font-bold border border-blue-900/30 text-center" style={{ background: "#050D1A" }}>
+                    <div className="px-3 py-2.5 rounded-lg text-sm text-blue-300 font-bold border border-white/10 text-center" style={{ background: "#050D1A" }}>
                       {peptideMg}mg
                     </div>
                   </div>
@@ -269,7 +269,7 @@ export default function ProductPage({ params }: Props) {
                       step={0.5}
                       value={waterMl}
                       onChange={(e) => setWaterMl(parseFloat(e.target.value) || 0)}
-                      className="w-full px-3 py-2.5 rounded-lg text-sm text-white border border-blue-900/30 focus:border-blue-500 focus:outline-none text-center"
+                      className="w-full px-3 py-2.5 rounded-lg text-sm text-white border border-white/10 focus:border-blue-500 focus:outline-none text-center"
                       style={{ background: "#050D1A" }}
                     />
                   </div>
@@ -282,14 +282,14 @@ export default function ProductPage({ params }: Props) {
                       step={50}
                       value={doseMcg}
                       onChange={(e) => setDoseMcg(parseFloat(e.target.value) || 0)}
-                      className="w-full px-3 py-2.5 rounded-lg text-sm text-white border border-blue-900/30 focus:border-blue-500 focus:outline-none text-center"
+                      className="w-full px-3 py-2.5 rounded-lg text-sm text-white border border-white/10 focus:border-blue-500 focus:outline-none text-center"
                       style={{ background: "#050D1A" }}
                     />
                   </div>
                 </div>
 
                 {/* Result */}
-                <div className="p-4 rounded-xl border border-blue-600/20" style={{ background: "rgba(27,107,222,0.06)" }}>
+                <div className="p-4 rounded-xl border border-white/10" style={{ background: "rgba(27,107,222,0.06)" }}>
                   <div className="flex items-center justify-between mb-2">
                     <div>
                       <p className="text-gray-500 text-[10px] uppercase tracking-wide mb-0.5">Concentration</p>
@@ -321,7 +321,7 @@ export default function ProductPage({ params }: Props) {
         {/* ── Tabs section ── */}
         <div className="mb-20">
           {/* Tab bar */}
-          <div className="flex gap-1 mb-6 border-b border-blue-900/20 overflow-x-auto">
+          <div className="flex gap-1 mb-6 border-b border-white/10 overflow-x-auto">
             {TABS.map(({ id, label, icon: Icon }) => (
               <button
                 key={id}
@@ -350,8 +350,8 @@ export default function ProductPage({ params }: Props) {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.25 }}
-              className="p-6 rounded-2xl border border-blue-900/20"
-              style={{ background: "#111111" }}
+              className="p-6 rounded-2xl border border-white/10"
+              style={{ background: "#1C1C1E" }}
             >
               {/* Description */}
               {activeTab === "desc" && (
@@ -365,7 +365,7 @@ export default function ProductPage({ params }: Props) {
                       </li>
                     ))}
                   </ul>
-                  <div className="p-4 rounded-xl border border-blue-900/20" style={{ background: "rgba(15,32,64,0.4)" }}>
+                  <div className="p-4 rounded-xl border border-white/10" style={{ background: "rgba(15,32,64,0.4)" }}>
                     <p className="text-blue-300 text-sm font-semibold mb-1">Research Disclaimer</p>
                     <p className="text-gray-500 text-xs leading-relaxed">
                       All research peptides sold by Aurogen Labs are intended for laboratory and scientific research purposes only.
@@ -388,7 +388,7 @@ export default function ProductPage({ params }: Props) {
                     ["Appearance", "White to off-white powder"],
                     ["Storage", resolvedProduct.storage],
                   ].map(([k, v]) => (
-                    <div key={k} className="flex justify-between py-3 border-b border-blue-900/20 last:border-0">
+                    <div key={k} className="flex justify-between py-3 border-b border-white/10 last:border-0">
                       <span className="text-gray-400 text-sm">{k}</span>
                       <span className="text-white text-sm font-medium text-right max-w-[55%]">{v}</span>
                     </div>
@@ -408,7 +408,7 @@ export default function ProductPage({ params }: Props) {
                       { label: "BAC Water Volume (mL)", inputKey: "water", sub: "Added to vial" },
                       { label: "Research Dose (mcg)", inputKey: "dose", sub: "Per injection" },
                     ].map((f, i) => (
-                      <div key={i} className="p-4 rounded-xl border border-blue-900/30" style={{ background: "#050D1A" }}>
+                      <div key={i} className="p-4 rounded-xl border border-white/10" style={{ background: "#050D1A" }}>
                         <label className="block text-gray-500 text-[10px] mb-2 uppercase tracking-wide">{f.label}</label>
                         {f.fixed ? (
                           <p className="text-blue-300 font-bold text-2xl">{f.value}</p>
@@ -451,7 +451,7 @@ export default function ProductPage({ params }: Props) {
                     </div>
                   </div>
 
-                  <div className="mt-4 p-4 rounded-xl border border-blue-900/20 flex items-start gap-3" style={{ background: "rgba(15,32,64,0.4)" }}>
+                  <div className="mt-4 p-4 rounded-xl border border-white/10 flex items-start gap-3" style={{ background: "rgba(15,32,64,0.4)" }}>
                     <Droplets className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
                     <div className="text-xs text-gray-500 leading-relaxed">
                       <strong className="text-gray-300">Reconstitution tip:</strong> Add BAC water slowly along the vial wall. Gently swirl — do not shake. Allow 1–2 minutes for the lyophilized powder to fully dissolve before drawing.
@@ -484,7 +484,7 @@ export default function ProductPage({ params }: Props) {
                       tags: ["Advanced", "Multi-compound"],
                     },
                   ].map((p) => (
-                    <div key={p.title} className="p-5 rounded-xl border border-blue-900/20 hover:border-blue-600/30 transition-all" style={{ background: "rgba(15,32,64,0.4)" }}>
+                    <div key={p.title} className="p-5 rounded-xl border border-white/10 hover:border-blue-600/30 transition-all" style={{ background: "rgba(15,32,64,0.4)" }}>
                       <div className="flex items-start justify-between gap-3 mb-2">
                         <h4 className="text-white font-bold">{p.title}</h4>
                         <span className="text-gray-500 text-xs shrink-0">{p.duration}</span>
@@ -509,7 +509,7 @@ export default function ProductPage({ params }: Props) {
               {activeTab === "faq" && (
                 <div className="space-y-2">
                   {FAQ_ITEMS.map((item, i) => (
-                    <div key={i} className="rounded-xl border border-blue-900/20 overflow-hidden" style={{ background: "rgba(15,32,64,0.3)" }}>
+                    <div key={i} className="rounded-xl border border-white/10 overflow-hidden" style={{ background: "rgba(15,32,64,0.3)" }}>
                       <button
                         onClick={() => setOpenFaq(openFaq === i ? null : i)}
                         className="w-full flex items-center justify-between px-5 py-4 text-left hover:bg-blue-600/5 transition-colors"
@@ -525,7 +525,7 @@ export default function ProductPage({ params }: Props) {
                             exit={{ height: 0, opacity: 0 }}
                             transition={{ duration: 0.25 }}
                           >
-                            <div className="px-5 pb-4 border-t border-blue-900/20">
+                            <div className="px-5 pb-4 border-t border-white/10">
                               <p className="text-gray-400 text-sm leading-relaxed pt-3">{item.a}</p>
                             </div>
                           </motion.div>
@@ -540,7 +540,7 @@ export default function ProductPage({ params }: Props) {
               {activeTab === "reviews" && (
                 <div>
                   {/* Summary */}
-                  <div className="flex items-center gap-6 p-5 rounded-xl border border-blue-900/20 mb-6" style={{ background: "rgba(15,32,64,0.4)" }}>
+                  <div className="flex items-center gap-6 p-5 rounded-xl border border-white/10 mb-6" style={{ background: "rgba(15,32,64,0.4)" }}>
                     <div className="text-center shrink-0">
                       <p className="text-white font-bold text-5xl">4.9</p>
                       <div className="flex mt-1">
@@ -573,7 +573,7 @@ export default function ProductPage({ params }: Props) {
                         initial={{ opacity: 0, y: 10 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: i * 0.07 }}
-                        className="p-5 rounded-xl border border-blue-900/20"
+                        className="p-5 rounded-xl border border-white/10"
                         style={{ background: "rgba(15,32,64,0.3)" }}
                       >
                         <div className="flex items-start justify-between gap-3 mb-3">

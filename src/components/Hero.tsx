@@ -22,7 +22,7 @@ export default function Hero() {
     <section
       ref={ref}
       className="relative flex flex-col overflow-hidden"
-      style={{ background: "#000000", minHeight: "100vh" }}
+      style={{ background: "#2E2E2E", minHeight: "100vh" }}
     >
       {/* Text — centered */}
       <motion.div
@@ -60,7 +60,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.18 }}
           className="text-lg mb-10 max-w-lg leading-relaxed"
-          style={{ color: "rgba(255,255,255,0.48)" }}
+          style={{ color: "rgba(255,255,255,0.72)" }}
         >
           Highest-purity compounds for advanced scientific investigation.
           Third-party tested. cGMP certified.
@@ -85,7 +85,7 @@ export default function Hero() {
             <Link
               href="/protocols"
               className="px-8 py-3.5 rounded-full font-semibold text-white text-sm"
-              style={{ border: "1px solid rgba(255,255,255,0.22)" }}
+              style={{ border: "1px solid rgba(255,255,255,0.45)" }}
             >
               Explore Protocols
             </Link>
@@ -105,12 +105,12 @@ export default function Hero() {
       </motion.div>
 
       {/* Trust strip */}
-      <div className="py-5 px-4" style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}>
+      <div className="py-5 px-4" style={{ borderTop: "1px solid rgba(255,255,255,0.1)" }}>
         <div className="max-w-3xl mx-auto flex flex-wrap justify-center gap-7 lg:gap-12">
           {BADGES.map(({ icon: Icon, label }) => (
             <div key={label} className="flex items-center gap-2">
               <Icon className="w-4 h-4 shrink-0" style={{ color: "#C9922A" }} />
-              <span className="text-sm" style={{ color: "rgba(255,255,255,0.4)" }}>{label}</span>
+              <span className="text-sm" style={{ color: "rgba(255,255,255,0.65)" }}>{label}</span>
             </div>
           ))}
         </div>

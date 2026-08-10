@@ -4,7 +4,7 @@ export default function SignInPage() {
   return (
     <div
       className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden"
-      style={{ background: "#080808" }}
+      style={{ background: "#696969" }}
     >
       {/* Ambient gold glow */}
       <div

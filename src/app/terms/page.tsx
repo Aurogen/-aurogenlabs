@@ -75,7 +75,7 @@ export default function TermsPage() {
         {/* Sections */}
         <div className="space-y-8">
           {SECTIONS.map((s) => (
-            <div key={s.title} className="border-b border-blue-900/20 pb-8 last:border-0">
+            <div key={s.title} className="border-b border-white/10 pb-8 last:border-0">
               <h2 className="text-white font-bold text-lg mb-3" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
                 {s.title}
               </h2>
