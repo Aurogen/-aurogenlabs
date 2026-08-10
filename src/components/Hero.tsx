@@ -55,7 +55,7 @@ export default function Hero() {
           >
             Engineering<br />
             the Future of<br />
-            <span style={{ color: "#C9922A" }}>Peptide Research.</span>
+            <span style={{ fontStyle: "italic" }}>Peptide Research.</span>
           </motion.h1>
 
           <motion.p
