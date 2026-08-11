@@ -63,35 +63,34 @@ export default function Navbar() {
 
   return (
     <>
-      <header
-        className="sticky top-0 z-40 w-full"
-        style={{
-          background: "rgba(251,251,253,0.92)",
-          backdropFilter: "blur(20px) saturate(180%)",
-          WebkitBackdropFilter: "blur(20px) saturate(180%)",
-          borderBottom: "1px solid rgba(0,0,0,0.08)",
-        }}
-      >
-        <div className="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between gap-4">
-
+      {/* ── Floating pill header ── */}
+      <header className="sticky top-0 z-40 w-full px-4 pt-3 pointer-events-none">
+        <div
+          className="max-w-[1400px] mx-auto flex items-center justify-between h-[50px] px-3 rounded-full pointer-events-auto"
+          style={{
+            background: "rgba(255,255,255,0.97)",
+            backdropFilter: "blur(24px) saturate(180%)",
+            WebkitBackdropFilter: "blur(24px) saturate(180%)",
+            border: "1px solid rgba(0,0,0,0.09)",
+            boxShadow: "0 2px 24px rgba(0,0,0,0.08)",
+          }}
+        >
           {/* ── Logo ── */}
-          <Link href="/" className="flex items-center gap-2.5 shrink-0">
-            <Logo size={30} variant="light" />
-            <div>
-              <p
-                className="font-bold text-sm leading-none tracking-widest"
-                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
-              >
-                AUROGEN
-              </p>
-              <p className="text-[8px] tracking-[0.4em] leading-none mt-0.5" style={{ color: "#6B7A8D" }}>
+          <Link href="/" className="flex items-center gap-2 shrink-0 pl-1">
+            <Logo size={26} variant="light" />
+            <span
+              className="font-bold text-sm tracking-widest leading-none"
+              style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
+            >
+              AUROGEN
+              <span className="text-[9px] tracking-[0.35em] ml-1.5 align-middle" style={{ color: "#6B7A8D" }}>
                 LABS
-              </p>
-            </div>
+              </span>
+            </span>
           </Link>
 
           {/* ── Desktop nav ── */}
-          <nav className="hidden lg:flex items-center gap-0.5">
+          <nav className="hidden lg:flex items-center gap-0">
             {NAV_LINKS.map((link) => {
               const active = isActive(link);
               return (
@@ -103,35 +102,25 @@ export default function Navbar() {
                 >
                   <Link
                     href={link.href}
-                    className="flex items-center gap-0.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all"
-                    style={{
-                      background: active ? "#1D1D1F" : "transparent",
-                      color: active ? "#FFFFFF" : "#6E6E73",
-                    }}
-                    onMouseEnter={(e) => {
-                      if (!active) e.currentTarget.style.color = "#1D1D1F";
-                    }}
-                    onMouseLeave={(e) => {
-                      if (!active) e.currentTarget.style.color = "#6E6E73";
-                    }}
+                    className="flex items-center gap-0.5 px-3.5 py-1.5 text-sm transition-colors"
+                    style={{ color: active ? "#1D1D1F" : "#6E6E73", fontWeight: active ? 600 : 400 }}
+                    onMouseEnter={(e) => { if (!active) e.currentTarget.style.color = "#1D1D1F"; }}
+                    onMouseLeave={(e) => { if (!active) e.currentTarget.style.color = "#6E6E73"; }}
                   >
                     {link.label}
                     {link.sub && (
-                      <ChevronDown
-                        className="w-3 h-3"
-                        style={{ opacity: active ? 0.7 : 0.45 }}
-                      />
+                      <ChevronDown className="w-3 h-3 ml-0.5" style={{ opacity: 0.5 }} />
                     )}
                   </Link>
 
                   {link.sub && activeDropdown === link.label && (
-                    <div className="absolute top-full left-0 w-54 pt-1" style={{ width: "210px" }}>
+                    <div className="absolute top-full left-0 pt-2" style={{ width: "210px" }}>
                       <div
-                        className="rounded-xl overflow-hidden shadow-xl"
+                        className="rounded-2xl overflow-hidden shadow-xl"
                         style={{
-                          background: "rgba(251,251,253,0.97)",
-                          backdropFilter: "blur(20px)",
-                          border: "1px solid rgba(0,0,0,0.1)",
+                          background: "rgba(255,255,255,0.98)",
+                          backdropFilter: "blur(24px)",
+                          border: "1px solid rgba(0,0,0,0.09)",
                         }}
                       >
                         {link.sub.map((item, i) => (
@@ -141,7 +130,7 @@ export default function Navbar() {
                             className="block px-4 py-2.5 text-sm transition-colors"
                             style={{
                               color: "#6E6E73",
-                              borderBottom: i < link.sub!.length - 1 ? "1px solid rgba(0,0,0,0.06)" : "none",
+                              borderBottom: i < link.sub!.length - 1 ? "1px solid rgba(0,0,0,0.05)" : "none",
                             }}
                             onMouseEnter={(e) => {
                               e.currentTarget.style.color = "#1D1D1F";
@@ -164,10 +153,22 @@ export default function Navbar() {
           </nav>
 
           {/* ── Right actions ── */}
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-0.5">
 
-            {/* Language toggle — pill style (CellGenic) */}
-            <div className="hidden md:flex items-center gap-1 mr-1 p-0.5 rounded-full" style={{ background: "rgba(0,0,0,0.05)" }}>
+            {/* Search */}
+            <button
+              onClick={() => setSearchOpen(true)}
+              className="hidden md:flex w-8 h-8 items-center justify-center rounded-full transition-colors"
+              style={{ color: "#6E6E73" }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(0,0,0,0.06)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+              aria-label="Search"
+            >
+              <Search className="w-4 h-4" />
+            </button>
+
+            {/* Language toggle */}
+            <div className="hidden md:flex items-center gap-0.5 mx-1 p-0.5 rounded-full" style={{ background: "rgba(0,0,0,0.05)" }}>
               {(["en", "es"] as const).map((l) => (
                 <button
                   key={l}
@@ -183,19 +184,7 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* Search */}
-            <button
-              onClick={() => setSearchOpen(true)}
-              className="hidden md:flex w-8 h-8 items-center justify-center rounded-lg transition-colors"
-              style={{ color: "#6E6E73" }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(0,0,0,0.06)")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-              aria-label="Search"
-            >
-              <Search className="w-4 h-4" />
-            </button>
-
-            {/* User */}
+            {/* My Account text link (CellGenic "Provider Login") */}
             {isSignedIn ? (
               <div className="hidden md:flex items-center w-8 h-8 justify-center">
                 <UserButton appearance={{ elements: { avatarBox: "w-7 h-7" } }} />
@@ -203,14 +192,12 @@ export default function Navbar() {
             ) : (
               <SignInButton mode="redirect" fallbackRedirectUrl="/dashboard">
                 <button
-                  className="hidden md:flex w-8 h-8 items-center justify-center rounded-lg transition-colors"
+                  className="hidden md:flex items-center px-3 py-1.5 text-sm transition-colors rounded-full"
                   style={{ color: "#6E6E73" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(0,0,0,0.06)")}
-                  onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+                  onMouseEnter={(e) => { e.currentTarget.style.color = "#1D1D1F"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.color = "#6E6E73"; }}
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" />
-                  </svg>
+                  {lang === "es" ? "Mi Cuenta" : "My Account"}
                 </button>
               </SignInButton>
             )}
@@ -218,7 +205,7 @@ export default function Navbar() {
             {/* Cart */}
             <button
               onClick={openCart}
-              className="relative flex w-8 h-8 items-center justify-center rounded-lg transition-colors"
+              className="relative flex w-8 h-8 items-center justify-center rounded-full transition-colors"
               style={{ color: "#6E6E73" }}
               onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(0,0,0,0.06)")}
               onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
@@ -226,18 +213,18 @@ export default function Navbar() {
               <ShoppingCart className="w-4 h-4" />
               {totalItems > 0 && (
                 <span
-                  className="absolute -top-1 -right-1 rounded-full text-white text-[10px] font-bold flex items-center justify-center"
-                  style={{ background: "#6B7A8D", minWidth: "16px", minHeight: "16px", padding: "0 2px" }}
+                  className="absolute -top-0.5 -right-0.5 rounded-full text-white text-[9px] font-bold flex items-center justify-center"
+                  style={{ background: "#1D1D1F", minWidth: "15px", minHeight: "15px", padding: "0 2px" }}
                 >
                   {totalItems}
                 </span>
               )}
             </button>
 
-            {/* CTA — Shop Now (CellGenic-style "Become a Provider") */}
+            {/* Shop Now CTA — "Become a Provider" equivalent */}
             <Link
               href="/shop"
-              className="hidden lg:flex items-center gap-1.5 ml-1 px-4 py-1.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-85"
+              className="hidden lg:flex items-center gap-1.5 ml-1 px-5 py-2 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-85"
               style={{ background: "#1D1D1F" }}
             >
               {lang === "es" ? "Ver Catálogo" : "Shop Now"}
@@ -246,27 +233,30 @@ export default function Navbar() {
 
             {/* Mobile toggle */}
             <button
-              className="lg:hidden flex w-8 h-8 items-center justify-center rounded-lg transition-colors"
+              className="lg:hidden flex w-8 h-8 items-center justify-center rounded-full transition-colors ml-1"
               style={{ color: "#6E6E73" }}
+              onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(0,0,0,0.06)")}
+              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
               onClick={() => setMobileOpen(!mobileOpen)}
             >
-              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </button>
           </div>
         </div>
 
-        {/* ── Mobile menu ── */}
+        {/* ── Mobile menu — card below pill ── */}
         {mobileOpen && (
           <div
-            className="lg:hidden"
+            className="lg:hidden mt-2 max-w-[1400px] mx-auto rounded-2xl overflow-hidden pointer-events-auto"
             style={{
-              background: "rgba(251,251,253,0.97)",
-              borderTop: "1px solid rgba(0,0,0,0.06)",
+              background: "rgba(255,255,255,0.98)",
+              border: "1px solid rgba(0,0,0,0.09)",
+              boxShadow: "0 8px 32px rgba(0,0,0,0.10)",
             }}
           >
             <button
               onClick={() => { setSearchOpen(true); setMobileOpen(false); }}
-              className="w-full flex items-center gap-3 px-6 py-3.5 text-sm"
+              className="w-full flex items-center gap-3 px-5 py-3.5 text-sm"
               style={{ color: "#6E6E73", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
             >
               <Search className="w-4 h-4" />
@@ -280,10 +270,10 @@ export default function Navbar() {
                   key={link.label}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block px-6 py-3.5 text-sm font-medium transition-colors"
+                  className="block px-5 py-3.5 text-sm transition-colors"
                   style={{
                     color: active ? "#1D1D1F" : "#6E6E73",
-                    background: active ? "rgba(0,0,0,0.03)" : "transparent",
+                    fontWeight: active ? 600 : 400,
                     borderBottom: "1px solid rgba(0,0,0,0.06)",
                   }}
                 >
@@ -295,18 +285,17 @@ export default function Navbar() {
             <Link
               href="/dashboard"
               onClick={() => setMobileOpen(false)}
-              className="block px-6 py-3.5 text-sm font-medium"
+              className="block px-5 py-3.5 text-sm"
               style={{ color: "#6B7A8D", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
             >
               {lang === "es" ? "Mi Cuenta" : "My Account"}
             </Link>
 
-            {/* Language mobile */}
-            <div className="flex items-center gap-3 px-6 py-4">
-              <span className="text-xs" style={{ color: "#6E6E73" }}>
+            <div className="flex items-center gap-3 px-5 py-4">
+              <span className="text-xs" style={{ color: "#9E9EA8" }}>
                 {lang === "es" ? "Idioma:" : "Language:"}
               </span>
-              <div className="flex gap-1 p-0.5 rounded-full" style={{ background: "rgba(0,0,0,0.06)" }}>
+              <div className="flex gap-0.5 p-0.5 rounded-full" style={{ background: "rgba(0,0,0,0.06)" }}>
                 {(["en", "es"] as const).map((l) => (
                   <button
                     key={l}
