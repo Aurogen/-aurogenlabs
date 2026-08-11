@@ -295,8 +295,14 @@ function LineupCard({
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-2"
-            style={{ padding: "12px" }}
+            className="transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-2"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "contain",
+              objectPosition: "center center",
+              padding: "16px 20px",
+            }}
           />
         ) : (
           <div className="transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-2">
