@@ -7,6 +7,7 @@ import { PRODUCTS, GOALS, type Goal } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 
 const CDN = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/";
+const ALL_PEPTIDES_VIDEO = `${CDN}hf_20260811_193152_9c04b585-b216-4708-a3b0-36372b2881f7.mp4`;
 const GOAL_VIDEOS: Record<string, string> = {
   "Fat Loss":      `${CDN}hf_20260811_191602_2803ed25-2227-4949-8979-bfbe607cf988.mp4`,
   "Muscle Growth": `${CDN}hf_20260811_191602_25f02499-bf2f-40de-81f7-824b1e027c70.mp4`,
@@ -100,19 +101,28 @@ function ShopContent() {
           </div>
         </div>
       ) : (
-        <div
-          className="py-14 px-4 text-center"
-          style={{ background: "#FFFFFF", borderBottom: "1px solid rgba(0,0,0,0.08)" }}
-        >
-          <p className="text-xs font-semibold tracking-[0.28em] uppercase mb-3" style={{ color: "#9E9EA8" }}>
-            Research compounds
-          </p>
-          <h1
-            className="font-bold"
-            style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(36px, 6vw, 72px)", letterSpacing: "-0.01em", color: "#1D1D1F" }}
-          >
-            All Peptides
-          </h1>
+        <div className="relative py-20 px-4 text-center overflow-hidden" style={{ minHeight: "220px", borderBottom: "1px solid rgba(0,0,0,0.12)" }}>
+          <video
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ filter: "brightness(0.42)" }}
+            src={ALL_PEPTIDES_VIDEO}
+          />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%)" }} />
+          <div className="relative z-10">
+            <p className="text-xs font-semibold tracking-[0.28em] uppercase mb-3" style={{ color: "rgba(255,255,255,0.55)" }}>
+              Research compounds
+            </p>
+            <h1
+              className="font-bold"
+              style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(36px, 6vw, 72px)", letterSpacing: "-0.01em", color: "#FFFFFF" }}
+            >
+              All Peptides
+            </h1>
+          </div>
         </div>
       )}
 
