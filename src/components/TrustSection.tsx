@@ -5,31 +5,31 @@ const FEATURES = [
     icon: FlaskConical,
     title: "CoA Every Batch",
     desc: "Third-party Certificate of Analysis included with every shipment — batch number, purity, identity.",
-    color: "#6B7A8D",
+    color: "#0A84FF",
   },
   {
     icon: ShieldCheck,
     title: "99%+ Purity",
     desc: "HPLC-verified purity guaranteed across all compounds. Batches below threshold are rejected.",
-    color: "#F0B429",
+    color: "#0A84FF",
   },
   {
     icon: Microscope,
     title: "Research Grade",
     desc: "Formulated exclusively for scientific research and controlled laboratory studies.",
-    color: "#6B7A8D",
+    color: "#0A84FF",
   },
   {
     icon: Truck,
     title: "Fast Shipping",
     desc: "Discreet, secure delivery in 2–5 business days anywhere in the continental US.",
-    color: "#F0B429",
+    color: "#0A84FF",
   },
   {
     icon: HeartHandshake,
     title: "Expert Support",
     desc: "Peptide-specialized team available for technical queries and reconstitution guidance.",
-    color: "#D4A03A",
+    color: "#0A84FF",
   },
 ];
 
@@ -88,7 +88,7 @@ export default function TrustSection() {
             >
               <p
                 className="font-bold text-4xl mb-1"
-                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#6B7A8D" }}
+                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#0A84FF" }}
               >
                 {stat.value}
               </p>

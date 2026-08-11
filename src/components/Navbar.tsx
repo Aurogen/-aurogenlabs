@@ -83,7 +83,7 @@ export default function Navbar() {
               style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
             >
               AUROGEN
-              <span className="text-[9px] tracking-[0.35em] ml-1.5 align-middle" style={{ color: "#6B7A8D" }}>
+              <span className="text-[9px] tracking-[0.35em] ml-1.5 align-middle" style={{ color: "#0A84FF" }}>
                 LABS
               </span>
             </span>
@@ -175,7 +175,7 @@ export default function Navbar() {
                   onClick={() => setLang(l)}
                   className="px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide transition-all"
                   style={{
-                    background: lang === l ? "#1D1D1F" : "transparent",
+                    background: lang === l ? "#0A84FF" : "transparent",
                     color: lang === l ? "#FFFFFF" : "#9E9EA8",
                   }}
                 >
@@ -214,7 +214,7 @@ export default function Navbar() {
               {totalItems > 0 && (
                 <span
                   className="absolute -top-0.5 -right-0.5 rounded-full text-white text-[9px] font-bold flex items-center justify-center"
-                  style={{ background: "#1D1D1F", minWidth: "15px", minHeight: "15px", padding: "0 2px" }}
+                  style={{ background: "#0A84FF", minWidth: "15px", minHeight: "15px", padding: "0 2px" }}
                 >
                   {totalItems}
                 </span>
@@ -225,7 +225,7 @@ export default function Navbar() {
             <Link
               href="/shop"
               className="hidden lg:flex items-center gap-1.5 ml-1 px-5 py-2 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-85"
-              style={{ background: "#1D1D1F" }}
+              style={{ background: "#0A84FF" }}
             >
               {lang === "es" ? "Ver Catálogo" : "Shop Now"}
               <ArrowRight className="w-3.5 h-3.5" />
@@ -302,7 +302,7 @@ export default function Navbar() {
                     onClick={() => setLang(l)}
                     className="px-3 py-1 rounded-full text-xs font-semibold transition-all"
                     style={{
-                      background: lang === l ? "#1D1D1F" : "transparent",
+                      background: lang === l ? "#0A84FF" : "transparent",
                       color: lang === l ? "#FFFFFF" : "#9E9EA8",
                     }}
                   >

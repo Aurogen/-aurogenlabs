@@ -43,7 +43,7 @@ export default function CredentialsStrip() {
                   className="font-bold text-xs tracking-[0.12em]"
                   style={{
                     fontFamily: "var(--font-dm-sans, sans-serif)",
-                    color: "#1D1D1F",
+                    color: "#0A84FF",
                     letterSpacing: "0.1em",
                   }}
                 >
