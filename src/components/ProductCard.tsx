@@ -84,7 +84,15 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                   }}
                 />
                 <div className="relative z-10 transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-2">
-                  <ProductVialDetailed index={index} />
+                  {product.image ? (
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      style={{ width: "130px", height: "130px", objectFit: "contain", objectPosition: "center" }}
+                    />
+                  ) : (
+                    <ProductVialDetailed index={index} />
+                  )}
                 </div>
                 {/* View overlay */}
                 <div
