@@ -27,7 +27,7 @@ export default function Hero() {
   return (
     <section style={{ background: "#FFFFFF", borderTop: "1px solid rgba(0,0,0,0.07)" }}>
       {/* ── Brand statement — 2-col on desktop ── */}
-      <div className="max-w-6xl mx-auto px-6 md:px-12 py-12 md:py-16 flex flex-col md:flex-row md:items-center gap-8 md:gap-16">
+      <div className="max-w-6xl mx-auto px-6 md:px-12 py-8 md:py-12 flex flex-col md:flex-row md:items-center gap-8 md:gap-16">
 
         {/* Left: headline + sub */}
         <div className="flex-1 min-w-0">
