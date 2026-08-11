@@ -9,7 +9,14 @@ import Logo from "./Logo";
 import SearchModal from "./SearchModal";
 import { useLanguage } from "@/context/LanguageContext";
 
-const NAV_LINKS_EN = [
+interface NavLink {
+  label: string;
+  href: string;
+  sub?: string[];
+  subEn?: string[];
+}
+
+const NAV_LINKS_EN: NavLink[] = [
   { label: "Home", href: "/" },
   {
     label: "Shop by Goal",
@@ -21,7 +28,7 @@ const NAV_LINKS_EN = [
   { label: "Research Center", href: "/research" },
 ];
 
-const NAV_LINKS_ES = [
+const NAV_LINKS_ES: NavLink[] = [
   { label: "Inicio", href: "/" },
   {
     label: "Comprar por Objetivo",
