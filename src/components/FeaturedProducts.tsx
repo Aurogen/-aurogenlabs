@@ -11,6 +11,10 @@ import { useCart } from "@/context/CartContext";
 const BG_VIDEOS = [
   "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_164633_8fe5fae4-2747-4529-94ab-d2f81453f2c5.mp4",
   "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_163541_332a7688-cf41-400e-ab3c-56c2f6433499.mp4",
+  "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_164706_bd49faa1-adfa-490c-8b49-7007e9ea0303.mp4",
+  "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_164633_35c4e890-6344-450c-be9e-ff0388c2037b.mp4",
+  "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_171853_95c2e5f5-ae6a-401b-898c-b981400d3471.mp4",
+  "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_171853_423790f5-d7a3-4471-b9a9-ef22fd1307a2.mp4",
 ];
 
 const ACCENT_COLORS = [
