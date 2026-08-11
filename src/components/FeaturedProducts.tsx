@@ -148,15 +148,20 @@ function LineupCard({
     <motion.div
       initial={{ opacity: 0, y: 16 }}
       whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -8 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.45, delay: index * 0.06 }}
-      className="relative shrink-0 rounded-2xl overflow-hidden flex flex-col"
+      transition={{
+        opacity: { duration: 0.45, delay: index * 0.06 },
+        y: { type: "spring", stiffness: 320, damping: 26 },
+      }}
+      className="group relative shrink-0 rounded-2xl overflow-hidden flex flex-col"
       style={{
         width: 240,
         height: 400,
         scrollSnapAlign: "start",
         background: "#FFFFFF",
         border: "1px solid rgba(0,0,0,0.07)",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
       }}
     >
       {/* Badge */}
@@ -190,10 +195,12 @@ function LineupCard({
       {/* Vial display */}
       <Link
         href={`/product/${product.slug}`}
-        className="flex-1 flex items-center justify-center"
+        className="flex-1 flex items-center justify-center overflow-hidden"
         style={{ background: "#F5F2EC" }}
       >
-        <LineupVial accent={accent} index={index} />
+        <div className="transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-2">
+          <LineupVial accent={accent} index={index} />
+        </div>
       </Link>
 
       {/* Info */}

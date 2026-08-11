@@ -25,12 +25,16 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
+        whileHover={{ y: -7 }}
         viewport={{ once: true, margin: "-60px" }}
-        transition={{ duration: 0.5, delay: index * 0.08, ease: [0.21, 0.47, 0.32, 0.98] }}
+        transition={{
+          opacity: { duration: 0.5, delay: index * 0.08, ease: [0.21, 0.47, 0.32, 0.98] },
+          y: { type: "spring", stiffness: 320, damping: 26 },
+        }}
       >
         <Tilt3D className="relative h-full" intensity={8}>
           <div
-            className="relative rounded-2xl overflow-hidden flex flex-col h-full transition-all duration-300 hover:shadow-[0_8px_32px_rgba(0,0,0,0.10)]"
+            className="group relative rounded-2xl overflow-hidden flex flex-col h-full transition-shadow duration-300 hover:shadow-[0_16px_48px_rgba(0,0,0,0.13)]"
             style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
           >
             {/* Badge */}
@@ -70,7 +74,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                   borderBottom: "1px solid rgba(0,0,0,0.06)",
                 }}
               >
-                <div className="relative z-10">
+                <div className="relative z-10 transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-2">
                   <ProductVialDetailed index={index} />
                 </div>
 
