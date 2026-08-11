@@ -64,7 +64,7 @@ export default function QualityPage() {
               >
                 <span
                   className="block text-5xl font-bold mb-4 leading-none"
-                  style={{ color: "rgba(201,146,42,0.25)", fontFamily: "var(--font-heading, sans-serif)" }}
+                  style={{ color: "rgba(10,132,255,0.25)", fontFamily: "var(--font-heading, sans-serif)" }}
                 >
                   {s.number}
                 </span>

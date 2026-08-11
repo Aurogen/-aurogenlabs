@@ -184,7 +184,7 @@ export default function CartPage() {
 
               <div
                 className="mb-4 p-3 rounded-xl text-center text-xs"
-                style={{ background: "rgba(201,146,42,0.06)", border: "1px solid rgba(201,146,42,0.15)", color: "#A07520" }}
+                style={{ background: "rgba(10,132,255,0.06)", border: "1px solid rgba(10,132,255,0.15)", color: "#0A84FF" }}
               >
                 For Research Use Only · Not for Human Consumption
               </div>

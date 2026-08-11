@@ -29,7 +29,7 @@ export default function TermsPage() {
           <div className="flex items-center gap-3 mb-4">
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center"
-              style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
+              style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
             >
               <Scale className="w-5 h-5" style={{ color: "#6B7A8D" }} />
             </div>
@@ -46,7 +46,7 @@ export default function TermsPage() {
           <p className="text-sm" style={{ color: "#9E9EA8" }}>Effective date: July 1, 2025</p>
           <div
             className="mt-6 p-4 rounded-xl text-sm"
-            style={{ background: "rgba(201,146,42,0.04)", border: "1px solid rgba(201,146,42,0.15)", color: "#A07520" }}
+            style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)", color: "#0A84FF" }}
           >
             <strong>Important:</strong> All products are sold for research purposes only. Not for human consumption.
           </div>

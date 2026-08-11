@@ -144,7 +144,7 @@ export default function ProductPage({ params }: Props) {
                   key={g}
                   href={`/shop?goal=${encodeURIComponent(g)}`}
                   className="px-3 py-1 rounded text-xs font-medium tracking-wide transition-opacity hover:opacity-80"
-                  style={{ background: "rgba(201,146,42,0.06)", color: "#A07520", border: "1px solid rgba(201,146,42,0.15)" }}
+                  style={{ background: "rgba(10,132,255,0.06)", color: "#0A84FF", border: "1px solid rgba(10,132,255,0.15)" }}
                 >
                   {g}
                 </Link>
@@ -217,9 +217,9 @@ export default function ProductPage({ params }: Props) {
             {/* Research banner */}
             <div
               className="mb-5 p-3 rounded-xl"
-              style={{ background: "rgba(201,146,42,0.04)", border: "1px solid rgba(201,146,42,0.15)" }}
+              style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)" }}
             >
-              <p className="text-xs flex items-center gap-2" style={{ color: "#A07520" }}>
+              <p className="text-xs flex items-center gap-2" style={{ color: "#0A84FF" }}>
                 <span>⚠️</span>
                 <span>For Research Use Only · Not for Human Consumption · Not a drug or supplement</span>
               </p>
@@ -287,7 +287,7 @@ export default function ProductPage({ params }: Props) {
             >
               <div
                 className="px-5 py-3 flex items-center gap-2"
-                style={{ background: "rgba(201,146,42,0.05)", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
+                style={{ background: "rgba(10,132,255,0.05)", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
               >
                 <Calculator className="w-4 h-4" style={{ color: "#6B7A8D" }} />
                 <h3
@@ -345,7 +345,7 @@ export default function ProductPage({ params }: Props) {
                 {/* Result */}
                 <div
                   className="p-4 rounded-xl"
-                  style={{ background: "rgba(201,146,42,0.05)", border: "1px solid rgba(201,146,42,0.15)" }}
+                  style={{ background: "rgba(10,132,255,0.05)", border: "1px solid rgba(10,132,255,0.15)" }}
                 >
                   <div className="flex items-center justify-between mb-2">
                     <div>
@@ -405,7 +405,7 @@ export default function ProductPage({ params }: Props) {
                 {id === "reviews" && (
                   <span
                     className="ml-1 text-[10px] px-1.5 py-0.5 rounded-full font-bold"
-                    style={{ background: "rgba(201,146,42,0.10)", color: "#6B7A8D" }}
+                    style={{ background: "rgba(10,132,255,0.10)", color: "#6B7A8D" }}
                   >
                     {MOCK_REVIEWS.length}
                   </span>
@@ -443,10 +443,10 @@ export default function ProductPage({ params }: Props) {
                   </ul>
                   <div
                     className="p-4 rounded-xl"
-                    style={{ background: "rgba(201,146,42,0.04)", border: "1px solid rgba(201,146,42,0.15)" }}
+                    style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)" }}
                   >
-                    <p className="text-sm font-semibold mb-1" style={{ color: "#A07520" }}>Research Disclaimer</p>
-                    <p className="text-xs leading-relaxed" style={{ color: "#A07520" }}>
+                    <p className="text-sm font-semibold mb-1" style={{ color: "#0A84FF" }}>Research Disclaimer</p>
+                    <p className="text-xs leading-relaxed" style={{ color: "#0A84FF" }}>
                       All research peptides sold by Aurogen Labs are intended for laboratory and scientific research purposes only.
                       These compounds are not intended for human consumption and have not been evaluated by the FDA.
                     </p>
@@ -510,7 +510,7 @@ export default function ProductPage({ params }: Props) {
                             value={waterMl}
                             onChange={(e) => setWaterMl(parseFloat(e.target.value) || 0)}
                             className="w-full bg-transparent font-bold text-2xl focus:outline-none"
-                            style={{ color: "#1D1D1F", borderBottom: "1px solid rgba(201,146,42,0.4)" }}
+                            style={{ color: "#1D1D1F", borderBottom: "1px solid rgba(10,132,255,0.4)" }}
                           />
                         ) : (
                           <input
@@ -521,7 +521,7 @@ export default function ProductPage({ params }: Props) {
                             value={doseMcg}
                             onChange={(e) => setDoseMcg(parseFloat(e.target.value) || 0)}
                             className="w-full bg-transparent font-bold text-2xl focus:outline-none"
-                            style={{ color: "#1D1D1F", borderBottom: "1px solid rgba(201,146,42,0.4)" }}
+                            style={{ color: "#1D1D1F", borderBottom: "1px solid rgba(10,132,255,0.4)" }}
                           />
                         )}
                         <p className="text-[10px] mt-1" style={{ color: "#9E9EA8" }}>{f.sub}</p>
@@ -532,7 +532,7 @@ export default function ProductPage({ params }: Props) {
                   {/* Result card */}
                   <div
                     className="p-6 rounded-2xl"
-                    style={{ background: "rgba(201,146,42,0.04)", border: "1px solid rgba(201,146,42,0.18)" }}
+                    style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.18)" }}
                   >
                     <div className="grid grid-cols-3 gap-4 mb-5">
                       {[
@@ -553,14 +553,14 @@ export default function ProductPage({ params }: Props) {
                     </div>
                     <div
                       className="flex items-center gap-3 p-4 rounded-xl"
-                      style={{ background: "rgba(201,146,42,0.08)" }}
+                      style={{ background: "rgba(10,132,255,0.08)" }}
                     >
                       <Syringe className="w-6 h-6 shrink-0" style={{ color: "#6B7A8D" }} />
                       <div>
                         <p className="font-bold" style={{ color: "#1D1D1F" }}>
                           Draw {unitsToInject} units on your insulin syringe
                         </p>
-                        <p className="text-xs mt-0.5" style={{ color: "#A07520" }}>
+                        <p className="text-xs mt-0.5" style={{ color: "#0A84FF" }}>
                           = {doseMcg}mcg per injection at {concentration.toFixed(2)} mg/mL concentration
                         </p>
                       </div>
@@ -620,7 +620,7 @@ export default function ProductPage({ params }: Props) {
                           <span
                             key={t}
                             className="text-xs px-2.5 py-1 rounded font-medium"
-                            style={{ background: "rgba(201,146,42,0.06)", color: "#A07520", border: "1px solid rgba(201,146,42,0.15)" }}
+                            style={{ background: "rgba(10,132,255,0.06)", color: "#0A84FF", border: "1px solid rgba(10,132,255,0.15)" }}
                           >
                             {t}
                           </span>
@@ -652,7 +652,7 @@ export default function ProductPage({ params }: Props) {
                       <button
                         onClick={() => setOpenFaq(openFaq === i ? null : i)}
                         className="w-full flex items-center justify-between px-5 py-4 text-left transition-colors"
-                        style={{ background: openFaq === i ? "rgba(201,146,42,0.04)" : "transparent" }}
+                        style={{ background: openFaq === i ? "rgba(10,132,255,0.04)" : "transparent" }}
                       >
                         <span className="text-sm font-medium pr-4" style={{ color: "#1D1D1F" }}>{item.q}</span>
                         {openFaq === i
@@ -710,7 +710,7 @@ export default function ProductPage({ params }: Props) {
                             <Star className="w-3 h-3 fill-current" style={{ color: "#6B7A8D" }} />
                             <div
                               className="flex-1 h-1.5 rounded-full overflow-hidden"
-                              style={{ background: "rgba(201,146,42,0.12)" }}
+                              style={{ background: "rgba(10,132,255,0.12)" }}
                             >
                               <div
                                 className="h-full rounded-full"
@@ -736,7 +736,7 @@ export default function ProductPage({ params }: Props) {
                           <div className="flex items-center gap-3">
                             <div
                               className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
-                              style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.15)" }}
+                              style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.15)" }}
                             >
                               <User className="w-4 h-4" style={{ color: "#6B7A8D" }} />
                             </div>
@@ -815,7 +815,7 @@ function ProductDetailVial() {
       {/* Cap */}
       <rect x="48" y="0" width="64" height="26" rx="8" fill="url(#dcap)" />
       {/* Cap ring */}
-      <rect x="58" y="22" width="44" height="10" rx="4" fill="#A07520" opacity="0.8" />
+      <rect x="58" y="22" width="44" height="10" rx="4" fill="#0A84FF" opacity="0.8" />
       {/* Body */}
       <rect x="36" y="30" width="88" height="170" rx="20" fill="url(#dbody)" />
       {/* Shine streak */}

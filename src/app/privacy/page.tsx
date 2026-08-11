@@ -28,7 +28,7 @@ export default function PrivacyPage() {
           <div className="flex items-center gap-3 mb-4">
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center"
-              style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
+              style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
             >
               <Shield className="w-5 h-5" style={{ color: "#6B7A8D" }} />
             </div>

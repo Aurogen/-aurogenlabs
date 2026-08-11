@@ -60,7 +60,7 @@ export default function AgeGate() {
               <div className="flex justify-center mb-5">
                 <div
                   className="w-16 h-16 rounded-full flex items-center justify-center"
-                  style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
+                  style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
                 >
                   <ShieldCheck className="w-8 h-8" style={{ color: "#6B7A8D" }} />
                 </div>
@@ -79,7 +79,7 @@ export default function AgeGate() {
               {/* Info box */}
               <div
                 className="mb-6 p-4 rounded-xl text-left"
-                style={{ background: "rgba(201,146,42,0.04)", border: "1px solid rgba(201,146,42,0.14)" }}
+                style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.14)" }}
               >
                 <p className="text-sm leading-relaxed" style={{ color: "#6E6E73" }}>
                   This site contains information about peptides intended for

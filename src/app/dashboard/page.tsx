@@ -83,8 +83,8 @@ const QUICK_ACTIONS = [
 
 const STATUS_CONFIG = {
   delivered: { label: "Delivered", color: "#1B7A45", bg: "rgba(27,122,69,0.08)", icon: CheckCircle2 },
-  shipped: { label: "Shipped", color: "#6B7A8D", bg: "rgba(201,146,42,0.08)", icon: Truck },
-  processing: { label: "Processing", color: "#D97706", bg: "rgba(217,119,6,0.08)", icon: Clock },
+  shipped: { label: "Shipped", color: "#6B7A8D", bg: "rgba(10,132,255,0.08)", icon: Truck },
+  processing: { label: "Processing", color: "#0A84FF", bg: "rgba(10,132,255,0.08)", icon: Clock },
   pending: { label: "Pending", color: "#9E9EA8", bg: "rgba(158,158,168,0.10)", icon: AlertCircle },
 };
 
@@ -150,7 +150,7 @@ export default function DashboardPage() {
           <div className="flex items-center gap-4">
             <div
               className="w-14 h-14 rounded-2xl overflow-hidden flex items-center justify-center"
-              style={{ background: "rgba(201,146,42,0.06)", border: "1px solid rgba(201,146,42,0.18)" }}
+              style={{ background: "rgba(10,132,255,0.06)", border: "1px solid rgba(10,132,255,0.18)" }}
             >
               <UserButton
                 appearance={{ elements: { avatarBox: "w-14 h-14 rounded-2xl", userButtonPopoverCard: "z-50" } }}
@@ -175,7 +175,7 @@ export default function DashboardPage() {
           {/* Tier badge */}
           <div
             className="flex items-center gap-2 px-4 py-2 rounded-xl"
-            style={{ background: "rgba(201,146,42,0.06)", border: "1px solid rgba(201,146,42,0.18)" }}
+            style={{ background: "rgba(10,132,255,0.06)", border: "1px solid rgba(10,132,255,0.18)" }}
           >
             <Star className="w-4 h-4 fill-current" style={{ color: "#6B7A8D" }} />
             <span className="font-bold text-sm" style={{ color: "#6B7A8D" }}>Researcher Pro</span>
@@ -360,7 +360,7 @@ function OverviewTab({
           {/* Loyalty progress */}
           <div
             className="p-5 rounded-2xl"
-            style={{ background: "rgba(201,146,42,0.04)", border: "1px solid rgba(201,146,42,0.15)" }}
+            style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)" }}
           >
             <div className="flex items-center justify-between mb-3">
               <h3 className="font-bold text-sm" style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}>
@@ -369,10 +369,10 @@ function OverviewTab({
               <Star className="w-4 h-4 fill-current" style={{ color: "#6B7A8D" }} />
             </div>
             <p className="font-bold text-xl mb-2" style={{ color: "#6B7A8D" }}>Researcher Pro</p>
-            <div className="w-full rounded-full h-1.5 mb-2" style={{ background: "rgba(201,146,42,0.15)" }}>
+            <div className="w-full rounded-full h-1.5 mb-2" style={{ background: "rgba(10,132,255,0.15)" }}>
               <div className="h-1.5 rounded-full" style={{ width: "68%", background: "#6B7A8D" }} />
             </div>
-            <p className="text-xs" style={{ color: "#A07520" }}>680 pts to Elite tier · Earn 3.7 pts per $1</p>
+            <p className="text-xs" style={{ color: "#0A84FF" }}>680 pts to Elite tier · Earn 3.7 pts per $1</p>
           </div>
         </div>
       </div>
@@ -395,7 +395,7 @@ function OverviewTab({
             >
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
-                style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
+                style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
               >
                 <a.icon className="w-5 h-5" style={{ color: "#6B7A8D" }} />
               </div>
@@ -458,7 +458,7 @@ function SpendingChart({ orders }: { orders: Order[] }) {
               className="w-full rounded-t-lg transition-all duration-700"
               style={{
                 height: `${(values[i] / max) * 100}%`,
-                background: values[i] > 0 ? "#6B7A8D" : "rgba(201,146,42,0.12)",
+                background: values[i] > 0 ? "#6B7A8D" : "rgba(10,132,255,0.12)",
                 minHeight: 4,
               }}
             />
@@ -516,7 +516,7 @@ function OrdersTab({ orders }: { orders: Order[] }) {
                 <div className="space-y-1.5">
                   {order.items.map((item, j) => (
                     <div key={j} className="flex items-center gap-2 text-sm">
-                      <FlaskConical className="w-3.5 h-3.5 shrink-0" style={{ color: "rgba(201,146,42,0.6)" }} />
+                      <FlaskConical className="w-3.5 h-3.5 shrink-0" style={{ color: "rgba(10,132,255,0.6)" }} />
                       <span style={{ color: "#1D1D1F" }}>{item.name}</span>
                       <span style={{ color: "#9E9EA8" }}>×{item.quantity}</span>
                       <span className="ml-auto" style={{ color: "#6E6E73" }}>${item.price.toFixed(2)}</span>

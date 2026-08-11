@@ -143,7 +143,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
               </p>
 
               <div className="flex items-center gap-1 mb-2">
-                <FlaskConical className="w-3 h-3" style={{ color: "rgba(201,146,42,0.6)" }} />
+                <FlaskConical className="w-3 h-3" style={{ color: "rgba(10,132,255,0.6)" }} />
                 <span className="text-[11px]" style={{ color: "#6E6E73" }}>{product.purity} purity</span>
               </div>
 
@@ -224,7 +224,7 @@ function ProductVialDetailed({ index }: { index: number }) {
     >
       {/* Cap */}
       <rect x="23" y="0" width="30" height="13" rx="5" fill={`url(#${id}cap)`} />
-      <rect x="28" y="11" width="20" height="5" rx="2.5" fill="#A07520" opacity="0.7" />
+      <rect x="28" y="11" width="20" height="5" rx="2.5" fill="#0A84FF" opacity="0.7" />
       {/* Body */}
       <rect x="14" y="15" width="48" height="82" rx="12" fill={`url(#${id}body)`} />
       {/* Inner shine */}

@@ -8,8 +8,8 @@
   --color-navy-600: #202020;
   /* Gold/amber accent scale — replaces the generic blue */
   --color-blue-300: #F5CC6A;
-  --color-blue-400: #F0B429;
-  --color-blue-500: #D4A03A;
+  --color-blue-400: #0A84FF;
+  --color-blue-500: #0A84FF;
   --color-blue-600: #6B7A8D;
   --color-blue-700: #A87520;
   --color-blue-800: #7A5418;
@@ -68,38 +68,38 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Selection */
 ::selection {
-  background: rgba(201, 146, 42, 0.25);
+  background: rgba(10, 132, 255, 0.25);
   color: #F2EFE8;
 }
 
 /* Glow effects */
 .glow-gold {
-  box-shadow: 0 0 20px rgba(201, 146, 42, 0.35);
+  box-shadow: 0 0 20px rgba(10, 132, 255, 0.35);
 }
 
 .text-glow {
-  text-shadow: 0 0 30px rgba(240, 180, 41, 0.4);
+  text-shadow: 0 0 30px rgba(10, 132, 255, 0.4);
 }
 
 /* Card glass effect */
 .glass-card {
   background: rgba(18, 14, 8, 0.7);
-  border: 1px solid rgba(201, 146, 42, 0.15);
+  border: 1px solid rgba(10, 132, 255, 0.15);
   backdrop-filter: blur(12px);
 }
 
 /* Gradient mesh background */
 .gradient-mesh {
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(201, 146, 42, 0.05) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(201, 146, 42, 0.03) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 50%, rgba(10, 132, 255, 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(10, 132, 255, 0.03) 0%, transparent 50%),
     #080808;
 }
 
 /* Animated border */
 @keyframes border-pulse {
-  0%, 100% { border-color: rgba(201, 146, 42, 0.2); }
-  50% { border-color: rgba(240, 180, 41, 0.5); }
+  0%, 100% { border-color: rgba(10, 132, 255, 0.2); }
+  50% { border-color: rgba(10, 132, 255, 0.5); }
 }
 
 .border-animate {
@@ -113,7 +113,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .shimmer {
-  background: linear-gradient(90deg, transparent 0%, rgba(201, 146, 42, 0.12) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(10, 132, 255, 0.12) 50%, transparent 100%);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }

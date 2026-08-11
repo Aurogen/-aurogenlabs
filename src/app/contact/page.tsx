@@ -38,7 +38,7 @@ export default function ContactPage() {
           <div className="flex items-center justify-center mb-4">
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center"
-              style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
+              style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
             >
               <Mail className="w-5 h-5" style={{ color: "#6B7A8D" }} />
             </div>
@@ -71,7 +71,7 @@ export default function ContactPage() {
                 <div className="flex items-start gap-3">
                   <div
                     className="w-9 h-9 rounded-lg flex items-center justify-center shrink-0 mt-0.5"
-                    style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.15)" }}
+                    style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.15)" }}
                   >
                     <Icon className="w-4 h-4" style={{ color: "#6B7A8D" }} />
                   </div>
@@ -85,7 +85,7 @@ export default function ContactPage() {
 
             <div
               className="p-4 rounded-xl text-xs leading-relaxed"
-              style={{ background: "rgba(201,146,42,0.04)", border: "1px solid rgba(201,146,42,0.15)", color: "#A07520" }}
+              style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)", color: "#0A84FF" }}
             >
               For research use inquiries only. We do not provide medical advice or therapeutic guidance.
             </div>

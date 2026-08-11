@@ -58,7 +58,7 @@ export default function ResearchPage() {
             >
               <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
-                style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
+                style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
               >
                 <r.icon className="w-6 h-6" style={{ color: "#6B7A8D" }} />
               </div>
@@ -91,7 +91,7 @@ export default function ResearchPage() {
                 <div key={s.step} className="flex gap-4">
                   <div
                     className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 font-bold text-sm"
-                    style={{ background: "rgba(201,146,42,0.1)", color: "#6B7A8D", border: "1px solid rgba(201,146,42,0.2)" }}
+                    style={{ background: "rgba(10,132,255,0.1)", color: "#6B7A8D", border: "1px solid rgba(10,132,255,0.2)" }}
                   >
                     {s.step}
                   </div>
@@ -109,9 +109,9 @@ export default function ResearchPage() {
         {/* Disclaimer */}
         <div
           className="p-6 rounded-2xl text-center"
-          style={{ background: "rgba(201,146,42,0.04)", border: "1px solid rgba(201,146,42,0.15)" }}
+          style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)" }}
         >
-          <p className="text-sm leading-relaxed max-w-3xl mx-auto" style={{ color: "#A07520" }}>
+          <p className="text-sm leading-relaxed max-w-3xl mx-auto" style={{ color: "#0A84FF" }}>
             <strong>Disclaimer:</strong> All information in the Aurogen Labs Research Center is intended exclusively for qualified researchers in controlled laboratory environments. It does not constitute medical advice, diagnosis, or treatment. Peptides sold are not FDA-approved for human use.
           </p>
         </div>

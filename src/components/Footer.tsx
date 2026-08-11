@@ -32,7 +32,7 @@ export default function Footer() {
   return (
     <footer style={{ background: "#1D1D1F", borderTop: "1px solid rgba(0,0,0,0.12)" }}>
       {/* Newsletter */}
-      <div className="py-12 px-4" style={{ borderBottom: "1px solid rgba(201, 146, 42, 0.08)" }}>
+      <div className="py-12 px-4" style={{ borderBottom: "1px solid rgba(10, 132, 255, 0.08)" }}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <h3 className="text-white font-bold text-2xl mb-1" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
@@ -81,11 +81,11 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="py-6 px-4" style={{ borderTop: "1px solid rgba(201, 146, 42, 0.08)" }}>
+      <div className="py-6 px-4" style={{ borderTop: "1px solid rgba(10, 132, 255, 0.08)" }}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-gray-600">
           <p>© 2025 Aurogen Labs · All rights reserved.</p>
           <div className="flex items-center gap-4">
-            <span className="px-2 py-1 rounded border border-yellow-600/20 text-yellow-600/70 text-[10px] tracking-wide">
+            <span className="px-2 py-1 rounded border border-blue-500/20 text-blue-500/70 text-[10px] tracking-wide">
               ⚠️ FOR RESEARCH USE ONLY · NOT FOR HUMAN CONSUMPTION
             </span>
           </div>

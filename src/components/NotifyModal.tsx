@@ -42,7 +42,7 @@ export default function NotifyModal({ productName, onClose }: Props) {
 
       <div
         className="relative w-full max-w-md rounded-2xl overflow-hidden shadow-2xl"
-        style={{ background: "#161616", border: "1px solid rgba(201,146,42,0.2)" }}
+        style={{ background: "#161616", border: "1px solid rgba(10,132,255,0.2)" }}
       >
         <div className="h-0.5" style={{ background: "linear-gradient(90deg, transparent, #6B7A8D, transparent)" }} />
 
@@ -59,7 +59,7 @@ export default function NotifyModal({ productName, onClose }: Props) {
               <div className="flex items-center gap-3 mb-5">
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center"
-                  style={{ background: "rgba(201,146,42,0.1)", border: "1px solid rgba(201,146,42,0.2)" }}
+                  style={{ background: "rgba(10,132,255,0.1)", border: "1px solid rgba(10,132,255,0.2)" }}
                 >
                   <Bell className="w-6 h-6" style={{ color: "#6B7A8D" }} />
                 </div>
@@ -73,7 +73,7 @@ export default function NotifyModal({ productName, onClose }: Props) {
 
               <div
                 className="mb-5 p-3 rounded-xl"
-                style={{ background: "rgba(201,146,42,0.05)", border: "1px solid rgba(201,146,42,0.15)" }}
+                style={{ background: "rgba(10,132,255,0.05)", border: "1px solid rgba(10,132,255,0.15)" }}
               >
                 <p className="text-sm text-center font-medium" style={{ color: "#6B7A8D" }}>{productName}</p>
                 <p className="text-gray-500 text-xs text-center mt-0.5">Out of stock · Restock estimated soon</p>
@@ -94,7 +94,7 @@ export default function NotifyModal({ productName, onClose }: Props) {
                       className="w-full pl-10 pr-20 py-3 rounded-xl text-sm text-white placeholder-gray-600 focus:outline-none transition-colors"
                       style={{
                         background: "#222222",
-                        border: "1px solid rgba(201,146,42,0.25)",
+                        border: "1px solid rgba(10,132,255,0.25)",
                         cursor: userEmail ? "default" : "text",
                       }}
                     />
@@ -118,7 +118,7 @@ export default function NotifyModal({ productName, onClose }: Props) {
                       onChange={(e) => setPhone(e.target.value)}
                       placeholder="+1 (555) 000-0000"
                       className="w-full pl-10 pr-4 py-3 rounded-xl text-sm text-white placeholder-gray-600 focus:outline-none transition-colors"
-                      style={{ background: "#222222", border: "1px solid rgba(201,146,42,0.15)" }}
+                      style={{ background: "#222222", border: "1px solid rgba(10,132,255,0.15)" }}
                     />
                   </div>
                 </div>
@@ -127,7 +127,7 @@ export default function NotifyModal({ productName, onClose }: Props) {
                   type="submit"
                   disabled={loading || !email}
                   className="w-full py-3 rounded-xl font-bold text-white transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
-                  style={{ background: "linear-gradient(135deg, #6B7A8D, #D4A03A)" }}
+                  style={{ background: "linear-gradient(135deg, #6B7A8D, #0A84FF)" }}
                 >
                   {loading ? "Registering..." : "Notify me when available"}
                 </button>
@@ -152,7 +152,7 @@ export default function NotifyModal({ productName, onClose }: Props) {
               <button
                 onClick={onClose}
                 className="px-6 py-2.5 rounded-xl text-sm font-semibold text-white border transition-colors hover:border-white/20"
-                style={{ borderColor: "rgba(201,146,42,0.3)" }}
+                style={{ borderColor: "rgba(10,132,255,0.3)" }}
               >
                 Close
               </button>

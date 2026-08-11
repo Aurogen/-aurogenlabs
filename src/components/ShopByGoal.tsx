@@ -60,7 +60,7 @@ const GOAL_CONFIG: Record<
     illustration: <BrainIllustration />,
   },
   "Performance": {
-    accent: "#F59E0B",
+    accent: "#0A84FF",
     glow: "rgba(245,158,11,0.3)",
     gradient: "linear-gradient(160deg, #2A1A00 0%, #120A00 100%)",
     bgGradient: "linear-gradient(180deg, rgba(245,158,11,0.15) 0%, rgba(120,60,0,0.4) 100%)",
@@ -399,21 +399,21 @@ function PerformanceIllustration() {
   return (
     <svg width="200" height="200" viewBox="0 0 200 200" fill="none">
       {/* Sprinting figure */}
-      <circle cx="110" cy="35" r="14" fill="#F59E0B" />
+      <circle cx="110" cy="35" r="14" fill="#0A84FF" />
       {/* Body leaning forward */}
-      <path d="M110 49 L95 90" stroke="#F59E0B" strokeWidth="9" strokeLinecap="round" />
+      <path d="M110 49 L95 90" stroke="#0A84FF" strokeWidth="9" strokeLinecap="round" />
       {/* Arms pumping */}
-      <path d="M106 65 L75 55 M106 65 L130 78" stroke="#F59E0B" strokeWidth="7" strokeLinecap="round" />
+      <path d="M106 65 L75 55 M106 65 L130 78" stroke="#0A84FF" strokeWidth="7" strokeLinecap="round" />
       {/* Legs stride */}
-      <path d="M95 90 L70 130 M95 90 L118 128" stroke="#F59E0B" strokeWidth="8" strokeLinecap="round" />
+      <path d="M95 90 L70 130 M95 90 L118 128" stroke="#0A84FF" strokeWidth="8" strokeLinecap="round" />
       {/* Lightning bolt */}
-      <path d="M150 20 L135 60 L148 60 L130 100 L148 100 L125 145" stroke="#F59E0B" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" opacity="0.7" />
+      <path d="M150 20 L135 60 L148 60 L130 100 L148 100 L125 145" stroke="#0A84FF" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" opacity="0.7" />
       {/* Speed lines */}
-      <line x1="20" y1="90" x2="60" y2="90" stroke="#F59E0B" strokeWidth="2.5" strokeLinecap="round" opacity="0.5" />
-      <line x1="15" y1="108" x2="58" y2="108" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" opacity="0.35" />
-      <line x1="25" y1="72" x2="55" y2="72" stroke="#F59E0B" strokeWidth="2" strokeLinecap="round" opacity="0.4" />
+      <line x1="20" y1="90" x2="60" y2="90" stroke="#0A84FF" strokeWidth="2.5" strokeLinecap="round" opacity="0.5" />
+      <line x1="15" y1="108" x2="58" y2="108" stroke="#0A84FF" strokeWidth="2" strokeLinecap="round" opacity="0.35" />
+      <line x1="25" y1="72" x2="55" y2="72" stroke="#0A84FF" strokeWidth="2" strokeLinecap="round" opacity="0.4" />
       {/* Ground shadow */}
-      <ellipse cx="90" cy="170" rx="45" ry="6" fill="#F59E0B" opacity="0.12" />
+      <ellipse cx="90" cy="170" rx="45" ry="6" fill="#0A84FF" opacity="0.12" />
     </svg>
   );
 }

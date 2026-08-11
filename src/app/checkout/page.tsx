@@ -227,7 +227,7 @@ export default function CheckoutPage() {
               >
                 <div
                   className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
-                  style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
+                  style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
                 >
                   <CreditCard className="w-6 h-6" style={{ color: "#6B7A8D" }} />
                 </div>
@@ -245,7 +245,7 @@ export default function CheckoutPage() {
             {/* Research agreement */}
             <div
               className="p-4 rounded-xl"
-              style={{ background: "rgba(201,146,42,0.04)", border: "1px solid rgba(201,146,42,0.15)" }}
+              style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)" }}
             >
               <label className="flex items-start gap-3 cursor-pointer">
                 <input

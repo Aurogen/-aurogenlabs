@@ -59,7 +59,7 @@ export default function CartDrawer() {
             <div className="flex flex-col items-center justify-center h-full gap-4 text-center">
               <div
                 className="w-20 h-20 rounded-2xl flex items-center justify-center"
-                style={{ background: "rgba(201,146,42,0.06)", border: "1px solid rgba(201,146,42,0.15)" }}
+                style={{ background: "rgba(10,132,255,0.06)", border: "1px solid rgba(10,132,255,0.15)" }}
               >
                 <ShoppingCart className="w-8 h-8" style={{ color: "#9E9EA8" }} />
               </div>
@@ -148,9 +148,9 @@ export default function CartDrawer() {
             {/* Research disclaimer */}
             <div
               className="mb-4 p-3 rounded-lg"
-              style={{ background: "rgba(201,146,42,0.05)", border: "1px solid rgba(201,146,42,0.15)" }}
+              style={{ background: "rgba(10,132,255,0.05)", border: "1px solid rgba(10,132,255,0.15)" }}
             >
-              <p className="text-[11px] text-center" style={{ color: "#A07520" }}>
+              <p className="text-[11px] text-center" style={{ color: "#0A84FF" }}>
                 ⚠️ For Research Use Only · Not for Human Consumption
               </p>
             </div>
@@ -187,7 +187,7 @@ function VialIcon() {
   return (
     <svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="9" y="0" width="10" height="4" rx="2" fill="#6B7A8D" opacity="0.9" />
-      <rect x="11" y="3" width="6" height="2" fill="#A07520" opacity="0.7" />
+      <rect x="11" y="3" width="6" height="2" fill="#0A84FF" opacity="0.7" />
       <rect x="8" y="5" width="12" height="22" rx="4" fill="url(#vialGrad)" />
       <rect x="10" y="5" width="3" height="22" rx="1.5" fill="white" opacity="0.06" />
       <rect x="10" y="20" width="8" height="7" rx="2" fill="#6B7A8D" opacity="0.15" />
