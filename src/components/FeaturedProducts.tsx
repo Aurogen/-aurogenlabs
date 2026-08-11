@@ -242,10 +242,10 @@ function LineupCard({
         width: 210,
         height: 360,
         scrollSnapAlign: "start",
-        background: "rgba(255,255,255,0.93)",
-        border: "1px solid rgba(255,255,255,0.15)",
-        backdropFilter: "blur(16px)",
-        boxShadow: "0 4px 24px rgba(0,0,0,0.3)",
+        background: "rgba(14,16,22,0.88)",
+        border: "1px solid rgba(255,255,255,0.09)",
+        backdropFilter: "blur(20px)",
+        boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
       }}
     >
       {/* Badge */}
@@ -269,7 +269,7 @@ function LineupCard({
         <div className="absolute top-3 left-3 z-10">
           <span
             className="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest"
-            style={{ background: "rgba(0,0,0,0.06)", color: "#9D9D9D", border: "1px solid rgba(0,0,0,0.1)", fontFamily: "var(--font-body, sans-serif)" }}
+            style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.4)", border: "1px solid rgba(255,255,255,0.12)", fontFamily: "var(--font-body, sans-serif)" }}
           >
             OUT OF STOCK
           </span>
@@ -280,7 +280,7 @@ function LineupCard({
       <Link
         href={`/product/${product.slug}`}
         className="relative flex-1 flex items-center justify-center overflow-hidden"
-        style={{ background: product.image ? "#F8F8F8" : "#F5F2EC" }}
+        style={{ background: product.image ? `radial-gradient(ellipse at 50% 85%, ${accent}35 0%, rgba(10,12,16,0.97) 72%)` : "rgba(10,12,16,0.97)" }}
       >
         {/* Grain texture */}
         <div
@@ -301,7 +301,7 @@ function LineupCard({
               height: "100%",
               objectFit: "contain",
               objectPosition: "center center",
-              padding: "16px 20px",
+              padding: "14px 18px",
             }}
           />
         ) : (
@@ -329,7 +329,7 @@ function LineupCard({
             fontSize: "clamp(16px, 2vw, 20px)",
             letterSpacing: "-0.01em",
             lineHeight: 1.1,
-            color: "#1D1D1F",
+            color: "#FFFFFF",
           }}
         >
           {product.name}
@@ -337,7 +337,7 @@ function LineupCard({
 
         <p
           className="text-xs mb-3 leading-relaxed line-clamp-2"
-          style={{ color: "#6E6E73", fontFamily: "var(--font-body, sans-serif)" }}
+          style={{ color: "rgba(255,255,255,0.45)", fontFamily: "var(--font-body, sans-serif)" }}
         >
           {product.description}
         </p>
@@ -346,7 +346,7 @@ function LineupCard({
           className="font-bold mb-3"
           style={{
             fontSize: "1.25rem",
-            color: "#1B7A45",
+            color: "#10B981",
             fontFamily: "var(--font-body, sans-serif)",
             letterSpacing: "-0.02em",
           }}
@@ -359,8 +359,9 @@ function LineupCard({
             href={`/product/${product.slug}`}
             className="flex-1 text-center py-2 rounded-full text-xs font-semibold transition-opacity hover:opacity-85"
             style={{
-              background: "#1D1D1F",
+              background: "rgba(255,255,255,0.12)",
               color: "#FFFFFF",
+              border: "1px solid rgba(255,255,255,0.18)",
               fontFamily: "var(--font-body, sans-serif)",
             }}
           >
@@ -370,12 +371,12 @@ function LineupCard({
             <button
               onClick={() => addItem(product)}
               className="p-2 rounded-full flex items-center justify-center transition-all hover:scale-105"
-              style={{ background: "rgba(0,0,0,0.06)" }}
+              style={{ background: "rgba(255,255,255,0.1)" }}
             >
-              <ShoppingCart className="w-3.5 h-3.5" style={{ color: "#3D3D3F" }} />
+              <ShoppingCart className="w-3.5 h-3.5" style={{ color: "rgba(255,255,255,0.7)" }} />
             </button>
           ) : (
-            <span className="text-[10px]" style={{ color: "#9D9D9D", fontFamily: "var(--font-body)" }}>
+            <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "var(--font-body)" }}>
               Sold out
             </span>
           )}

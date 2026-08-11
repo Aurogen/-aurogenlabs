@@ -58,7 +58,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "4731.4 g/mol",
     storage: "2-8°C · Protect from light",
     badge: "BEST SELLER",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175107_341026dd-0746-4430-9641-a7e41c76e4de.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175600_5f980e7c-9f25-4669-b2fe-804995810942.png",
   },
   {
     id: "2",
@@ -78,7 +78,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "4113.58 g/mol",
     storage: "2-8°C · Protect from light",
     badge: "POPULAR",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175107_19f06362-f08e-402b-af06-35dcc67653e6.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175601_f0eb04a1-c4ce-498f-8a13-0d285de78ac7.png",
   },
   {
     id: "3",
@@ -96,7 +96,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.1%",
     molecularWeight: "1419.55 g/mol",
     storage: "2-8°C · Protect from light",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175107_e4d84ae2-7250-4147-b04a-1b34088edd8f.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175602_ecc32a9f-7c2b-45d9-9d0f-62cbd62625da.png",
   },
   {
     id: "4",
@@ -114,7 +114,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.0%",
     molecularWeight: "711.85 g/mol",
     storage: "2-8°C · Protect from light",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175107_592c6c81-74cf-49b1-9d98-7fe8511f2863.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175602_b21856a5-a07d-4c6c-ad2d-e2da3189c51c.png",
   },
   {
     id: "5",
@@ -132,7 +132,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.3%",
     molecularWeight: "4813.47 g/mol",
     storage: "2-8°C · Protect from light",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175107_d2c17480-a0cd-45e7-86d0-3c9b8a3ced7c.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175603_9f89e6f4-e3df-4382-a7ee-6fea2c90eb48.png",
   },
   {
     id: "6",
@@ -151,7 +151,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "2174.5 g/mol",
     storage: "-20°C · Lyophilized",
     badge: "NEW",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175107_ff4612ed-0a36-4b18-8f2f-b717b44cd67a.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175604_c7657ce3-c73c-4d3f-93be-67fc4de8f34d.png",
   },
   {
     id: "7",
