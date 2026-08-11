@@ -20,33 +20,66 @@ const BADGES = {
   ],
 };
 
+const LINEUP = [
+  { name: "Semaglutide", mg: "10MG", accent: "#C9922A", short: "SEMAGLU" },
+  { name: "BPC-157", mg: "5MG", accent: "#1B7A45", short: "BPC-157" },
+  { name: "Retatrutide", mg: "10MG", accent: "#C9922A", short: "RETRAT" },
+  { name: "TB-500", mg: "5MG", accent: "#D97706", short: "TB-500" },
+  { name: "IGF-1 LR3", mg: "1MG", accent: "#1B7A45", short: "IGF-1" },
+];
+
+const STAGGER_Y = [22, 10, 0, 10, 22];
+
 export default function Hero() {
   const { lang, t } = useLanguage();
   const badges = BADGES[lang];
 
   return (
     <section style={{ background: "#FFFFFF" }}>
-      {/* ── Full-width hero photo ── */}
-      {/* Place your hero image at /public/hero.jpg */}
+      {/* ── Product lineup area ── */}
       <div
-        className="relative w-full overflow-hidden"
+        className="relative w-full flex items-center justify-center overflow-hidden"
         style={{
           height: "58vh",
           minHeight: "420px",
-          backgroundImage: "url('/hero.jpg')",
-          backgroundSize: "cover",
-          backgroundPosition: "center top",
-          backgroundColor: "#B5C4CC",
+          background: "linear-gradient(180deg, #E4E0D8 0%, #ECEAE4 60%, #F2F0EB 100%)",
         }}
       >
-        {/* Bottom fade into white */}
+        {/* Subtle vignette */}
         <div
-          className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
-          style={{ background: "linear-gradient(0deg, rgba(255,255,255,0.12), transparent)" }}
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse 80% 70% at 50% 100%, rgba(0,0,0,0.06), transparent)",
+          }}
         />
+
+        {/* Vial lineup */}
+        <div className="relative z-10 flex items-end justify-center gap-5 md:gap-9 px-6 pb-10 w-full max-w-3xl">
+          {LINEUP.map((v, i) => (
+            <motion.div
+              key={v.name}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: STAGGER_Y[i] }}
+              transition={{ duration: 0.75, delay: 0.08 + i * 0.09, ease: [0.21, 0.47, 0.32, 0.98] }}
+              className={`shrink-0 flex flex-col items-center ${i === 0 || i === 4 ? "hidden sm:flex" : "flex"}`}
+            >
+              <LineupVial name={v.name} mg={v.mg} accent={v.accent} short={v.short} idx={i} />
+              {/* Ground shadow */}
+              <div
+                className="mt-2 rounded-full"
+                style={{
+                  width: "52px",
+                  height: "9px",
+                  background: "rgba(0,0,0,0.13)",
+                  filter: "blur(4px)",
+                }}
+              />
+            </motion.div>
+          ))}
+        </div>
       </div>
 
-      {/* ── Content below photo ── */}
+      {/* ── Content below ── */}
       <div className="max-w-5xl mx-auto px-6 md:px-12 py-14">
         {/* Eyebrow */}
         <motion.p
@@ -98,14 +131,13 @@ export default function Hero() {
             : "Aurogen sells exclusively to researchers and scientists. Third-party tested, 99%+ purity — a specialist replies within one business day."}
         </motion.p>
 
-        {/* Logo + dots + CTAs row */}
+        {/* Logo + dots + CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.2 }}
           className="flex items-center justify-between flex-wrap gap-6"
         >
-          {/* Logo + slide dots */}
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2.5">
               <LogoMark />
@@ -121,13 +153,11 @@ export default function Hero() {
                 </p>
               </div>
             </div>
-
-            {/* Dots */}
             <div className="flex items-center gap-2">
               {[0, 1, 2, 3, 4].map((i) => (
                 <div
                   key={i}
-                  className="rounded-full transition-all"
+                  className="rounded-full"
                   style={{
                     width: i === 0 ? "22px" : "7px",
                     height: "7px",
@@ -138,7 +168,6 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* CTAs */}
           <div className="flex items-center gap-3 flex-wrap">
             <Link
               href="/shop"
@@ -174,6 +203,96 @@ export default function Hero() {
         </div>
       </div>
     </section>
+  );
+}
+
+/* ── Individual vial for the lineup ── */
+function LineupVial({ name, mg, accent, short, idx }: {
+  name: string; mg: string; accent: string; short: string; idx: number;
+}) {
+  const id = `lv${idx}`;
+  const nameLen = short.length;
+  const nameFontSize = nameLen > 6 ? 3.8 : 4.6;
+
+  return (
+    <svg
+      width="76"
+      height="198"
+      viewBox="0 0 70 182"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ filter: "drop-shadow(0 16px 40px rgba(0,0,0,0.22))" }}
+    >
+      {/* Cap */}
+      <rect x="18" y="7" width="34" height="20" rx="4" fill={`url(#${id}cap)`} />
+      <rect x="22" y="0" width="26" height="15" rx="6" fill={`url(#${id}capTop)`} />
+      <rect x="19" y="16" width="32" height="1.2" rx="0.5" fill="rgba(255,255,255,0.18)" />
+      <rect x="19" y="20" width="32" height="1" rx="0.5" fill="rgba(0,0,0,0.20)" />
+      <rect x="19" y="7" width="3" height="19" rx="1" fill="rgba(255,255,255,0.13)" />
+
+      {/* Stopper */}
+      <rect x="23" y="18" width="24" height="12" rx="3" fill="#8A8A8A" opacity="0.9" />
+      <rect x="25" y="19" width="7" height="10" rx="2" fill="white" opacity="0.06" />
+
+      {/* Neck */}
+      <rect x="23" y="27" width="24" height="8" fill={`url(#${id}glass)`} />
+
+      {/* Shoulders */}
+      <path d="M23 33 L12 40 L12 38 L23 31 Z" fill={`url(#${id}glass)`} />
+      <path d="M47 33 L58 40 L58 38 L47 31 Z" fill={`url(#${id}glass)`} />
+
+      {/* Glass body */}
+      <rect x="10" y="38" width="50" height="136" rx="13" fill={`url(#${id}glass)`} />
+      <rect x="12" y="40" width="9" height="132" rx="4.5" fill="white" opacity="0.05" />
+      <rect x="57" y="42" width="2" height="128" rx="1" fill="white" opacity="0.04" />
+
+      {/* Label */}
+      <rect x="13" y="56" width="44" height="86" rx="5" fill={`url(#${id}label)`} />
+      <rect x="13" y="56" width="44" height="2" rx="1" fill={accent} opacity="0.85" />
+      <rect x="13" y="140" width="44" height="2" rx="1" fill={accent} opacity="0.25" />
+
+      {/* A monogram */}
+      <text x="35" y="81" textAnchor="middle" fill="white" fontSize="15" fontWeight="bold" opacity="0.92" fontFamily="Georgia, serif">A</text>
+      {/* Brand */}
+      <text x="35" y="93" textAnchor="middle" fill={accent} fontSize="4.8" fontWeight="bold" letterSpacing="2" fontFamily="sans-serif">AUROGEN</text>
+      <text x="35" y="101" textAnchor="middle" fill="#AAAAAA" fontSize="3.8" letterSpacing="1.5" fontFamily="sans-serif">LABS</text>
+      {/* Separator */}
+      <rect x="27" y="105" width="16" height="0.5" rx="0.25" fill={accent} opacity="0.4" />
+      {/* Product name */}
+      <text x="35" y="115" textAnchor="middle" fill="white" fontSize={nameFontSize} fontWeight="bold" fontFamily="sans-serif" letterSpacing="0.5">{short}</text>
+      {/* Concentration */}
+      <text x="35" y="125" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold" fontFamily="sans-serif">{mg}</text>
+      {/* Research only */}
+      <text x="35" y="134" textAnchor="middle" fill="white" fontSize="3.5" fontFamily="sans-serif" opacity="0.35" letterSpacing="0.3">RESEARCH ONLY</text>
+
+      {/* Powder */}
+      <rect x="12" y="150" width="46" height="20" rx="9" fill="white" opacity="0.06" />
+      <ellipse cx="35" cy="150" rx="22" ry="3.5" fill="white" opacity="0.08" />
+
+      {/* Ground reflection */}
+      <ellipse cx="35" cy="178" rx="24" ry="3.5" fill="rgba(0,0,0,0.12)" />
+
+      <defs>
+        <linearGradient id={`${id}cap`} x1="18" y1="7" x2="52" y2="27" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#D4A84B" />
+          <stop offset="55%" stopColor="#C9922A" />
+          <stop offset="100%" stopColor="#A57218" />
+        </linearGradient>
+        <linearGradient id={`${id}capTop`} x1="22" y1="0" x2="48" y2="15" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#EAC46A" />
+          <stop offset="100%" stopColor="#C9922A" />
+        </linearGradient>
+        <linearGradient id={`${id}glass`} x1="10" y1="38" x2="60" y2="174" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#2E2E30" />
+          <stop offset="45%" stopColor="#1C1C1E" />
+          <stop offset="100%" stopColor="#0A0A0A" />
+        </linearGradient>
+        <linearGradient id={`${id}label`} x1="13" y1="56" x2="57" y2="142" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stopColor="#282829" />
+          <stop offset="100%" stopColor="#161617" />
+        </linearGradient>
+      </defs>
+    </svg>
   );
 }
 
