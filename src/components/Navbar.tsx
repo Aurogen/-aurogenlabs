@@ -7,8 +7,9 @@ import { useCart } from "@/context/CartContext";
 import { useUser, UserButton, SignInButton } from "@clerk/nextjs";
 import Logo from "./Logo";
 import SearchModal from "./SearchModal";
+import { useLanguage } from "@/context/LanguageContext";
 
-const NAV_LINKS = [
+const NAV_LINKS_EN = [
   { label: "Home", href: "/" },
   {
     label: "Shop by Goal",
@@ -20,15 +21,31 @@ const NAV_LINKS = [
   { label: "Research Center", href: "/research" },
 ];
 
+const NAV_LINKS_ES = [
+  { label: "Inicio", href: "/" },
+  {
+    label: "Comprar por Objetivo",
+    href: "/shop",
+    sub: ["Pérdida de Grasa", "Crecimiento Muscular", "Recuperación", "Antienvejecimiento", "Piel y Cabello", "Salud Cerebral", "Rendimiento"],
+    subEn: ["Fat Loss", "Muscle Growth", "Recovery", "Anti-Aging", "Skin & Hair", "Brain Health", "Performance"],
+  },
+  { label: "Comprar por Compuesto", href: "/shop" },
+  { label: "Protocolos", href: "/protocols" },
+  { label: "Centro de Investigación", href: "/research" },
+];
+
 const LINK_COLOR = "#1D1D1F";
 const LINK_MUTED = "#6E6E73";
 
 export default function Navbar() {
   const { totalItems, openCart } = useCart();
   const { isSignedIn } = useUser();
+  const { lang, setLang } = useLanguage();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
+
+  const NAV_LINKS = lang === "es" ? NAV_LINKS_ES : NAV_LINKS_EN;
 
   return (
     <>
@@ -91,7 +108,7 @@ export default function Navbar() {
                     {link.sub.map((item, i) => (
                       <Link
                         key={item}
-                        href={`/shop?goal=${encodeURIComponent(item)}`}
+                        href={`/shop?goal=${encodeURIComponent("subEn" in link && link.subEn ? link.subEn[i] : item)}`}
                         className="block px-4 py-2.5 text-sm transition-colors"
                         style={{
                           color: LINK_MUTED,
@@ -118,6 +135,25 @@ export default function Navbar() {
 
           {/* Right actions */}
           <div className="flex items-center gap-1">
+            {/* Language toggle */}
+            <div className="hidden md:flex items-center mr-1">
+              <button
+                onClick={() => setLang("en")}
+                className="px-2 py-1 text-xs font-semibold tracking-wide transition-colors rounded"
+                style={{ color: lang === "en" ? LINK_COLOR : "#C0C0C6" }}
+              >
+                EN
+              </button>
+              <span className="text-xs" style={{ color: "rgba(0,0,0,0.15)" }}>|</span>
+              <button
+                onClick={() => setLang("es")}
+                className="px-2 py-1 text-xs font-semibold tracking-wide transition-colors rounded"
+                style={{ color: lang === "es" ? LINK_COLOR : "#C0C0C6" }}
+              >
+                ES
+              </button>
+            </div>
+
             <button
               onClick={() => setSearchOpen(true)}
               className="hidden md:flex w-9 h-9 items-center justify-center rounded-lg transition-colors"
@@ -192,7 +228,8 @@ export default function Navbar() {
               className="w-full flex items-center gap-3 px-6 py-3.5 text-sm transition-colors"
               style={{ color: LINK_MUTED, borderBottom: "1px solid rgba(0,0,0,0.06)" }}
             >
-              <Search className="w-4 h-4" /> Search
+              <Search className="w-4 h-4" />
+              {lang === "es" ? "Buscar" : "Search"}
             </button>
             {NAV_LINKS.map((link) => (
               <Link
@@ -209,10 +246,38 @@ export default function Navbar() {
               href="/dashboard"
               onClick={() => setMobileOpen(false)}
               className="block px-6 py-3.5 text-sm font-medium transition-colors"
-              style={{ color: "#C9922A" }}
+              style={{ color: "#C9922A", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
             >
-              My Account
+              {lang === "es" ? "Mi Cuenta" : "My Account"}
             </Link>
+            {/* Language toggle mobile */}
+            <div className="flex items-center gap-3 px-6 py-4">
+              <span className="text-xs" style={{ color: LINK_MUTED }}>
+                {lang === "es" ? "Idioma:" : "Language:"}
+              </span>
+              <button
+                onClick={() => setLang("en")}
+                className="text-xs font-semibold px-2 py-1 rounded transition-colors"
+                style={{
+                  background: lang === "en" ? "#1D1D1F" : "transparent",
+                  color: lang === "en" ? "#FFFFFF" : LINK_MUTED,
+                  border: "1px solid rgba(0,0,0,0.12)",
+                }}
+              >
+                EN
+              </button>
+              <button
+                onClick={() => setLang("es")}
+                className="text-xs font-semibold px-2 py-1 rounded transition-colors"
+                style={{
+                  background: lang === "es" ? "#1D1D1F" : "transparent",
+                  color: lang === "es" ? "#FFFFFF" : LINK_MUTED,
+                  border: "1px solid rgba(0,0,0,0.12)",
+                }}
+              >
+                ES
+              </button>
+            </div>
           </div>
         )}
       </header>
