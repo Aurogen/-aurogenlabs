@@ -105,7 +105,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                 </div>
                 {/* Out-of-stock dim */}
                 {!product.inStock && (
-                  <div className="absolute inset-0" style={{ background: "rgba(246,246,248,0.55)" }} />
+                  <div className="absolute inset-0" style={{ background: "rgba(0,0,0,0.5)" }} />
                 )}
               </div>
             </Link>
