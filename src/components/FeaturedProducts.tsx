@@ -195,21 +195,39 @@ function LineupCard({
       {/* Vial display */}
       <Link
         href={`/product/${product.slug}`}
-        className="flex-1 flex items-center justify-center overflow-hidden"
+        className="relative flex-1 flex items-center justify-center overflow-hidden"
         style={{ background: "#F5F2EC" }}
       >
+        {/* Grain texture overlay */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E")`,
+            backgroundSize: "180px 180px",
+            mixBlendMode: "overlay",
+          }}
+        />
         <div className="transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-2">
           <LineupVial accent={accent} index={index} />
+        </div>
+        {/* View overlay on hover */}
+        <div
+          className="absolute inset-0 flex items-end justify-center pb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+          style={{ background: "linear-gradient(to top, rgba(0,0,0,0.28) 0%, transparent 55%)" }}
+        >
+          <span className="flex items-center gap-1 text-white text-[10px] font-semibold tracking-[0.2em] uppercase">
+            View <ArrowRight className="w-3 h-3" />
+          </span>
         </div>
       </Link>
 
       {/* Info */}
       <div className="px-5 pb-5 pt-4">
         <h3
-          className="font-bold mb-1"
+          className="font-semibold mb-1"
           style={{
             fontFamily: "var(--font-heading, sans-serif)",
-            fontSize: "clamp(16px, 2vw, 19px)",
+            fontSize: "clamp(18px, 2.2vw, 22px)",
             letterSpacing: "-0.01em",
             lineHeight: 1.1,
             color: "#1D1D1F",

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Bell, Star, FlaskConical } from "lucide-react";
+import { ShoppingCart, Bell, Star, FlaskConical, ArrowRight } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import type { Product } from "@/data/products";
@@ -74,10 +74,27 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                   borderBottom: "1px solid rgba(0,0,0,0.06)",
                 }}
               >
+                {/* Grain texture */}
+                <div
+                  className="absolute inset-0 pointer-events-none"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E")`,
+                    backgroundSize: "180px 180px",
+                    mixBlendMode: "overlay",
+                  }}
+                />
                 <div className="relative z-10 transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-2">
                   <ProductVialDetailed index={index} />
                 </div>
-
+                {/* View overlay */}
+                <div
+                  className="absolute inset-0 flex items-end justify-center pb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ background: "linear-gradient(to top, rgba(0,0,0,0.25) 0%, transparent 55%)" }}
+                >
+                  <span className="flex items-center gap-1 text-white text-[10px] font-semibold tracking-[0.2em] uppercase">
+                    View <ArrowRight className="w-3 h-3" />
+                  </span>
+                </div>
                 {/* Out-of-stock dim */}
                 {!product.inStock && (
                   <div className="absolute inset-0" style={{ background: "rgba(246,246,248,0.55)" }} />
