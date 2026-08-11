@@ -24,17 +24,27 @@ const ACCENT_COLORS = [
 
 function VideoCycler() {
   const [active, setActive] = useState(0);
-  const [fading, setFading] = useState(false);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+
+  // Start all videos playing so they're buffered before needed
+  useEffect(() => {
+    videoRefs.current.forEach((v) => {
+      if (v) { v.muted = true; v.play().catch(() => {}); }
+    });
+  }, []);
 
   useEffect(() => {
     const id = setInterval(() => {
-      setFading(true);
-      setTimeout(() => {
-        setActive((prev) => (prev + 1) % BG_VIDEOS.length);
-        setFading(false);
-      }, 1200);
-    }, 9000);
+      setActive((prev) => {
+        const nextIdx = (prev + 1) % BG_VIDEOS.length;
+        const nextVid = videoRefs.current[nextIdx];
+        if (nextVid) {
+          nextVid.currentTime = 0;
+          nextVid.play().catch(() => {});
+        }
+        return nextIdx;
+      });
+    }, 10000);
     return () => clearInterval(id);
   }, []);
 
@@ -48,11 +58,12 @@ function VideoCycler() {
           muted
           loop
           playsInline
+          preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
           style={{
             zIndex: 0,
-            opacity: i === active ? (fading ? 0 : 1) : 0,
-            transition: "opacity 1.2s ease-in-out",
+            opacity: i === active ? 1 : 0,
+            transition: "opacity 1.4s ease-in-out",
             pointerEvents: "none",
           }}
         >
