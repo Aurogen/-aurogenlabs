@@ -6,6 +6,17 @@ import { Search, SlidersHorizontal, X, ChevronDown } from "lucide-react";
 import { PRODUCTS, GOALS, type Goal } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 
+const CDN = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/";
+const GOAL_VIDEOS: Record<string, string> = {
+  "Fat Loss":      `${CDN}hf_20260811_191602_2803ed25-2227-4949-8979-bfbe607cf988.mp4`,
+  "Muscle Growth": `${CDN}hf_20260811_191602_25f02499-bf2f-40de-81f7-824b1e027c70.mp4`,
+  "Recovery":      `${CDN}hf_20260811_191602_cb619e9d-e6f0-40f1-a48b-14378d5f880e.mp4`,
+  "Anti-Aging":    `${CDN}hf_20260811_191602_9c2308f2-74de-4609-a0b0-9fa7d74fba61.mp4`,
+  "Skin & Hair":   `${CDN}hf_20260811_191602_8d5495b9-cbac-46b9-b7e9-9184a5aa24c6.mp4`,
+  "Brain Health":  `${CDN}hf_20260811_191602_fa778594-764f-427d-911b-0736b65e5678.mp4`,
+  "Performance":   `${CDN}hf_20260811_191602_d9ec39d1-94b2-41bb-a8f1-6cb3bdbf7043.mp4`,
+};
+
 function ShopContent() {
   const searchParams = useSearchParams();
   const initialGoal = searchParams.get("goal") as Goal | null;
@@ -56,28 +67,54 @@ function ShopContent() {
   return (
     <div className="min-h-screen" style={{ background: "#F6F6F8" }}>
       {/* Page header */}
-      <div
-        className="py-14 px-4 text-center"
-        style={{
-          background: "#FFFFFF",
-          borderBottom: "1px solid rgba(0,0,0,0.08)",
-        }}
-      >
-        <p className="text-xs font-semibold tracking-[0.28em] uppercase mb-3" style={{ color: "#9E9EA8" }}>
-          Research compounds
-        </p>
-        <h1
-          className="font-bold"
-          style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(36px, 6vw, 72px)", letterSpacing: "-0.01em", color: "#1D1D1F" }}
+      {selectedGoal && GOAL_VIDEOS[selectedGoal] ? (
+        <div className="relative py-20 px-4 text-center overflow-hidden" style={{ minHeight: "220px", borderBottom: "1px solid rgba(0,0,0,0.12)" }}>
+          <video
+            key={selectedGoal}
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            style={{ filter: "brightness(0.42)" }}
+            src={GOAL_VIDEOS[selectedGoal]}
+          />
+          <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%)" }} />
+          <div className="relative z-10">
+            <p className="text-xs font-semibold tracking-[0.28em] uppercase mb-3" style={{ color: "rgba(255,255,255,0.55)" }}>
+              Research compounds
+            </p>
+            <h1
+              className="font-bold"
+              style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(36px, 6vw, 72px)", letterSpacing: "-0.01em", color: "#FFFFFF" }}
+            >
+              {selectedGoal}
+            </h1>
+            <button
+              onClick={() => setSelectedGoal(null)}
+              className="mt-3 text-sm flex items-center gap-1 mx-auto transition-opacity hover:opacity-70"
+              style={{ color: "rgba(255,255,255,0.65)" }}
+            >
+              <X className="w-3 h-3" /> Clear filter
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div
+          className="py-14 px-4 text-center"
+          style={{ background: "#FFFFFF", borderBottom: "1px solid rgba(0,0,0,0.08)" }}
         >
-          {selectedGoal ? selectedGoal : "All Peptides"}
-        </h1>
-        {selectedGoal && (
-          <button onClick={() => setSelectedGoal(null)} className="mt-3 text-sm flex items-center gap-1 mx-auto transition-colors" style={{ color: "#9E9EA8" }}>
-            <X className="w-3 h-3" /> Clear filter
-          </button>
-        )}
-      </div>
+          <p className="text-xs font-semibold tracking-[0.28em] uppercase mb-3" style={{ color: "#9E9EA8" }}>
+            Research compounds
+          </p>
+          <h1
+            className="font-bold"
+            style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(36px, 6vw, 72px)", letterSpacing: "-0.01em", color: "#1D1D1F" }}
+          >
+            All Peptides
+          </h1>
+        </div>
+      )}
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Search & filters bar */}
@@ -101,9 +138,9 @@ function ShopContent() {
               onClick={() => setShowFilters(!showFilters)}
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border transition-all"
               style={{
-                background: showFilters ? "rgba(201,146,42,0.12)" : "#FFFFFF",
-                borderColor: showFilters ? "#6B7A8D" : "rgba(0,0,0,0.12)",
-                color: showFilters ? "#6B7A8D" : "#6E6E73",
+                background: showFilters ? "rgba(10,132,255,0.08)" : "#FFFFFF",
+                borderColor: showFilters ? "#0A84FF" : "rgba(0,0,0,0.12)",
+                color: showFilters ? "#0A84FF" : "#6E6E73",
               }}
             >
               <SlidersHorizontal className="w-4 h-4" />
@@ -147,9 +184,9 @@ function ShopContent() {
                       onClick={() => setSelectedGoal(selectedGoal === g.label ? null : g.label)}
                       className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
                       style={{
-                        background: selectedGoal === g.label ? "rgba(201,146,42,0.12)" : "rgba(0,0,0,0.04)",
-                        border: `1px solid ${selectedGoal === g.label ? "#6B7A8D" : "rgba(0,0,0,0.10)"}`,
-                        color: selectedGoal === g.label ? "#6B7A8D" : "#6E6E73",
+                        background: selectedGoal === g.label ? "rgba(10,132,255,0.10)" : "rgba(0,0,0,0.04)",
+                        border: `1px solid ${selectedGoal === g.label ? "#0A84FF" : "rgba(0,0,0,0.10)"}`,
+                        color: selectedGoal === g.label ? "#0A84FF" : "#6E6E73",
                       }}
                     >
                       {g.icon} {g.label}
@@ -164,7 +201,7 @@ function ShopContent() {
                 <label className="flex items-center gap-2 cursor-pointer">
                   <div
                     className="relative w-10 h-5 rounded-full transition-colors"
-                    style={{ background: inStockOnly ? "#6B7A8D" : "rgba(0,0,0,0.12)" }}
+                    style={{ background: inStockOnly ? "#0A84FF" : "rgba(0,0,0,0.12)" }}
                     onClick={() => setInStockOnly(!inStockOnly)}
                   >
                     <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform ${inStockOnly ? "translate-x-5" : "translate-x-0.5"}`} />
