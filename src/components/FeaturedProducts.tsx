@@ -36,6 +36,7 @@ export default function FeaturedProducts() {
         className="absolute inset-0 w-full h-full object-cover"
         style={{ zIndex: 0 }}
       >
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_163541_332a7688-cf41-400e-ab3c-56c2f6433499.mp4" type="video/mp4" />
         <source src="/videos/lineup-bg.mp4" type="video/mp4" />
       </video>
 
