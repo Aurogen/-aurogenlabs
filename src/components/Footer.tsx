@@ -53,7 +53,7 @@ export default function Footer() {
               <Logo size={32} />
               <div>
                 <p className="text-white font-bold text-base tracking-widest" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>AUROGEN</p>
-                <p className="text-[9px] tracking-[0.4em] -mt-0.5" style={{ color: "#C9922A" }}>LABS</p>
+                <p className="text-[9px] tracking-[0.4em] -mt-0.5" style={{ color: "#6B7A8D" }}>LABS</p>
               </div>
             </Link>
             <p className="text-gray-500 text-xs leading-relaxed mb-4">

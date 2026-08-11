@@ -44,7 +44,7 @@ export default function NotifyModal({ productName, onClose }: Props) {
         className="relative w-full max-w-md rounded-2xl overflow-hidden shadow-2xl"
         style={{ background: "#161616", border: "1px solid rgba(201,146,42,0.2)" }}
       >
-        <div className="h-0.5" style={{ background: "linear-gradient(90deg, transparent, #C9922A, transparent)" }} />
+        <div className="h-0.5" style={{ background: "linear-gradient(90deg, transparent, #6B7A8D, transparent)" }} />
 
         <div className="p-6">
           <button
@@ -61,7 +61,7 @@ export default function NotifyModal({ productName, onClose }: Props) {
                   className="w-12 h-12 rounded-xl flex items-center justify-center"
                   style={{ background: "rgba(201,146,42,0.1)", border: "1px solid rgba(201,146,42,0.2)" }}
                 >
-                  <Bell className="w-6 h-6" style={{ color: "#C9922A" }} />
+                  <Bell className="w-6 h-6" style={{ color: "#6B7A8D" }} />
                 </div>
                 <div>
                   <h3 className="text-white font-bold text-lg" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
@@ -75,7 +75,7 @@ export default function NotifyModal({ productName, onClose }: Props) {
                 className="mb-5 p-3 rounded-xl"
                 style={{ background: "rgba(201,146,42,0.05)", border: "1px solid rgba(201,146,42,0.15)" }}
               >
-                <p className="text-sm text-center font-medium" style={{ color: "#C9922A" }}>{productName}</p>
+                <p className="text-sm text-center font-medium" style={{ color: "#6B7A8D" }}>{productName}</p>
                 <p className="text-gray-500 text-xs text-center mt-0.5">Out of stock · Restock estimated soon</p>
               </div>
 
@@ -99,7 +99,7 @@ export default function NotifyModal({ productName, onClose }: Props) {
                       }}
                     />
                     {userEmail && (
-                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] tracking-wide font-medium" style={{ color: "#C9922A" }}>
+                      <span className="absolute right-3 top-1/2 -translate-y-1/2 text-[9px] tracking-wide font-medium" style={{ color: "#6B7A8D" }}>
                         AUTO-FILLED
                       </span>
                     )}
@@ -127,7 +127,7 @@ export default function NotifyModal({ productName, onClose }: Props) {
                   type="submit"
                   disabled={loading || !email}
                   className="w-full py-3 rounded-xl font-bold text-white transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
-                  style={{ background: "linear-gradient(135deg, #C9922A, #D4A03A)" }}
+                  style={{ background: "linear-gradient(135deg, #6B7A8D, #D4A03A)" }}
                 >
                   {loading ? "Registering..." : "Notify me when available"}
                 </button>
@@ -139,13 +139,13 @@ export default function NotifyModal({ productName, onClose }: Props) {
             </>
           ) : (
             <div className="py-8 text-center">
-              <CheckCircle2 className="w-16 h-16 mx-auto mb-4" style={{ color: "#C9922A" }} />
+              <CheckCircle2 className="w-16 h-16 mx-auto mb-4" style={{ color: "#6B7A8D" }} />
               <h3 className="text-white font-bold text-xl mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
                 You&apos;re on the list!
               </h3>
               <p className="text-gray-400 text-sm mb-1">
                 We&apos;ll email you as soon as{" "}
-                <span className="font-medium" style={{ color: "#C9922A" }}>{productName}</span>{" "}
+                <span className="font-medium" style={{ color: "#6B7A8D" }}>{productName}</span>{" "}
                 is back in stock.
               </p>
               <p className="text-gray-500 text-xs mb-6">Check your inbox to confirm your notification.</p>

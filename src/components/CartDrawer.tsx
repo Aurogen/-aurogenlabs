@@ -30,7 +30,7 @@ export default function CartDrawer() {
           style={{ borderBottom: "1px solid rgba(0,0,0,0.08)" }}
         >
           <div className="flex items-center gap-3">
-            <ShoppingCart className="w-5 h-5" style={{ color: "#C9922A" }} />
+            <ShoppingCart className="w-5 h-5" style={{ color: "#6B7A8D" }} />
             <h2
               className="font-bold text-lg tracking-wide"
               style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
@@ -39,7 +39,7 @@ export default function CartDrawer() {
             </h2>
             <span
               className="px-2 py-0.5 rounded-full text-xs font-bold text-white"
-              style={{ background: "#C9922A" }}
+              style={{ background: "#6B7A8D" }}
             >
               {state.items.length}
             </span>
@@ -186,11 +186,11 @@ export default function CartDrawer() {
 function VialIcon() {
   return (
     <svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="9" y="0" width="10" height="4" rx="2" fill="#C9922A" opacity="0.9" />
+      <rect x="9" y="0" width="10" height="4" rx="2" fill="#6B7A8D" opacity="0.9" />
       <rect x="11" y="3" width="6" height="2" fill="#A07520" opacity="0.7" />
       <rect x="8" y="5" width="12" height="22" rx="4" fill="url(#vialGrad)" />
       <rect x="10" y="5" width="3" height="22" rx="1.5" fill="white" opacity="0.06" />
-      <rect x="10" y="20" width="8" height="7" rx="2" fill="#C9922A" opacity="0.15" />
+      <rect x="10" y="20" width="8" height="7" rx="2" fill="#6B7A8D" opacity="0.15" />
       <defs>
         <linearGradient id="vialGrad" x1="8" y1="5" x2="20" y2="27" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#2A2A2C" />

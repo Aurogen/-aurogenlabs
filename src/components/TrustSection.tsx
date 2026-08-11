@@ -5,7 +5,7 @@ const FEATURES = [
     icon: FlaskConical,
     title: "CoA Every Batch",
     desc: "Third-party Certificate of Analysis included with every shipment — batch number, purity, identity.",
-    color: "#C9922A",
+    color: "#6B7A8D",
   },
   {
     icon: ShieldCheck,
@@ -17,7 +17,7 @@ const FEATURES = [
     icon: Microscope,
     title: "Research Grade",
     desc: "Formulated exclusively for scientific research and controlled laboratory studies.",
-    color: "#C9922A",
+    color: "#6B7A8D",
   },
   {
     icon: Truck,
@@ -88,7 +88,7 @@ export default function TrustSection() {
             >
               <p
                 className="font-bold text-4xl mb-1"
-                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#C9922A" }}
+                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#6B7A8D" }}
               >
                 {stat.value}
               </p>

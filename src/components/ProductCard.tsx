@@ -40,7 +40,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                   className="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest"
                   style={{
                     background: product.badge === "NEW" ? "rgba(27,122,69,0.10)" : "rgba(201,146,42,0.10)",
-                    color: product.badge === "NEW" ? "#1B7A45" : "#C9922A",
+                    color: product.badge === "NEW" ? "#1B7A45" : "#6B7A8D",
                     border: `1px solid ${product.badge === "NEW" ? "rgba(27,122,69,0.25)" : "rgba(201,146,42,0.25)"}`,
                   }}
                 >
@@ -133,7 +133,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                   </div>
                   <div className="flex items-center gap-0.5 mt-0.5">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-3 h-3 fill-current" style={{ color: "#C9922A" }} />
+                      <Star key={i} className="w-3 h-3 fill-current" style={{ color: "#6B7A8D" }} />
                     ))}
                     <span className="text-[10px] ml-1" style={{ color: "#9E9EA8" }}>(4.9)</span>
                   </div>
@@ -183,7 +183,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
   );
 }
 
-const VIAL_ACCENTS = ["#C9922A", "#1B7A45", "#D97706", "#C9922A", "#1B7A45", "#D97706"];
+const VIAL_ACCENTS = ["#6B7A8D", "#1B7A45", "#4D6080", "#6B7A8D", "#1B7A45", "#4D6080"];
 
 function ProductVialDetailed({ index }: { index: number }) {
   const accent = VIAL_ACCENTS[index % VIAL_ACCENTS.length];
@@ -213,8 +213,8 @@ function ProductVialDetailed({ index }: { index: number }) {
       <rect x="16" y="82" width="44" height="13" rx="6" fill={accent} opacity="0.12" />
       <defs>
         <linearGradient id={`${id}cap`} x1="23" y1="0" x2="53" y2="13" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#D4A84B" />
-          <stop offset="100%" stopColor="#C9922A" />
+          <stop offset="0%" stopColor="#C8D0DA" />
+          <stop offset="100%" stopColor="#6B7A8D" />
         </linearGradient>
         <linearGradient id={`${id}body`} x1="14" y1="15" x2="62" y2="97" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#2A2A2C" />

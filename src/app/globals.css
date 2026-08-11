@@ -10,7 +10,7 @@
   --color-blue-300: #F5CC6A;
   --color-blue-400: #F0B429;
   --color-blue-500: #D4A03A;
-  --color-blue-600: #C9922A;
+  --color-blue-600: #6B7A8D;
   --color-blue-700: #A87520;
   --color-blue-800: #7A5418;
   --color-blue-900: #4A3210;
@@ -62,7 +62,7 @@ h1, h2, h3, h4, h5, h6 {
   background: #E8E8ED;
 }
 ::-webkit-scrollbar-thumb {
-  background: #C9922A;
+  background: #6B7A8D;
   border-radius: 3px;
 }
 

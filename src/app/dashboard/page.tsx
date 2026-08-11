@@ -83,7 +83,7 @@ const QUICK_ACTIONS = [
 
 const STATUS_CONFIG = {
   delivered: { label: "Delivered", color: "#1B7A45", bg: "rgba(27,122,69,0.08)", icon: CheckCircle2 },
-  shipped: { label: "Shipped", color: "#C9922A", bg: "rgba(201,146,42,0.08)", icon: Truck },
+  shipped: { label: "Shipped", color: "#6B7A8D", bg: "rgba(201,146,42,0.08)", icon: Truck },
   processing: { label: "Processing", color: "#D97706", bg: "rgba(217,119,6,0.08)", icon: Clock },
   pending: { label: "Pending", color: "#9E9EA8", bg: "rgba(158,158,168,0.10)", icon: AlertCircle },
 };
@@ -133,10 +133,10 @@ export default function DashboardPage() {
   const loyaltyPoints = Math.round(totalSpent * 3.7);
 
   const STATS = [
-    { icon: Package, label: "Total Orders", value: orders.length.toString(), accent: "#C9922A" },
+    { icon: Package, label: "Total Orders", value: orders.length.toString(), accent: "#6B7A8D" },
     { icon: DollarSign, label: "Total Spent", value: `$${totalSpent.toFixed(0)}`, accent: "#1B7A45" },
-    { icon: FlaskConical, label: "Compounds", value: uniqueCompounds.toString(), accent: "#C9922A" },
-    { icon: Star, label: "Loyalty Points", value: loyaltyPoints.toLocaleString(), accent: "#C9922A" },
+    { icon: FlaskConical, label: "Compounds", value: uniqueCompounds.toString(), accent: "#6B7A8D" },
+    { icon: Star, label: "Loyalty Points", value: loyaltyPoints.toLocaleString(), accent: "#6B7A8D" },
   ];
 
   return (
@@ -177,8 +177,8 @@ export default function DashboardPage() {
             className="flex items-center gap-2 px-4 py-2 rounded-xl"
             style={{ background: "rgba(201,146,42,0.06)", border: "1px solid rgba(201,146,42,0.18)" }}
           >
-            <Star className="w-4 h-4 fill-current" style={{ color: "#C9922A" }} />
-            <span className="font-bold text-sm" style={{ color: "#C9922A" }}>Researcher Pro</span>
+            <Star className="w-4 h-4 fill-current" style={{ color: "#6B7A8D" }} />
+            <span className="font-bold text-sm" style={{ color: "#6B7A8D" }}>Researcher Pro</span>
           </div>
         </div>
 
@@ -276,7 +276,7 @@ function OverviewTab({
             >
               Recent Orders
             </h2>
-            <button className="text-sm font-medium transition-opacity hover:opacity-70" style={{ color: "#C9922A" }}>
+            <button className="text-sm font-medium transition-opacity hover:opacity-70" style={{ color: "#6B7A8D" }}>
               View all →
             </button>
           </div>
@@ -366,11 +366,11 @@ function OverviewTab({
               <h3 className="font-bold text-sm" style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}>
                 Loyalty Status
               </h3>
-              <Star className="w-4 h-4 fill-current" style={{ color: "#C9922A" }} />
+              <Star className="w-4 h-4 fill-current" style={{ color: "#6B7A8D" }} />
             </div>
-            <p className="font-bold text-xl mb-2" style={{ color: "#C9922A" }}>Researcher Pro</p>
+            <p className="font-bold text-xl mb-2" style={{ color: "#6B7A8D" }}>Researcher Pro</p>
             <div className="w-full rounded-full h-1.5 mb-2" style={{ background: "rgba(201,146,42,0.15)" }}>
-              <div className="h-1.5 rounded-full" style={{ width: "68%", background: "#C9922A" }} />
+              <div className="h-1.5 rounded-full" style={{ width: "68%", background: "#6B7A8D" }} />
             </div>
             <p className="text-xs" style={{ color: "#A07520" }}>680 pts to Elite tier · Earn 3.7 pts per $1</p>
           </div>
@@ -397,7 +397,7 @@ function OverviewTab({
                 className="w-10 h-10 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110"
                 style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
               >
-                <a.icon className="w-5 h-5" style={{ color: "#C9922A" }} />
+                <a.icon className="w-5 h-5" style={{ color: "#6B7A8D" }} />
               </div>
               <div>
                 <p className="font-bold text-sm" style={{ color: "#1D1D1F" }}>{a.label}</p>
@@ -458,14 +458,14 @@ function SpendingChart({ orders }: { orders: Order[] }) {
               className="w-full rounded-t-lg transition-all duration-700"
               style={{
                 height: `${(values[i] / max) * 100}%`,
-                background: values[i] > 0 ? "#C9922A" : "rgba(201,146,42,0.12)",
+                background: values[i] > 0 ? "#6B7A8D" : "rgba(201,146,42,0.12)",
                 minHeight: 4,
               }}
             />
           </div>
           <span className="text-[10px]" style={{ color: "#9E9EA8" }}>{label}</span>
           {values[i] > 0 && (
-            <span className="text-[10px] font-medium" style={{ color: "#C9922A" }}>${values[i].toFixed(0)}</span>
+            <span className="text-[10px] font-medium" style={{ color: "#6B7A8D" }}>${values[i].toFixed(0)}</span>
           )}
         </div>
       ))}
@@ -535,7 +535,7 @@ function OrdersTab({ orders }: { orders: Order[] }) {
                 <Link
                   href="/shop"
                   className="inline-flex items-center gap-1 mt-3 text-sm font-medium transition-opacity hover:opacity-70"
-                  style={{ color: "#C9922A" }}
+                  style={{ color: "#6B7A8D" }}
                 >
                   Reorder
                   <ChevronRight className="w-3.5 h-3.5" />
@@ -567,7 +567,7 @@ function ProfileTab() {
         style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
       >
         <div className="flex items-center gap-2 mb-5">
-          <Settings className="w-4 h-4" style={{ color: "#C9922A" }} />
+          <Settings className="w-4 h-4" style={{ color: "#6B7A8D" }} />
           <h3 className="font-bold" style={{ color: "#1D1D1F" }}>Personal Information</h3>
         </div>
         <div className="space-y-4">
@@ -619,7 +619,7 @@ function ProfileTab() {
         style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
       >
         <div className="flex items-center gap-2 mb-5">
-          <Settings className="w-4 h-4" style={{ color: "#C9922A" }} />
+          <Settings className="w-4 h-4" style={{ color: "#6B7A8D" }} />
           <h3 className="font-bold" style={{ color: "#1D1D1F" }}>Preferences</h3>
         </div>
         <div className="space-y-4">
@@ -633,7 +633,7 @@ function ProfileTab() {
               <span className="text-sm" style={{ color: "#1D1D1F" }}>{pref.label}</span>
               <div
                 className="w-10 h-5 rounded-full relative transition-colors"
-                style={{ background: pref.checked ? "#C9922A" : "rgba(0,0,0,0.12)" }}
+                style={{ background: pref.checked ? "#6B7A8D" : "rgba(0,0,0,0.12)" }}
               >
                 <div
                   className="absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all shadow-sm"

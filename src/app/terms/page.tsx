@@ -31,7 +31,7 @@ export default function TermsPage() {
               className="w-10 h-10 rounded-xl flex items-center justify-center"
               style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
             >
-              <Scale className="w-5 h-5" style={{ color: "#C9922A" }} />
+              <Scale className="w-5 h-5" style={{ color: "#6B7A8D" }} />
             </div>
             <span className="text-xs font-semibold tracking-[0.3em] uppercase" style={{ color: "#6E6E73" }}>
               Legal

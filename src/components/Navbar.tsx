@@ -84,7 +84,7 @@ export default function Navbar() {
               >
                 AUROGEN
               </p>
-              <p className="text-[8px] tracking-[0.4em] leading-none mt-0.5" style={{ color: "#C9922A" }}>
+              <p className="text-[8px] tracking-[0.4em] leading-none mt-0.5" style={{ color: "#6B7A8D" }}>
                 LABS
               </p>
             </div>
@@ -227,7 +227,7 @@ export default function Navbar() {
               {totalItems > 0 && (
                 <span
                   className="absolute -top-1 -right-1 rounded-full text-white text-[10px] font-bold flex items-center justify-center"
-                  style={{ background: "#C9922A", minWidth: "16px", minHeight: "16px", padding: "0 2px" }}
+                  style={{ background: "#6B7A8D", minWidth: "16px", minHeight: "16px", padding: "0 2px" }}
                 >
                   {totalItems}
                 </span>
@@ -296,7 +296,7 @@ export default function Navbar() {
               href="/dashboard"
               onClick={() => setMobileOpen(false)}
               className="block px-6 py-3.5 text-sm font-medium"
-              style={{ color: "#C9922A", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
+              style={{ color: "#6B7A8D", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
             >
               {lang === "es" ? "Mi Cuenta" : "My Account"}
             </Link>

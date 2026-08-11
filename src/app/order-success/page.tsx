@@ -91,7 +91,7 @@ export default function OrderSuccessPage() {
             style={{ borderBottom: "1px solid rgba(0,0,0,0.07)" }}
           >
             <div className="flex items-center gap-2">
-              <Package className="w-4 h-4" style={{ color: "#C9922A" }} />
+              <Package className="w-4 h-4" style={{ color: "#6B7A8D" }} />
               <span className="text-sm" style={{ color: "#6E6E73" }}>Order</span>
             </div>
             <span className="font-mono font-bold text-sm" style={{ color: "#1D1D1F" }}>
@@ -151,7 +151,7 @@ export default function OrderSuccessPage() {
             className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
             style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
           >
-            <Package className="w-5 h-5" style={{ color: "#C9922A" }} />
+            <Package className="w-5 h-5" style={{ color: "#6B7A8D" }} />
           </div>
           <div className="flex-1">
             <p className="text-sm font-semibold" style={{ color: "#1D1D1F" }}>Estimated Delivery</p>

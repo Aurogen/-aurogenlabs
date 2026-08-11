@@ -60,7 +60,7 @@ export default function ResearchPage() {
                 className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
                 style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
               >
-                <r.icon className="w-6 h-6" style={{ color: "#C9922A" }} />
+                <r.icon className="w-6 h-6" style={{ color: "#6B7A8D" }} />
               </div>
               <h3
                 className="font-bold text-lg mb-2"
@@ -91,7 +91,7 @@ export default function ResearchPage() {
                 <div key={s.step} className="flex gap-4">
                   <div
                     className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 font-bold text-sm"
-                    style={{ background: "rgba(201,146,42,0.1)", color: "#C9922A", border: "1px solid rgba(201,146,42,0.2)" }}
+                    style={{ background: "rgba(201,146,42,0.1)", color: "#6B7A8D", border: "1px solid rgba(201,146,42,0.2)" }}
                   >
                     {s.step}
                   </div>

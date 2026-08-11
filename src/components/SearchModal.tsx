@@ -44,7 +44,7 @@ export default function SearchModal({ onClose }: Props) {
           className="flex items-center gap-3 px-5 py-4"
           style={{ borderBottom: "1px solid rgba(0,0,0,0.08)" }}
         >
-          <Search className="w-5 h-5 shrink-0" style={{ color: "#C9922A" }} />
+          <Search className="w-5 h-5 shrink-0" style={{ color: "#6B7A8D" }} />
           <input
             ref={inputRef}
             type="text"
@@ -88,9 +88,9 @@ export default function SearchModal({ onClose }: Props) {
                     style={{ background: "#F5F2EC", border: "1px solid rgba(0,0,0,0.07)" }}
                   >
                     <svg width="16" height="22" viewBox="0 0 16 22" fill="none">
-                      <rect x="5" y="0" width="6" height="3" rx="1.5" fill="#C9922A" opacity="0.9" />
+                      <rect x="5" y="0" width="6" height="3" rx="1.5" fill="#6B7A8D" opacity="0.9" />
                       <rect x="3" y="3" width="10" height="16" rx="3" fill="#1D1D1F" />
-                      <rect x="4" y="10" width="8" height="6" rx="1.5" fill="#C9922A" opacity="0.2" />
+                      <rect x="4" y="10" width="8" height="6" rx="1.5" fill="#6B7A8D" opacity="0.2" />
                     </svg>
                   </div>
                   <div className="flex-1 min-w-0">
@@ -144,7 +144,7 @@ export default function SearchModal({ onClose }: Props) {
               href={`/shop?q=${encodeURIComponent(query)}`}
               onClick={onClose}
               className="text-xs font-medium transition-opacity hover:opacity-70 flex items-center gap-1"
-              style={{ color: "#C9922A" }}
+              style={{ color: "#6B7A8D" }}
             >
               View all results for &quot;{query}&quot;
               <ArrowRight className="w-3 h-3" />

@@ -67,7 +67,7 @@ export default function AboutPage() {
             >
               <p
                 className="text-3xl font-bold mb-1"
-                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#C9922A" }}
+                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#6B7A8D" }}
               >
                 {s.value}
               </p>
@@ -120,7 +120,7 @@ export default function AboutPage() {
                     className="w-9 h-9 rounded-lg flex items-center justify-center"
                     style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
                   >
-                    <Icon className="w-5 h-5" style={{ color: "#C9922A" }} />
+                    <Icon className="w-5 h-5" style={{ color: "#6B7A8D" }} />
                   </div>
                   <h3 className="font-bold text-sm" style={{ color: "#1D1D1F" }}>{title}</h3>
                 </div>

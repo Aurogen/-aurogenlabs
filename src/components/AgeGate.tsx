@@ -37,7 +37,7 @@ export default function AgeGate() {
         style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)", boxShadow: "0 24px 64px rgba(0,0,0,0.12)" }}
       >
         {/* Top accent rule */}
-        <div style={{ height: "2px", background: "#C9922A", opacity: 0.7 }} />
+        <div style={{ height: "2px", background: "#6B7A8D", opacity: 0.7 }} />
 
         <div className="p-8 text-center">
           {/* Logo wordmark */}
@@ -50,7 +50,7 @@ export default function AgeGate() {
               >
                 AUROGEN
               </p>
-              <p className="text-xs tracking-[0.3em]" style={{ color: "#C9922A" }}>LABS</p>
+              <p className="text-xs tracking-[0.3em]" style={{ color: "#6B7A8D" }}>LABS</p>
             </div>
           </div>
 
@@ -62,7 +62,7 @@ export default function AgeGate() {
                   className="w-16 h-16 rounded-full flex items-center justify-center"
                   style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
                 >
-                  <ShieldCheck className="w-8 h-8" style={{ color: "#C9922A" }} />
+                  <ShieldCheck className="w-8 h-8" style={{ color: "#6B7A8D" }} />
                 </div>
               </div>
 
@@ -119,7 +119,7 @@ export default function AgeGate() {
 
               <p className="text-xs mt-5" style={{ color: "#9E9EA8" }}>
                 By continuing you confirm you are 18+ and agree to our{" "}
-                <Link href="/terms" className="transition-opacity hover:opacity-70" style={{ color: "#C9922A" }}>
+                <Link href="/terms" className="transition-opacity hover:opacity-70" style={{ color: "#6B7A8D" }}>
                   Terms of Service
                 </Link>
                 .
@@ -161,9 +161,9 @@ export default function AgeGate() {
 function LogoMark() {
   return (
     <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="20" cy="20" r="19" stroke="#C9922A" strokeWidth="1.5" opacity="0.6" />
+      <circle cx="20" cy="20" r="19" stroke="#6B7A8D" strokeWidth="1.5" opacity="0.6" />
       <path d="M20 8 L28 28 H24 L22 23 H18 L16 28 H12 L20 8Z" fill="#1D1D1F" opacity="0.85" />
-      <path d="M19 20 H21 L20 17Z" fill="#C9922A" />
+      <path d="M19 20 H21 L20 17Z" fill="#6B7A8D" />
     </svg>
   );
 }

@@ -9,7 +9,7 @@ import type { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 
 const ACCENT_COLORS = [
-  "#C9922A",
+  "#6B7A8D",
   "#10B981",
   "#A78BFA",
   "#60A5FA",

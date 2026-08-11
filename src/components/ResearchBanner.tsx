@@ -12,8 +12,8 @@ export default function ResearchBanner() {
       }}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-center gap-3 flex-wrap">
-        <FlaskConical className="w-3.5 h-3.5 shrink-0" style={{ color: "#C9922A" }} />
-        <p className="text-xs tracking-widest uppercase font-medium" style={{ color: "#C9922A" }}>
+        <FlaskConical className="w-3.5 h-3.5 shrink-0" style={{ color: "#6B7A8D" }} />
+        <p className="text-xs tracking-widest uppercase font-medium" style={{ color: "#6B7A8D" }}>
           For Research Use Only · Not for Human Consumption · 18+ Only
         </p>
         <AlertTriangle className="w-3.5 h-3.5 text-yellow-500/70 shrink-0" />

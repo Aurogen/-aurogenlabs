@@ -93,7 +93,7 @@ export default function ProtocolsPage() {
                   className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110"
                   style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
                 >
-                  <FileText className="w-5 h-5" style={{ color: "#C9922A" }} />
+                  <FileText className="w-5 h-5" style={{ color: "#6B7A8D" }} />
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0">
                   <Clock className="w-3.5 h-3.5" style={{ color: "#9E9EA8" }} />
@@ -127,7 +127,7 @@ export default function ProtocolsPage() {
               <div className="flex items-center justify-between">
                 <button
                   className="flex items-center gap-1.5 text-sm font-medium transition-opacity hover:opacity-70"
-                  style={{ color: "#C9922A" }}
+                  style={{ color: "#6B7A8D" }}
                 >
                   <Download className="w-4 h-4" />
                   Download PDF

@@ -102,8 +102,8 @@ function ShopContent() {
               className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border transition-all"
               style={{
                 background: showFilters ? "rgba(201,146,42,0.12)" : "#FFFFFF",
-                borderColor: showFilters ? "#C9922A" : "rgba(0,0,0,0.12)",
-                color: showFilters ? "#C9922A" : "#6E6E73",
+                borderColor: showFilters ? "#6B7A8D" : "rgba(0,0,0,0.12)",
+                color: showFilters ? "#6B7A8D" : "#6E6E73",
               }}
             >
               <SlidersHorizontal className="w-4 h-4" />
@@ -148,8 +148,8 @@ function ShopContent() {
                       className="px-3 py-1.5 rounded-lg text-xs font-medium transition-all"
                       style={{
                         background: selectedGoal === g.label ? "rgba(201,146,42,0.12)" : "rgba(0,0,0,0.04)",
-                        border: `1px solid ${selectedGoal === g.label ? "#C9922A" : "rgba(0,0,0,0.10)"}`,
-                        color: selectedGoal === g.label ? "#C9922A" : "#6E6E73",
+                        border: `1px solid ${selectedGoal === g.label ? "#6B7A8D" : "rgba(0,0,0,0.10)"}`,
+                        color: selectedGoal === g.label ? "#6B7A8D" : "#6E6E73",
                       }}
                     >
                       {g.icon} {g.label}
@@ -164,7 +164,7 @@ function ShopContent() {
                 <label className="flex items-center gap-2 cursor-pointer">
                   <div
                     className="relative w-10 h-5 rounded-full transition-colors"
-                    style={{ background: inStockOnly ? "#C9922A" : "rgba(0,0,0,0.12)" }}
+                    style={{ background: inStockOnly ? "#6B7A8D" : "rgba(0,0,0,0.12)" }}
                     onClick={() => setInStockOnly(!inStockOnly)}
                   >
                     <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform ${inStockOnly ? "translate-x-5" : "translate-x-0.5"}`} />

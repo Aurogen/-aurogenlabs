@@ -229,7 +229,7 @@ export default function CheckoutPage() {
                   className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0"
                   style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
                 >
-                  <CreditCard className="w-6 h-6" style={{ color: "#C9922A" }} />
+                  <CreditCard className="w-6 h-6" style={{ color: "#6B7A8D" }} />
                 </div>
                 <div>
                   <p className="font-semibold text-sm" style={{ color: "#1D1D1F" }}>

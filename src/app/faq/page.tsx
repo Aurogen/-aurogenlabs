@@ -52,7 +52,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
       <div className="flex items-center justify-between px-5 py-4 gap-4">
         <p className="font-medium text-sm" style={{ color: "#1D1D1F" }}>{q}</p>
         <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
-          <ChevronDown className="w-4 h-4 shrink-0" style={{ color: "#C9922A" }} />
+          <ChevronDown className="w-4 h-4 shrink-0" style={{ color: "#6B7A8D" }} />
         </motion.div>
       </div>
       <AnimatePresence initial={false}>
@@ -84,7 +84,7 @@ export default function FaqPage() {
               className="w-10 h-10 rounded-xl flex items-center justify-center"
               style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
             >
-              <HelpCircle className="w-5 h-5" style={{ color: "#C9922A" }} />
+              <HelpCircle className="w-5 h-5" style={{ color: "#6B7A8D" }} />
             </div>
             <span className="text-xs font-semibold tracking-[0.3em] uppercase" style={{ color: "#6E6E73" }}>
               Support

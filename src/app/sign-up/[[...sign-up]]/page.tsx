@@ -15,7 +15,7 @@ export default function SignUpPage() {
       <SignUp
         appearance={{
           variables: {
-            colorPrimary: "#C9922A",
+            colorPrimary: "#6B7A8D",
             colorBackground: "#161616",
             colorNeutral: "#888888",
             borderRadius: "14px",
@@ -45,13 +45,13 @@ export default function SignUpPage() {
               color: "#F2EFE8",
             },
             formButtonPrimary: {
-              background: "linear-gradient(135deg, #C9922A, #D4A03A)",
+              background: "linear-gradient(135deg, #6B7A8D, #D4A03A)",
               color: "#FFFFFF",
               fontWeight: "700",
             },
-            footerActionLink: { color: "#C9922A" },
+            footerActionLink: { color: "#6B7A8D" },
             identityPreviewText: { color: "#F2EFE8" },
-            formResendCodeLink: { color: "#C9922A" },
+            formResendCodeLink: { color: "#6B7A8D" },
           },
         }}
       />

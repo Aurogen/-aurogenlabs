@@ -124,7 +124,7 @@ export default function ProductPage({ params }: Props) {
                   className="flex flex-col items-center gap-1.5 p-3 rounded-xl text-center"
                   style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
                 >
-                  <Icon className="w-4 h-4" style={{ color: "#C9922A" }} />
+                  <Icon className="w-4 h-4" style={{ color: "#6B7A8D" }} />
                   <span className="text-[11px] leading-tight" style={{ color: "#6E6E73" }}>{label}</span>
                 </div>
               ))}
@@ -162,7 +162,7 @@ export default function ProductPage({ params }: Props) {
             {/* Stars */}
             <div className="flex items-center gap-2 mb-5">
               <div className="flex">
-                {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" style={{ color: "#C9922A" }} />)}
+                {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" style={{ color: "#6B7A8D" }} />)}
               </div>
               <span className="text-sm" style={{ color: "#6E6E73" }}>4.9 · {MOCK_REVIEWS.length} reviews</span>
             </div>
@@ -204,7 +204,7 @@ export default function ProductPage({ params }: Props) {
                   style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
                 >
                   <div className="flex items-center gap-1.5 mb-1">
-                    <Icon className="w-3 h-3" style={{ color: "#C9922A" }} />
+                    <Icon className="w-3 h-3" style={{ color: "#6B7A8D" }} />
                     <span className="text-[10px] tracking-wide font-medium" style={{ color: "#9E9EA8" }}>
                       {label.toUpperCase()}
                     </span>
@@ -289,7 +289,7 @@ export default function ProductPage({ params }: Props) {
                 className="px-5 py-3 flex items-center gap-2"
                 style={{ background: "rgba(201,146,42,0.05)", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
               >
-                <Calculator className="w-4 h-4" style={{ color: "#C9922A" }} />
+                <Calculator className="w-4 h-4" style={{ color: "#6B7A8D" }} />
                 <h3
                   className="font-bold text-sm"
                   style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
@@ -305,7 +305,7 @@ export default function ProductPage({ params }: Props) {
                     </label>
                     <div
                       className="px-3 py-2.5 rounded-lg text-sm font-bold text-center"
-                      style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.08)", color: "#C9922A" }}
+                      style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.08)", color: "#6B7A8D" }}
                     >
                       {peptideMg}mg
                     </div>
@@ -360,7 +360,7 @@ export default function ProductPage({ params }: Props) {
                       <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: "#9E9EA8" }}>
                         Per {doseMcg}mcg dose
                       </p>
-                      <p className="font-bold text-xl" style={{ color: "#C9922A" }}>
+                      <p className="font-bold text-xl" style={{ color: "#6B7A8D" }}>
                         {unitsToInject} units
                       </p>
                     </div>
@@ -396,8 +396,8 @@ export default function ProductPage({ params }: Props) {
                 onClick={() => setActiveTab(id)}
                 className="flex items-center gap-1.5 px-4 py-3 text-sm font-medium transition-all border-b-2 -mb-px whitespace-nowrap shrink-0"
                 style={{
-                  borderColor: activeTab === id ? "#C9922A" : "transparent",
-                  color: activeTab === id ? "#C9922A" : "#6E6E73",
+                  borderColor: activeTab === id ? "#6B7A8D" : "transparent",
+                  color: activeTab === id ? "#6B7A8D" : "#6E6E73",
                 }}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -405,7 +405,7 @@ export default function ProductPage({ params }: Props) {
                 {id === "reviews" && (
                   <span
                     className="ml-1 text-[10px] px-1.5 py-0.5 rounded-full font-bold"
-                    style={{ background: "rgba(201,146,42,0.10)", color: "#C9922A" }}
+                    style={{ background: "rgba(201,146,42,0.10)", color: "#6B7A8D" }}
                   >
                     {MOCK_REVIEWS.length}
                   </span>
@@ -500,7 +500,7 @@ export default function ProductPage({ params }: Props) {
                           {f.label}
                         </label>
                         {f.fixed ? (
-                          <p className="font-bold text-2xl" style={{ color: "#C9922A" }}>{f.value}</p>
+                          <p className="font-bold text-2xl" style={{ color: "#6B7A8D" }}>{f.value}</p>
                         ) : f.inputKey === "water" ? (
                           <input
                             type="number"
@@ -544,7 +544,7 @@ export default function ProductPage({ params }: Props) {
                           <p className="text-xs mb-1" style={{ color: "#9E9EA8" }}>{label}</p>
                           <p
                             className="font-bold text-xl"
-                            style={{ color: accent ? "#C9922A" : "#1D1D1F" }}
+                            style={{ color: accent ? "#6B7A8D" : "#1D1D1F" }}
                           >
                             {value}
                           </p>
@@ -555,7 +555,7 @@ export default function ProductPage({ params }: Props) {
                       className="flex items-center gap-3 p-4 rounded-xl"
                       style={{ background: "rgba(201,146,42,0.08)" }}
                     >
-                      <Syringe className="w-6 h-6 shrink-0" style={{ color: "#C9922A" }} />
+                      <Syringe className="w-6 h-6 shrink-0" style={{ color: "#6B7A8D" }} />
                       <div>
                         <p className="font-bold" style={{ color: "#1D1D1F" }}>
                           Draw {unitsToInject} units on your insulin syringe
@@ -571,7 +571,7 @@ export default function ProductPage({ params }: Props) {
                     className="mt-4 p-4 rounded-xl flex items-start gap-3"
                     style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.08)" }}
                   >
-                    <Droplets className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "#C9922A" }} />
+                    <Droplets className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "#6B7A8D" }} />
                     <div className="text-xs leading-relaxed" style={{ color: "#6E6E73" }}>
                       <strong style={{ color: "#1D1D1F" }}>Reconstitution tip:</strong> Add BAC water slowly along the vial wall. Gently swirl — do not shake. Allow 1–2 minutes for the lyophilized powder to fully dissolve before drawing.
                     </div>
@@ -632,7 +632,7 @@ export default function ProductPage({ params }: Props) {
                     <Link
                       href="/protocols"
                       className="text-sm font-medium transition-opacity hover:opacity-70"
-                      style={{ color: "#C9922A" }}
+                      style={{ color: "#6B7A8D" }}
                     >
                       View full Protocol Library →
                     </Link>
@@ -656,7 +656,7 @@ export default function ProductPage({ params }: Props) {
                       >
                         <span className="text-sm font-medium pr-4" style={{ color: "#1D1D1F" }}>{item.q}</span>
                         {openFaq === i
-                          ? <ChevronUp className="w-4 h-4 shrink-0" style={{ color: "#C9922A" }} />
+                          ? <ChevronUp className="w-4 h-4 shrink-0" style={{ color: "#6B7A8D" }} />
                           : <ChevronDown className="w-4 h-4 shrink-0" style={{ color: "#9E9EA8" }} />
                         }
                       </button>
@@ -696,7 +696,7 @@ export default function ProductPage({ params }: Props) {
                       </p>
                       <div className="flex mt-1">
                         {[...Array(5)].map((_, i) => (
-                          <Star key={i} className="w-3.5 h-3.5 fill-current" style={{ color: "#C9922A" }} />
+                          <Star key={i} className="w-3.5 h-3.5 fill-current" style={{ color: "#6B7A8D" }} />
                         ))}
                       </div>
                       <p className="text-xs mt-1" style={{ color: "#9E9EA8" }}>{MOCK_REVIEWS.length} reviews</p>
@@ -707,14 +707,14 @@ export default function ProductPage({ params }: Props) {
                         return (
                           <div key={stars} className="flex items-center gap-2">
                             <span className="text-xs w-3" style={{ color: "#6E6E73" }}>{stars}</span>
-                            <Star className="w-3 h-3 fill-current" style={{ color: "#C9922A" }} />
+                            <Star className="w-3 h-3 fill-current" style={{ color: "#6B7A8D" }} />
                             <div
                               className="flex-1 h-1.5 rounded-full overflow-hidden"
                               style={{ background: "rgba(201,146,42,0.12)" }}
                             >
                               <div
                                 className="h-full rounded-full"
-                                style={{ width: `${(count / MOCK_REVIEWS.length) * 100}%`, background: "#C9922A" }}
+                                style={{ width: `${(count / MOCK_REVIEWS.length) * 100}%`, background: "#6B7A8D" }}
                               />
                             </div>
                             <span className="text-xs w-3" style={{ color: "#9E9EA8" }}>{count}</span>
@@ -738,7 +738,7 @@ export default function ProductPage({ params }: Props) {
                               className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
                               style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.15)" }}
                             >
-                              <User className="w-4 h-4" style={{ color: "#C9922A" }} />
+                              <User className="w-4 h-4" style={{ color: "#6B7A8D" }} />
                             </div>
                             <div>
                               <p className="font-semibold text-sm" style={{ color: "#1D1D1F" }}>{r.name}</p>
@@ -751,8 +751,8 @@ export default function ProductPage({ params }: Props) {
                                 <Star
                                   key={j}
                                   className="w-3 h-3"
-                                  style={{ color: j < r.rating ? "#C9922A" : "rgba(0,0,0,0.12)" }}
-                                  fill={j < r.rating ? "#C9922A" : "none"}
+                                  style={{ color: j < r.rating ? "#6B7A8D" : "rgba(0,0,0,0.12)" }}
+                                  fill={j < r.rating ? "#6B7A8D" : "none"}
                                 />
                               ))}
                             </div>
@@ -823,20 +823,20 @@ function ProductDetailVial() {
       {/* Label area */}
       <rect x="44" y="55" width="72" height="90" rx="8" fill="url(#dlabel)" />
       {/* Gold top bar on label */}
-      <rect x="44" y="55" width="72" height="3.5" rx="1.5" fill="#C9922A" opacity="0.7" />
+      <rect x="44" y="55" width="72" height="3.5" rx="1.5" fill="#6B7A8D" opacity="0.7" />
       {/* Text */}
       <text x="80" y="84" textAnchor="middle" fill="white" fontSize="22" fontWeight="bold" opacity="0.95" fontFamily="sans-serif">A</text>
-      <text x="80" y="102" textAnchor="middle" fill="#C9922A" fontSize="9" fontWeight="bold" letterSpacing="3" fontFamily="sans-serif">AUROGEN</text>
-      <text x="80" y="115" textAnchor="middle" fill="#D4A84B" fontSize="7.5" letterSpacing="2" fontFamily="sans-serif">LABS</text>
+      <text x="80" y="102" textAnchor="middle" fill="#6B7A8D" fontSize="9" fontWeight="bold" letterSpacing="3" fontFamily="sans-serif">AUROGEN</text>
+      <text x="80" y="115" textAnchor="middle" fill="#6B7A8D" fontSize="7.5" letterSpacing="2" fontFamily="sans-serif">LABS</text>
       <text x="80" y="132" textAnchor="middle" fill="white" fontSize="13" fontWeight="bold" fontFamily="sans-serif">5MG</text>
       <text x="80" y="146" textAnchor="middle" fill="white" fontSize="7" fontFamily="sans-serif" opacity="0.55">PEPTIDE SOLUTION</text>
       <text x="80" y="156" textAnchor="middle" fill="white" fontSize="6.5" fontFamily="sans-serif" opacity="0.4">FOR RESEARCH ONLY</text>
       {/* Bottom ring */}
-      <rect x="38" y="178" width="84" height="20" rx="10" fill="#C9922A" opacity="0.12" />
+      <rect x="38" y="178" width="84" height="20" rx="10" fill="#6B7A8D" opacity="0.12" />
       <defs>
         <linearGradient id="dcap" x1="48" y1="0" x2="112" y2="26" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#D4A84B" />
-          <stop offset="100%" stopColor="#C9922A" />
+          <stop offset="0%" stopColor="#C8D0DA" />
+          <stop offset="100%" stopColor="#6B7A8D" />
         </linearGradient>
         <linearGradient id="dbody" x1="36" y1="30" x2="124" y2="200" gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor="#2A2A2C" />

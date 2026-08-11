@@ -32,7 +32,7 @@ export default function ShippingPage() {
               className="w-10 h-10 rounded-xl flex items-center justify-center"
               style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.18)" }}
             >
-              <Truck className="w-5 h-5" style={{ color: "#C9922A" }} />
+              <Truck className="w-5 h-5" style={{ color: "#6B7A8D" }} />
             </div>
             <span className="text-xs font-semibold tracking-[0.3em] uppercase" style={{ color: "#6E6E73" }}>
               Shipping
@@ -68,7 +68,7 @@ export default function ShippingPage() {
                   className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
                   style={{ background: "rgba(201,146,42,0.08)", border: "1px solid rgba(201,146,42,0.15)" }}
                 >
-                  <Clock className="w-5 h-5" style={{ color: "#C9922A" }} />
+                  <Clock className="w-5 h-5" style={{ color: "#6B7A8D" }} />
                 </div>
                 <div className="flex-1">
                   <p className="font-semibold" style={{ color: "#1D1D1F" }}>{opt.name}</p>
@@ -83,7 +83,7 @@ export default function ShippingPage() {
         {/* Returns policy */}
         <div className="mb-12">
           <div className="flex items-center gap-3 mb-5">
-            <RotateCcw className="w-5 h-5" style={{ color: "#C9922A" }} />
+            <RotateCcw className="w-5 h-5" style={{ color: "#6B7A8D" }} />
             <h2
               className="font-bold text-xl"
               style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
@@ -113,7 +113,7 @@ export default function ShippingPage() {
         {/* FAQ */}
         <div>
           <div className="flex items-center gap-3 mb-5">
-            <Package className="w-5 h-5" style={{ color: "#C9922A" }} />
+            <Package className="w-5 h-5" style={{ color: "#6B7A8D" }} />
             <h2
               className="font-bold text-xl"
               style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}

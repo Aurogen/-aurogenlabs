@@ -88,7 +88,7 @@ export default function Hero() {
           <div className="grid grid-cols-2 gap-x-8 gap-y-3">
             {badges.map(({ icon: Icon, label }) => (
               <div key={label} className="flex items-center gap-2">
-                <Icon className="w-4 h-4 shrink-0" style={{ color: "#C9922A" }} />
+                <Icon className="w-4 h-4 shrink-0" style={{ color: "#6B7A8D" }} />
                 <span className="text-xs font-medium" style={{ color: "#6E6E73" }}>{label}</span>
               </div>
             ))}

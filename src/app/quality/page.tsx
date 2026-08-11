@@ -99,7 +99,7 @@ export default function QualityPage() {
                 }}
               >
                 <span className="text-sm" style={{ color: "#6E6E73" }}>{s.label}</span>
-                <span className="text-sm font-bold" style={{ color: "#C9922A" }}>{s.value}</span>
+                <span className="text-sm font-bold" style={{ color: "#6B7A8D" }}>{s.value}</span>
               </div>
             ))}
           </div>

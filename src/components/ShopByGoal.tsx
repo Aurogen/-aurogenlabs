@@ -131,7 +131,7 @@ export default function ShopByGoal() {
           <Link
             href="/shop"
             className="inline-flex items-center gap-2 font-medium group transition-opacity hover:opacity-75"
-            style={{ color: "#C9922A" }}
+            style={{ color: "#6B7A8D" }}
           >
             View All Products
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
