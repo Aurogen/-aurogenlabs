@@ -169,7 +169,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.0%",
     molecularWeight: "2888.14 g/mol",
     storage: "2-8°C · Protect from light",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_201109_ebbe40b0-b794-4816-9001-b52f75168c43.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_202208_1cd9e6c4-858f-4765-8e3c-f6f962241c6e.png",
   },
   {
     id: "8",
@@ -187,7 +187,7 @@ export const PRODUCTS: Product[] = [
     purity: "98.8%",
     molecularWeight: "751.88 g/mol",
     storage: "2-8°C · Protect from light",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_201109_b30e9765-27e2-4014-9364-f61e27c50991.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_202208_6c1b7659-dd53-442d-ba65-d46d3be788fa.png",
   },
   {
     id: "9",
@@ -205,7 +205,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.1%",
     molecularWeight: "3647.28 g/mol",
     storage: "2-8°C · Protect from light",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_201109_c4de06ea-a1ae-47f3-ae79-483ac7cb9fb1.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_202208_f9c2b75e-2a44-473b-bd2c-d3e5cd5d49b9.png",
   },
   {
     id: "10",
@@ -223,7 +223,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.0%",
     molecularWeight: "1815.12 g/mol",
     storage: "2-8°C · Protect from light",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_201109_b3459663-4f53-41a1-97a4-b5799f64f7b6.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_202208_a7b4b6eb-9c9c-405d-91a9-039761d47c50.png",
   },
   {
     id: "11",
@@ -242,7 +242,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "9199.4 g/mol",
     storage: "-20°C · Lyophilized",
     badge: "PREMIUM",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_201109_c3df500a-86dd-441d-9b81-41abdfbd9839.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_202208_605b8b64-a936-43b5-8a87-83db7d014717.png",
   },
   {
     id: "12",
@@ -260,7 +260,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.2%",
     molecularWeight: "390.35 g/mol",
     storage: "2-8°C · Protect from light",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_201109_d06a2926-3707-466a-bf02-f076e9aacf17.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_202208_a93e72be-3a84-4888-bcac-9cb373ef83e4.png",
   },
 ];
 
