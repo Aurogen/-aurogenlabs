@@ -70,8 +70,8 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
               <div
                 className="relative h-52 flex items-center justify-center overflow-hidden"
                 style={{
-                  background: "#F5F2EC",
-                  borderBottom: "1px solid rgba(0,0,0,0.06)",
+                  background: "linear-gradient(160deg, #1c1e24 0%, #111316 100%)",
+                  borderBottom: "1px solid rgba(255,255,255,0.05)",
                 }}
               >
                 {/* Grain texture */}
