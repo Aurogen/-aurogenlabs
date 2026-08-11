@@ -26,7 +26,7 @@ export default function FeaturedProducts() {
   }
 
   return (
-    <section className="pt-8 pb-6 overflow-hidden" style={{ background: "#F6F6F8" }}>
+    <section className="pt-4 pb-6 overflow-hidden" style={{ background: "#F6F6F8" }}>
       {/* Header */}
       <div className="px-6 md:px-16 mb-12 flex items-end justify-between max-w-[1440px] mx-auto">
         <div>
