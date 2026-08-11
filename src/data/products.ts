@@ -26,6 +26,7 @@ export interface Product {
   molecularWeight?: string;
   storage: string;
   badge?: string;
+  image?: string;
 }
 
 export const GOALS: { label: Goal; icon: string; description: string; count: number }[] = [
@@ -57,6 +58,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "4731.4 g/mol",
     storage: "2-8°C · Protect from light",
     badge: "BEST SELLER",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_174413_28146279-9489-467f-9d9f-5543d68e70f3.png",
   },
   {
     id: "2",
@@ -76,6 +78,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "4113.58 g/mol",
     storage: "2-8°C · Protect from light",
     badge: "POPULAR",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_174413_b30e6985-c707-4f33-aa89-029baf7fddec.png",
   },
   {
     id: "3",
@@ -93,6 +96,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.1%",
     molecularWeight: "1419.55 g/mol",
     storage: "2-8°C · Protect from light",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_174413_b2a35c7b-e9e8-4878-9cdc-8c2eb9470b93.png",
   },
   {
     id: "4",
@@ -110,6 +114,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.0%",
     molecularWeight: "711.85 g/mol",
     storage: "2-8°C · Protect from light",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_174413_80addc58-9532-4405-bd8d-9947725efbff.png",
   },
   {
     id: "5",
@@ -127,6 +132,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.3%",
     molecularWeight: "4813.47 g/mol",
     storage: "2-8°C · Protect from light",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_174413_94707d05-1542-4941-b4de-a119b6bcf4ab.png",
   },
   {
     id: "6",
@@ -145,6 +151,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "2174.5 g/mol",
     storage: "-20°C · Lyophilized",
     badge: "NEW",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_174413_9e03f620-2cc2-4b2c-9e47-eacd82cc7e45.png",
   },
   {
     id: "7",

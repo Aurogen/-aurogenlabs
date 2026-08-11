@@ -280,7 +280,7 @@ function LineupCard({
       <Link
         href={`/product/${product.slug}`}
         className="relative flex-1 flex items-center justify-center overflow-hidden"
-        style={{ background: "#F5F2EC" }}
+        style={{ background: product.image ? "#F8F8F8" : "#F5F2EC" }}
       >
         {/* Grain texture */}
         <div
@@ -291,9 +291,18 @@ function LineupCard({
             mixBlendMode: "overlay",
           }}
         />
-        <div className="transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-2">
-          <LineupVial accent={accent} index={index} />
-        </div>
+        {product.image ? (
+          <img
+            src={product.image}
+            alt={product.name}
+            className="w-full h-full object-contain transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-2"
+            style={{ padding: "12px" }}
+          />
+        ) : (
+          <div className="transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-2">
+            <LineupVial accent={accent} index={index} />
+          </div>
+        )}
         {/* View overlay */}
         <div
           className="absolute inset-0 flex items-end justify-center pb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
