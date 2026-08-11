@@ -1,12 +1,17 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
 import { motion } from "framer-motion";
 import { FEATURED_PRODUCTS } from "@/data/products";
 import type { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
+
+const BG_VIDEOS = [
+  "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_164633_8fe5fae4-2747-4529-94ab-d2f81453f2c5.mp4",
+  "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_163541_332a7688-cf41-400e-ab3c-56c2f6433499.mp4",
+];
 
 const ACCENT_COLORS = [
   "#6B7A8D",
@@ -16,6 +21,47 @@ const ACCENT_COLORS = [
   "#22D3EE",
   "#4ADE80",
 ];
+
+function VideoCycler() {
+  const [active, setActive] = useState(0);
+  const [fading, setFading] = useState(false);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setFading(true);
+      setTimeout(() => {
+        setActive((prev) => (prev + 1) % BG_VIDEOS.length);
+        setFading(false);
+      }, 1200);
+    }, 9000);
+    return () => clearInterval(id);
+  }, []);
+
+  return (
+    <>
+      {BG_VIDEOS.map((src, i) => (
+        <video
+          key={src}
+          ref={(el) => { videoRefs.current[i] = el; }}
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{
+            zIndex: 0,
+            opacity: i === active ? (fading ? 0 : 1) : 0,
+            transition: "opacity 1.2s ease-in-out",
+            pointerEvents: "none",
+          }}
+        >
+          <source src={src} type="video/mp4" />
+        </video>
+      ))}
+    </>
+  );
+}
 
 export default function FeaturedProducts() {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -27,18 +73,8 @@ export default function FeaturedProducts() {
 
   return (
     <section className="relative overflow-hidden" style={{ minHeight: 480 }}>
-      {/* Video background */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-        style={{ zIndex: 0 }}
-      >
-        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_163541_332a7688-cf41-400e-ab3c-56c2f6433499.mp4" type="video/mp4" />
-        <source src="/videos/lineup-bg.mp4" type="video/mp4" />
-      </video>
+      {/* Video background cycler */}
+      <VideoCycler />
 
       {/* Overlay — dark gradient for readability */}
       <div
