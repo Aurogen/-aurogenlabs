@@ -4,54 +4,54 @@ export default function SignInPage() {
   return (
     <div
       className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden"
-      style={{ background: "#696969" }}
+      style={{ background: "#F6F6F8" }}
     >
-      {/* Ambient gold glow */}
+      {/* Ambient blue glow */}
       <div
         className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(201,146,42,0.08) 0%, transparent 70%)", filter: "blur(60px)" }}
+        style={{ background: "radial-gradient(circle, rgba(10,132,255,0.07) 0%, transparent 70%)", filter: "blur(60px)" }}
       />
 
       <SignIn
         appearance={{
           variables: {
-            colorPrimary: "#6B7A8D",
-            colorBackground: "#161616",
-            colorNeutral: "#888888",
+            colorPrimary: "#0A84FF",
+            colorBackground: "#FFFFFF",
+            colorNeutral: "#6E6E73",
             borderRadius: "14px",
-            fontFamily: "var(--font-inter, sans-serif)",
+            fontFamily: "var(--font-dm-sans, sans-serif)",
             fontSize: "15px",
           },
           elements: {
             card: {
-              background: "#161616",
-              border: "1px solid rgba(201,146,42,0.2)",
-              boxShadow: "0 25px 60px rgba(0,0,0,0.6)",
+              background: "#FFFFFF",
+              border: "1px solid rgba(0,0,0,0.08)",
+              boxShadow: "0 8px 40px rgba(0,0,0,0.08)",
             },
-            headerTitle: { color: "#F2EFE8", fontWeight: "700" },
-            headerSubtitle: { color: "#999999" },
+            headerTitle: { color: "#1D1D1F", fontWeight: "700" },
+            headerSubtitle: { color: "#6E6E73" },
             socialButtonsBlockButton: {
-              background: "#222222",
-              border: "1px solid rgba(255,255,255,0.12)",
-              color: "#F2EFE8",
+              background: "#F6F6F8",
+              border: "1px solid rgba(0,0,0,0.08)",
+              color: "#1D1D1F",
             },
-            socialButtonsBlockButtonText: { color: "#F2EFE8" },
-            dividerLine: { background: "rgba(255,255,255,0.08)" },
-            dividerText: { color: "#666666" },
-            formFieldLabel: { color: "#AAAAAA" },
+            socialButtonsBlockButtonText: { color: "#1D1D1F" },
+            dividerLine: { background: "rgba(0,0,0,0.08)" },
+            dividerText: { color: "#9E9EA8" },
+            formFieldLabel: { color: "#6E6E73" },
             formFieldInput: {
-              background: "#222222",
-              border: "1px solid rgba(201,146,42,0.25)",
-              color: "#F2EFE8",
+              background: "#F6F6F8",
+              border: "1px solid rgba(0,0,0,0.1)",
+              color: "#1D1D1F",
             },
             formButtonPrimary: {
-              background: "linear-gradient(135deg, #6B7A8D, #D4A03A)",
+              background: "#0A84FF",
               color: "#FFFFFF",
               fontWeight: "700",
             },
-            footerActionLink: { color: "#6B7A8D" },
-            identityPreviewText: { color: "#F2EFE8" },
-            formResendCodeLink: { color: "#6B7A8D" },
+            footerActionLink: { color: "#0A84FF" },
+            identityPreviewText: { color: "#1D1D1F" },
+            formResendCodeLink: { color: "#0A84FF" },
           },
         }}
       />
