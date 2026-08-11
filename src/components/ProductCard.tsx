@@ -43,9 +43,9 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                 <span
                   className="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest"
                   style={{
-                    background: product.badge === "NEW" ? "rgba(27,122,69,0.10)" : "rgba(201,146,42,0.10)",
-                    color: product.badge === "NEW" ? "#1B7A45" : "#6B7A8D",
-                    border: `1px solid ${product.badge === "NEW" ? "rgba(27,122,69,0.25)" : "rgba(201,146,42,0.25)"}`,
+                    background: "rgba(10,132,255,0.10)",
+                    color: "#0A84FF",
+                    border: "1px solid rgba(10,132,255,0.25)",
                   }}
                 >
                   {product.badge}

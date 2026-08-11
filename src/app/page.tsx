@@ -12,12 +12,9 @@ export const metadata: Metadata = {
 import FeaturedProducts from "@/components/FeaturedProducts";
 import TrustSection from "@/components/TrustSection";
 import CredentialsStrip from "@/components/CredentialsStrip";
-import MarqueeTicker from "@/components/MarqueeTicker";
-
 export default function HomePage() {
   return (
     <>
-      <MarqueeTicker />
       <FeaturedProducts />
       <Hero />
       <CredentialsStrip />

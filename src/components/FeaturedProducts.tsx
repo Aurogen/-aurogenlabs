@@ -254,9 +254,9 @@ function LineupCard({
           <span
             className="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest"
             style={{
-              background: `${accent}18`,
-              color: accent,
-              border: `1px solid ${accent}35`,
+              background: "rgba(10,132,255,0.12)",
+              color: "#0A84FF",
+              border: "1px solid rgba(10,132,255,0.28)",
               fontFamily: "var(--font-body, sans-serif)",
             }}
           >
