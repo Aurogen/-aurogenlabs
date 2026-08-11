@@ -16,9 +16,9 @@ import CredentialsStrip from "@/components/CredentialsStrip";
 export default function HomePage() {
   return (
     <>
+      <FeaturedProducts />
       <Hero />
       <CredentialsStrip />
-      <FeaturedProducts />
       <TrustSection />
     </>
   );
