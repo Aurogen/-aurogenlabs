@@ -10,16 +10,13 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^7.6.5",
-    "@stripe/react-stripe-js": "^6.8.1",
-    "@stripe/stripe-js": "^9.13.0",
     "@supabase/supabase-js": "^2.112.0",
     "framer-motion": "^12.43.0",
     "lucide-react": "^1.27.0",
     "next": "16.2.12",
     "react": "19.2.4",
     "react-dom": "19.2.4",
-    "resend": "^6.18.1",
-    "stripe": "^22.5.0"
+    "resend": "^6.18.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
