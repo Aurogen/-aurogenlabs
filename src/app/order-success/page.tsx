@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { CheckCircle, Package, ArrowRight, LayoutDashboard, ShoppingBag } from "lucide-react";
 import Link from "next/link";
@@ -14,7 +15,7 @@ interface OrderItem {
 
 interface SavedOrder {
   id: string;
-  date: string;
+  date?: string;
   items: OrderItem[];
   total: number;
   email: string;
@@ -23,15 +24,26 @@ interface SavedOrder {
 
 export default function OrderSuccessPage() {
   const [order, setOrder] = useState<SavedOrder | null>(null);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
+    // Try localStorage first (set by checkout on success)
     try {
       const saved = localStorage.getItem("aurogen_last_order");
-      if (saved) setOrder(JSON.parse(saved));
+      if (saved) {
+        setOrder(JSON.parse(saved));
+        return;
+      }
     } catch {
       // ignore
     }
-  }, []);
+
+    // Fallback: if Stripe redirected with order_id, show minimal confirmation
+    const orderId = searchParams.get("order_id");
+    if (orderId) {
+      setOrder({ id: orderId, items: [], total: 0, email: "", name: "" });
+    }
+  }, [searchParams]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center py-16 px-4" style={{ background: "#F6F6F8" }}>
