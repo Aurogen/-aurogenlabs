@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { CheckCircle, Package, ArrowRight, LayoutDashboard, ShoppingBag } from "lucide-react";
@@ -22,7 +22,7 @@ interface SavedOrder {
   name: string;
 }
 
-export default function OrderSuccessPage() {
+function OrderSuccessContent() {
   const [order, setOrder] = useState<SavedOrder | null>(null);
   const searchParams = useSearchParams();
 
@@ -214,5 +214,17 @@ export default function OrderSuccessPage() {
         </motion.p>
       </div>
     </div>
+  );
+}
+
+export default function OrderSuccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "#F6F6F8" }}>
+        <div className="w-8 h-8 border-2 border-black/20 border-t-black rounded-full animate-spin" />
+      </div>
+    }>
+      <OrderSuccessContent />
+    </Suspense>
   );
 }
