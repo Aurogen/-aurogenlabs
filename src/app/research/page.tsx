@@ -1,16 +1,14 @@
 import type { Metadata } from "next";
-import { BookOpen, FlaskConical, Calculator, Video, FileCheck, Shield } from "lucide-react";
-import ReconCalculator from "@/components/ReconCalculator";
+import { BookOpen, FlaskConical, Video, FileCheck, Shield } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Research Center",
-  description: "Research resources for peptide scientists: reconstitution guides, dosing calculators, safety data sheets, and video protocols. For laboratory use only.",
+  description: "Research resources for peptide scientists: reconstitution guides, safety data sheets, and video protocols. For laboratory use only.",
 };
 
 const RESOURCES = [
   { icon: BookOpen, title: "Peptide Science Library", desc: "Peer-reviewed articles, clinical studies, and literature reviews on research peptides.", href: "#" },
   { icon: FlaskConical, title: "Reconstitution Guides", desc: "Step-by-step instructions for reconstituting every lyophilized peptide in our catalog.", href: "#reconstitution" },
-  { icon: Calculator, title: "Dosing Calculator", desc: "Interactive tool for calculating research doses based on concentration and volume.", href: "#calculator" },
   { icon: Video, title: "Video Tutorials", desc: "Lab-grade video guides covering handling, storage, and reconstitution protocols.", href: "#" },
   { icon: FileCheck, title: "Certificates of Analysis", desc: "Access third-party CoAs for every batch — purity, identity, and lot traceability included.", href: "#sds" },
   { icon: Shield, title: "Safety Data Sheets", desc: "MSDS/SDS documents for safe handling of each compound in controlled laboratory environments.", href: "#sds" },
@@ -85,24 +83,21 @@ export default function ResearchPage() {
           >
             Reconstitution Guide
           </h2>
-          <div className="grid lg:grid-cols-2 gap-8">
-            <div className="space-y-4">
-              {RECON_STEPS.map((s) => (
-                <div key={s.step} className="flex gap-4">
-                  <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 font-bold text-sm"
-                    style={{ background: "rgba(10,132,255,0.1)", color: "#6B7A8D", border: "1px solid rgba(10,132,255,0.2)" }}
-                  >
-                    {s.step}
-                  </div>
-                  <div>
-                    <p className="font-semibold mb-0.5" style={{ color: "#1D1D1F" }}>{s.title}</p>
-                    <p className="text-sm" style={{ color: "#6E6E73" }}>{s.desc}</p>
-                  </div>
+          <div className="space-y-4">
+            {RECON_STEPS.map((s) => (
+              <div key={s.step} className="flex gap-4">
+                <div
+                  className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 font-bold text-sm"
+                  style={{ background: "rgba(10,132,255,0.1)", color: "#6B7A8D", border: "1px solid rgba(10,132,255,0.2)" }}
+                >
+                  {s.step}
                 </div>
-              ))}
-            </div>
-            <ReconCalculator />
+                <div>
+                  <p className="font-semibold mb-0.5" style={{ color: "#1D1D1F" }}>{s.title}</p>
+                  <p className="text-sm" style={{ color: "#6E6E73" }}>{s.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 

@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   ShoppingCart, Bell, Star, FlaskConical, ChevronRight,
   Thermometer, Scale, Package, FileText, CheckCircle,
-  Calculator, ChevronDown, ChevronUp, Syringe, Droplets,
+  ChevronDown, ChevronUp,
   BookOpen, User, ThumbsUp,
 } from "lucide-react";
 import { getProductBySlug, PRODUCTS } from "@/data/products";
@@ -19,7 +19,7 @@ interface Props {
   params: Promise<{ slug: string }>;
 }
 
-type Tab = "desc" | "specs" | "calculator" | "protocols" | "faq" | "reviews";
+type Tab = "desc" | "specs" | "protocols" | "faq" | "reviews";
 
 const MOCK_REVIEWS = [
   { name: "Dr. R. Martinez", lab: "BioResearch Institute", rating: 5, date: "Jan 12, 2025", text: "Exceptional purity. COA matched independent lab analysis within 0.1%. Reconstitution was smooth and consistent across all three vials from the same batch.", helpful: 34 },
@@ -32,7 +32,7 @@ const FAQ_ITEMS = [
   { q: "What solvent should I use for reconstitution?", a: "Use sterile bacteriostatic water (BAC water) for reconstitution. Add the solvent slowly along the vial wall to minimize foaming. Do not use regular sterile water as it does not preserve the peptide as long." },
   { q: "How should I store the reconstituted peptide?", a: "Once reconstituted, store at 2–8°C (refrigerator) and use within 28–30 days. For longer storage of the lyophilized (dry) form, keep at -20°C away from light." },
   { q: "What does 'research use only' mean?", a: "Our peptides are sold exclusively for in-vitro laboratory and scientific research purposes. They are not intended for human consumption, are not drugs or supplements, and have not been evaluated by the FDA." },
-  { q: "How do I calculate my research dose?", a: "Use the Dosing Calculator tab above. Enter the peptide amount (mg), the BAC water volume you added, and your target dose in mcg — the calculator will output the exact number of units to draw in an insulin syringe." },
+  { q: "How do I calculate my research dose?", a: "We recommend consulting your research protocol for reconstitution ratios. A standard approach is to add 1–2 mL of bacteriostatic water per vial; contact our support team for guidance specific to your compound." },
   { q: "Do you provide a Certificate of Analysis (COA)?", a: "Yes. Every batch has a third-party COA verifiable via batch number. Access it from the Research Center or contact our team with your order number." },
 ];
 
@@ -52,13 +52,6 @@ export default function ProductPage({ params }: Props) {
   const [activeTab, setActiveTab] = useState<Tab>("desc");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
-  const peptideMg = parseFloat(resolvedProduct.concentration) || 5;
-  const [waterMl, setWaterMl] = useState(2);
-  const [doseMcg, setDoseMcg] = useState(250);
-
-  const concentration = waterMl > 0 ? peptideMg / waterMl : 0;
-  const unitsToInject = concentration > 0 ? Math.round(((doseMcg / 1000) / concentration) * 100) : 0;
-
   function handleAdd() {
     for (let i = 0; i < qty; i++) addItem(resolvedProduct);
     setAdded(true);
@@ -72,7 +65,6 @@ export default function ProductPage({ params }: Props) {
   const TABS: { id: Tab; label: string; icon: React.ElementType }[] = [
     { id: "desc", label: "Description", icon: FileText },
     { id: "specs", label: "Specifications", icon: Scale },
-    { id: "calculator", label: "Dosing Calc", icon: Calculator },
     { id: "protocols", label: "Protocols", icon: BookOpen },
     { id: "faq", label: "FAQ", icon: ChevronDown },
     { id: "reviews", label: "Reviews", icon: Star },
@@ -280,106 +272,6 @@ export default function ProductPage({ params }: Props) {
               View Certificate of Analysis (COA)
             </button>
 
-            {/* ── Inline Dosing Calculator ── */}
-            <div
-              className="rounded-2xl overflow-hidden"
-              style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
-            >
-              <div
-                className="px-5 py-3 flex items-center gap-2"
-                style={{ background: "rgba(10,132,255,0.05)", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
-              >
-                <Calculator className="w-4 h-4" style={{ color: "#6B7A8D" }} />
-                <h3
-                  className="font-bold text-sm"
-                  style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
-                >
-                  Dosing Calculator
-                </h3>
-              </div>
-              <div className="p-5 space-y-4">
-                <div className="grid grid-cols-3 gap-3">
-                  <div>
-                    <label className="block text-[10px] mb-1.5 tracking-wide font-medium" style={{ color: "#9E9EA8" }}>
-                      PEPTIDE (MG)
-                    </label>
-                    <div
-                      className="px-3 py-2.5 rounded-lg text-sm font-bold text-center"
-                      style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.08)", color: "#6B7A8D" }}
-                    >
-                      {peptideMg}mg
-                    </div>
-                  </div>
-                  <div>
-                    <label className="block text-[10px] mb-1.5 tracking-wide font-medium" style={{ color: "#9E9EA8" }}>
-                      BAC WATER (ML)
-                    </label>
-                    <input
-                      type="number"
-                      min={0.5}
-                      max={10}
-                      step={0.5}
-                      value={waterMl}
-                      onChange={(e) => setWaterMl(parseFloat(e.target.value) || 0)}
-                      className="w-full px-3 py-2.5 rounded-lg text-sm text-center focus:outline-none"
-                      style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.10)", color: "#1D1D1F" }}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-[10px] mb-1.5 tracking-wide font-medium" style={{ color: "#9E9EA8" }}>
-                      DOSE (MCG)
-                    </label>
-                    <input
-                      type="number"
-                      min={50}
-                      max={2000}
-                      step={50}
-                      value={doseMcg}
-                      onChange={(e) => setDoseMcg(parseFloat(e.target.value) || 0)}
-                      className="w-full px-3 py-2.5 rounded-lg text-sm text-center focus:outline-none"
-                      style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.10)", color: "#1D1D1F" }}
-                    />
-                  </div>
-                </div>
-
-                {/* Result */}
-                <div
-                  className="p-4 rounded-xl"
-                  style={{ background: "rgba(10,132,255,0.05)", border: "1px solid rgba(10,132,255,0.15)" }}
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <div>
-                      <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: "#9E9EA8" }}>
-                        Concentration
-                      </p>
-                      <p className="font-bold text-xl" style={{ color: "#1D1D1F" }}>
-                        {concentration.toFixed(2)} mg/mL
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="text-[10px] uppercase tracking-wide mb-0.5" style={{ color: "#9E9EA8" }}>
-                        Per {doseMcg}mcg dose
-                      </p>
-                      <p className="font-bold text-xl" style={{ color: "#6B7A8D" }}>
-                        {unitsToInject} units
-                      </p>
-                    </div>
-                  </div>
-                  <motion.button
-                    whileTap={{ scale: 0.97 }}
-                    className="w-full flex items-center justify-center gap-2 py-2.5 rounded-full text-sm font-semibold text-white mt-1 transition-opacity hover:opacity-85"
-                    style={{ background: "#1D1D1F" }}
-                  >
-                    <Syringe className="w-4 h-4" />
-                    Inject {unitsToInject} Units
-                  </motion.button>
-                </div>
-
-                <p className="text-[10px] leading-relaxed" style={{ color: "#9E9EA8" }}>
-                  Based on standard 1mL (100-unit) insulin syringe. For research reference only — not medical dosing advice.
-                </p>
-              </div>
-            </div>
           </motion.div>
         </div>
 
@@ -476,106 +368,6 @@ export default function ProductPage({ params }: Props) {
                       <span className="text-sm font-medium text-right max-w-[55%]" style={{ color: "#1D1D1F" }}>{v}</span>
                     </div>
                   ))}
-                </div>
-              )}
-
-              {/* Dosing Calculator (full) */}
-              {activeTab === "calculator" && (
-                <div className="max-w-2xl mx-auto">
-                  <p className="text-sm mb-6 leading-relaxed" style={{ color: "#6E6E73" }}>
-                    Use this calculator to determine the exact volume to draw in your insulin syringe after reconstituting this peptide with bacteriostatic water.
-                  </p>
-                  <div className="grid sm:grid-cols-3 gap-4 mb-6">
-                    {[
-                      { label: "Peptide Amount (mg)", value: `${peptideMg}`, fixed: true, sub: "Pre-filled from product" },
-                      { label: "BAC Water Volume (mL)", inputKey: "water", sub: "Added to vial" },
-                      { label: "Research Dose (mcg)", inputKey: "dose", sub: "Per injection" },
-                    ].map((f, i) => (
-                      <div
-                        key={i}
-                        className="p-4 rounded-xl"
-                        style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.08)" }}
-                      >
-                        <label className="block text-[10px] mb-2 uppercase tracking-wide font-medium" style={{ color: "#9E9EA8" }}>
-                          {f.label}
-                        </label>
-                        {f.fixed ? (
-                          <p className="font-bold text-2xl" style={{ color: "#6B7A8D" }}>{f.value}</p>
-                        ) : f.inputKey === "water" ? (
-                          <input
-                            type="number"
-                            min={0.5}
-                            max={10}
-                            step={0.5}
-                            value={waterMl}
-                            onChange={(e) => setWaterMl(parseFloat(e.target.value) || 0)}
-                            className="w-full bg-transparent font-bold text-2xl focus:outline-none"
-                            style={{ color: "#1D1D1F", borderBottom: "1px solid rgba(10,132,255,0.4)" }}
-                          />
-                        ) : (
-                          <input
-                            type="number"
-                            min={50}
-                            max={2000}
-                            step={50}
-                            value={doseMcg}
-                            onChange={(e) => setDoseMcg(parseFloat(e.target.value) || 0)}
-                            className="w-full bg-transparent font-bold text-2xl focus:outline-none"
-                            style={{ color: "#1D1D1F", borderBottom: "1px solid rgba(10,132,255,0.4)" }}
-                          />
-                        )}
-                        <p className="text-[10px] mt-1" style={{ color: "#9E9EA8" }}>{f.sub}</p>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Result card */}
-                  <div
-                    className="p-6 rounded-2xl"
-                    style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.18)" }}
-                  >
-                    <div className="grid grid-cols-3 gap-4 mb-5">
-                      {[
-                        { label: "Concentration", value: `${concentration.toFixed(2)} mg/mL` },
-                        { label: "Dose in mL", value: `${((doseMcg / 1000) / (concentration || 1)).toFixed(3)} mL` },
-                        { label: "Syringe Units", value: `${unitsToInject} units`, accent: true },
-                      ].map(({ label, value, accent }) => (
-                        <div key={label} className="text-center">
-                          <p className="text-xs mb-1" style={{ color: "#9E9EA8" }}>{label}</p>
-                          <p
-                            className="font-bold text-xl"
-                            style={{ color: accent ? "#6B7A8D" : "#1D1D1F" }}
-                          >
-                            {value}
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                    <div
-                      className="flex items-center gap-3 p-4 rounded-xl"
-                      style={{ background: "rgba(10,132,255,0.08)" }}
-                    >
-                      <Syringe className="w-6 h-6 shrink-0" style={{ color: "#6B7A8D" }} />
-                      <div>
-                        <p className="font-bold" style={{ color: "#1D1D1F" }}>
-                          Draw {unitsToInject} units on your insulin syringe
-                        </p>
-                        <p className="text-xs mt-0.5" style={{ color: "#0A84FF" }}>
-                          = {doseMcg}mcg per injection at {concentration.toFixed(2)} mg/mL concentration
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div
-                    className="mt-4 p-4 rounded-xl flex items-start gap-3"
-                    style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.08)" }}
-                  >
-                    <Droplets className="w-4 h-4 shrink-0 mt-0.5" style={{ color: "#6B7A8D" }} />
-                    <div className="text-xs leading-relaxed" style={{ color: "#6E6E73" }}>
-                      <strong style={{ color: "#1D1D1F" }}>Reconstitution tip:</strong> Add BAC water slowly along the vial wall. Gently swirl — do not shake. Allow 1–2 minutes for the lyophilized powder to fully dissolve before drawing.
-                    </div>
-                  </div>
                 </div>
               )}
 
