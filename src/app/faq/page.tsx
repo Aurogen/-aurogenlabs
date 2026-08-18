@@ -36,7 +36,7 @@ const CATEGORIES = [
     items: [
       { q: "Are your products approved for human use?", a: "No. All products are sold strictly for in vitro and laboratory research purposes. They are not approved by the FDA for human consumption, therapeutic, or veterinary use." },
       { q: "Do you offer research protocols?", a: "Yes. Our Protocols Library contains detailed research protocols for our most popular compounds, including dosing guidelines, reconstitution instructions, and study references." },
-      { q: "Where can I find reconstitution instructions?", a: "Reconstitution guides are available in our Research Center. You can also use the interactive Dosing Calculator on each product page to calculate exact reconstitution ratios." },
+      { q: "Where can I find reconstitution instructions?", a:  "Reconstitution guides are available in our Research Center. Step-by-step instructions for every compound in our catalog are provided there, including recommended volumes and handling procedures." },
     ],
   },
 ];
