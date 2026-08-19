@@ -187,7 +187,7 @@ export default function Navbar() {
             {/* Account */}
             {isSignedIn ? (
               <div className="hidden md:flex items-center ml-1">
-                <UserButton afterSignOutUrl="/" />
+                <UserButton />
               </div>
             ) : (
               <SignInButton mode="redirect">

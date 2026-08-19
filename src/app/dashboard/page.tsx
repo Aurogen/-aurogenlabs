@@ -139,7 +139,9 @@ export default function DashboardPage() {
       >
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 flex-wrap">
           <div className="flex items-center gap-4">
-            <UserButton afterSignOutUrl="/" appearance={{ elements: { avatarBox: "w-14 h-14 rounded-2xl" } }} />
+            <div className="w-14 h-14 rounded-2xl overflow-hidden">
+              <UserButton />
+            </div>
             <div>
               <p className="text-xs font-bold tracking-[0.25em] mb-1" style={{ color: "#6E6E73" }}>
                 Researcher Account
