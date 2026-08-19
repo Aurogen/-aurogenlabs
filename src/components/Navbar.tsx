@@ -5,7 +5,6 @@ import { ShoppingCart, Search, Menu, X, ChevronDown, ArrowRight } from "lucide-r
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { useCart } from "@/context/CartContext";
-import { useUser, UserButton, SignInButton } from "@clerk/nextjs";
 import Logo from "./Logo";
 import SearchModal from "./SearchModal";
 import { useLanguage } from "@/context/LanguageContext";
@@ -47,7 +46,6 @@ const NAV_LINKS_ES: NavLink[] = [
 
 export default function Navbar() {
   const { totalItems, openCart } = useCart();
-  const { isSignedIn } = useUser();
   const { lang, setLang } = useLanguage();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -184,23 +182,16 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* My Account text link (CellGenic "Provider Login") */}
-            {isSignedIn ? (
-              <div className="hidden md:flex items-center w-8 h-8 justify-center">
-                <UserButton appearance={{ elements: { avatarBox: "w-7 h-7" } }} />
-              </div>
-            ) : (
-              <SignInButton mode="redirect" fallbackRedirectUrl="/dashboard">
-                <button
-                  className="hidden md:flex items-center px-3 py-1.5 text-sm transition-colors rounded-full"
-                  style={{ color: "#6E6E73" }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = "#1D1D1F"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = "#6E6E73"; }}
-                >
-                  {lang === "es" ? "Mi Cuenta" : "My Account"}
-                </button>
-              </SignInButton>
-            )}
+            {/* My Account link */}
+            <Link
+              href="/sign-in"
+              className="hidden md:flex items-center px-3 py-1.5 text-sm transition-colors rounded-full"
+              style={{ color: "#6E6E73" }}
+              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "#1D1D1F"; }}
+              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "#6E6E73"; }}
+            >
+              {lang === "es" ? "Mi Cuenta" : "My Account"}
+            </Link>
 
             {/* Cart */}
             <button

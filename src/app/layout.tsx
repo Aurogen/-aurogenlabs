@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
 import { CartProvider } from "@/context/CartContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import Navbar from "@/components/Navbar";
@@ -47,20 +46,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider afterSignOutUrl="/" signInUrl="/sign-in" signUpUrl="/sign-up">
-      <html lang="en" className={`${cormorant.variable} ${dmSans.variable} h-full`}>
-        <body className="min-h-full flex flex-col" style={{ background: "#F6F6F8" }}>
-          <CartProvider>
-            <LanguageProvider>
-              <AgeGate />
-              <Navbar />
-              <main className="flex-1">{children}</main>
-              <Footer />
-              <CartDrawer />
-            </LanguageProvider>
-          </CartProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en" className={`${cormorant.variable} ${dmSans.variable} h-full`}>
+      <body className="min-h-full flex flex-col" style={{ background: "#F6F6F8" }}>
+        <CartProvider>
+          <LanguageProvider>
+            <AgeGate />
+            <Navbar />
+            <main className="flex-1">{children}</main>
+            <Footer />
+            <CartDrawer />
+          </LanguageProvider>
+        </CartProvider>
+      </body>
+    </html>
   );
 }
