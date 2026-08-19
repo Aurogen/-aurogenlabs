@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useUser } from "@clerk/nextjs";
 import { X, Bell, Mail, Phone, CheckCircle2 } from "lucide-react";
 
 interface Props {
@@ -9,7 +10,8 @@ interface Props {
 }
 
 export default function NotifyModal({ productName, onClose }: Props) {
-  const userEmail = "";
+  const { user } = useUser();
+  const userEmail = user?.primaryEmailAddress?.emailAddress ?? "";
 
   const [email, setEmail] = useState(userEmail);
   const [phone, setPhone] = useState("");

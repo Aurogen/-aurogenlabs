@@ -8,6 +8,7 @@ import { useCart } from "@/context/CartContext";
 import Logo from "./Logo";
 import SearchModal from "./SearchModal";
 import { useLanguage } from "@/context/LanguageContext";
+import { useUser, UserButton, SignInButton } from "@clerk/nextjs";
 
 interface NavLink {
   label: string;
@@ -47,6 +48,7 @@ const NAV_LINKS_ES: NavLink[] = [
 export default function Navbar() {
   const { totalItems, openCart } = useCart();
   const { lang, setLang } = useLanguage();
+  const { isSignedIn } = useUser();
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -182,16 +184,23 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* My Account link */}
-            <Link
-              href="/sign-in"
-              className="hidden md:flex items-center px-3 py-1.5 text-sm transition-colors rounded-full"
-              style={{ color: "#6E6E73" }}
-              onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "#1D1D1F"; }}
-              onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.color = "#6E6E73"; }}
-            >
-              {lang === "es" ? "Mi Cuenta" : "My Account"}
-            </Link>
+            {/* Account */}
+            {isSignedIn ? (
+              <div className="hidden md:flex items-center ml-1">
+                <UserButton afterSignOutUrl="/" />
+              </div>
+            ) : (
+              <SignInButton mode="redirect">
+                <button
+                  className="hidden md:flex items-center px-3 py-1.5 text-sm transition-colors rounded-full"
+                  style={{ color: "#6E6E73" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = "#1D1D1F")}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = "#6E6E73")}
+                >
+                  {lang === "es" ? "Mi Cuenta" : "My Account"}
+                </button>
+              </SignInButton>
+            )}
 
             {/* Cart */}
             <button
@@ -273,14 +282,26 @@ export default function Navbar() {
               );
             })}
 
-            <Link
-              href="/dashboard"
-              onClick={() => setMobileOpen(false)}
-              className="block px-5 py-3.5 text-sm"
-              style={{ color: "#6B7A8D", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
-            >
-              {lang === "es" ? "Mi Cuenta" : "My Account"}
-            </Link>
+            {isSignedIn ? (
+              <Link
+                href="/dashboard"
+                onClick={() => setMobileOpen(false)}
+                className="block px-5 py-3.5 text-sm"
+                style={{ color: "#6B7A8D", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
+              >
+                {lang === "es" ? "Mi Cuenta" : "My Account"}
+              </Link>
+            ) : (
+              <SignInButton mode="redirect">
+                <button
+                  className="w-full text-left px-5 py-3.5 text-sm"
+                  style={{ color: "#6B7A8D", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {lang === "es" ? "Mi Cuenta" : "My Account"}
+                </button>
+              </SignInButton>
+            )}
 
             <div className="flex items-center gap-3 px-5 py-4">
               <span className="text-xs" style={{ color: "#9E9EA8" }}>
