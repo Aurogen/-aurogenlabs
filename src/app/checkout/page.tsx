@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Lock, ArrowRight, CheckCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Lock, ArrowRight, CheckCircle, Loader2 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import Link from "next/link";
 
@@ -16,12 +17,14 @@ const INPUT_CLASS =
   "w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-colors focus:border-black/30";
 
 export default function CheckoutPage() {
-  const { state, totalPrice } = useCart();
+  const { state, totalPrice, clearCart } = useCart();
+  const router = useRouter();
   const [form, setForm] = useState({
     firstName: "", lastName: "", email: "",
     address: "", city: "", stateField: "", zip: "",
   });
   const [agreed, setAgreed] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const filled =
     form.firstName && form.lastName && form.email &&
@@ -29,6 +32,51 @@ export default function CheckoutPage() {
 
   function set(field: string, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
+  }
+
+  async function handlePlaceOrder() {
+    if (!filled || !agreed || state.items.length === 0 || loading) return;
+    setLoading(true);
+    try {
+      const orderId = `ORD-${Date.now().toString(36).toUpperCase()}`;
+      const orderDate = new Date().toISOString();
+      const items = state.items.map((item) => ({
+        name: item.product.name,
+        concentration: item.product.concentration,
+        quantity: item.quantity,
+        price: item.product.price,
+      }));
+      const orderPayload = {
+        id: orderId,
+        date: orderDate,
+        name: `${form.firstName} ${form.lastName}`,
+        email: form.email,
+        address: `${form.address}, ${form.city}, ${form.stateField} ${form.zip}`,
+        items,
+        total: totalPrice,
+        status: "pending",
+      };
+
+      await fetch("/api/orders", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(orderPayload),
+      });
+
+      localStorage.setItem("aurogen_last_order", JSON.stringify({
+        id: orderId,
+        date: orderDate,
+        items,
+        total: totalPrice,
+        email: form.email,
+        name: `${form.firstName} ${form.lastName}`,
+      }));
+
+      clearCart();
+      router.push("/order-success");
+    } catch {
+      setLoading(false);
+    }
   }
 
   return (
@@ -192,16 +240,21 @@ export default function CheckoutPage() {
             </div>
 
             <button
-              disabled={!filled || !agreed || state.items.length === 0}
+              onClick={handlePlaceOrder}
+              disabled={!filled || !agreed || state.items.length === 0 || loading}
               className="w-full flex items-center justify-center gap-2 py-4 rounded-full font-semibold text-sm text-white transition-opacity"
               style={{
-                background: filled && agreed && state.items.length > 0 ? "#1D1D1F" : "rgba(0,0,0,0.2)",
-                cursor: filled && agreed && state.items.length > 0 ? "pointer" : "not-allowed",
+                background: filled && agreed && state.items.length > 0 && !loading ? "#1D1D1F" : "rgba(0,0,0,0.2)",
+                cursor: filled && agreed && state.items.length > 0 && !loading ? "pointer" : "not-allowed",
               }}
             >
-              <CheckCircle className="w-4 h-4" />
-              Place Order
-              <ArrowRight className="w-4 h-4" />
+              {loading ? (
+                <Loader2 className="w-4 h-4 animate-spin" />
+              ) : (
+                <CheckCircle className="w-4 h-4" />
+              )}
+              {loading ? "Processing..." : "Place Order"}
+              {!loading && <ArrowRight className="w-4 h-4" />}
             </button>
 
             <p className="text-center text-xs" style={{ color: "#C0C0C5" }}>
