@@ -19,7 +19,6 @@ import {
   Settings,
   BarChart2,
 } from "lucide-react";
-import { useUser, UserButton } from "@clerk/nextjs";
 import { useCart } from "@/context/CartContext";
 
 interface OrderItem {
@@ -94,39 +93,22 @@ function formatDate(d: string) {
 
 export default function DashboardPage() {
   const { state: cartState, totalPrice, totalItems } = useCart();
-  const { user, isLoaded } = useUser();
   const [orders, setOrders] = useState<Order[]>([]);
   const [activeTab, setActiveTab] = useState<"overview" | "orders" | "profile">("overview");
 
-  const userName = isLoaded && user
-    ? (user.firstName ?? user.emailAddresses[0]?.emailAddress?.split("@")[0] ?? "Researcher")
-    : "Researcher";
+  const userName = "Researcher";
 
   useEffect(() => {
-    if (!isLoaded) return;
-    const email = user?.primaryEmailAddress?.emailAddress ?? "";
+    const email = "";
 
-    if (email) {
-      fetch(`/api/orders?email=${encodeURIComponent(email)}`)
-        .then((r) => r.json())
-        .then(({ orders: dbOrders }) => {
-          if (Array.isArray(dbOrders) && dbOrders.length > 0) {
-            setOrders(dbOrders);
-          } else {
-            try {
-              const saved = localStorage.getItem("aurogen_orders");
-              const parsed: Order[] = saved ? JSON.parse(saved) : [];
-              setOrders(parsed.length > 0 ? parsed : DEMO_ORDERS);
-            } catch {
-              setOrders(DEMO_ORDERS);
-            }
-          }
-        })
-        .catch(() => setOrders(DEMO_ORDERS));
-    } else {
+    try {
+      const saved = localStorage.getItem("aurogen_orders");
+      const parsed: Order[] = saved ? JSON.parse(saved) : [];
+      setOrders(parsed.length > 0 ? parsed : DEMO_ORDERS);
+    } catch {
       setOrders(DEMO_ORDERS);
     }
-  }, [isLoaded, user]);
+  }, []);
 
   const totalSpent = orders.reduce((s, o) => s + o.total, 0);
   const uniqueCompounds = new Set(orders.flatMap((o) => o.items.map((i) => i.name.split(" ")[0]))).size;
@@ -149,12 +131,10 @@ export default function DashboardPage() {
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-4 flex-wrap">
           <div className="flex items-center gap-4">
             <div
-              className="w-14 h-14 rounded-2xl overflow-hidden flex items-center justify-center"
-              style={{ background: "rgba(10,132,255,0.06)", border: "1px solid rgba(10,132,255,0.18)" }}
+              className="w-14 h-14 rounded-2xl overflow-hidden flex items-center justify-center text-2xl font-bold"
+              style={{ background: "rgba(10,132,255,0.06)", border: "1px solid rgba(10,132,255,0.18)", color: "#6B7A8D" }}
             >
-              <UserButton
-                appearance={{ elements: { avatarBox: "w-14 h-14 rounded-2xl", userButtonPopoverCard: "z-50" } }}
-              />
+              R
             </div>
             <div>
               <p className="text-xs font-bold tracking-[0.25em] mb-1" style={{ color: "#6E6E73" }}>
@@ -167,7 +147,7 @@ export default function DashboardPage() {
                 Welcome back, {userName}
               </h1>
               <p className="text-sm mt-0.5" style={{ color: "#9E9EA8" }}>
-                {user?.primaryEmailAddress?.emailAddress ?? "researcher@aurogen.com"} · Member since Jan 2025
+                researcher@aurogen.com · Member since Jan 2025
               </p>
             </div>
           </div>
@@ -550,8 +530,6 @@ function OrdersTab({ orders }: { orders: Order[] }) {
 }
 
 function ProfileTab() {
-  const { user } = useUser();
-
   return (
     <div className="max-w-2xl space-y-6">
       <h2
@@ -577,7 +555,7 @@ function ProfileTab() {
                 FIRST NAME
               </label>
               <input
-                defaultValue={user?.firstName ?? ""}
+                defaultValue=""
                 readOnly
                 className="w-full px-4 py-2.5 rounded-xl text-sm border focus:outline-none opacity-70"
                 style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.10)", color: "#1D1D1F" }}
@@ -588,7 +566,7 @@ function ProfileTab() {
                 LAST NAME
               </label>
               <input
-                defaultValue={user?.lastName ?? ""}
+                defaultValue=""
                 readOnly
                 className="w-full px-4 py-2.5 rounded-xl text-sm border focus:outline-none opacity-70"
                 style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.10)", color: "#1D1D1F" }}
@@ -600,7 +578,7 @@ function ProfileTab() {
               EMAIL
             </label>
             <input
-              defaultValue={user?.primaryEmailAddress?.emailAddress ?? ""}
+              defaultValue=""
               readOnly
               type="email"
               className="w-full px-4 py-2.5 rounded-xl text-sm border focus:outline-none opacity-70"
