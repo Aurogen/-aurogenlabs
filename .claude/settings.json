@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__a84461fb-af1d-43ce-8e04-72c641ebbed5__search_files",
+      "mcp__a84461fb-af1d-43ce-8e04-72c641ebbed5__list_recent_files",
+      "mcp__a84461fb-af1d-43ce-8e04-72c641ebbed5__download_file_content",
+      "mcp__a84461fb-af1d-43ce-8e04-72c641ebbed5__read_file_content",
+      "mcp__a84461fb-af1d-43ce-8e04-72c641ebbed5__get_file_metadata"
+    ]
+  }
+}
