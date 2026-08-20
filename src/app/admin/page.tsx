@@ -18,6 +18,11 @@ import {
   Bell,
   Check,
   X,
+  Tag,
+  Plus,
+  Trash2,
+  ToggleLeft,
+  ToggleRight,
 } from "lucide-react";
 import ProductsTab from "@/components/admin/ProductsTab";
 
@@ -32,6 +37,9 @@ interface Order {
   items: OrderItem[];
   total: number;
   status: string;
+  tracking_number?: string;
+  tracking_url?: string;
+  shipped_at?: string;
 }
 interface Stats {
   totalOrders: number;
@@ -71,7 +79,7 @@ function fmt(d?: string) {
 
 /* ─── Main page ─────────────────────────────────────────── */
 export default function AdminPage() {
-  const [tab, setTab] = useState<"orders" | "newsletter" | "affiliates" | "waitlist" | "products">("orders");
+  const [tab, setTab] = useState<"orders" | "newsletter" | "affiliates" | "waitlist" | "products" | "discounts">("orders");
   const [stats, setStats] = useState<Stats | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
@@ -113,6 +121,17 @@ export default function AdminPage() {
     });
     setOrders((prev) => prev.map((o) => (o.id === id ? { ...o, status } : o)));
     load(true);
+  }
+
+  async function saveOrderTracking(id: string, tracking_number: string, tracking_url: string) {
+    await fetch("/api/admin/orders", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, status: "shipped", tracking_number, tracking_url }),
+    });
+    setOrders((prev) =>
+      prev.map((o) => (o.id === id ? { ...o, status: "shipped", tracking_number, tracking_url } : o))
+    );
   }
 
   async function updateAffiliateStatus(id: string, status: "approved" | "rejected") {
@@ -181,7 +200,7 @@ export default function AdminPage() {
 
         {/* Tabs */}
         <div className="max-w-7xl mx-auto px-4 flex gap-1 border-t" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
-          {(["orders", "newsletter", "affiliates", "waitlist", "products"] as const).map((t) => (
+          {(["orders", "newsletter", "affiliates", "waitlist", "products", "discounts"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
@@ -200,7 +219,9 @@ export default function AdminPage() {
                 ? `Affiliates (${affiliates.length})`
                 : t === "waitlist"
                 ? `Waitlist (${waitlist.length})`
-                : "Products"}
+                : t === "products"
+                ? "Products"
+                : "Discounts"}
             </button>
           ))}
         </div>
@@ -208,24 +229,85 @@ export default function AdminPage() {
 
       <div className="max-w-7xl mx-auto px-4 py-6">
         {tab === "orders" && (
-          <OrdersTab orders={orders} onStatusChange={updateOrderStatus} />
+          <OrdersTab orders={orders} onStatusChange={updateOrderStatus} onSaveTracking={saveOrderTracking} />
         )}
         {tab === "newsletter" && <NewsletterTab subscribers={subscribers} />}
         {tab === "affiliates" && <AffiliatesTab affiliates={affiliates} onStatusChange={updateAffiliateStatus} />}
         {tab === "waitlist" && <WaitlistTab entries={waitlist} />}
         {tab === "products" && <ProductsTab />}
+        {tab === "discounts" && <DiscountCodesTab />}
       </div>
     </div>
   );
 }
 
 /* ─── Orders Tab ─────────────────────────────────────────── */
+function TrackingForm({
+  order,
+  onSave,
+}: {
+  order: Order;
+  onSave: (id: string, tracking_number: string, tracking_url: string) => Promise<void>;
+}) {
+  const [num, setNum] = useState(order.tracking_number ?? "");
+  const [url, setUrl] = useState(order.tracking_url ?? "");
+  const [saving, setSaving] = useState(false);
+  const [saved, setSaved] = useState(false);
+
+  async function handleSave() {
+    if (!num.trim()) return;
+    setSaving(true);
+    await onSave(order.id, num.trim(), url.trim());
+    setSaving(false);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  }
+
+  return (
+    <div
+      className="mt-3 p-3 rounded-xl flex flex-wrap gap-2 items-end"
+      style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)" }}
+    >
+      <div className="flex-1 min-w-36">
+        <p className="text-xs mb-1 font-medium" style={{ color: "#6E6E73" }}>Tracking #</p>
+        <input
+          value={num}
+          onChange={(e) => setNum(e.target.value)}
+          placeholder="1Z999AA10123456784"
+          className="w-full px-3 py-1.5 rounded-lg text-xs border focus:outline-none"
+          style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F" }}
+        />
+      </div>
+      <div className="flex-1 min-w-36">
+        <p className="text-xs mb-1 font-medium" style={{ color: "#6E6E73" }}>Tracking URL (optional)</p>
+        <input
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          placeholder="https://www.ups.com/track?..."
+          className="w-full px-3 py-1.5 rounded-lg text-xs border focus:outline-none"
+          style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F" }}
+        />
+      </div>
+      <button
+        onClick={handleSave}
+        disabled={saving || !num.trim()}
+        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-opacity hover:opacity-75 disabled:opacity-40"
+        style={{ background: saved ? "rgba(27,122,69,0.10)" : "#1D1D1F", color: saved ? "#1B7A45" : "#FFFFFF" }}
+      >
+        {saving ? "Saving…" : saved ? <><Check className="w-3 h-3" /> Saved</> : "Save & notify"}
+      </button>
+    </div>
+  );
+}
+
 function OrdersTab({
   orders,
   onStatusChange,
+  onSaveTracking,
 }: {
   orders: Order[];
   onStatusChange: (id: string, status: string) => void;
+  onSaveTracking: (id: string, tracking_number: string, tracking_url: string) => Promise<void>;
 }) {
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
@@ -355,6 +437,9 @@ function OrdersTab({
                     </div>
                   </div>
                 </div>
+                {order.status === "shipped" && (
+                  <TrackingForm order={order} onSave={onSaveTracking} />
+                )}
               </div>
             );
           })}
@@ -574,6 +659,293 @@ function WaitlistTab({ entries }: { entries: WaitlistEntry[] }) {
           </div>
         </div>
       ))}
+    </div>
+  );
+}
+
+/* ─── Discount Codes Tab ─────────────────────────────────── */
+interface DiscountCode {
+  id: number;
+  code: string;
+  type: "percentage" | "fixed";
+  value: number;
+  min_order: number;
+  max_uses: number | null;
+  used_count: number;
+  expires_at: string | null;
+  active: boolean;
+  created_at: string;
+}
+
+const EMPTY_FORM: { code: string; type: "percentage" | "fixed"; value: string; min_order: string; max_uses: string; expires_at: string } = { code: "", type: "percentage", value: "", min_order: "", max_uses: "", expires_at: "" };
+
+function DiscountCodesTab() {
+  const [codes, setCodes] = useState<DiscountCode[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showForm, setShowForm] = useState(false);
+  const [form, setForm] = useState(EMPTY_FORM);
+  const [saving, setSaving] = useState(false);
+  const [toggling, setToggling] = useState<number | null>(null);
+  const [deleting, setDeleting] = useState<number | null>(null);
+
+  async function load() {
+    setLoading(true);
+    const res = await fetch("/api/admin/discount-codes");
+    const data = await res.json();
+    setCodes(data.codes ?? []);
+    setLoading(false);
+  }
+
+  useEffect(() => { load(); }, []);
+
+  async function handleCreate(e: React.FormEvent) {
+    e.preventDefault();
+    if (!form.code || !form.value) return;
+    setSaving(true);
+    await fetch("/api/admin/discount-codes", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        code: form.code,
+        type: form.type,
+        value: parseFloat(form.value),
+        min_order: form.min_order ? parseFloat(form.min_order) : 0,
+        max_uses: form.max_uses ? parseInt(form.max_uses) : null,
+        expires_at: form.expires_at || null,
+      }),
+    });
+    setSaving(false);
+    setForm(EMPTY_FORM);
+    setShowForm(false);
+    load();
+  }
+
+  async function toggleActive(id: number, active: boolean) {
+    setToggling(id);
+    await fetch(`/api/admin/discount-codes/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ active: !active }),
+    });
+    setCodes((prev) => prev.map((c) => (c.id === id ? { ...c, active: !active } : c)));
+    setToggling(null);
+  }
+
+  async function handleDelete(id: number) {
+    if (!confirm("Delete this discount code?")) return;
+    setDeleting(id);
+    await fetch(`/api/admin/discount-codes/${id}`, { method: "DELETE" });
+    setCodes((prev) => prev.filter((c) => c.id !== id));
+    setDeleting(null);
+  }
+
+  if (loading) return <EmptyState label="Loading…" />;
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between">
+        <p className="text-sm font-medium" style={{ color: "#6E6E73" }}>{codes.length} discount code{codes.length !== 1 ? "s" : ""}</p>
+        <button
+          onClick={() => setShowForm(!showForm)}
+          className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-opacity hover:opacity-75"
+          style={{ background: "#1D1D1F", color: "#FFFFFF" }}
+        >
+          <Plus className="w-4 h-4" />
+          New code
+        </button>
+      </div>
+
+      {showForm && (
+        <form
+          onSubmit={handleCreate}
+          className="p-5 rounded-2xl space-y-4"
+          style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+        >
+          <p className="font-semibold text-sm" style={{ color: "#1D1D1F" }}>Create discount code</p>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="block text-xs mb-1 font-medium" style={{ color: "#6E6E73" }}>Code</label>
+              <input
+                required
+                value={form.code}
+                onChange={(e) => setForm({ ...form, code: e.target.value.toUpperCase() })}
+                placeholder="SUMMER20"
+                className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none font-mono"
+                style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F" }}
+              />
+            </div>
+            <div>
+              <label className="block text-xs mb-1 font-medium" style={{ color: "#6E6E73" }}>Type</label>
+              <select
+                value={form.type}
+                onChange={(e) => setForm({ ...form, type: e.target.value as "percentage" | "fixed" })}
+                className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none"
+                style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F" }}
+              >
+                <option value="percentage">Percentage (%)</option>
+                <option value="fixed">Fixed ($)</option>
+              </select>
+            </div>
+            <div>
+              <label className="block text-xs mb-1 font-medium" style={{ color: "#6E6E73" }}>
+                {form.type === "percentage" ? "Discount %" : "Discount $"}
+              </label>
+              <input
+                required
+                type="number"
+                min="0"
+                max={form.type === "percentage" ? "100" : undefined}
+                step="0.01"
+                value={form.value}
+                onChange={(e) => setForm({ ...form, value: e.target.value })}
+                placeholder={form.type === "percentage" ? "20" : "15.00"}
+                className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none"
+                style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F" }}
+              />
+            </div>
+            <div>
+              <label className="block text-xs mb-1 font-medium" style={{ color: "#6E6E73" }}>Min order ($)</label>
+              <input
+                type="number"
+                min="0"
+                step="0.01"
+                value={form.min_order}
+                onChange={(e) => setForm({ ...form, min_order: e.target.value })}
+                placeholder="0"
+                className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none"
+                style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F" }}
+              />
+            </div>
+            <div>
+              <label className="block text-xs mb-1 font-medium" style={{ color: "#6E6E73" }}>Max uses (leave blank = unlimited)</label>
+              <input
+                type="number"
+                min="1"
+                value={form.max_uses}
+                onChange={(e) => setForm({ ...form, max_uses: e.target.value })}
+                placeholder="∞"
+                className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none"
+                style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F" }}
+              />
+            </div>
+            <div>
+              <label className="block text-xs mb-1 font-medium" style={{ color: "#6E6E73" }}>Expires (leave blank = never)</label>
+              <input
+                type="date"
+                value={form.expires_at}
+                onChange={(e) => setForm({ ...form, expires_at: e.target.value })}
+                className="w-full px-3 py-2 rounded-xl text-sm border focus:outline-none"
+                style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F" }}
+              />
+            </div>
+          </div>
+          <div className="flex gap-2 pt-1">
+            <button
+              type="submit"
+              disabled={saving}
+              className="px-5 py-2 rounded-xl text-sm font-semibold transition-opacity hover:opacity-75 disabled:opacity-40"
+              style={{ background: "#1D1D1F", color: "#FFFFFF" }}
+            >
+              {saving ? "Creating…" : "Create code"}
+            </button>
+            <button
+              type="button"
+              onClick={() => { setShowForm(false); setForm(EMPTY_FORM); }}
+              className="px-5 py-2 rounded-xl text-sm font-medium transition-opacity hover:opacity-75"
+              style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.10)", color: "#6E6E73" }}
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      )}
+
+      {codes.length === 0 ? (
+        <div
+          className="py-16 text-center rounded-2xl"
+          style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+        >
+          <Tag className="w-8 h-8 mx-auto mb-3" style={{ color: "#D1D1D6" }} />
+          <p className="text-sm" style={{ color: "#9E9EA8" }}>No discount codes yet</p>
+        </div>
+      ) : (
+        <div
+          className="rounded-2xl overflow-hidden"
+          style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+        >
+          <table className="w-full">
+            <thead>
+              <tr style={{ borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
+                {["Code", "Discount", "Min order", "Uses", "Expires", "Status", ""].map((h) => (
+                  <th key={h} className="text-left px-4 py-3 text-xs font-semibold" style={{ color: "#6E6E73" }}>{h}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {codes.map((c, i) => (
+                <tr
+                  key={c.id}
+                  style={{
+                    borderBottom: i < codes.length - 1 ? "1px solid rgba(0,0,0,0.05)" : "none",
+                    opacity: c.active ? 1 : 0.5,
+                  }}
+                >
+                  <td className="px-4 py-3">
+                    <span className="font-mono font-bold text-sm" style={{ color: "#1D1D1F" }}>{c.code}</span>
+                  </td>
+                  <td className="px-4 py-3 text-sm" style={{ color: "#1B7A45" }}>
+                    {c.type === "percentage" ? `${c.value}%` : `$${c.value.toFixed(2)}`}
+                  </td>
+                  <td className="px-4 py-3 text-sm" style={{ color: "#6E6E73" }}>
+                    {c.min_order > 0 ? `$${c.min_order.toFixed(2)}` : "—"}
+                  </td>
+                  <td className="px-4 py-3 text-sm" style={{ color: "#6E6E73" }}>
+                    {c.used_count}{c.max_uses ? ` / ${c.max_uses}` : ""}
+                  </td>
+                  <td className="px-4 py-3 text-xs" style={{ color: "#9E9EA8" }}>
+                    {c.expires_at ? fmt(c.expires_at) : "Never"}
+                  </td>
+                  <td className="px-4 py-3">
+                    <span
+                      className="px-2 py-0.5 rounded-full text-xs font-semibold"
+                      style={{
+                        background: c.active ? "rgba(27,122,69,0.08)" : "rgba(0,0,0,0.06)",
+                        color: c.active ? "#1B7A45" : "#9E9EA8",
+                      }}
+                    >
+                      {c.active ? "Active" : "Inactive"}
+                    </span>
+                  </td>
+                  <td className="px-4 py-3">
+                    <div className="flex items-center gap-1 justify-end">
+                      <button
+                        onClick={() => toggleActive(c.id, c.active)}
+                        disabled={toggling === c.id}
+                        className="p-1.5 rounded-lg transition-opacity hover:opacity-75 disabled:opacity-40"
+                        title={c.active ? "Deactivate" : "Activate"}
+                        style={{ color: c.active ? "#9A6400" : "#1B7A45" }}
+                      >
+                        {c.active
+                          ? <ToggleRight className="w-4 h-4" />
+                          : <ToggleLeft className="w-4 h-4" />}
+                      </button>
+                      <button
+                        onClick={() => handleDelete(c.id)}
+                        disabled={deleting === c.id}
+                        className="p-1.5 rounded-lg transition-opacity hover:opacity-75 disabled:opacity-40"
+                        title="Delete"
+                        style={{ color: "#C0392B" }}
+                      >
+                        <Trash2 className="w-4 h-4" />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }

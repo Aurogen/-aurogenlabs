@@ -300,6 +300,59 @@ export async function sendAffiliateRejected(to: string, name: string) {
   });
 }
 
+export async function sendShippingConfirmation(to: string, order: {
+  id: string;
+  name: string;
+  tracking_number: string;
+  tracking_url?: string;
+}) {
+  const trackingLink = order.tracking_url
+    ? `<a href="${order.tracking_url}" style="display:inline-block;background:linear-gradient(135deg,#1B6BDE,#2B7FEF);color:#ffffff;font-weight:700;font-size:14px;letter-spacing:1px;padding:14px 32px;border-radius:10px;text-decoration:none;margin-top:16px;">TRACK YOUR ORDER →</a>`
+    : `<p style="color:#94a3b8;font-size:14px;margin:16px 0 0;">Tracking #: <span style="color:#4da3ff;font-weight:700;font-family:monospace;">${order.tracking_number}</span></p>`;
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="margin:0;padding:0;background:#020810;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <div style="max-width:580px;margin:0 auto;padding:40px 20px;">
+    <div style="text-align:center;margin-bottom:32px;">
+      <div style="display:inline-block;background:linear-gradient(135deg,#1B6BDE,#2B7FEF);border-radius:12px;padding:12px 20px;margin-bottom:16px;">
+        <span style="color:#ffffff;font-weight:800;font-size:20px;letter-spacing:3px;">AUROGEN</span>
+        <span style="display:block;color:#93c5fd;font-size:9px;letter-spacing:5px;margin-top:2px;">LABS</span>
+      </div>
+      <h1 style="color:#ffffff;font-size:28px;font-weight:800;margin:0;letter-spacing:2px;">YOUR ORDER SHIPPED</h1>
+      <p style="color:#64748b;font-size:14px;margin:8px 0 0;">Your research compounds are on the way.</p>
+    </div>
+
+    <div style="background:#0a1628;border:1px solid rgba(27,107,222,0.2);border-radius:16px;padding:24px;margin-bottom:20px;text-align:center;">
+      <div style="display:inline-block;background:rgba(10,132,255,0.12);border-radius:50%;padding:16px;margin-bottom:16px;">
+        <span style="font-size:32px;">📦</span>
+      </div>
+      <p style="color:#94a3b8;font-size:14px;margin:0 0 6px;">Order</p>
+      <p style="color:#4da3ff;font-family:monospace;font-weight:700;font-size:18px;margin:0 0 20px;">#${order.id}</p>
+      <div style="background:#020810;border:1px solid rgba(27,107,222,0.15);border-radius:10px;padding:16px;">
+        <p style="color:#64748b;font-size:12px;margin:0 0 4px;text-transform:uppercase;letter-spacing:1px;">Tracking Number</p>
+        <p style="color:#ffffff;font-family:monospace;font-weight:700;font-size:16px;margin:0;">${order.tracking_number}</p>
+      </div>
+      ${trackingLink}
+    </div>
+
+    <div style="text-align:center;padding-top:20px;border-top:1px solid #1a2e4a;">
+      <p style="color:#334155;font-size:12px;margin:0;">© 2025 Aurogen Labs · All rights reserved</p>
+    </div>
+  </div>
+</body>
+</html>`;
+
+  return getResend().emails.send({
+    from: FROM,
+    to,
+    subject: `Your order #${order.id} has shipped — Aurogen Labs`,
+    html,
+  });
+}
+
 export async function sendAffiliateReceived(to: string, name: string) {
   const html = `
 <!DOCTYPE html>
