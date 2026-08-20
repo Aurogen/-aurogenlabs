@@ -12,6 +12,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
+    const { userId } = await auth();
+
     const supabase = getServiceClient();
     const { error } = await supabase.from("orders").insert({
       id,
@@ -22,6 +24,7 @@ export async function POST(req: NextRequest) {
       items,
       total,
       status: status ?? "processing",
+      ...(userId ? { user_id: userId } : {}),
     });
 
     if (error) {

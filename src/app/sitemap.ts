@@ -1,9 +1,12 @@
 import type { MetadataRoute } from "next";
-import { PRODUCTS } from "@/data/products";
+import { fetchProducts } from "@/lib/products-db";
+import type { Product } from "@/data/products";
 
 const BASE = "https://aurogenlabs.com";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export const dynamic = "force-dynamic";
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: BASE, changeFrequency: "weekly", priority: 1 },
     { url: `${BASE}/shop`, changeFrequency: "daily", priority: 0.9 },
@@ -19,9 +22,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/terms`, changeFrequency: "yearly", priority: 0.3 },
   ];
 
-  const productRoutes: MetadataRoute.Sitemap = PRODUCTS.map((p) => ({
+  let products: Product[] = [];
+  try {
+    products = await fetchProducts();
+  } catch {
+    products = [];
+  }
+
+  const productRoutes: MetadataRoute.Sitemap = products.map((p) => ({
     url: `${BASE}/product/${p.slug}`,
-    changeFrequency: "weekly",
+    changeFrequency: "weekly" as const,
     priority: 0.9,
   }));
 

@@ -185,7 +185,7 @@ function OrderSuccessContent() {
           transition={{ delay: 0.65 }}
         >
           <Link
-            href="/dashboard"
+            href="/account/orders"
             className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-full font-semibold text-white text-sm transition-opacity hover:opacity-85"
             style={{ background: "#1D1D1F" }}
           >

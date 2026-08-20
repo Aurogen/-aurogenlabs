@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+Disallow: /admin
+Disallow: /api/
+Disallow: /checkout
+Disallow: /order-success
+Disallow: /account/
+
+Sitemap: https://aurogenlabs.com/sitemap.xml
