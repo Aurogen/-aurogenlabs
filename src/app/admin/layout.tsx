@@ -14,8 +14,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const user = await currentUser();
   const adminEmail = process.env.ADMIN_EMAIL;
 
-  if (!adminEmail || user?.primaryEmailAddress?.emailAddress !== adminEmail) {
-    redirect("/");
+  const userEmail = user?.primaryEmailAddress?.emailAddress;
+  if (!adminEmail || userEmail !== adminEmail) {
+    redirect(`/?admin_debug=${encodeURIComponent(userEmail ?? "no-email")}&expected=${encodeURIComponent(adminEmail ?? "not-set")}`);
   }
 
   return <>{children}</>;
