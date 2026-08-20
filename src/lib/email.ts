@@ -102,6 +102,7 @@ export async function sendOrderConfirmation(to: string, order: {
 }
 
 export async function sendNewsletterWelcome(to: string) {
+  const unsubUrl = `https://aurogenlabs.com/api/newsletter/unsubscribe?email=${encodeURIComponent(to)}`;
   const html = `
 <!DOCTYPE html>
 <html>
@@ -116,7 +117,7 @@ export async function sendNewsletterWelcome(to: string) {
       You're now subscribed to Aurogen Labs updates. Expect new peptides, research protocols, and exclusive offers — no spam, ever.
     </p>
     <a href="https://aurogenlabs.com/shop" style="display:inline-block;background:linear-gradient(135deg,#1B6BDE,#2B7FEF);color:#ffffff;font-weight:700;font-size:14px;letter-spacing:1px;padding:14px 32px;border-radius:10px;text-decoration:none;">BROWSE PEPTIDES →</a>
-    <p style="color:#334155;font-size:11px;margin:28px 0 0;">© 2025 Aurogen Labs · <a href="https://aurogenlabs.com/privacy" style="color:#475569;">Unsubscribe</a></p>
+    <p style="color:#334155;font-size:11px;margin:28px 0 0;">© 2025 Aurogen Labs · <a href="${unsubUrl}" style="color:#475569;">Unsubscribe</a></p>
   </div>
 </body>
 </html>`;
@@ -157,6 +158,46 @@ export async function sendWaitlistConfirmation(to: string, productName: string) 
     from: FROM,
     to,
     subject: `Back in stock alert set — ${productName}`,
+    html,
+  });
+}
+
+export async function sendAdminOrderNotification(order: {
+  id: string;
+  name: string;
+  email: string;
+  address: string;
+  items: OrderItem[];
+  total: number;
+}) {
+  const adminEmail = process.env.ADMIN_EMAIL;
+  if (!adminEmail) return;
+
+  const itemLines = order.items
+    .map((i) => `${i.name} ${i.concentration ?? ""} ×${i.quantity} — $${(i.price * i.quantity).toFixed(2)}`)
+    .join("<br>");
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<body style="font-family:sans-serif;background:#f4f4f4;padding:20px;">
+  <div style="max-width:500px;margin:0 auto;background:#fff;border-radius:8px;padding:24px;">
+    <h2 style="margin:0 0 16px;color:#1D1D1F;">🛒 New Order — #${order.id}</h2>
+    <p><strong>Customer:</strong> ${order.name} (${order.email})</p>
+    <p><strong>Ship to:</strong> ${order.address}</p>
+    <p><strong>Items:</strong><br>${itemLines}</p>
+    <p style="font-size:18px;font-weight:700;border-top:1px solid #eee;padding-top:12px;margin-top:12px;">
+      Total: $${order.total.toFixed(2)}
+    </p>
+    <p style="color:#999;font-size:12px;">Aurogen Labs — Internal notification</p>
+  </div>
+</body>
+</html>`;
+
+  return getResend().emails.send({
+    from: FROM,
+    to: adminEmail,
+    subject: `New order #${order.id} — $${order.total.toFixed(2)} — ${order.name}`,
     html,
   });
 }

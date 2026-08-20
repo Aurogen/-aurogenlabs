@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { auth } from "@clerk/nextjs/server";
 import { getServiceClient } from "@/lib/supabase-server";
-import { sendOrderConfirmation } from "@/lib/email";
+import { sendOrderConfirmation, sendAdminOrderNotification } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   try {
@@ -28,9 +29,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    // Send confirmation email (non-blocking)
+    // Send confirmation to customer and notification to admin (non-blocking)
     sendOrderConfirmation(email, { id, name, items, total, address }).catch((err) =>
       console.error("Order email error:", err)
+    );
+    sendAdminOrderNotification({ id, name, email, address, items, total }).catch((err) =>
+      console.error("Admin notification error:", err)
     );
 
     return NextResponse.json({ success: true, id });
@@ -42,6 +46,11 @@ export async function POST(req: NextRequest) {
 
 export async function GET(req: NextRequest) {
   try {
+    const { userId } = await auth();
+    if (!userId) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const email = req.nextUrl.searchParams.get("email");
     if (!email) {
       return NextResponse.json({ error: "Email required" }, { status: 400 });
