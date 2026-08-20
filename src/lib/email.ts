@@ -202,6 +202,104 @@ export async function sendAdminOrderNotification(order: {
   });
 }
 
+export async function sendWaitlistRestock(to: string, productName: string) {
+  const html = `
+<!DOCTYPE html>
+<html>
+<body style="margin:0;padding:0;background:#020810;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <div style="max-width:560px;margin:0 auto;padding:40px 20px;text-align:center;">
+    <div style="display:inline-block;background:linear-gradient(135deg,#1B6BDE,#2B7FEF);border-radius:12px;padding:12px 20px;margin-bottom:24px;">
+      <span style="color:#ffffff;font-weight:800;font-size:20px;letter-spacing:3px;">AUROGEN</span>
+      <span style="display:block;color:#93c5fd;font-size:9px;letter-spacing:5px;margin-top:2px;">LABS</span>
+    </div>
+    <h1 style="color:#ffffff;font-size:26px;font-weight:800;margin:0 0 12px;">BACK IN STOCK</h1>
+    <div style="background:#0a1628;border:1px solid rgba(27,107,222,0.2);border-radius:12px;padding:20px;margin:0 0 20px;">
+      <p style="color:#4da3ff;font-weight:700;font-size:18px;margin:0 0 6px;">${productName}</p>
+      <p style="color:#64748b;font-size:13px;margin:0;">Available now — limited stock</p>
+    </div>
+    <p style="color:#94a3b8;font-size:15px;line-height:1.6;margin:0 0 28px;">
+      You're one of the first to know. Don't wait — stock goes fast.
+    </p>
+    <a href="https://aurogenlabs.com/shop" style="display:inline-block;background:linear-gradient(135deg,#1B6BDE,#2B7FEF);color:#ffffff;font-weight:700;font-size:14px;letter-spacing:1px;padding:14px 32px;border-radius:10px;text-decoration:none;">ORDER NOW →</a>
+    <p style="color:#334155;font-size:11px;margin:28px 0 0;">© 2025 Aurogen Labs · You received this because you joined the waitlist.</p>
+  </div>
+</body>
+</html>`;
+
+  return getResend().emails.send({
+    from: FROM,
+    to,
+    subject: `${productName} is back in stock — Aurogen Labs`,
+    html,
+  });
+}
+
+export async function sendAffiliateApproved(to: string, name: string) {
+  const html = `
+<!DOCTYPE html>
+<html>
+<body style="margin:0;padding:0;background:#020810;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <div style="max-width:560px;margin:0 auto;padding:40px 20px;text-align:center;">
+    <div style="display:inline-block;background:linear-gradient(135deg,#1B6BDE,#2B7FEF);border-radius:12px;padding:12px 20px;margin-bottom:24px;">
+      <span style="color:#ffffff;font-weight:800;font-size:20px;letter-spacing:3px;">AUROGEN</span>
+      <span style="display:block;color:#93c5fd;font-size:9px;letter-spacing:5px;margin-top:2px;">LABS</span>
+    </div>
+    <h1 style="color:#ffffff;font-size:26px;font-weight:800;margin:0 0 12px;">YOU'RE APPROVED ✓</h1>
+    <p style="color:#94a3b8;font-size:15px;line-height:1.6;margin:0 0 20px;">
+      Congrats ${name}! Your Aurogen Labs affiliate application has been approved.
+    </p>
+    <div style="background:#0a1628;border:1px solid rgba(27,107,222,0.2);border-radius:12px;padding:20px;margin:0 0 24px;text-align:left;">
+      <p style="color:#ffffff;font-weight:600;font-size:14px;margin:0 0 12px;">What's next:</p>
+      <p style="color:#94a3b8;font-size:13px;margin:0 0 8px;">✓ &nbsp;We'll send your unique affiliate link & coupon code within 24 hours</p>
+      <p style="color:#94a3b8;font-size:13px;margin:0 0 8px;">✓ &nbsp;Earn 20% commission on every referred sale</p>
+      <p style="color:#94a3b8;font-size:13px;margin:0;">✓ &nbsp;Real-time dashboard to track your conversions</p>
+    </div>
+    <p style="color:#334155;font-size:11px;margin:0;">© 2025 Aurogen Labs · <a href="https://aurogenlabs.com/affiliates" style="color:#475569;">Affiliate Program</a></p>
+  </div>
+</body>
+</html>`;
+
+  return getResend().emails.send({
+    from: FROM,
+    to,
+    subject: "Affiliate application approved — Aurogen Labs",
+    html,
+  });
+}
+
+export async function sendAffiliateRejected(to: string, name: string) {
+  const html = `
+<!DOCTYPE html>
+<html>
+<body style="margin:0;padding:0;background:#020810;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">
+  <div style="max-width:560px;margin:0 auto;padding:40px 20px;text-align:center;">
+    <div style="display:inline-block;background:linear-gradient(135deg,#1B6BDE,#2B7FEF);border-radius:12px;padding:12px 20px;margin-bottom:24px;">
+      <span style="color:#ffffff;font-weight:800;font-size:20px;letter-spacing:3px;">AUROGEN</span>
+      <span style="display:block;color:#93c5fd;font-size:9px;letter-spacing:5px;margin-top:2px;">LABS</span>
+    </div>
+    <h1 style="color:#ffffff;font-size:26px;font-weight:800;margin:0 0 12px;">APPLICATION UPDATE</h1>
+    <p style="color:#94a3b8;font-size:15px;line-height:1.6;margin:0 0 20px;">
+      Hi ${name}, thank you for your interest in the Aurogen Labs Affiliate Program.
+    </p>
+    <div style="background:#0a1628;border:1px solid rgba(100,100,100,0.2);border-radius:12px;padding:20px;margin:0 0 24px;">
+      <p style="color:#94a3b8;font-size:14px;margin:0;line-height:1.6;">
+        After reviewing your application, we're unable to move forward at this time. We appreciate your interest and encourage you to re-apply in the future if your profile changes.
+      </p>
+    </div>
+    <a href="https://aurogenlabs.com/shop" style="display:inline-block;background:linear-gradient(135deg,#1B6BDE,#2B7FEF);color:#ffffff;font-weight:700;font-size:14px;letter-spacing:1px;padding:14px 32px;border-radius:10px;text-decoration:none;">BROWSE COMPOUNDS →</a>
+    <p style="color:#334155;font-size:11px;margin:28px 0 0;">© 2025 Aurogen Labs</p>
+  </div>
+</body>
+</html>`;
+
+  return getResend().emails.send({
+    from: FROM,
+    to,
+    subject: "Affiliate application update — Aurogen Labs",
+    html,
+  });
+}
+
 export async function sendAffiliateReceived(to: string, name: string) {
   const html = `
 <!DOCTYPE html>

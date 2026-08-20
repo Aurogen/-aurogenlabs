@@ -14,6 +14,10 @@ import {
   FlaskConical,
   ChevronDown,
   RefreshCw,
+  Download,
+  Bell,
+  Check,
+  X,
 } from "lucide-react";
 
 /* ─── Types ─────────────────────────────────────────────── */
@@ -45,6 +49,7 @@ interface Affiliate {
   audience?: string;
   message?: string;
   created_at?: string;
+  status?: "pending" | "approved" | "rejected";
 }
 interface WaitlistEntry { email: string; product_name: string; created_at?: string }
 
@@ -107,6 +112,15 @@ export default function AdminPage() {
     });
     setOrders((prev) => prev.map((o) => (o.id === id ? { ...o, status } : o)));
     load(true);
+  }
+
+  async function updateAffiliateStatus(id: string, status: "approved" | "rejected") {
+    await fetch(`/api/admin/affiliates/${id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ status }),
+    });
+    setAffiliates((prev) => prev.map((a) => (a.id === id ? { ...a, status } : a)));
   }
 
   if (loading) {
@@ -194,7 +208,7 @@ export default function AdminPage() {
           <OrdersTab orders={orders} onStatusChange={updateOrderStatus} />
         )}
         {tab === "newsletter" && <NewsletterTab subscribers={subscribers} />}
-        {tab === "affiliates" && <AffiliatesTab affiliates={affiliates} />}
+        {tab === "affiliates" && <AffiliatesTab affiliates={affiliates} onStatusChange={updateAffiliateStatus} />}
         {tab === "waitlist" && <WaitlistTab entries={waitlist} />}
       </div>
     </div>
@@ -219,6 +233,30 @@ function OrdersTab({
     return matchSearch && matchStatus;
   });
 
+  function exportCSV() {
+    const headers = ["ID", "Date", "Name", "Email", "Address", "Items", "Total", "Status"];
+    const rows = filtered.map((o) => [
+      o.id,
+      fmt(o.created_at),
+      o.name,
+      o.email,
+      o.address,
+      (o.items ?? []).map((i) => `${i.name} x${i.quantity}`).join(" | "),
+      o.total.toFixed(2),
+      o.status,
+    ]);
+    const csv = [headers, ...rows]
+      .map((r) => r.map((v) => `"${String(v).replace(/"/g, '""')}"`).join(","))
+      .join("\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `orders-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
   return (
     <div className="space-y-4">
       {/* Filters */}
@@ -241,6 +279,15 @@ function OrdersTab({
             <option key={s} value={s}>{STATUS_CONFIG[s]?.label ?? s}</option>
           ))}
         </select>
+        <button
+          onClick={exportCSV}
+          disabled={filtered.length === 0}
+          className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium transition-opacity hover:opacity-70 disabled:opacity-30"
+          style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F" }}
+        >
+          <Download className="w-4 h-4" />
+          Export CSV
+        </button>
       </div>
 
       {filtered.length === 0 ? (
@@ -357,47 +404,120 @@ function NewsletterTab({ subscribers }: { subscribers: Subscriber[] }) {
 }
 
 /* ─── Affiliates Tab ─────────────────────────────────────── */
-function AffiliatesTab({ affiliates }: { affiliates: Affiliate[] }) {
+const AFFILIATE_STATUS_CONFIG: Record<string, { label: string; color: string; bg: string }> = {
+  pending:  { label: "Pending",  color: "#9A6400", bg: "rgba(234,179,8,0.08)" },
+  approved: { label: "Approved", color: "#1B7A45", bg: "rgba(27,122,69,0.08)" },
+  rejected: { label: "Rejected", color: "#C0392B", bg: "rgba(192,57,43,0.08)" },
+};
+
+function AffiliatesTab({
+  affiliates,
+  onStatusChange,
+}: {
+  affiliates: Affiliate[];
+  onStatusChange: (id: string, status: "approved" | "rejected") => void;
+}) {
+  const [loading, setLoading] = useState<string | null>(null);
+
+  async function handle(id: string, status: "approved" | "rejected") {
+    setLoading(`${id}-${status}`);
+    await onStatusChange(id, status);
+    setLoading(null);
+  }
+
   if (affiliates.length === 0) return <EmptyState label="No affiliate applications yet" />;
 
   return (
     <div className="space-y-3">
-      {affiliates.map((a) => (
-        <div
-          key={a.id ?? a.email}
-          className="p-5 rounded-2xl"
-          style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
-        >
-          <div className="flex flex-wrap items-start justify-between gap-3">
-            <div>
-              <p className="font-bold text-sm" style={{ color: "#1D1D1F" }}>{a.name}</p>
-              <p className="text-xs" style={{ color: "#6E6E73" }}>{a.email}</p>
-              {a.website && (
-                <p className="text-xs mt-0.5" style={{ color: "#6B7A8D" }}>{a.website}</p>
-              )}
-              {a.audience && (
-                <p className="text-xs mt-0.5" style={{ color: "#6E6E73" }}>Audience: {a.audience}</p>
-              )}
-              {a.message && (
-                <p className="text-xs mt-2 max-w-lg leading-relaxed" style={{ color: "#6E6E73" }}>{a.message}</p>
-              )}
+      {affiliates.map((a) => {
+        const sc = AFFILIATE_STATUS_CONFIG[a.status ?? "pending"];
+        return (
+          <div
+            key={a.id ?? a.email}
+            className="p-5 rounded-2xl"
+            style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+          >
+            <div className="flex flex-wrap items-start justify-between gap-3">
+              <div className="min-w-0 flex-1">
+                <div className="flex flex-wrap items-center gap-2 mb-1">
+                  <p className="font-bold text-sm" style={{ color: "#1D1D1F" }}>{a.name}</p>
+                  <span
+                    className="px-2 py-0.5 rounded-full text-xs font-semibold"
+                    style={{ background: sc.bg, color: sc.color }}
+                  >
+                    {sc.label}
+                  </span>
+                </div>
+                <p className="text-xs" style={{ color: "#6E6E73" }}>{a.email}</p>
+                {a.website && (
+                  <p className="text-xs mt-0.5" style={{ color: "#6B7A8D" }}>{a.website}</p>
+                )}
+                {a.audience && (
+                  <p className="text-xs mt-0.5" style={{ color: "#6E6E73" }}>Audience: {a.audience}</p>
+                )}
+                {a.message && (
+                  <p className="text-xs mt-2 max-w-lg leading-relaxed" style={{ color: "#6E6E73" }}>{a.message}</p>
+                )}
+              </div>
+              <div className="flex flex-col items-end gap-2 shrink-0">
+                <p className="text-xs" style={{ color: "#9E9EA8" }}>{fmt(a.created_at)}</p>
+                {a.status !== "approved" && a.status !== "rejected" && (
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handle(a.id, "approved")}
+                      disabled={!!loading}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-opacity hover:opacity-75 disabled:opacity-40"
+                      style={{ background: "rgba(27,122,69,0.10)", color: "#1B7A45" }}
+                    >
+                      <Check className="w-3 h-3" />
+                      {loading === `${a.id}-approved` ? "…" : "Approve"}
+                    </button>
+                    <button
+                      onClick={() => handle(a.id, "rejected")}
+                      disabled={!!loading}
+                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-opacity hover:opacity-75 disabled:opacity-40"
+                      style={{ background: "rgba(192,57,43,0.08)", color: "#C0392B" }}
+                    >
+                      <X className="w-3 h-3" />
+                      {loading === `${a.id}-rejected` ? "…" : "Reject"}
+                    </button>
+                  </div>
+                )}
+              </div>
             </div>
-            <p className="text-xs" style={{ color: "#9E9EA8" }}>{fmt(a.created_at)}</p>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
 
 /* ─── Waitlist Tab ─────────────────────────────────────────── */
 function WaitlistTab({ entries }: { entries: WaitlistEntry[] }) {
+  const [sending, setSending] = useState<string | null>(null);
+  const [sent, setSent] = useState<Record<string, number>>({});
+
   if (entries.length === 0) return <EmptyState label="No waitlist entries yet" />;
 
   const byProduct = entries.reduce<Record<string, WaitlistEntry[]>>((acc, e) => {
     (acc[e.product_name] ??= []).push(e);
     return acc;
   }, {});
+
+  async function notifyProduct(product: string) {
+    setSending(product);
+    try {
+      const res = await fetch("/api/admin/waitlist/notify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ product_name: product }),
+      });
+      const data = await res.json();
+      setSent((prev) => ({ ...prev, [product]: data.sent ?? 0 }));
+    } finally {
+      setSending(null);
+    }
+  }
 
   return (
     <div className="space-y-4">
@@ -408,16 +528,37 @@ function WaitlistTab({ entries }: { entries: WaitlistEntry[] }) {
           style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
         >
           <div
-            className="px-5 py-3 flex items-center justify-between"
+            className="px-5 py-3 flex items-center justify-between gap-3"
             style={{ borderBottom: "1px solid rgba(0,0,0,0.06)" }}
           >
             <p className="font-bold text-sm" style={{ color: "#1D1D1F" }}>{product}</p>
-            <span
-              className="text-xs font-semibold px-2.5 py-0.5 rounded-full"
-              style={{ background: "rgba(10,132,255,0.08)", color: "#0A84FF" }}
-            >
-              {list.length} waiting
-            </span>
+            <div className="flex items-center gap-3">
+              <span
+                className="text-xs font-semibold px-2.5 py-0.5 rounded-full"
+                style={{ background: "rgba(10,132,255,0.08)", color: "#0A84FF" }}
+              >
+                {list.length} waiting
+              </span>
+              {sent[product] != null ? (
+                <span
+                  className="flex items-center gap-1 text-xs font-semibold px-3 py-1 rounded-full"
+                  style={{ background: "rgba(27,122,69,0.10)", color: "#1B7A45" }}
+                >
+                  <Check className="w-3 h-3" />
+                  {sent[product]} notified
+                </span>
+              ) : (
+                <button
+                  onClick={() => notifyProduct(product)}
+                  disabled={sending === product}
+                  className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-opacity hover:opacity-75 disabled:opacity-40"
+                  style={{ background: "rgba(10,132,255,0.10)", color: "#0A84FF" }}
+                >
+                  <Bell className="w-3 h-3" />
+                  {sending === product ? "Sending…" : "Notify all"}
+                </button>
+              )}
+            </div>
           </div>
           <div className="divide-y" style={{ borderColor: "rgba(0,0,0,0.05)" }}>
             {list.map((e) => (
