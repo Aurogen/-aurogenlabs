@@ -27,6 +27,7 @@ export interface Product {
   storage: string;
   badge?: string;
   image?: string;
+  coaUrl?: string;
 }
 
 export const GOALS: { label: Goal; icon: string; description: string; count: number }[] = [

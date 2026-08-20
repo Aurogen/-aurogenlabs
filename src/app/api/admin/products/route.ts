@@ -48,6 +48,7 @@ export async function POST(req: Request) {
       storage: body.storage ?? "",
       badge: body.badge ?? null,
       image: body.image ?? null,
+      coa_url: body.coa_url ?? null,
       visible: body.visible ?? true,
       sort_order: Number(body.sort_order ?? 0),
     })

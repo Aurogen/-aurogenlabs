@@ -22,6 +22,7 @@ export interface DbProduct {
   storage: string;
   badge: string | null;
   image: string | null;
+  coa_url: string | null;
   visible: boolean;
   sort_order: number;
   created_at: string;
@@ -49,6 +50,7 @@ export function mapToProduct(row: DbProduct): Product {
     storage: row.storage,
     badge: row.badge ?? undefined,
     image: row.image ?? undefined,
+    coaUrl: row.coa_url ?? undefined,
   };
 }
 

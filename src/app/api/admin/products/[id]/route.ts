@@ -17,7 +17,7 @@ export async function PATCH(
     "name", "slug", "compound", "concentration", "size",
     "price", "original_price", "goals", "description", "long_description",
     "in_stock", "stock_count", "featured", "purity", "sequence",
-    "molecular_weight", "storage", "badge", "image", "visible", "sort_order",
+    "molecular_weight", "storage", "badge", "image", "coa_url", "visible", "sort_order",
   ];
 
   const update: Record<string, unknown> = {};

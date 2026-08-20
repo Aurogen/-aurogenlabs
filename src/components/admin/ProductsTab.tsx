@@ -13,7 +13,7 @@ const EMPTY_FORM = {
   price: "", original_price: "", goals: [] as string[], description: "",
   long_description: "", in_stock: true, stock_count: "0", featured: false,
   purity: "", sequence: "", molecular_weight: "", storage: "", badge: "",
-  image: "", visible: true, sort_order: "0",
+  image: "", coa_url: "", visible: true, sort_order: "0",
 };
 
 type FormState = typeof EMPTY_FORM;
@@ -67,6 +67,7 @@ export default function ProductsTab() {
       storage: p.storage,
       badge: p.badge ?? "",
       image: p.image ?? "",
+      coa_url: p.coa_url ?? "",
       visible: p.visible,
       sort_order: String(p.sort_order ?? 0),
     });
@@ -115,6 +116,7 @@ export default function ProductsTab() {
         molecular_weight: form.molecular_weight || null,
         badge: form.badge || null,
         image: form.image || null,
+        coa_url: form.coa_url || null,
       };
 
       if (addingNew) {
@@ -443,6 +445,12 @@ function ProductForm({
         <div className="sm:col-span-2 lg:col-span-3">
           <label className={lbl} style={lblStyle}>Image URL</label>
           <input value={form.image} onChange={(e) => set("image", e.target.value)} className={inp} style={inpStyle} placeholder="https://… or /products/name.png" />
+        </div>
+
+        {/* COA */}
+        <div className="sm:col-span-2 lg:col-span-3">
+          <label className={lbl} style={lblStyle}>COA URL <span style={{ fontWeight: 400 }}>— optional</span></label>
+          <input value={form.coa_url} onChange={(e) => set("coa_url", e.target.value)} className={inp} style={inpStyle} placeholder="https://… link to PDF or image" />
         </div>
 
         {/* Description */}

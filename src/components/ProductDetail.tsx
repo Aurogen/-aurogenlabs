@@ -261,13 +261,27 @@ export default function ProductDetail({ product, related }: Props) {
               </button>
             )}
 
-            <button
-              className="w-full flex items-center justify-center gap-2 py-2.5 rounded-full text-sm font-medium mb-6 transition-opacity hover:opacity-70"
-              style={{ border: "1px solid rgba(0,0,0,0.10)", color: "#6E6E73", background: "#FFFFFF" }}
-            >
-              <FileText className="w-4 h-4" />
-              View Certificate of Analysis (COA)
-            </button>
+            {product.coaUrl ? (
+              <a
+                href={product.coaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-full text-sm font-medium mb-6 transition-opacity hover:opacity-70"
+                style={{ border: "1px solid rgba(0,0,0,0.10)", color: "#6E6E73", background: "#FFFFFF" }}
+              >
+                <FileText className="w-4 h-4" />
+                View Certificate of Analysis (COA)
+              </a>
+            ) : (
+              <button
+                disabled
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-full text-sm font-medium mb-6 opacity-40 cursor-not-allowed"
+                style={{ border: "1px solid rgba(0,0,0,0.10)", color: "#6E6E73", background: "#FFFFFF" }}
+              >
+                <FileText className="w-4 h-4" />
+                COA Coming Soon
+              </button>
+            )}
           </motion.div>
         </div>
 
