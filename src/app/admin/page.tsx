@@ -25,6 +25,7 @@ import {
   ToggleRight,
 } from "lucide-react";
 import ProductsTab from "@/components/admin/ProductsTab";
+import AnalyticsTab from "@/components/admin/AnalyticsTab";
 
 /* ─── Types ─────────────────────────────────────────────── */
 interface OrderItem { name: string; concentration?: string; quantity: number; price: number }
@@ -79,7 +80,7 @@ function fmt(d?: string) {
 
 /* ─── Main page ─────────────────────────────────────────── */
 export default function AdminPage() {
-  const [tab, setTab] = useState<"orders" | "newsletter" | "affiliates" | "waitlist" | "products" | "discounts">("orders");
+  const [tab, setTab] = useState<"orders" | "newsletter" | "affiliates" | "waitlist" | "products" | "discounts" | "analytics">("orders");
   const [stats, setStats] = useState<Stats | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
@@ -200,7 +201,7 @@ export default function AdminPage() {
 
         {/* Tabs */}
         <div className="max-w-7xl mx-auto px-4 flex gap-1 border-t" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
-          {(["orders", "newsletter", "affiliates", "waitlist", "products", "discounts"] as const).map((t) => (
+          {(["orders", "analytics", "newsletter", "affiliates", "waitlist", "products", "discounts"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
@@ -219,6 +220,8 @@ export default function AdminPage() {
                 ? `Affiliates (${affiliates.length})`
                 : t === "waitlist"
                 ? `Waitlist (${waitlist.length})`
+                : t === "analytics"
+                ? "Analytics"
                 : t === "products"
                 ? "Products"
                 : "Discounts"}
@@ -234,6 +237,7 @@ export default function AdminPage() {
         {tab === "newsletter" && <NewsletterTab subscribers={subscribers} />}
         {tab === "affiliates" && <AffiliatesTab affiliates={affiliates} onStatusChange={updateAffiliateStatus} />}
         {tab === "waitlist" && <WaitlistTab entries={waitlist} />}
+        {tab === "analytics" && <AnalyticsTab />}
         {tab === "products" && <ProductsTab />}
         {tab === "discounts" && <DiscountCodesTab />}
       </div>
