@@ -60,6 +60,7 @@ interface Affiliate {
   message?: string;
   created_at?: string;
   status?: "pending" | "approved" | "rejected";
+  code?: string;
 }
 interface WaitlistEntry { email: string; product_name: string; created_at?: string }
 
@@ -136,12 +137,15 @@ export default function AdminPage() {
   }
 
   async function updateAffiliateStatus(id: string, status: "approved" | "rejected") {
-    await fetch(`/api/admin/affiliates/${id}`, {
+    const res = await fetch(`/api/admin/affiliates/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ status }),
     });
-    setAffiliates((prev) => prev.map((a) => (a.id === id ? { ...a, status } : a)));
+    const json = await res.json().catch(() => ({}));
+    setAffiliates((prev) =>
+      prev.map((a) => (a.id === id ? { ...a, status, ...(json.code ? { code: json.code } : {}) } : a))
+    );
   }
 
   if (loading) {
@@ -550,6 +554,16 @@ function AffiliatesTab({
                 )}
                 {a.message && (
                   <p className="text-xs mt-2 max-w-lg leading-relaxed" style={{ color: "#6E6E73" }}>{a.message}</p>
+                )}
+                {a.status === "approved" && a.code && (
+                  <div className="mt-2 flex items-center gap-2">
+                    <span className="text-xs font-mono px-2 py-0.5 rounded" style={{ background: "rgba(27,122,69,0.08)", color: "#1B7A45" }}>
+                      ref: {a.code}
+                    </span>
+                    <span className="text-xs" style={{ color: "#9E9EA8" }}>
+                      aurogenlabs.com/shop?ref={a.code}
+                    </span>
+                  </div>
                 )}
               </div>
               <div className="flex flex-col items-end gap-2 shrink-0">

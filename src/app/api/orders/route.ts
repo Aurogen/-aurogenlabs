@@ -6,7 +6,7 @@ import { sendOrderConfirmation, sendAdminOrderNotification } from "@/lib/email";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { id, date, name, email, address, items, total, status } = body;
+    const { id, date, name, email, address, items, total, status, affiliate_code } = body;
 
     if (!id || !email || !items || !total) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -15,6 +15,20 @@ export async function POST(req: NextRequest) {
     const { userId } = await auth();
 
     const supabase = getServiceClient();
+
+    // Resolve commission if a referral code was provided
+    let commission_amount: number | null = null;
+    if (affiliate_code) {
+      const { data: aff } = await supabase
+        .from("affiliate_codes")
+        .select("commission_rate")
+        .eq("code", affiliate_code)
+        .maybeSingle();
+      if (aff) {
+        commission_amount = Math.round((total * aff.commission_rate) / 100 * 100) / 100;
+      }
+    }
+
     const { error } = await supabase.from("orders").insert({
       id,
       created_at: date,
@@ -25,6 +39,9 @@ export async function POST(req: NextRequest) {
       total,
       status: status ?? "processing",
       ...(userId ? { user_id: userId } : {}),
+      ...(affiliate_code && commission_amount !== null
+        ? { affiliate_code, commission_amount }
+        : {}),
     });
 
     if (error) {

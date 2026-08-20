@@ -206,6 +206,19 @@ export default function Navbar() {
               </Link>
             )}
 
+            {/* Affiliate link */}
+            {isSignedIn && (
+              <Link
+                href="/account/affiliate"
+                className="hidden md:flex items-center px-3 py-1.5 text-xs font-semibold rounded-full transition-colors"
+                style={{ color: "#6B7A8D", background: "rgba(107,122,141,0.08)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(107,122,141,0.15)")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(107,122,141,0.08)")}
+              >
+                {lang === "es" ? "Afiliados" : "Affiliates"}
+              </Link>
+            )}
+
             {/* Admin link */}
             {isAdmin && (
               <Link
@@ -328,14 +341,24 @@ export default function Navbar() {
               </Link>
             )}
             {isSignedIn ? (
-              <Link
-                href="/account/orders"
-                onClick={() => setMobileOpen(false)}
-                className="block px-5 py-3.5 text-sm"
-                style={{ color: "#6B7A8D", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
-              >
-                {lang === "es" ? "Mis Pedidos" : "My Orders"}
-              </Link>
+              <>
+                <Link
+                  href="/account/orders"
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-5 py-3.5 text-sm"
+                  style={{ color: "#6B7A8D", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
+                >
+                  {lang === "es" ? "Mis Pedidos" : "My Orders"}
+                </Link>
+                <Link
+                  href="/account/affiliate"
+                  onClick={() => setMobileOpen(false)}
+                  className="block px-5 py-3.5 text-sm"
+                  style={{ color: "#6B7A8D", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
+                >
+                  {lang === "es" ? "Portal de Afiliados" : "Affiliate Portal"}
+                </Link>
+              </>
             ) : (
               <SignInButton mode="redirect">
                 <button

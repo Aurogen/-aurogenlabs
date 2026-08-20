@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { CartProvider } from "@/context/CartContext";
@@ -8,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
 import AgeGate from "@/components/AgeGate";
 import Footer from "@/components/Footer";
+import RefTracker from "@/components/RefTracker";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -53,6 +55,9 @@ export default function RootLayout({
           <CartProvider>
             <LanguageProvider>
               <AgeGate />
+              <Suspense fallback={null}>
+                <RefTracker />
+              </Suspense>
               <Navbar />
               <main className="flex-1">{children}</main>
               <Footer />
