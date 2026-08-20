@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import {
-  Plus, Pencil, Eye, EyeOff, FlaskConical, ChevronDown, ChevronUp, X, Check,
+  Plus, Pencil, Eye, EyeOff, FlaskConical, ChevronDown, ChevronUp, X, Check, Upload, FileText, ExternalLink,
 } from "lucide-react";
 import type { DbProduct } from "@/lib/products-db";
 
@@ -347,6 +347,10 @@ function ProductForm({
   saving: boolean;
   title: string;
 }) {
+  const [uploading, setUploading] = useState(false);
+  const [uploadError, setUploadError] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
   function set(field: keyof FormState, value: unknown) {
     setForm({ ...form, [field]: value });
   }
@@ -356,6 +360,27 @@ function ProductForm({
       ? form.goals.filter((x) => x !== g)
       : [...form.goals, g];
     set("goals", goals);
+  }
+
+  async function handleCoaUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploading(true);
+    setUploadError("");
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      fd.append("slug", form.slug || "product");
+      const res = await fetch("/api/admin/upload-coa", { method: "POST", body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Upload failed");
+      set("coa_url", data.url);
+    } catch (err) {
+      setUploadError(err instanceof Error ? err.message : "Upload failed");
+    } finally {
+      setUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
   }
 
   const inp = "w-full px-3 py-2 rounded-lg text-sm border focus:outline-none";
@@ -447,10 +472,72 @@ function ProductForm({
           <input value={form.image} onChange={(e) => set("image", e.target.value)} className={inp} style={inpStyle} placeholder="https://… or /products/name.png" />
         </div>
 
-        {/* COA */}
+        {/* COA Upload */}
         <div className="sm:col-span-2 lg:col-span-3">
-          <label className={lbl} style={lblStyle}>COA URL <span style={{ fontWeight: 400 }}>— optional</span></label>
-          <input value={form.coa_url} onChange={(e) => set("coa_url", e.target.value)} className={inp} style={inpStyle} placeholder="https://… link to PDF or image" />
+          <label className={lbl} style={lblStyle}>Certificate of Analysis (COA)</label>
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="application/pdf"
+            onChange={handleCoaUpload}
+            className="hidden"
+            id="coa-file-input"
+          />
+          <div className="flex flex-wrap items-center gap-2 mt-1">
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={uploading}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-opacity hover:opacity-75 disabled:opacity-40"
+              style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.2)", color: "#0A84FF" }}
+            >
+              <Upload className="w-3.5 h-3.5" />
+              {uploading ? "Uploading…" : "Upload PDF"}
+            </button>
+
+            {form.coa_url ? (
+              <div className="flex items-center gap-2 flex-1 min-w-0">
+                <div
+                  className="flex items-center gap-2 flex-1 min-w-0 px-3 py-2 rounded-xl text-sm"
+                  style={{ background: "rgba(27,122,69,0.06)", border: "1px solid rgba(27,122,69,0.2)" }}
+                >
+                  <FileText className="w-3.5 h-3.5 shrink-0" style={{ color: "#1B7A45" }} />
+                  <span className="truncate text-xs" style={{ color: "#1B7A45" }}>COA uploaded</span>
+                  <a
+                    href={form.coa_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="shrink-0 ml-auto"
+                    style={{ color: "#1B7A45" }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <ExternalLink className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => set("coa_url", "")}
+                  className="shrink-0 w-7 h-7 flex items-center justify-center rounded-lg transition-colors hover:bg-red-50"
+                  style={{ color: "#9E9EA8" }}
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            ) : (
+              <span className="text-xs" style={{ color: "#9E9EA8" }}>No COA attached · Max 10MB PDF</span>
+            )}
+          </div>
+          {uploadError && (
+            <p className="text-xs mt-1" style={{ color: "#C0392B" }}>{uploadError}</p>
+          )}
+          {/* Fallback manual URL */}
+          <input
+            value={form.coa_url}
+            onChange={(e) => set("coa_url", e.target.value)}
+            className={`${inp} mt-2`}
+            style={{ ...inpStyle, fontSize: "11px" }}
+            placeholder="Or paste URL manually"
+          />
         </div>
 
         {/* Description */}
