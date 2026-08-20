@@ -46,6 +46,13 @@ const IPAMORELIN_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkq
 const MOTSC_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175604_c7657ce3-c73c-4d3f-93be-67fc4de8f34d.png";
 const TB500_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_202208_1cd9e6c4-858f-4765-8e3c-f6f962241c6e.png";
 const CJC_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_202208_f9c2b75e-2a44-473b-bd2c-d3e5cd5d49b9.png";
+const GHKCU_IMG = "/products/ghk-cu.png";
+const TESAMORELIN_IMG = "/products/tesamorelin.png";
+const TB500BPC157_IMG = "/products/tb500-bpc157.png";
+const NADPLUS_IMG = "/products/nad-plus.png";
+const SERMORELIN_IMG = "/products/sermorelin.png";
+const KLOWBLEND_IMG = "/products/klow-blend.png";
+const BACWATER_IMG = "/products/bac-water.png";
 
 export const PRODUCTS: Product[] = [
   // ── Retatrutide ──────────────────────────────────────────────
@@ -252,6 +259,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "340.38 g/mol",
     storage: "2-8°C · Protect from light",
     badge: "PREMIUM",
+    image: GHKCU_IMG,
   },
   // ── Tesamorelin ───────────────────────────────────────────────
   {
@@ -270,6 +278,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.0%",
     molecularWeight: "5135.5 g/mol",
     storage: "2-8°C · Protect from light",
+    image: TESAMORELIN_IMG,
   },
   // ── TB-500 ────────────────────────────────────────────────────
   {
@@ -326,6 +335,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.0%",
     storage: "2-8°C · Protect from light",
     badge: "COMBO",
+    image: TB500BPC157_IMG,
   },
   // ── NAD+ ──────────────────────────────────────────────────────
   {
@@ -345,6 +355,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "663.43 g/mol",
     storage: "-20°C · Lyophilized",
     badge: "PREMIUM",
+    image: NADPLUS_IMG,
   },
   // ── MOTS-C ────────────────────────────────────────────────────
   {
@@ -439,6 +450,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.1%",
     molecularWeight: "3357.93 g/mol",
     storage: "2-8°C · Protect from light",
+    image: SERMORELIN_IMG,
   },
   // ── KLOW Blend ────────────────────────────────────────────────
   {
@@ -457,6 +469,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.0%",
     storage: "-20°C · Lyophilized",
     badge: "EXCLUSIVE",
+    image: KLOWBLEND_IMG,
   },
   // ── Bacteriostatic Water ──────────────────────────────────────
   {
@@ -474,6 +487,7 @@ export const PRODUCTS: Product[] = [
     featured: false,
     purity: "USP Grade",
     storage: "Room temperature · Keep sealed",
+    image: BACWATER_IMG,
   },
 ];
 
