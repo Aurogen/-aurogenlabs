@@ -48,7 +48,8 @@ const NAV_LINKS_ES: NavLink[] = [
 export default function Navbar() {
   const { totalItems, openCart } = useCart();
   const { lang, setLang } = useLanguage();
-  const { isSignedIn } = useUser();
+  const { isSignedIn, user } = useUser();
+  const isAdmin = user?.primaryEmailAddress?.emailAddress === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
@@ -184,6 +185,19 @@ export default function Navbar() {
               ))}
             </div>
 
+            {/* Admin link */}
+            {isAdmin && (
+              <Link
+                href="/admin"
+                className="hidden md:flex items-center px-3 py-1.5 text-xs font-semibold rounded-full transition-colors"
+                style={{ color: "#6B7A8D", background: "rgba(107,122,141,0.08)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(107,122,141,0.15)")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(107,122,141,0.08)")}
+              >
+                Admin
+              </Link>
+            )}
+
             {/* Account */}
             {isSignedIn ? (
               <div className="hidden md:flex items-center ml-1">
@@ -282,6 +296,16 @@ export default function Navbar() {
               );
             })}
 
+            {isAdmin && (
+              <Link
+                href="/admin"
+                onClick={() => setMobileOpen(false)}
+                className="block px-5 py-3.5 text-sm font-semibold"
+                style={{ color: "#6B7A8D", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
+              >
+                Admin
+              </Link>
+            )}
             {isSignedIn ? (
               <Link
                 href="/dashboard"
