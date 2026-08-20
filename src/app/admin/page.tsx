@@ -19,6 +19,7 @@ import {
   Check,
   X,
 } from "lucide-react";
+import ProductsTab from "@/components/admin/ProductsTab";
 
 /* ─── Types ─────────────────────────────────────────────── */
 interface OrderItem { name: string; concentration?: string; quantity: number; price: number }
@@ -70,7 +71,7 @@ function fmt(d?: string) {
 
 /* ─── Main page ─────────────────────────────────────────── */
 export default function AdminPage() {
-  const [tab, setTab] = useState<"orders" | "newsletter" | "affiliates" | "waitlist">("orders");
+  const [tab, setTab] = useState<"orders" | "newsletter" | "affiliates" | "waitlist" | "products">("orders");
   const [stats, setStats] = useState<Stats | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
@@ -180,7 +181,7 @@ export default function AdminPage() {
 
         {/* Tabs */}
         <div className="max-w-7xl mx-auto px-4 flex gap-1 border-t" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
-          {(["orders", "newsletter", "affiliates", "waitlist"] as const).map((t) => (
+          {(["orders", "newsletter", "affiliates", "waitlist", "products"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
@@ -197,7 +198,9 @@ export default function AdminPage() {
                 ? `Newsletter (${subscribers.length})`
                 : t === "affiliates"
                 ? `Affiliates (${affiliates.length})`
-                : `Waitlist (${waitlist.length})`}
+                : t === "waitlist"
+                ? `Waitlist (${waitlist.length})`
+                : "Products"}
             </button>
           ))}
         </div>
@@ -210,6 +213,7 @@ export default function AdminPage() {
         {tab === "newsletter" && <NewsletterTab subscribers={subscribers} />}
         {tab === "affiliates" && <AffiliatesTab affiliates={affiliates} onStatusChange={updateAffiliateStatus} />}
         {tab === "waitlist" && <WaitlistTab entries={waitlist} />}
+        {tab === "products" && <ProductsTab />}
       </div>
     </div>
   );
