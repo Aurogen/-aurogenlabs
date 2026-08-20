@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ShoppingCart, Search, Menu, X, ChevronDown, ArrowRight } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import Logo from "./Logo";
@@ -48,8 +48,16 @@ const NAV_LINKS_ES: NavLink[] = [
 export default function Navbar() {
   const { totalItems, openCart } = useCart();
   const { lang, setLang } = useLanguage();
-  const { isSignedIn, user } = useUser();
-  const isAdmin = user?.primaryEmailAddress?.emailAddress === process.env.NEXT_PUBLIC_ADMIN_EMAIL;
+  const { isSignedIn } = useUser();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    if (!isSignedIn) { setIsAdmin(false); return; }
+    fetch("/api/admin-check")
+      .then((r) => r.json())
+      .then((d) => setIsAdmin(d.isAdmin === true))
+      .catch(() => setIsAdmin(false));
+  }, [isSignedIn]);
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
