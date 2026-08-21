@@ -54,7 +54,7 @@ export async function DELETE(
 
   const { error } = await supabase
     .from("products")
-    .update({ visible: false })
+    .delete()
     .eq("id", id);
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });

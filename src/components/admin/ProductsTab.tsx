@@ -2,7 +2,8 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import {
-  Plus, Pencil, Eye, EyeOff, FlaskConical, ChevronDown, ChevronUp, X, Check, Upload, FileText, ExternalLink,
+  Plus, Pencil, Eye, EyeOff, FlaskConical, ChevronUp, X, Check,
+  Upload, FileText, ExternalLink, Trash2, ImagePlus, Loader2,
 } from "lucide-react";
 import type { DbProduct } from "@/lib/products-db";
 
@@ -30,6 +31,8 @@ export default function ProductsTab() {
   const [form, setForm] = useState<FormState>(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
   const [search, setSearch] = useState("");
+  const [deletingId, setDeletingId] = useState<number | null>(null);
+  const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -47,6 +50,7 @@ export default function ProductsTab() {
   function openEdit(p: DbProduct) {
     setEditingId(p.id);
     setAddingNew(false);
+    setConfirmDeleteId(null);
     setForm({
       name: p.name,
       slug: p.slug,
@@ -76,6 +80,7 @@ export default function ProductsTab() {
   function openAdd() {
     setAddingNew(true);
     setEditingId(null);
+    setConfirmDeleteId(null);
     setForm(EMPTY_FORM);
   }
 
@@ -101,6 +106,18 @@ export default function ProductsTab() {
       body: JSON.stringify({ stock_count: stock }),
     });
     setProducts((prev) => prev.map((p) => p.id === id ? { ...p, stock_count: stock } : p));
+  }
+
+  async function deleteProduct(id: number) {
+    setDeletingId(id);
+    try {
+      await fetch(`/api/admin/products/${id}`, { method: "DELETE" });
+      setProducts((prev) => prev.filter((p) => p.id !== id));
+      if (editingId === id) closeForm();
+    } finally {
+      setDeletingId(null);
+      setConfirmDeleteId(null);
+    }
   }
 
   async function saveForm() {
@@ -199,33 +216,51 @@ export default function ProductsTab() {
                 style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
               >
                 <div className="flex flex-wrap items-center gap-3 justify-between">
-                  {/* Left info */}
-                  <div className="min-w-0 flex-1">
-                    <div className="flex flex-wrap items-center gap-2 mb-0.5">
-                      <span className="font-bold text-sm" style={{ color: "#1D1D1F" }}>{p.name}</span>
-                      {p.concentration && (
-                        <span className="text-xs px-1.5 py-0.5 rounded" style={{ background: "rgba(10,132,255,0.08)", color: "#0A84FF" }}>
-                          {p.concentration}
-                        </span>
-                      )}
-                      {p.badge && (
-                        <span className="text-xs px-1.5 py-0.5 rounded font-semibold" style={{ background: "rgba(107,122,141,0.10)", color: "#6B7A8D" }}>
-                          {p.badge}
-                        </span>
-                      )}
-                      {!p.visible && (
-                        <span className="text-xs px-1.5 py-0.5 rounded font-semibold" style={{ background: "rgba(192,57,43,0.08)", color: "#C0392B" }}>
-                          Hidden
-                        </span>
-                      )}
+                  {/* Thumbnail + info */}
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                    {/* Image thumbnail */}
+                    {p.image ? (
+                      <img
+                        src={p.image}
+                        alt={p.name}
+                        className="w-10 h-10 rounded-lg object-cover shrink-0"
+                        style={{ border: "1px solid rgba(0,0,0,0.08)" }}
+                      />
+                    ) : (
+                      <div
+                        className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
+                        style={{ background: "rgba(0,0,0,0.04)", border: "1px solid rgba(0,0,0,0.08)" }}
+                      >
+                        <FlaskConical className="w-4 h-4" style={{ color: "#D1D1D6" }} />
+                      </div>
+                    )}
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2 mb-0.5">
+                        <span className="font-bold text-sm" style={{ color: "#1D1D1F" }}>{p.name}</span>
+                        {p.concentration && (
+                          <span className="text-xs px-1.5 py-0.5 rounded" style={{ background: "rgba(10,132,255,0.08)", color: "#0A84FF" }}>
+                            {p.concentration}
+                          </span>
+                        )}
+                        {p.badge && (
+                          <span className="text-xs px-1.5 py-0.5 rounded font-semibold" style={{ background: "rgba(107,122,141,0.10)", color: "#6B7A8D" }}>
+                            {p.badge}
+                          </span>
+                        )}
+                        {!p.visible && (
+                          <span className="text-xs px-1.5 py-0.5 rounded font-semibold" style={{ background: "rgba(192,57,43,0.08)", color: "#C0392B" }}>
+                            Hidden
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs" style={{ color: "#9E9EA8" }}>{p.slug}</p>
                     </div>
-                    <p className="text-xs" style={{ color: "#9E9EA8" }}>{p.slug}</p>
                   </div>
 
                   {/* Right controls */}
-                  <div className="flex items-center gap-3 shrink-0">
+                  <div className="flex items-center gap-2 shrink-0 flex-wrap">
                     {/* Price */}
-                    <div className="text-right">
+                    <div className="text-right mr-1">
                       <p className="font-bold text-sm" style={{ color: "#1B7A45" }}>${Number(p.price).toFixed(2)}</p>
                       {p.original_price && (
                         <p className="text-xs line-through" style={{ color: "#9E9EA8" }}>${Number(p.original_price).toFixed(2)}</p>
@@ -269,6 +304,38 @@ export default function ProductsTab() {
                       {editingId === p.id ? <ChevronUp className="w-3.5 h-3.5" /> : <Pencil className="w-3.5 h-3.5" />}
                       {editingId === p.id ? "Close" : "Edit"}
                     </button>
+
+                    {/* Delete */}
+                    {confirmDeleteId === p.id ? (
+                      <div className="flex items-center gap-1">
+                        <span className="text-xs" style={{ color: "#C0392B" }}>Delete?</span>
+                        <button
+                          onClick={() => deleteProduct(p.id)}
+                          disabled={deletingId === p.id}
+                          className="flex items-center gap-1 px-2 py-1.5 rounded-lg text-xs font-semibold transition-opacity hover:opacity-70 disabled:opacity-40"
+                          style={{ background: "rgba(192,57,43,0.10)", color: "#C0392B" }}
+                        >
+                          {deletingId === p.id ? <Loader2 className="w-3 h-3 animate-spin" /> : <Check className="w-3 h-3" />}
+                          Yes
+                        </button>
+                        <button
+                          onClick={() => setConfirmDeleteId(null)}
+                          className="w-6 h-6 flex items-center justify-center rounded-lg transition-opacity hover:opacity-70"
+                          style={{ background: "rgba(0,0,0,0.05)", color: "#6E6E73" }}
+                        >
+                          <X className="w-3 h-3" />
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => setConfirmDeleteId(p.id)}
+                        className="w-7 h-7 flex items-center justify-center rounded-lg transition-opacity hover:opacity-70"
+                        style={{ background: "rgba(192,57,43,0.06)", color: "#C0392B" }}
+                        title="Delete product"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
@@ -347,9 +414,12 @@ function ProductForm({
   saving: boolean;
   title: string;
 }) {
-  const [uploading, setUploading] = useState(false);
-  const [uploadError, setUploadError] = useState("");
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [uploadingCoa, setUploadingCoa] = useState(false);
+  const [coaError, setCoaError] = useState("");
+  const [uploadingImg, setUploadingImg] = useState(false);
+  const [imgError, setImgError] = useState("");
+  const coaInputRef = useRef<HTMLInputElement>(null);
+  const imgInputRef = useRef<HTMLInputElement>(null);
 
   function set(field: keyof FormState, value: unknown) {
     setForm({ ...form, [field]: value });
@@ -362,11 +432,32 @@ function ProductForm({
     set("goals", goals);
   }
 
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingImg(true);
+    setImgError("");
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      fd.append("slug", form.slug || "product");
+      const res = await fetch("/api/admin/upload-image", { method: "POST", body: fd });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Upload failed");
+      set("image", data.url);
+    } catch (err) {
+      setImgError(err instanceof Error ? err.message : "Upload failed");
+    } finally {
+      setUploadingImg(false);
+      if (imgInputRef.current) imgInputRef.current.value = "";
+    }
+  }
+
   async function handleCoaUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
-    setUploading(true);
-    setUploadError("");
+    setUploadingCoa(true);
+    setCoaError("");
     try {
       const fd = new FormData();
       fd.append("file", file);
@@ -376,10 +467,10 @@ function ProductForm({
       if (!res.ok) throw new Error(data.error ?? "Upload failed");
       set("coa_url", data.url);
     } catch (err) {
-      setUploadError(err instanceof Error ? err.message : "Upload failed");
+      setCoaError(err instanceof Error ? err.message : "Upload failed");
     } finally {
-      setUploading(false);
-      if (fileInputRef.current) fileInputRef.current.value = "";
+      setUploadingCoa(false);
+      if (coaInputRef.current) coaInputRef.current.value = "";
     }
   }
 
@@ -443,7 +534,7 @@ function ProductForm({
         </div>
         <div>
           <label className={lbl} style={lblStyle}>Original Price ($) <span style={{ fontWeight: 400 }}>— optional</span></label>
-          <input type="number" value={form.original_price} onChange={(e) => set("original_price", e.target.value)} className={inp} style={inpStyle} placeholder="— leave blank if no sale" />
+          <input type="number" value={form.original_price} onChange={(e) => set("original_price", e.target.value)} className={inp} style={inpStyle} placeholder="leave blank if no sale" />
         </div>
 
         {/* Stock */}
@@ -466,33 +557,79 @@ function ProductForm({
           <input value={form.badge} onChange={(e) => set("badge", e.target.value)} className={inp} style={inpStyle} placeholder="e.g. BEST SELLER" />
         </div>
 
-        {/* Image */}
+        {/* Image upload */}
         <div className="sm:col-span-2 lg:col-span-3">
-          <label className={lbl} style={lblStyle}>Image URL</label>
-          <input value={form.image} onChange={(e) => set("image", e.target.value)} className={inp} style={inpStyle} placeholder="https://… or /products/name.png" />
+          <label className={lbl} style={lblStyle}>Product Image</label>
+          <input
+            ref={imgInputRef}
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/avif"
+            onChange={handleImageUpload}
+            className="hidden"
+          />
+          <div className="flex flex-wrap items-start gap-3 mt-1">
+            {/* Preview */}
+            {form.image && (
+              <div className="relative">
+                <img
+                  src={form.image}
+                  alt="Product"
+                  className="w-16 h-16 rounded-xl object-cover"
+                  style={{ border: "1px solid rgba(0,0,0,0.10)" }}
+                />
+                <button
+                  type="button"
+                  onClick={() => set("image", "")}
+                  className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full flex items-center justify-center"
+                  style={{ background: "#C0392B", color: "#fff" }}
+                >
+                  <X className="w-2.5 h-2.5" />
+                </button>
+              </div>
+            )}
+            <div className="flex flex-col gap-2 flex-1 min-w-0">
+              <button
+                type="button"
+                onClick={() => imgInputRef.current?.click()}
+                disabled={uploadingImg}
+                className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-opacity hover:opacity-75 disabled:opacity-40 self-start"
+                style={{ background: "rgba(0,0,0,0.05)", border: "1px solid rgba(0,0,0,0.10)", color: "#1D1D1F" }}
+              >
+                {uploadingImg ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <ImagePlus className="w-3.5 h-3.5" />}
+                {uploadingImg ? "Uploading…" : (form.image ? "Replace Image" : "Upload Image")}
+              </button>
+              {imgError && <p className="text-xs" style={{ color: "#C0392B" }}>{imgError}</p>}
+              <input
+                value={form.image}
+                onChange={(e) => set("image", e.target.value)}
+                className={inp}
+                style={{ ...inpStyle, fontSize: "11px" }}
+                placeholder="Or paste image URL"
+              />
+            </div>
+          </div>
         </div>
 
         {/* COA Upload */}
         <div className="sm:col-span-2 lg:col-span-3">
           <label className={lbl} style={lblStyle}>Certificate of Analysis (COA)</label>
           <input
-            ref={fileInputRef}
+            ref={coaInputRef}
             type="file"
             accept="application/pdf"
             onChange={handleCoaUpload}
             className="hidden"
-            id="coa-file-input"
           />
           <div className="flex flex-wrap items-center gap-2 mt-1">
             <button
               type="button"
-              onClick={() => fileInputRef.current?.click()}
-              disabled={uploading}
+              onClick={() => coaInputRef.current?.click()}
+              disabled={uploadingCoa}
               className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-opacity hover:opacity-75 disabled:opacity-40"
               style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.2)", color: "#0A84FF" }}
             >
-              <Upload className="w-3.5 h-3.5" />
-              {uploading ? "Uploading…" : "Upload PDF"}
+              {uploadingCoa ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Upload className="w-3.5 h-3.5" />}
+              {uploadingCoa ? "Uploading…" : "Upload PDF"}
             </button>
 
             {form.coa_url ? (
@@ -527,16 +664,13 @@ function ProductForm({
               <span className="text-xs" style={{ color: "#9E9EA8" }}>No COA attached · Max 10MB PDF</span>
             )}
           </div>
-          {uploadError && (
-            <p className="text-xs mt-1" style={{ color: "#C0392B" }}>{uploadError}</p>
-          )}
-          {/* Fallback manual URL */}
+          {coaError && <p className="text-xs mt-1" style={{ color: "#C0392B" }}>{coaError}</p>}
           <input
             value={form.coa_url}
             onChange={(e) => set("coa_url", e.target.value)}
             className={`${inp} mt-2`}
             style={{ ...inpStyle, fontSize: "11px" }}
-            placeholder="Or paste URL manually"
+            placeholder="Or paste COA URL manually"
           />
         </div>
 
@@ -577,7 +711,7 @@ function ProductForm({
           {(["in_stock", "featured", "visible"] as const).map((field) => (
             <label key={field} className="flex items-center gap-2 cursor-pointer">
               <div
-                className="relative w-9 h-5 rounded-full transition-colors"
+                className="relative w-9 h-5 rounded-full transition-colors cursor-pointer"
                 style={{ background: form[field] ? "#0A84FF" : "rgba(0,0,0,0.12)" }}
                 onClick={() => set(field, !form[field])}
               >
