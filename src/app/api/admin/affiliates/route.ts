@@ -8,14 +8,28 @@ export async function GET() {
   }
 
   const supabase = getServiceClient();
-  const { data, error } = await supabase
-    .from("affiliate_applications")
-    .select("*")
-    .order("created_at", { ascending: false });
+
+  const [{ data: apps, error }, { data: codes }] = await Promise.all([
+    supabase
+      .from("affiliate_applications")
+      .select("*")
+      .order("created_at", { ascending: false }),
+    supabase.from("affiliate_codes").select("email, code, commission_rate"),
+  ]);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 
-  return NextResponse.json({ applications: data ?? [] });
+  // Map email → code so approved affiliates show their referral code
+  const codeByEmail = Object.fromEntries(
+    (codes ?? []).map((c) => [c.email, c.code])
+  );
+
+  const applications = (apps ?? []).map((a) => ({
+    ...a,
+    code: codeByEmail[a.email] ?? null,
+  }));
+
+  return NextResponse.json({ applications });
 }

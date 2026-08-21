@@ -18,6 +18,7 @@ const LINKS = {
   Company: [
     { label: "About Us", href: "/about" },
     { label: "Quality & Testing", href: "/quality" },
+    { label: "Affiliate Program", href: "/affiliates" },
     { label: "Contact", href: "/contact" },
   ],
   Support: [
