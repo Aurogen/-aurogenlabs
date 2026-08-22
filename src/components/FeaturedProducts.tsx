@@ -248,33 +248,6 @@ function LineupCard({
         boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
       }}
     >
-      {/* Badge */}
-      {product.badge && (
-        <div className="absolute top-3 right-3 z-10">
-          <span
-            className="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest"
-            style={{
-              background: "rgba(10,132,255,0.12)",
-              color: "#0A84FF",
-              border: "1px solid rgba(10,132,255,0.28)",
-              fontFamily: "var(--font-body, sans-serif)",
-            }}
-          >
-            {product.badge}
-          </span>
-        </div>
-      )}
-
-      {!product.inStock && (
-        <div className="absolute top-3 left-3 z-10">
-          <span
-            className="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest"
-            style={{ background: "rgba(255,255,255,0.07)", color: "rgba(255,255,255,0.4)", border: "1px solid rgba(255,255,255,0.12)", fontFamily: "var(--font-body, sans-serif)" }}
-          >
-            OUT OF STOCK
-          </span>
-        </div>
-      )}
 
       {/* Vial display */}
       <Link
@@ -323,6 +296,29 @@ function LineupCard({
 
       {/* Info */}
       <div className="px-4 pb-4 pt-3">
+        {/* Badge row */}
+        <div className="flex items-center gap-2 mb-2">
+          {product.badge && (
+            <span
+              className="px-2.5 py-0.5 rounded text-[9px] font-bold tracking-widest uppercase"
+              style={{
+                background: "#0A84FF",
+                color: "#FFFFFF",
+                fontFamily: "var(--font-body, sans-serif)",
+              }}
+            >
+              {product.badge}
+            </span>
+          )}
+          {!product.inStock && (
+            <span
+              className="px-2.5 py-0.5 rounded text-[9px] font-bold tracking-widest uppercase"
+              style={{ background: "rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-body, sans-serif)" }}
+            >
+              Out of stock
+            </span>
+          )}
+        </div>
         <h3
           className="font-semibold mb-1"
           style={{

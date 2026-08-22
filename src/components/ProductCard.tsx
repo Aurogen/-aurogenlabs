@@ -37,33 +37,6 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
             className="group relative rounded-2xl overflow-hidden flex flex-col h-full transition-shadow duration-300 hover:shadow-[0_16px_48px_rgba(0,0,0,0.13)]"
             style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
           >
-            {/* Badge */}
-            {product.badge && (
-              <div className="absolute top-3 left-3 z-10">
-                <span
-                  className="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest"
-                  style={{
-                    background: "rgba(10,132,255,0.10)",
-                    color: "#0A84FF",
-                    border: "1px solid rgba(10,132,255,0.25)",
-                  }}
-                >
-                  {product.badge}
-                </span>
-              </div>
-            )}
-
-            {/* Out of stock */}
-            {!product.inStock && (
-              <div className="absolute top-3 right-3 z-10">
-                <span
-                  className="px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest"
-                  style={{ background: "rgba(220,38,38,0.08)", color: "#DC2626", border: "1px solid rgba(220,38,38,0.18)" }}
-                >
-                  Out of Stock
-                </span>
-              </div>
-            )}
 
             {/* Product image area */}
             <Link href={`/product/${product.slug}`} className="block">
@@ -112,6 +85,26 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
 
             {/* Content */}
             <div className="flex flex-col flex-1 p-4">
+              {/* Badge & out of stock row */}
+              <div className="flex items-center gap-2 mb-2">
+                {product.badge && (
+                  <span
+                    className="px-2.5 py-0.5 rounded text-[9px] font-bold tracking-widest uppercase"
+                    style={{ background: "#0A84FF", color: "#FFFFFF" }}
+                  >
+                    {product.badge}
+                  </span>
+                )}
+                {!product.inStock && (
+                  <span
+                    className="px-2.5 py-0.5 rounded text-[9px] font-bold tracking-widest uppercase"
+                    style={{ background: "#DC2626", color: "#FFFFFF" }}
+                  >
+                    Out of Stock
+                  </span>
+                )}
+              </div>
+
               {/* Goals */}
               <div className="flex flex-wrap gap-1 mb-3">
                 {product.goals.slice(0, 2).map((g) => (
