@@ -6,7 +6,7 @@ import { sendOrderConfirmation, sendAdminOrderNotification } from "@/lib/email";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { id, date, name, email, address, items, total, status, affiliate_code } = body;
+    const { id, date, name, email, address, items, total, status, payment_status, affiliate_code } = body;
 
     if (!id || !email || !items || !total) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -38,6 +38,7 @@ export async function POST(req: NextRequest) {
       items,
       total,
       status: status ?? "processing",
+      ...(payment_status ? { payment_status } : {}),
       ...(userId ? { user_id: userId } : {}),
       ...(affiliate_code && commission_amount !== null
         ? { affiliate_code, commission_amount }

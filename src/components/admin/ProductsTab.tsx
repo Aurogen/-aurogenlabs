@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import {
   Plus, Pencil, Eye, EyeOff, FlaskConical, ChevronUp, X, Check,
-  Upload, FileText, ExternalLink, Trash2, ImagePlus, Loader2,
+  Upload, FileText, ExternalLink, Trash2, ImagePlus, Loader2, RefreshCw,
 } from "lucide-react";
 import type { DbProduct } from "@/lib/products-db";
 
@@ -33,6 +33,8 @@ export default function ProductsTab() {
   const [search, setSearch] = useState("");
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
+  const [syncingId, setSyncingId] = useState<number | null>(null);
+  const [syncError, setSyncError] = useState<string>("");
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -106,6 +108,27 @@ export default function ProductsTab() {
       body: JSON.stringify({ stock_count: stock }),
     });
     setProducts((prev) => prev.map((p) => p.id === id ? { ...p, stock_count: stock } : p));
+  }
+
+  async function syncToWhop(id: number) {
+    setSyncingId(id);
+    setSyncError("");
+    try {
+      const res = await fetch(`/api/admin/whop-sync/${id}`, { method: "POST" });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Sync failed");
+      setProducts((prev) =>
+        prev.map((p) =>
+          p.id === id
+            ? { ...p, whop_product_id: data.whop_product_id, whop_checkout_url: data.whop_checkout_url }
+            : p
+        )
+      );
+    } catch (err) {
+      setSyncError(err instanceof Error ? err.message : "Sync failed");
+    } finally {
+      setSyncingId(null);
+    }
   }
 
   async function deleteProduct(id: number) {
@@ -188,6 +211,13 @@ export default function ProductsTab() {
           Add Product
         </button>
       </div>
+
+      {syncError && (
+        <div className="px-4 py-3 rounded-xl text-sm" style={{ background: "rgba(192,57,43,0.08)", color: "#C0392B", border: "1px solid rgba(192,57,43,0.20)" }}>
+          Whop sync error: {syncError}
+          <button onClick={() => setSyncError("")} className="ml-3 underline text-xs">Dismiss</button>
+        </div>
+      )}
 
       {/* Add new form */}
       {addingNew && (
@@ -303,6 +333,26 @@ export default function ProductsTab() {
                     >
                       {editingId === p.id ? <ChevronUp className="w-3.5 h-3.5" /> : <Pencil className="w-3.5 h-3.5" />}
                       {editingId === p.id ? "Close" : "Edit"}
+                    </button>
+
+                    {/* Whop sync */}
+                    <button
+                      onClick={() => syncToWhop(p.id)}
+                      disabled={syncingId === p.id}
+                      title={p.whop_product_id ? `Synced: ${p.whop_product_id}` : "Sync to Whop"}
+                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-opacity hover:opacity-70 disabled:opacity-40"
+                      style={{
+                        background: p.whop_product_id ? "rgba(27,122,69,0.08)" : "rgba(10,132,255,0.08)",
+                        border: `1px solid ${p.whop_product_id ? "rgba(27,122,69,0.20)" : "rgba(10,132,255,0.20)"}`,
+                        color: p.whop_product_id ? "#1B7A45" : "#0A84FF",
+                      }}
+                    >
+                      {syncingId === p.id ? (
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                      ) : (
+                        <RefreshCw className="w-3.5 h-3.5" />
+                      )}
+                      {p.whop_product_id ? "Whop ✓" : "→ Whop"}
                     </button>
 
                     {/* Delete */}

@@ -1,8 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Lock, ArrowRight, CheckCircle, Loader2 } from "lucide-react";
+import { Lock, ArrowRight, Loader2, CreditCard } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import Link from "next/link";
 
@@ -17,8 +16,7 @@ const INPUT_CLASS =
   "w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-colors focus:border-black/30";
 
 export default function CheckoutPage() {
-  const { state, totalPrice, clearCart } = useCart();
-  const router = useRouter();
+  const { state, totalPrice } = useCart();
   const [form, setForm] = useState({
     firstName: "", lastName: "", email: "",
     address: "", city: "", stateField: "", zip: "",
@@ -53,22 +51,23 @@ export default function CheckoutPage() {
         price: item.product.price,
       }));
       const affiliateCode = getRefCookie();
-      const orderPayload: Record<string, unknown> = {
-        id: orderId,
-        date: orderDate,
-        name: `${form.firstName} ${form.lastName}`,
-        email: form.email,
-        address: `${form.address}, ${form.city}, ${form.stateField} ${form.zip}`,
-        items,
-        total: totalPrice,
-        status: "pending",
-        ...(affiliateCode ? { affiliate_code: affiliateCode } : {}),
-      };
 
+      // Save order to DB as pending_payment before redirecting to Whop
       await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(orderPayload),
+        body: JSON.stringify({
+          id: orderId,
+          date: orderDate,
+          name: `${form.firstName} ${form.lastName}`,
+          email: form.email,
+          address: `${form.address}, ${form.city}, ${form.stateField} ${form.zip}`,
+          items,
+          total: totalPrice,
+          status: "pending_payment",
+          payment_status: "pending",
+          ...(affiliateCode ? { affiliate_code: affiliateCode } : {}),
+        }),
       });
 
       localStorage.setItem("aurogen_last_order", JSON.stringify({
@@ -80,8 +79,20 @@ export default function CheckoutPage() {
         name: `${form.firstName} ${form.lastName}`,
       }));
 
-      clearCart();
-      router.push("/order-success");
+      // Get Whop checkout URL for this cart
+      const whopRes = await fetch("/api/checkout/whop-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId, items: state.items.map((i) => i.product.id), total: totalPrice }),
+      });
+      const whopData = await whopRes.json();
+
+      if (whopData.checkout_url) {
+        window.location.href = whopData.checkout_url;
+      } else {
+        // Fallback: no Whop URL configured, go to success page anyway
+        window.location.href = `/order-success?order_id=${orderId}`;
+      }
     } catch {
       setLoading(false);
     }
@@ -227,22 +238,21 @@ export default function CheckoutPage() {
               </label>
             </div>
 
-            {/* Payment — coming with Whop */}
+            {/* Payment — via Whop */}
             <div
-              className="p-6 rounded-2xl flex items-center gap-4"
+              className="p-5 rounded-2xl flex items-center gap-4"
               style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
             >
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                style={{ background: "rgba(0,0,0,0.04)" }}
+                style={{ background: "rgba(10,132,255,0.06)" }}
               >
-                <Lock className="w-5 h-5" style={{ color: "#9E9EA8" }} />
+                <CreditCard className="w-5 h-5" style={{ color: "#0A84FF" }} />
               </div>
               <div>
-                <p className="text-sm font-semibold" style={{ color: "#1D1D1F" }}>Payment</p>
-                <p className="text-xs" style={{ color: "#9E9EA8" }}>
-                  Secure payment processing will be available shortly.
-                  Our team will contact you to complete your order.
+                <p className="text-sm font-semibold" style={{ color: "#1D1D1F" }}>Secure Payment via Whop</p>
+                <p className="text-xs mt-0.5" style={{ color: "#9E9EA8" }}>
+                  You&apos;ll be redirected to Whop&apos;s secure checkout to complete payment.
                 </p>
               </div>
             </div>
@@ -259,9 +269,9 @@ export default function CheckoutPage() {
               {loading ? (
                 <Loader2 className="w-4 h-4 animate-spin" />
               ) : (
-                <CheckCircle className="w-4 h-4" />
+                <Lock className="w-4 h-4" />
               )}
-              {loading ? "Processing..." : "Place Order"}
+              {loading ? "Redirecting to payment..." : "Continue to Payment"}
               {!loading && <ArrowRight className="w-4 h-4" />}
             </button>
 
