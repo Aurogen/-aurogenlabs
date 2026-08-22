@@ -88,7 +88,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                     <img
                       src={product.image}
                       alt={product.name}
-                      style={{ width: "130px", height: "130px", objectFit: "contain", objectPosition: "center" }}
+                      style={{ width: "130px", height: "130px", objectFit: "contain", objectPosition: "center", filter: "drop-shadow(0 4px 16px rgba(0,0,0,0.6)) drop-shadow(0 0 8px rgba(255,255,255,0.12))" }}
                     />
                   ) : (
                     <ProductVialDetailed index={index} />

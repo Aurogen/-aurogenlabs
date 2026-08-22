@@ -302,6 +302,7 @@ function LineupCard({
               objectFit: "contain",
               objectPosition: "center center",
               padding: "14px 18px",
+              filter: "drop-shadow(0 4px 20px rgba(0,0,0,0.6)) drop-shadow(0 0 10px rgba(255,255,255,0.12))",
             }}
           />
         ) : (
