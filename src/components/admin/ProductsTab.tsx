@@ -14,7 +14,7 @@ const EMPTY_FORM = {
   price: "", original_price: "", goals: [] as string[], description: "",
   long_description: "", in_stock: true, stock_count: "0", featured: false,
   purity: "", sequence: "", molecular_weight: "", storage: "", badge: "",
-  image: "", coa_url: "", visible: true, sort_order: "0",
+  image: "", coa_url: "", whop_checkout_url: "", visible: true, sort_order: "0",
 };
 
 type FormState = typeof EMPTY_FORM;
@@ -74,6 +74,7 @@ export default function ProductsTab() {
       badge: p.badge ?? "",
       image: p.image ?? "",
       coa_url: p.coa_url ?? "",
+      whop_checkout_url: p.whop_checkout_url ?? "",
       visible: p.visible,
       sort_order: String(p.sort_order ?? 0),
     });
@@ -157,6 +158,7 @@ export default function ProductsTab() {
         badge: form.badge || null,
         image: form.image || null,
         coa_url: form.coa_url || null,
+        whop_checkout_url: form.whop_checkout_url || null,
       };
 
       if (addingNew) {
@@ -335,25 +337,18 @@ export default function ProductsTab() {
                       {editingId === p.id ? "Close" : "Edit"}
                     </button>
 
-                    {/* Whop sync */}
-                    <button
-                      onClick={() => syncToWhop(p.id)}
-                      disabled={syncingId === p.id}
-                      title={p.whop_product_id ? `Synced: ${p.whop_product_id}` : "Sync to Whop"}
-                      className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-opacity hover:opacity-70 disabled:opacity-40"
+                    {/* Whop status */}
+                    <span
+                      title={p.whop_checkout_url ?? "No Whop URL — edit product to add it"}
+                      className="text-xs px-2 py-1 rounded-lg font-medium"
                       style={{
-                        background: p.whop_product_id ? "rgba(27,122,69,0.08)" : "rgba(10,132,255,0.08)",
-                        border: `1px solid ${p.whop_product_id ? "rgba(27,122,69,0.20)" : "rgba(10,132,255,0.20)"}`,
-                        color: p.whop_product_id ? "#1B7A45" : "#0A84FF",
+                        background: p.whop_checkout_url ? "rgba(27,122,69,0.08)" : "rgba(0,0,0,0.04)",
+                        border: `1px solid ${p.whop_checkout_url ? "rgba(27,122,69,0.20)" : "rgba(0,0,0,0.10)"}`,
+                        color: p.whop_checkout_url ? "#1B7A45" : "#9E9EA8",
                       }}
                     >
-                      {syncingId === p.id ? (
-                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                      ) : (
-                        <RefreshCw className="w-3.5 h-3.5" />
-                      )}
-                      {p.whop_product_id ? "Whop ✓" : "→ Whop"}
-                    </button>
+                      {p.whop_checkout_url ? "Whop ✓" : "No Whop"}
+                    </span>
 
                     {/* Delete */}
                     {confirmDeleteId === p.id ? (
@@ -721,6 +716,21 @@ function ProductForm({
             className={`${inp} mt-2`}
             style={{ ...inpStyle, fontSize: "11px" }}
             placeholder="Or paste COA URL manually"
+          />
+        </div>
+
+        {/* Whop Checkout URL */}
+        <div className="sm:col-span-2 lg:col-span-3">
+          <label className={lbl} style={lblStyle}>
+            Whop Checkout URL
+            <span style={{ fontWeight: 400, marginLeft: 6 }}>— pega la URL del producto en Whop (whop.com/checkout/…)</span>
+          </label>
+          <input
+            value={form.whop_checkout_url}
+            onChange={(e) => set("whop_checkout_url", e.target.value)}
+            className={inp}
+            style={inpStyle}
+            placeholder="https://whop.com/checkout/prod_xxxxxxx/"
           />
         </div>
 
