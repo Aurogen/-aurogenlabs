@@ -43,19 +43,23 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
               <div
                 className="relative h-52 flex items-center justify-center overflow-hidden"
                 style={{
-                  background: "linear-gradient(160deg, #1c1e24 0%, #111316 100%)",
-                  borderBottom: "1px solid rgba(255,255,255,0.05)",
+                  background: product.image
+                    ? "#F8F8FA"
+                    : "linear-gradient(160deg, #1c1e24 0%, #111316 100%)",
+                  borderBottom: "1px solid rgba(0,0,0,0.06)",
                 }}
               >
-                {/* Grain texture */}
-                <div
-                  className="absolute inset-0 pointer-events-none"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E")`,
-                    backgroundSize: "180px 180px",
-                    mixBlendMode: "overlay",
-                  }}
-                />
+                {/* Grain texture — only for dark (SVG vial) bg */}
+                {!product.image && (
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E")`,
+                      backgroundSize: "180px 180px",
+                      mixBlendMode: "overlay",
+                    }}
+                  />
+                )}
                 <div className="relative z-10 transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-2">
                   {product.image ? (
                     <img
