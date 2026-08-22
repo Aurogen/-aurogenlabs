@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-const FROM = process.env.EMAIL_FROM ?? "onboarding@resend.dev";
+const FROM = process.env.EMAIL_FROM ?? "noreply@aurogenlabs.com";
 
 function getResend() {
   return new Resend(process.env.RESEND_API_KEY);

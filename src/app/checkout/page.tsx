@@ -90,8 +90,8 @@ export default function CheckoutPage() {
       if (whopData.checkout_url) {
         window.location.href = whopData.checkout_url;
       } else {
-        // Fallback: no Whop URL configured, go to success page anyway
-        window.location.href = `/order-success?order_id=${orderId}`;
+        alert("Payment is not yet configured for this product. Please contact support.");
+        setLoading(false);
       }
     } catch {
       setLoading(false);

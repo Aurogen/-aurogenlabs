@@ -25,10 +25,12 @@ export async function POST(req: Request) {
     if (withUrl?.whop_checkout_url) {
       const url = new URL(withUrl.whop_checkout_url);
       url.searchParams.set("redirect_url", redirectUrl);
+      // Pass order_id as Whop metadata so the webhook can reconcile the order
+      url.searchParams.set("metadata[order_id]", orderId);
       return NextResponse.json({ checkout_url: url.toString() });
     }
   }
 
-  // No Whop URL configured yet — fall back to order success page
-  return NextResponse.json({ checkout_url: null });
+  // No Whop checkout URL configured for these products
+  return NextResponse.json({ error: "No checkout URL configured for this product" }, { status: 422 });
 }
