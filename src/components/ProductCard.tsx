@@ -70,7 +70,9 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
               <div
                 className="relative h-52 flex items-center justify-center overflow-hidden"
                 style={{
-                  background: "linear-gradient(160deg, #1c1e24 0%, #111316 100%)",
+                  background: product.image
+                    ? "radial-gradient(ellipse at 50% 60%, #2e3240 0%, #181a22 50%, #0f1014 100%)"
+                    : "linear-gradient(160deg, #1c1e24 0%, #111316 100%)",
                   borderBottom: "1px solid rgba(255,255,255,0.05)",
                 }}
               >
@@ -88,7 +90,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                     <img
                       src={product.image}
                       alt={product.name}
-                      style={{ width: "130px", height: "130px", objectFit: "contain", objectPosition: "center", filter: "drop-shadow(0 4px 16px rgba(0,0,0,0.6)) drop-shadow(0 0 8px rgba(255,255,255,0.12))" }}
+                      style={{ width: "130px", height: "130px", objectFit: "contain", objectPosition: "center", filter: "drop-shadow(0 6px 18px rgba(0,0,0,0.8)) drop-shadow(0 0 20px rgba(255,255,255,0.18))" }}
                     />
                   ) : (
                     <ProductVialDetailed index={index} />

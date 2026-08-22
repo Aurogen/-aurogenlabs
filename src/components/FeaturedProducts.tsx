@@ -280,7 +280,7 @@ function LineupCard({
       <Link
         href={`/product/${product.slug}`}
         className="relative flex-1 flex items-center justify-center overflow-hidden"
-        style={{ background: product.image ? `radial-gradient(ellipse at 50% 85%, ${accent}35 0%, rgba(10,12,16,0.97) 72%)` : "rgba(10,12,16,0.97)" }}
+        style={{ background: product.image ? `radial-gradient(ellipse at 50% 55%, #2e3240 0%, #181a22 45%, rgba(10,12,16,0.97) 80%)` : "rgba(10,12,16,0.97)" }}
       >
         {/* Grain texture */}
         <div
@@ -302,7 +302,7 @@ function LineupCard({
               objectFit: "contain",
               objectPosition: "center center",
               padding: "14px 18px",
-              filter: "drop-shadow(0 4px 20px rgba(0,0,0,0.6)) drop-shadow(0 0 10px rgba(255,255,255,0.12))",
+              filter: "drop-shadow(0 6px 18px rgba(0,0,0,0.8)) drop-shadow(0 0 20px rgba(255,255,255,0.18))",
             }}
           />
         ) : (
