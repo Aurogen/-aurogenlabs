@@ -35,8 +35,8 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
       >
         <Tilt3D className="relative h-full" intensity={8}>
           <div
-            className="group relative rounded-2xl overflow-hidden flex flex-col h-full transition-shadow duration-300 hover:shadow-[0_16px_48px_rgba(0,0,0,0.13)]"
-            style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+            className="group relative rounded-2xl overflow-hidden flex flex-col h-full transition-shadow duration-300 hover:shadow-[0_8px_32px_rgba(0,0,0,0.09)]"
+            style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.06)" }}
           >
 
             {/* Product image area */}
@@ -95,7 +95,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                 {product.badge && (
                   <span
                     className="px-2.5 py-0.5 rounded text-[9px] font-bold tracking-widest uppercase"
-                    style={{ background: "#0A84FF", color: "#FFFFFF" }}
+                    style={{ background: "#111111", color: "#FFFFFF" }}
                   >
                     {product.badge}
                   </span>
@@ -160,7 +160,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                   </div>
                   <div className="flex items-center gap-0.5 mt-0.5">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-3 h-3 fill-current" style={{ color: "#6B7A8D" }} />
+                      <Star key={i} className="w-3 h-3 fill-current" style={{ color: "#C4A35A" }} />
                     ))}
                     <span className="text-[10px] ml-1" style={{ color: "#9E9EA8" }}>(4.9)</span>
                   </div>

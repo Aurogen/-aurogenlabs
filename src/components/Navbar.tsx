@@ -77,11 +77,11 @@ export default function Navbar() {
         <div
           className="max-w-[1400px] mx-auto flex items-center justify-between h-[50px] px-3 rounded-full pointer-events-auto"
           style={{
-            background: "rgba(255,255,255,0.97)",
+            background: "rgba(250,249,245,0.97)",
             backdropFilter: "blur(24px) saturate(180%)",
             WebkitBackdropFilter: "blur(24px) saturate(180%)",
-            border: "1px solid rgba(0,0,0,0.09)",
-            boxShadow: "0 2px 24px rgba(0,0,0,0.08)",
+            border: "1px solid rgba(0,0,0,0.07)",
+            boxShadow: "0 2px 20px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04)",
           }}
         >
           {/* ── Logo ── */}
@@ -92,7 +92,7 @@ export default function Navbar() {
               style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
             >
               AUROGEN
-              <span className="text-[9px] tracking-[0.35em] ml-1.5 align-middle" style={{ color: "#0A84FF" }}>
+              <span className="text-[9px] tracking-[0.35em] ml-1.5 align-middle" style={{ color: "#B8975A" }}>
                 LABS
               </span>
             </span>
@@ -184,7 +184,7 @@ export default function Navbar() {
                   onClick={() => setLang(l)}
                   className="px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide transition-all"
                   style={{
-                    background: lang === l ? "#0A84FF" : "transparent",
+                    background: lang === l ? "#111111" : "transparent",
                     color: lang === l ? "#FFFFFF" : "#9E9EA8",
                   }}
                 >
@@ -262,7 +262,7 @@ export default function Navbar() {
               {totalItems > 0 && (
                 <span
                   className="absolute -top-0.5 -right-0.5 rounded-full text-white text-[9px] font-bold flex items-center justify-center"
-                  style={{ background: "#0A84FF", minWidth: "15px", minHeight: "15px", padding: "0 2px" }}
+                  style={{ background: "#111111", minWidth: "15px", minHeight: "15px", padding: "0 2px" }}
                 >
                   {totalItems}
                 </span>
@@ -273,7 +273,7 @@ export default function Navbar() {
             <Link
               href="/shop"
               className="hidden lg:flex items-center gap-1.5 ml-1 px-5 py-2 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-85"
-              style={{ background: "#0A84FF" }}
+              style={{ background: "#111111" }}
             >
               {lang === "es" ? "Ver Catálogo" : "Shop Now"}
               <ArrowRight className="w-3.5 h-3.5" />
@@ -382,7 +382,7 @@ export default function Navbar() {
                     onClick={() => setLang(l)}
                     className="px-3 py-1 rounded-full text-xs font-semibold transition-all"
                     style={{
-                      background: lang === l ? "#0A84FF" : "transparent",
+                      background: lang === l ? "#111111" : "transparent",
                       color: lang === l ? "#FFFFFF" : "#9E9EA8",
                     }}
                   >

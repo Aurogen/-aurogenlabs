@@ -70,26 +70,29 @@ const GOAL_CONFIG: Record<
 
 export default function ShopByGoal() {
   return (
-    <section className="py-20 px-4" style={{ background: "#F6F6F8", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
+    <section className="py-20 px-4" style={{ background: "#F4F3EF", borderTop: "1px solid rgba(0,0,0,0.06)" }}>
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, transform: "translateY(10px)" }}
             whileInView={{ opacity: 1, transform: "translateY(0px)" }}
             viewport={{ once: true }}
-            className="text-xs font-medium tracking-[0.3em] uppercase mb-3"
-            style={{ color: "#6E6E73" }}
+            className="flex items-center justify-center gap-3 mb-5"
           >
-            Browse by objective
-          </motion.p>
+            <span style={{ display: "block", width: 24, height: 1, background: "#B8975A" }} />
+            <p className="text-[10px] font-semibold tracking-[0.38em] uppercase" style={{ color: "#9E9EA8" }}>
+              Browse by objective
+            </p>
+            <span style={{ display: "block", width: 24, height: 1, background: "#B8975A" }} />
+          </motion.div>
           <motion.h2
             initial={{ opacity: 0, transform: "translateY(16px)" }}
             whileInView={{ opacity: 1, transform: "translateY(0px)" }}
             viewport={{ once: true }}
             transition={{ delay: 0.07 }}
-            className="text-4xl lg:text-5xl font-bold mb-4"
-            style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
+            className="font-bold mb-4"
+            style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#111111", fontSize: "clamp(36px, 4.5vw, 56px)", letterSpacing: "-0.02em", lineHeight: 1.05 }}
           >
             SHOP BY GOAL
           </motion.h2>

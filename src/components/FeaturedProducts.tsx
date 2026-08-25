@@ -302,7 +302,7 @@ function LineupCard({
             <span
               className="px-2.5 py-0.5 rounded text-[9px] font-bold tracking-widest uppercase"
               style={{
-                background: "#0A84FF",
+                background: "#111111",
                 color: "#FFFFFF",
                 fontFamily: "var(--font-body, sans-serif)",
               }}

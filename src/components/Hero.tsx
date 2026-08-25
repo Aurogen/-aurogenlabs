@@ -26,9 +26,9 @@ export default function Hero() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <section style={{ background: "#FFFFFF", borderTop: "1px solid rgba(0,0,0,0.07)" }}>
+    <section style={{ background: "#FEFDF9", borderTop: "1px solid rgba(0,0,0,0.05)" }}>
       {/* ── Brand statement — 2-col on desktop ── */}
-      <div className="max-w-6xl mx-auto px-6 md:px-12 py-6 md:py-8 flex flex-col md:flex-row md:items-center gap-8 md:gap-16">
+      <div className="max-w-6xl mx-auto px-6 md:px-12 py-12 md:py-20 flex flex-col md:flex-row md:items-center gap-10 md:gap-20">
 
         {/* Left: headline + sub */}
         <div className="flex-1 min-w-0">
@@ -37,9 +37,10 @@ export default function Hero() {
             whileInView={{ opacity: 1, transform: "translateY(0px)" }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="text-[11px] font-semibold tracking-[0.28em] uppercase mb-4"
+            className="flex items-center gap-3 text-[10px] font-semibold tracking-[0.38em] uppercase mb-5"
             style={{ color: "#9E9EA8" }}
           >
+            <span style={{ display: "block", width: 28, height: 1, background: "#B8975A", flexShrink: 0 }} />
             {t("Research-Grade Peptides", "Péptidos de Investigación")}
           </motion.p>
 
@@ -51,9 +52,10 @@ export default function Hero() {
             className="font-bold leading-[1.06] mb-4"
             style={{
               fontFamily: "var(--font-heading, sans-serif)",
-              fontSize: "clamp(30px, 4.5vw, 60px)",
-              color: "#1D1D1F",
-              letterSpacing: "-0.02em",
+              fontSize: "clamp(38px, 5.5vw, 72px)",
+              color: "#111111",
+              letterSpacing: "-0.025em",
+              lineHeight: 1.02,
             }}
           >
             {lang === "es" ? (
@@ -68,8 +70,8 @@ export default function Hero() {
             whileInView={{ opacity: 1, transform: "translateY(0px)" }}
             viewport={{ once: true }}
             transition={{ duration: 0.45, delay: 0.1 }}
-            className="text-sm leading-relaxed max-w-md"
-            style={{ color: "#6E6E73" }}
+            className="text-sm leading-relaxed max-w-md mt-5"
+            style={{ color: "#6B6B6B" }}
           >
             {lang === "es"
               ? "Vende exclusivamente a investigadores y científicos. Testado por terceros, pureza 99%+ — un especialista responde en un día hábil."
