@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ShoppingCart, Bell, Star, FlaskConical, ArrowRight } from "lucide-react";
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import type { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 import NotifyModal from "./NotifyModal";
@@ -13,6 +13,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
   const { addItem } = useCart();
   const [showNotify, setShowNotify] = useState(false);
   const [added, setAdded] = useState(false);
+  const reduceMotion = useReducedMotion();
 
   function handleAddToCart() {
     addItem(product);
@@ -23,13 +24,13 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
   return (
     <>
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        whileHover={{ y: -7 }}
+        initial={{ opacity: 0, transform: "translateY(30px)" }}
+        whileInView={{ opacity: 1, transform: "translateY(0px)" }}
+        whileHover={reduceMotion ? undefined : { transform: "translateY(-7px)" }}
         viewport={{ once: true, margin: "-60px" }}
         transition={{
           opacity: { duration: 0.5, delay: index * 0.08, ease: [0.21, 0.47, 0.32, 0.98] },
-          y: { type: "spring", stiffness: 320, damping: 26 },
+          transform: { type: "spring", stiffness: 320, damping: 26 },
         }}
       >
         <Tilt3D className="relative h-full" intensity={8}>
@@ -168,7 +169,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                 {product.inStock ? (
                   <motion.button
                     onClick={handleAddToCart}
-                    whileTap={{ scale: 0.92 }}
+                    whileTap={{ scale: 0.97 }}
                     className="flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-85"
                     style={{
                       background: added ? "#1B7A45" : "#1D1D1F",
@@ -181,7 +182,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                 ) : (
                   <motion.button
                     onClick={() => setShowNotify(true)}
-                    whileTap={{ scale: 0.92 }}
+                    whileTap={{ scale: 0.97 }}
                     className="flex items-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-semibold border transition-all"
                     style={{
                       borderColor: "rgba(0,0,0,0.12)",

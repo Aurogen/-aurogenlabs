@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight, Shield, FlaskConical, Award, Truck } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 
 const BADGES = {
@@ -23,6 +23,7 @@ const BADGES = {
 export default function Hero() {
   const { lang, t } = useLanguage();
   const badges = BADGES[lang];
+  const reduceMotion = useReducedMotion();
 
   return (
     <section style={{ background: "#FFFFFF", borderTop: "1px solid rgba(0,0,0,0.07)" }}>
@@ -32,8 +33,8 @@ export default function Hero() {
         {/* Left: headline + sub */}
         <div className="flex-1 min-w-0">
           <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, transform: reduceMotion ? "translateY(0px)" : "translateY(8px)" }}
+            whileInView={{ opacity: 1, transform: "translateY(0px)" }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
             className="text-[11px] font-semibold tracking-[0.28em] uppercase mb-4"
@@ -43,8 +44,8 @@ export default function Hero() {
           </motion.p>
 
           <motion.h2
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, transform: reduceMotion ? "translateY(0px)" : "translateY(18px)" }}
+            whileInView={{ opacity: 1, transform: "translateY(0px)" }}
             viewport={{ once: true }}
             transition={{ duration: 0.55, delay: 0.05 }}
             className="font-bold leading-[1.06] mb-4"
@@ -63,8 +64,8 @@ export default function Hero() {
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, transform: reduceMotion ? "translateY(0px)" : "translateY(12px)" }}
+            whileInView={{ opacity: 1, transform: "translateY(0px)" }}
             viewport={{ once: true }}
             transition={{ duration: 0.45, delay: 0.1 }}
             className="text-sm leading-relaxed max-w-md"
@@ -78,8 +79,8 @@ export default function Hero() {
 
         {/* Right: trust badges + CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, transform: reduceMotion ? "translateY(0px)" : "translateY(12px)" }}
+          whileInView={{ opacity: 1, transform: "translateY(0px)" }}
           viewport={{ once: true }}
           transition={{ duration: 0.45, delay: 0.15 }}
           className="shrink-0 flex flex-col gap-6"

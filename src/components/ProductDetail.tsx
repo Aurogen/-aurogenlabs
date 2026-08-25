@@ -453,20 +453,20 @@ export default function ProductDetail({ product, related }: Props) {
                           : <ChevronDown className="w-4 h-4 shrink-0" style={{ color: "#9E9EA8" }} />
                         }
                       </button>
-                      <AnimatePresence>
-                        {openFaq === i && (
-                          <motion.div
-                            initial={{ height: 0, opacity: 0 }}
-                            animate={{ height: "auto", opacity: 1 }}
-                            exit={{ height: 0, opacity: 0 }}
-                            transition={{ duration: 0.25 }}
-                          >
-                            <div className="px-5 pb-4" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                              <p className="text-sm leading-relaxed pt-3" style={{ color: "#6E6E73" }}>{item.a}</p>
-                            </div>
-                          </motion.div>
-                        )}
-                      </AnimatePresence>
+                      <div
+                        style={{
+                          display: "grid",
+                          gridTemplateRows: openFaq === i ? "1fr" : "0fr",
+                          opacity: openFaq === i ? 1 : 0,
+                          transition: "grid-template-rows 250ms cubic-bezier(0.23, 1, 0.32, 1), opacity 200ms ease-out",
+                        }}
+                      >
+                        <div style={{ overflow: "hidden", minHeight: 0 }}>
+                          <div className="px-5 pb-4" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+                            <p className="text-sm leading-relaxed pt-3" style={{ color: "#6E6E73" }}>{item.a}</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>

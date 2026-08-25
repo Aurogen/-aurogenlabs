@@ -2,7 +2,7 @@
 
 import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { CheckCircle, Package, ArrowRight, LayoutDashboard, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 
@@ -25,6 +25,7 @@ interface SavedOrder {
 function OrderSuccessContent() {
   const [order, setOrder] = useState<SavedOrder | null>(null);
   const searchParams = useSearchParams();
+  const reduceMotion = useReducedMotion();
 
   useEffect(() => {
     // Try localStorage first (set by checkout on success)
@@ -57,13 +58,13 @@ function OrderSuccessContent() {
               background: "rgba(27,122,69,0.08)",
               border: "1.5px solid rgba(27,122,69,0.25)",
             }}
-            initial={{ scale: 0, opacity: 0 }}
+            initial={{ scale: 0.85, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ type: "spring", stiffness: 200, damping: 18 }}
           >
             <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
+              initial={{ scale: 0.85, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
               transition={{ delay: 0.2, type: "spring", stiffness: 280, damping: 22 }}
             >
               <CheckCircle className="w-12 h-12" style={{ color: "#1B7A45" }} strokeWidth={1.5} />
@@ -74,8 +75,8 @@ function OrderSuccessContent() {
         {/* Headline */}
         <motion.div
           className="text-center mb-8"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, transform: reduceMotion ? "translateY(0px)" : "translateY(16px)" }}
+          animate={{ opacity: 1, transform: "translateY(0px)" }}
           transition={{ delay: 0.35 }}
         >
           <h1
@@ -93,8 +94,8 @@ function OrderSuccessContent() {
         <motion.div
           className="rounded-2xl overflow-hidden mb-5"
           style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, transform: reduceMotion ? "translateY(0px)" : "translateY(20px)" }}
+          animate={{ opacity: 1, transform: "translateY(0px)" }}
           transition={{ delay: 0.45 }}
         >
           {/* Order number */}
@@ -155,8 +156,8 @@ function OrderSuccessContent() {
             background: "#FFFFFF",
             border: "1px solid rgba(0,0,0,0.08)",
           }}
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, transform: reduceMotion ? "translateY(0px)" : "translateY(16px)" }}
+          animate={{ opacity: 1, transform: "translateY(0px)" }}
           transition={{ delay: 0.55 }}
         >
           <div
@@ -180,8 +181,8 @@ function OrderSuccessContent() {
         {/* CTAs */}
         <motion.div
           className="flex flex-col sm:flex-row gap-3"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, transform: reduceMotion ? "translateY(0px)" : "translateY(16px)" }}
+          animate={{ opacity: 1, transform: "translateY(0px)" }}
           transition={{ delay: 0.65 }}
         >
           <Link

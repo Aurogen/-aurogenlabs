@@ -179,8 +179,8 @@ export default function FeaturedProducts() {
 
           {/* View all card */}
           <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, transform: "translateY(16px)" }}
+            whileInView={{ opacity: 1, transform: "translateY(0px)" }}
             viewport={{ once: true }}
             transition={{ duration: 0.45, delay: FEATURED_PRODUCTS.length * 0.06 }}
             className="shrink-0 rounded-2xl flex flex-col items-center justify-center gap-4"
@@ -229,13 +229,13 @@ function LineupCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -6 }}
+      initial={{ opacity: 0, transform: "translateY(16px)" }}
+      whileInView={{ opacity: 1, transform: "translateY(0px)" }}
+      whileHover={{ transform: "translateY(-6px)" }}
       viewport={{ once: true }}
       transition={{
         opacity: { duration: 0.45, delay: index * 0.06 },
-        y: { type: "spring", stiffness: 320, damping: 26 },
+        transform: { type: "spring", stiffness: 320, damping: 26 },
       }}
       className="group relative shrink-0 rounded-2xl overflow-hidden flex flex-col"
       style={{

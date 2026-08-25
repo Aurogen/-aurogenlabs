@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useSpring } from "framer-motion";
+import { motion, useSpring, useTransform } from "framer-motion";
 
 interface Props {
   children: React.ReactNode;
@@ -19,6 +19,11 @@ export default function Tilt3D({ children, className = "", intensity = 12, glare
   const glareX = useSpring(50, { stiffness: 300, damping: 30 });
   const glareY = useSpring(50, { stiffness: 300, damping: 30 });
   const scale = useSpring(1, { stiffness: 300, damping: 30 });
+  const transform = useTransform(
+    [rotateX, rotateY, scale],
+    ([rx, ry, s]: number[]) =>
+      `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(${s})`
+  );
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     if (!ref.current) return;
@@ -53,11 +58,8 @@ export default function Tilt3D({ children, className = "", intensity = 12, glare
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{
-        rotateX,
-        rotateY,
-        scale,
+        transform,
         transformStyle: "preserve-3d",
-        perspective: 1000,
       }}
     >
       {/* Glare overlay */}

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { HelpCircle, ChevronDown } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 const CATEGORIES = [
@@ -51,24 +50,25 @@ function FaqItem({ q, a }: { q: string; a: string }) {
     >
       <div className="flex items-center justify-between px-5 py-4 gap-4">
         <p className="font-medium text-sm" style={{ color: "#1D1D1F" }}>{q}</p>
-        <motion.div animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.2 }}>
-          <ChevronDown className="w-4 h-4 shrink-0" style={{ color: "#6B7A8D" }} />
-        </motion.div>
+        <ChevronDown
+          className="w-4 h-4 shrink-0 transition-transform duration-200"
+          style={{ transform: open ? "rotate(180deg)" : "rotate(0deg)", color: "#6B7A8D" }}
+        />
       </div>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25 }}
-          >
-            <div className="px-5 pb-4 pt-4" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-              <p className="text-sm leading-relaxed" style={{ color: "#6E6E73" }}>{a}</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateRows: open ? "1fr" : "0fr",
+          opacity: open ? 1 : 0,
+          transition: "grid-template-rows 250ms cubic-bezier(0.23, 1, 0.32, 1), opacity 200ms ease-out",
+        }}
+      >
+        <div style={{ overflow: "hidden", minHeight: 0 }}>
+          <div className="px-5 pb-4 pt-4" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+            <p className="text-sm leading-relaxed" style={{ color: "#6E6E73" }}>{a}</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

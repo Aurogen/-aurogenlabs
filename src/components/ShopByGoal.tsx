@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import type { Goal } from "@/data/products";
 import { GOALS } from "@/data/products";
@@ -75,8 +75,8 @@ export default function ShopByGoal() {
         {/* Header */}
         <div className="text-center mb-12">
           <motion.p
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, transform: "translateY(10px)" }}
+            whileInView={{ opacity: 1, transform: "translateY(0px)" }}
             viewport={{ once: true }}
             className="text-xs font-medium tracking-[0.3em] uppercase mb-3"
             style={{ color: "#6E6E73" }}
@@ -84,8 +84,8 @@ export default function ShopByGoal() {
             Browse by objective
           </motion.p>
           <motion.h2
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, transform: "translateY(16px)" }}
+            whileInView={{ opacity: 1, transform: "translateY(0px)" }}
             viewport={{ once: true }}
             transition={{ delay: 0.07 }}
             className="text-4xl lg:text-5xl font-bold mb-4"
@@ -123,8 +123,8 @@ export default function ShopByGoal() {
 
         {/* CTA */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, transform: "translateY(16px)" }}
+          whileInView={{ opacity: 1, transform: "translateY(0px)" }}
           viewport={{ once: true }}
           className="mt-10 text-center"
         >
@@ -153,17 +153,18 @@ function GoalCard({
   index: number;
   wide?: boolean;
 }) {
+  const reduceMotion = useReducedMotion();
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, transform: "translateY(30px)" }}
+      whileInView={{ opacity: 1, transform: "translateY(0px)" }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.45, delay: index * 0.07, ease: [0.21, 0.47, 0.32, 0.98] }}
       className={wide ? "sm:col-span-1 lg:col-span-1" : ""}
     >
       <Link href={`/shop?goal=${encodeURIComponent(goal.label)}`} className="group block">
         <motion.div
-          whileHover={{ y: -4 }}
+          whileHover={reduceMotion ? undefined : { transform: "translateY(-4px)" }}
           transition={{ duration: 0.25 }}
           className="relative rounded-2xl overflow-hidden cursor-pointer"
           style={{
@@ -181,7 +182,7 @@ function GoalCard({
           {/* Background illustration */}
           <div className="absolute inset-0 flex items-center justify-center opacity-20 group-hover:opacity-35 transition-opacity duration-500 pointer-events-none">
             <motion.div
-              animate={{ scale: [1, 1.04, 1] }}
+              animate={reduceMotion ? undefined : { transform: ["scale(1)", "scale(1.04)", "scale(1)"] }}
               transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: index * 0.4 }}
               className="w-full h-full flex items-center justify-center"
             >
