@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { getServiceClient } from "@/lib/supabase-server";
-import { sendOrderConfirmation, sendAdminOrderNotification } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   try {
@@ -50,13 +49,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    // Send confirmation to customer and notification to admin (non-blocking)
-    sendOrderConfirmation(email, { id, name, items, total, address }).catch((err) =>
-      console.error("Order email error:", err)
-    );
-    sendAdminOrderNotification({ id, name, email, address, items, total }).catch((err) =>
-      console.error("Admin notification error:", err)
-    );
+    // Emails are sent after payment is confirmed via the Whop webhook,
+    // not here — avoids sending confirmations for abandoned checkouts.
 
     return NextResponse.json({ success: true, id });
   } catch (err) {

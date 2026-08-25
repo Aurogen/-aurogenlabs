@@ -17,7 +17,7 @@ const CATEGORIES = [
   {
     category: "Orders & Payment",
     items: [
-      { q: "What payment methods do you accept?", a: "We are currently integrating our payment gateway. In the meantime, please place your order and our team will contact you to complete payment via bank transfer or other available methods." },
+      { q: "What payment methods do you accept?", a: "We accept all major credit and debit cards (Visa, Mastercard, American Express) processed securely through our payment partner. Transactions are encrypted end-to-end and your card details are never stored on our servers." },
       { q: "Can I modify or cancel my order?", a: "Orders can be modified or cancelled within 1 hour of placement by contacting our support team. After that, orders enter our fulfillment queue and cannot be changed." },
       { q: "Is my payment information secure?", a: "Yes. All payment processing is handled by industry-standard encrypted payment systems. We do not store your full credit card details on our servers." },
     ],
@@ -75,14 +75,14 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 
 export default function FaqPage() {
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#F6F6F8" }}>
+    <div className="min-h-screen py-16 px-4" style={{ background: "#F4F3EF" }}>
       <div className="max-w-3xl mx-auto">
 
         <div className="mb-12">
           <div className="flex items-center gap-3 mb-4">
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center"
-              style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
+              style={{ background: "rgba(0,0,0,0.04)", border: "1px solid rgba(0,0,0,0.08)" }}
             >
               <HelpCircle className="w-5 h-5" style={{ color: "#6B7A8D" }} />
             </div>

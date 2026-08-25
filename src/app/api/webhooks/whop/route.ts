@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase-server";
+import { sendOrderConfirmation, sendAdminOrderNotification } from "@/lib/email";
 import crypto from "crypto";
 
 // Whop sends different event types depending on product type.
@@ -47,14 +48,27 @@ export async function POST(req: Request) {
 
     if (orderId) {
       const supabase = getServiceClient();
-      await supabase
+
+      const { data: order } = await supabase
         .from("orders")
         .update({
           payment_status: "paid",
           status: "processing",
           ...(whopOrderId ? { whop_order_id: whopOrderId } : {}),
         })
-        .eq("id", orderId);
+        .eq("id", orderId)
+        .select("id, name, email, address, items, total")
+        .maybeSingle();
+
+      if (order) {
+        const { id, name, email, address, items, total } = order;
+        sendOrderConfirmation(email, { id, name, items, total, address }).catch((err) =>
+          console.error("Order confirmation email error:", err)
+        );
+        sendAdminOrderNotification({ id, name, email, address, items, total }).catch((err) =>
+          console.error("Admin notification email error:", err)
+        );
+      }
     }
   }
 
