@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 
 export default function CartDrawer() {
-  const { state, closeCart, removeItem, updateQty, totalPrice } = useCart();
+  const { state, closeCart, removeItem, updateQty, totalPrice, totalItems } = useCart();
 
   return (
     <>
@@ -41,7 +41,7 @@ export default function CartDrawer() {
               className="px-2 py-0.5 rounded-full text-xs font-bold text-white"
               style={{ background: "#6B7A8D" }}
             >
-              {state.items.length}
+              {totalItems}
             </span>
           </div>
           <button

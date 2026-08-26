@@ -84,7 +84,7 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="py-6 px-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-gray-600">
-          <p>© 2025 Aurogen Labs · All rights reserved.</p>
+          <p>© 2026 Aurogen Labs · All rights reserved.</p>
           <div className="flex items-center gap-4">
             <span
               className="px-2.5 py-1 rounded text-[10px] tracking-[0.12em] uppercase font-medium"

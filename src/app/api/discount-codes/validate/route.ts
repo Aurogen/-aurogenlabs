@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ valid: false, error: "This code has expired" });
   }
 
-  if (data.max_uses != null && data.used_count >= data.max_uses) {
+  if (data.max_uses != null && data.uses >= data.max_uses) {
     return NextResponse.json({ valid: false, error: "This code has reached its usage limit" });
   }
 

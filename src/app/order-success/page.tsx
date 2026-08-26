@@ -39,7 +39,7 @@ function OrderSuccessContent() {
       // ignore
     }
 
-    // Fallback: if Stripe redirected with order_id, show minimal confirmation
+    // Fallback: if Whop redirected with order_id, show minimal confirmation
     const orderId = searchParams.get("order_id");
     if (orderId) {
       setOrder({ id: orderId, items: [], total: 0, email: "", name: "" });
