@@ -23,6 +23,10 @@ import {
   Trash2,
   ToggleLeft,
   ToggleRight,
+  Link2,
+  Link2Off,
+  ArrowDownToLine,
+  Loader2,
 } from "lucide-react";
 import ProductsTab from "@/components/admin/ProductsTab";
 import AnalyticsTab from "@/components/admin/AnalyticsTab";
@@ -81,7 +85,7 @@ function fmt(d?: string) {
 
 /* ─── Main page ─────────────────────────────────────────── */
 export default function AdminPage() {
-  const [tab, setTab] = useState<"orders" | "newsletter" | "affiliates" | "waitlist" | "products" | "discounts" | "analytics">("orders");
+  const [tab, setTab] = useState<"orders" | "newsletter" | "affiliates" | "waitlist" | "products" | "discounts" | "analytics" | "quickbooks">("orders");
   const [stats, setStats] = useState<Stats | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
@@ -205,7 +209,7 @@ export default function AdminPage() {
 
         {/* Tabs */}
         <div className="max-w-7xl mx-auto px-4 flex gap-1 border-t" style={{ borderColor: "rgba(0,0,0,0.06)" }}>
-          {(["orders", "analytics", "newsletter", "affiliates", "waitlist", "products", "discounts"] as const).map((t) => (
+          {(["orders", "analytics", "newsletter", "affiliates", "waitlist", "products", "discounts", "quickbooks"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
@@ -228,7 +232,9 @@ export default function AdminPage() {
                 ? "Analytics"
                 : t === "products"
                 ? "Products"
-                : "Discounts"}
+                : t === "discounts"
+                ? "Discounts"
+                : "QuickBooks"}
             </button>
           ))}
         </div>
@@ -244,6 +250,7 @@ export default function AdminPage() {
         {tab === "analytics" && <AnalyticsTab />}
         {tab === "products" && <ProductsTab />}
         {tab === "discounts" && <DiscountCodesTab />}
+        {tab === "quickbooks" && <QuickBooksTab />}
       </div>
     </div>
   );
@@ -976,6 +983,211 @@ function EmptyState({ label }: { label: string }) {
     >
       <BarChart2 className="w-8 h-8 mx-auto mb-3" style={{ color: "#D1D1D6" }} />
       <p className="text-sm" style={{ color: "#9E9EA8" }}>{label}</p>
+    </div>
+  );
+}
+
+/* ─── QuickBooks Tab ─────────────────────────────────────── */
+function QuickBooksTab() {
+  const [status, setStatus] = useState<{
+    connected: boolean;
+    realm_id?: string;
+    expires_at?: string;
+    token_expired?: boolean;
+  } | null>(null);
+  const [loadingStatus, setLoadingStatus] = useState(true);
+  const [syncing, setSyncing] = useState(false);
+  const [syncResult, setSyncResult] = useState<{ updated: number; errors: string[] } | null>(null);
+  const [disconnecting, setDisconnecting] = useState(false);
+
+  useEffect(() => {
+    fetch("/api/quickbooks/status")
+      .then((r) => r.json())
+      .then(setStatus)
+      .catch(() => setStatus({ connected: false }))
+      .finally(() => setLoadingStatus(false));
+  }, []);
+
+  async function handleSyncInventory() {
+    setSyncing(true);
+    setSyncResult(null);
+    try {
+      const res = await fetch("/api/quickbooks/sync-inventory", { method: "POST" });
+      const data = await res.json();
+      setSyncResult(data);
+    } finally {
+      setSyncing(false);
+    }
+  }
+
+  async function handleDisconnect() {
+    if (!confirm("¿Desconectar QuickBooks? Los pedidos ya sincronizados no se eliminarán.")) return;
+    setDisconnecting(true);
+    await fetch("/api/quickbooks/disconnect", { method: "POST" });
+    setStatus({ connected: false });
+    setDisconnecting(false);
+  }
+
+  if (loadingStatus) {
+    return (
+      <div className="flex items-center justify-center py-20">
+        <Loader2 className="w-6 h-6 animate-spin" style={{ color: "#9E9EA8" }} />
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-2xl space-y-5">
+      {/* Connection card */}
+      <div
+        className="p-6 rounded-2xl"
+        style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+      >
+        <div className="flex items-start justify-between gap-4 mb-5">
+          <div>
+            <h2 className="font-bold text-lg" style={{ color: "#1D1D1F" }}>QuickBooks Online</h2>
+            <p className="text-sm mt-0.5" style={{ color: "#6E6E73" }}>
+              Sincronización automática de órdenes, clientes e inventario
+            </p>
+          </div>
+          {status?.connected ? (
+            <span
+              className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold shrink-0"
+              style={{ background: "rgba(27,122,69,0.08)", color: "#1B7A45" }}
+            >
+              <CheckCircle2 className="w-3 h-3" />
+              Conectado
+            </span>
+          ) : (
+            <span
+              className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold shrink-0"
+              style={{ background: "rgba(110,110,115,0.10)", color: "#6E6E73" }}
+            >
+              <Link2Off className="w-3 h-3" />
+              Desconectado
+            </span>
+          )}
+        </div>
+
+        {status?.connected ? (
+          <div className="space-y-3">
+            <div className="grid grid-cols-2 gap-3 text-sm">
+              <div className="p-3 rounded-xl" style={{ background: "#F6F6F8" }}>
+                <p className="text-xs font-medium mb-0.5" style={{ color: "#9E9EA8" }}>Company ID</p>
+                <p className="font-mono text-xs" style={{ color: "#1D1D1F" }}>{status.realm_id}</p>
+              </div>
+              <div className="p-3 rounded-xl" style={{ background: "#F6F6F8" }}>
+                <p className="text-xs font-medium mb-0.5" style={{ color: "#9E9EA8" }}>Token expira</p>
+                <p className="text-xs" style={{ color: status.token_expired ? "#C0392B" : "#1D1D1F" }}>
+                  {status.expires_at
+                    ? new Date(status.expires_at).toLocaleString("es", { dateStyle: "short", timeStyle: "short" })
+                    : "—"}
+                  {status.token_expired && " (expirado)"}
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={handleDisconnect}
+              disabled={disconnecting}
+              className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-opacity hover:opacity-70 disabled:opacity-40"
+              style={{ border: "1px solid rgba(192,57,43,0.3)", color: "#C0392B", background: "rgba(192,57,43,0.04)" }}
+            >
+              {disconnecting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Link2Off className="w-3.5 h-3.5" />}
+              Desconectar QuickBooks
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            <div
+              className="p-4 rounded-xl text-sm"
+              style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.12)" }}
+            >
+              <p className="font-semibold mb-2" style={{ color: "#1D1D1F" }}>Antes de conectar:</p>
+              <ol className="space-y-1.5 list-decimal list-inside" style={{ color: "#6E6E73" }}>
+                <li>Ve a <strong>developer.intuit.com</strong> y crea una app</li>
+                <li>Agrega <code className="text-xs bg-black/05 px-1 rounded">https://aurogenlabs.com/api/quickbooks/callback</code> como Redirect URI</li>
+                <li>Copia el <strong>Client ID</strong> y <strong>Client Secret</strong></li>
+                <li>Agrégalos como <code className="text-xs bg-black/05 px-1 rounded">QUICKBOOKS_CLIENT_ID</code> y <code className="text-xs bg-black/05 px-1 rounded">QUICKBOOKS_CLIENT_SECRET</code> en Vercel</li>
+                <li>Vuelve aquí y haz clic en &quot;Conectar&quot;</li>
+              </ol>
+            </div>
+            <a
+              href="/api/quickbooks/connect"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-85"
+              style={{ background: "#2CA01C" }}
+            >
+              <Link2 className="w-4 h-4" />
+              Conectar QuickBooks
+            </a>
+          </div>
+        )}
+      </div>
+
+      {/* Inventory sync card — only when connected */}
+      {status?.connected && (
+        <div
+          className="p-6 rounded-2xl"
+          style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+        >
+          <h3 className="font-bold mb-1" style={{ color: "#1D1D1F" }}>Sincronizar inventario</h3>
+          <p className="text-sm mb-4" style={{ color: "#6E6E73" }}>
+            Importa las cantidades de stock desde los ítems de inventario de QuickBooks y actualiza los productos de la tienda.
+          </p>
+          <button
+            onClick={handleSyncInventory}
+            disabled={syncing}
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-opacity hover:opacity-85 disabled:opacity-40"
+            style={{ background: "#111111" }}
+          >
+            {syncing ? <Loader2 className="w-4 h-4 animate-spin" /> : <ArrowDownToLine className="w-4 h-4" />}
+            {syncing ? "Sincronizando…" : "Sincronizar inventario ahora"}
+          </button>
+
+          {syncResult && (
+            <div
+              className="mt-4 p-4 rounded-xl text-sm"
+              style={{
+                background: syncResult.errors.length ? "rgba(192,57,43,0.04)" : "rgba(27,122,69,0.06)",
+                border: `1px solid ${syncResult.errors.length ? "rgba(192,57,43,0.2)" : "rgba(27,122,69,0.2)"}`,
+              }}
+            >
+              <p className="font-semibold mb-1" style={{ color: "#1D1D1F" }}>
+                {syncResult.updated} producto{syncResult.updated !== 1 ? "s" : ""} actualizado{syncResult.updated !== 1 ? "s" : ""}
+              </p>
+              {syncResult.errors.length > 0 && (
+                <ul className="mt-2 space-y-1" style={{ color: "#C0392B" }}>
+                  {syncResult.errors.map((e, i) => (
+                    <li key={i} className="text-xs">{e}</li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* What syncs automatically */}
+      <div
+        className="p-6 rounded-2xl"
+        style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+      >
+        <h3 className="font-bold mb-3" style={{ color: "#1D1D1F" }}>Qué se sincroniza automáticamente</h3>
+        <div className="space-y-2.5">
+          {[
+            { label: "Órdenes pagadas", desc: "Cada pedido confirmado crea un SalesReceipt en QuickBooks" },
+            { label: "Clientes", desc: "Se crea o actualiza el cliente en QuickBooks por email" },
+            { label: "Inventario", desc: "Manual — usa el botón de arriba para jalar stock desde QuickBooks" },
+          ].map((item) => (
+            <div key={item.label} className="flex items-start gap-3">
+              <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "#1B7A45" }} />
+              <div>
+                <p className="text-sm font-semibold" style={{ color: "#1D1D1F" }}>{item.label}</p>
+                <p className="text-xs" style={{ color: "#6E6E73" }}>{item.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

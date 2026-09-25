@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase-server";
 import { sendOrderConfirmation, sendAdminOrderNotification } from "@/lib/email";
+import { syncOrderToQuickBooks } from "@/lib/quickbooks";
 import crypto from "crypto";
 
 // Whop sends different event types depending on product type.
@@ -67,6 +68,9 @@ export async function POST(req: Request) {
         );
         sendAdminOrderNotification({ id, name, email, address, items, total }).catch((err) =>
           console.error("Admin notification email error:", err)
+        );
+        syncOrderToQuickBooks({ id, name, email, items, total }).catch((err) =>
+          console.error("QB order sync error:", err)
         );
       }
     }
