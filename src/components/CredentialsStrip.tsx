@@ -11,9 +11,9 @@ export default function CredentialsStrip() {
   return (
     <div
       style={{
-        background: "#111111",
-        borderTop: "1px solid rgba(255,255,255,0.04)",
-        borderBottom: "1px solid rgba(255,255,255,0.04)",
+        background: "#EFEDE8",
+        borderTop: "1px solid rgba(0,0,0,0.06)",
+        borderBottom: "1px solid rgba(0,0,0,0.06)",
       }}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-16 py-4 overflow-x-auto scrollbar-hide">
@@ -25,7 +25,7 @@ export default function CredentialsStrip() {
                   className="font-bold text-[11px]"
                   style={{
                     fontFamily: "var(--font-jetbrains, monospace)",
-                    color: "#B8975A",
+                    color: "#111111",
                     letterSpacing: "0.1em",
                   }}
                 >
@@ -34,8 +34,7 @@ export default function CredentialsStrip() {
                 <span
                   className="text-[11px]"
                   style={{
-                    fontFamily: "var(--font-dm-sans, sans-serif)",
-                    color: "#3A3A3E",
+                    color: "#9E9EA8",
                     letterSpacing: "0.02em",
                   }}
                 >
@@ -43,7 +42,7 @@ export default function CredentialsStrip() {
                 </span>
               </div>
               {i < CREDENTIALS.length - 1 && (
-                <div style={{ width: "1px", height: "12px", background: "rgba(255,255,255,0.06)" }} />
+                <div style={{ width: "1px", height: "12px", background: "rgba(0,0,0,0.1)" }} />
               )}
             </div>
           ))}

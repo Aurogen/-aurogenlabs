@@ -22,7 +22,7 @@ const PILLARS = [
     title_en: "HPLC-Verified Purity",
     title_es: "Pureza Verificada HPLC",
     desc_en: "High-performance liquid chromatography confirms 99%+ purity. Batches below threshold are rejected.",
-    desc_es: "Cromatografía líquida de alta eficiencia confirma pureza 99%+. Lotes por debajo del umbral son rechazados.",
+    desc_es: "Cromatografía líquida confirma pureza 99%+. Lotes por debajo del umbral son rechazados.",
   },
   {
     code: "cGMP",
@@ -35,8 +35,8 @@ const PILLARS = [
 
 function TrustSectionInner({ lang }: { lang: "en" | "es" }) {
   return (
-    <section style={{ background: "#080808", borderTop: "1px solid rgba(255,255,255,0.04)" }}>
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 md:py-28">
+    <section style={{ background: "#F5F4F0", borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 md:py-24">
 
         {/* Top label */}
         <div className="flex items-center gap-3 mb-14">
@@ -46,28 +46,29 @@ function TrustSectionInner({ lang }: { lang: "en" | "es" }) {
           </p>
         </div>
 
-        {/* Big stats row */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 mb-16"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.06)", borderLeft: "1px solid rgba(255,255,255,0.06)" }}
+        {/* Big stats grid */}
+        <div
+          className="grid grid-cols-2 lg:grid-cols-4 mb-14"
+          style={{ borderTop: "1px solid rgba(0,0,0,0.08)", borderLeft: "1px solid rgba(0,0,0,0.08)" }}
         >
           {STATS.map((stat) => (
             <div
               key={stat.value}
               className="flex flex-col justify-center py-10 px-8"
-              style={{ borderRight: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+              style={{ borderRight: "1px solid rgba(0,0,0,0.08)", borderBottom: "1px solid rgba(0,0,0,0.08)" }}
             >
               <p
                 className="font-bold leading-none mb-2"
                 style={{
                   fontFamily: "var(--font-heading, sans-serif)",
-                  fontSize: "clamp(40px, 5vw, 64px)",
-                  color: "#F2EDE4",
+                  fontSize: "clamp(38px, 4.5vw, 60px)",
+                  color: "#111111",
                   letterSpacing: "-0.025em",
                 }}
               >
                 {stat.value}
               </p>
-              <p className="text-[10px] font-semibold tracking-[0.14em] uppercase" style={{ color: "#3A3A3E" }}>
+              <p className="text-[10px] font-semibold tracking-[0.14em] uppercase" style={{ color: "#9E9EA8" }}>
                 {lang === "es" ? stat.label_es : stat.label_en}
               </p>
             </div>
@@ -75,14 +76,15 @@ function TrustSectionInner({ lang }: { lang: "en" | "es" }) {
         </div>
 
         {/* Pillars */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px"
-          style={{ background: "rgba(255,255,255,0.06)" }}
+        <div
+          className="grid grid-cols-1 md:grid-cols-3 gap-px"
+          style={{ background: "rgba(0,0,0,0.08)" }}
         >
           {PILLARS.map((p) => (
             <div
               key={p.code}
               className="flex flex-col p-8"
-              style={{ background: "#080808" }}
+              style={{ background: "#F5F4F0" }}
             >
               <p
                 className="text-[10px] font-bold tracking-[0.2em] uppercase mb-4"
@@ -92,11 +94,11 @@ function TrustSectionInner({ lang }: { lang: "en" | "es" }) {
               </p>
               <h3
                 className="font-bold text-xl mb-3 leading-tight"
-                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#F2EDE4" }}
+                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#111111" }}
               >
                 {lang === "es" ? p.title_es : p.title_en}
               </h3>
-              <p className="text-sm leading-relaxed" style={{ color: "#4A4A4E" }}>
+              <p className="text-sm leading-relaxed" style={{ color: "#6B6B6B" }}>
                 {lang === "es" ? p.desc_es : p.desc_en}
               </p>
             </div>

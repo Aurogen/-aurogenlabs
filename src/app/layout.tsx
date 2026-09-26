@@ -33,6 +33,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://aurogenlabs.com"),
   title: {
     default: "Aurogen Labs | Premium Peptides for Research",
     template: "%s | Aurogen Labs",
@@ -67,7 +68,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className={`${cormorant.variable} ${dmSans.variable} ${jetbrainsMono.variable} h-full`}>
-        <body className="min-h-full flex flex-col" style={{ background: "#080808" }}>
+        <body className="min-h-full flex flex-col" style={{ background: "#F5F4F0" }}>
           <PostHogProvider>
             <CartProvider>
               <LanguageProvider>
