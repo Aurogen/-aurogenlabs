@@ -10,6 +10,8 @@ import CartDrawer from "@/components/CartDrawer";
 import AgeGate from "@/components/AgeGate";
 import Footer from "@/components/Footer";
 import RefTracker from "@/components/RefTracker";
+import { PostHogProvider } from "@/components/PostHogProvider";
+import { CrispChat } from "@/components/CrispChat";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -52,18 +54,21 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" className={`${cormorant.variable} ${dmSans.variable} h-full`}>
         <body className="min-h-full flex flex-col" style={{ background: "#F6F6F8" }}>
-          <CartProvider>
-            <LanguageProvider>
-              <AgeGate />
-              <Suspense fallback={null}>
-                <RefTracker />
-              </Suspense>
-              <Navbar />
-              <main className="flex-1">{children}</main>
-              <Footer />
-              <CartDrawer />
-            </LanguageProvider>
-          </CartProvider>
+          <PostHogProvider>
+            <CartProvider>
+              <LanguageProvider>
+                <AgeGate />
+                <Suspense fallback={null}>
+                  <RefTracker />
+                </Suspense>
+                <Navbar />
+                <main className="flex-1">{children}</main>
+                <Footer />
+                <CartDrawer />
+                <CrispChat />
+              </LanguageProvider>
+            </CartProvider>
+          </PostHogProvider>
         </body>
       </html>
     </ClerkProvider>

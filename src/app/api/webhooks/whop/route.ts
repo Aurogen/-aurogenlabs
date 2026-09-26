@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase-server";
 import { sendOrderConfirmation, sendAdminOrderNotification } from "@/lib/email";
 import { syncOrderToQuickBooks } from "@/lib/quickbooks";
+import { trackOrderPlaced } from "@/lib/klaviyo";
+import { captureServerEvent } from "@/lib/posthog";
 import crypto from "crypto";
 
 // Whop sends different event types depending on product type.
@@ -72,6 +74,10 @@ export async function POST(req: Request) {
         syncOrderToQuickBooks({ id, name, email, items, total }).catch((err) =>
           console.error("QB order sync error:", err)
         );
+        trackOrderPlaced({ id, name, email, items, total }).catch((err) =>
+          console.error("Klaviyo order event error:", err)
+        );
+        captureServerEvent(email, "order_placed", { order_id: id, total });
       }
     }
   }
