@@ -24,7 +24,7 @@ const LOGO = `
   </div>`;
 const FOOTER = `
   <div style="text-align:center;padding-top:24px;border-top:1px solid rgba(0,0,0,0.07);margin-top:8px;">
-    <p style="color:#9E9EA8;font-size:11px;margin:0;">© 2025 Aurogen Labs · For research use only</p>
+    <p style="color:#9E9EA8;font-size:11px;margin:0;">© 2026 Aurogen Labs · For research use only</p>
   </div>`;
 
 /* ── Order Confirmation ── */

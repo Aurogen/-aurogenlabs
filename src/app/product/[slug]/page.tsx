@@ -30,5 +30,32 @@ export default async function ProductPage({ params }: Props) {
     .filter((p) => p.id !== product.id && p.goals.some((g) => product.goals.includes(g)))
     .slice(0, 4);
 
-  return <ProductDetail product={product} related={related} />;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    sku: product.id,
+    brand: { "@type": "Brand", name: "Aurogen Labs" },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "USD",
+      price: product.price.toFixed(2),
+      availability: product.inStock
+        ? "https://schema.org/InStock"
+        : "https://schema.org/OutOfStock",
+      seller: { "@type": "Organization", name: "Aurogen Labs" },
+    },
+    ...(product.image ? { image: product.image } : {}),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <ProductDetail product={product} related={related} />
+    </>
+  );
 }

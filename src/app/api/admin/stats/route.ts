@@ -10,7 +10,7 @@ export async function GET() {
   const supabase = getServiceClient();
 
   const [orders, newsletter, affiliates, waitlist] = await Promise.all([
-    supabase.from("orders").select("total, status"),
+    supabase.from("orders").select("total, status, payment_status").eq("payment_status", "paid"),
     supabase.from("newsletter").select("email", { count: "exact", head: true }),
     supabase.from("affiliate_applications").select("email", { count: "exact", head: true }),
     supabase.from("waitlist").select("email", { count: "exact", head: true }),

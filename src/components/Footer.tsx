@@ -26,6 +26,7 @@ const LINKS = {
     { label: "Shipping & Returns", href: "/shipping" },
     { label: "Privacy Policy", href: "/privacy" },
     { label: "Terms of Service", href: "/terms" },
+    { label: "Disclaimer", href: "/disclaimer" },
   ],
 };
 
@@ -96,6 +97,7 @@ export default function Footer() {
           <div className="flex gap-4">
             <Link href="/privacy" className="hover:text-gray-300 transition-colors">Privacy</Link>
             <Link href="/terms" className="hover:text-gray-300 transition-colors">Terms</Link>
+            <Link href="/disclaimer" className="hover:text-gray-300 transition-colors">Disclaimer</Link>
           </div>
         </div>
       </div>

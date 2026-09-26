@@ -38,6 +38,14 @@ export const metadata: Metadata = {
     siteName: "Aurogen Labs",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: `${process.env.NEXT_PUBLIC_SITE_URL ?? ""}/og.png`,
+        width: 1200,
+        height: 630,
+        alt: "Aurogen Labs — Premium Research Peptides",
+      },
+    ],
   },
   robots: {
     index: true,

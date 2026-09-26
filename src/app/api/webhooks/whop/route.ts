@@ -60,11 +60,32 @@ export async function POST(req: Request) {
           ...(whopOrderId ? { whop_order_id: whopOrderId } : {}),
         })
         .eq("id", orderId)
-        .select("id, name, email, address, items, total")
+        .select("id, name, email, address, items, total, discount_code")
         .maybeSingle();
 
       if (order) {
         const { id, name, email, address, items, total } = order;
+
+        // Increment discount code uses if one was applied to this order
+        if ((order as Record<string, unknown>).discount_code) {
+          supabase
+            .from("discount_codes")
+            .select("id, uses")
+            .eq("code", (order as Record<string, unknown>).discount_code as string)
+            .maybeSingle()
+            .then(({ data: dc }) => {
+              if (dc) {
+                supabase
+                  .from("discount_codes")
+                  .update({ uses: (dc.uses ?? 0) + 1 })
+                  .eq("id", dc.id)
+                  .then(({ error }) => {
+                    if (error) console.error("Discount uses increment error:", error);
+                  });
+              }
+            });
+        }
+
         sendOrderConfirmation(email, { id, name, items, total, address }).catch((err) =>
           console.error("Order confirmation email error:", err)
         );

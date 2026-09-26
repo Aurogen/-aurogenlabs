@@ -37,43 +37,6 @@ interface Order {
   status: "delivered" | "shipped" | "processing" | "pending";
 }
 
-const DEMO_ORDERS: Order[] = [
-  {
-    id: "ORG-2501",
-    date: "2025-01-15",
-    items: [
-      { name: "Retatrutide 5mg", concentration: "5mg", quantity: 1, price: 129.99 },
-      { name: "BPC-157 5mg", concentration: "5mg", quantity: 1, price: 89.99 },
-    ],
-    total: 219.98,
-    status: "delivered",
-  },
-  {
-    id: "ORG-2487",
-    date: "2024-12-28",
-    items: [{ name: "Semaglutide 5mg", concentration: "5mg", quantity: 2, price: 109.99 }],
-    total: 219.98,
-    status: "delivered",
-  },
-  {
-    id: "ORG-2510",
-    date: "2025-01-22",
-    items: [
-      { name: "TB-500 5mg", concentration: "5mg", quantity: 1, price: 99.99 },
-      { name: "IGF-1 LR3 1mg", concentration: "1mg", quantity: 1, price: 129.99 },
-    ],
-    total: 229.98,
-    status: "shipped",
-  },
-  {
-    id: "ORG-2531",
-    date: "2025-01-28",
-    items: [{ name: "CJC-1295 2mg", concentration: "2mg", quantity: 1, price: 74.99 }],
-    total: 74.99,
-    status: "processing",
-  },
-];
-
 const QUICK_ACTIONS = [
   { icon: ShoppingBag, label: "Shop Now", desc: "Browse all peptides", href: "/shop" },
   { icon: BookOpen, label: "Research Center", desc: "Guides & resources", href: "/research" },

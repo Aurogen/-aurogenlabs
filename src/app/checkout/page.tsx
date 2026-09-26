@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Lock, ArrowRight, Loader2, CreditCard } from "lucide-react";
+import { Lock, ArrowRight, Loader2, CreditCard, Tag, CheckCircle, XCircle } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import Link from "next/link";
 
@@ -23,10 +23,52 @@ export default function CheckoutPage() {
   });
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [discountInput, setDiscountInput] = useState("");
+  const [discountLoading, setDiscountLoading] = useState(false);
+  const [discountData, setDiscountData] = useState<{
+    code: string;
+    discount_amount: number;
+    type: string;
+    value: number;
+    code_id: string;
+  } | null>(null);
+  const [discountError, setDiscountError] = useState("");
 
   const filled =
     form.firstName && form.lastName && form.email &&
     form.address && form.city && form.stateField && form.zip;
+
+  const finalTotal = Math.max(0, totalPrice - (discountData?.discount_amount ?? 0));
+
+  async function applyDiscount() {
+    if (!discountInput.trim()) return;
+    setDiscountLoading(true);
+    setDiscountError("");
+    setDiscountData(null);
+    try {
+      const res = await fetch("/api/discount-codes/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code: discountInput.trim(), order_total: totalPrice }),
+      });
+      const data = await res.json();
+      if (data.valid) {
+        setDiscountData({
+          code: discountInput.trim().toUpperCase(),
+          discount_amount: data.discount_amount,
+          type: data.type,
+          value: data.value,
+          code_id: data.code_id,
+        });
+      } else {
+        setDiscountError(data.error ?? "Invalid code");
+      }
+    } catch {
+      setDiscountError("Could not validate code");
+    } finally {
+      setDiscountLoading(false);
+    }
+  }
 
   function set(field: string, value: string) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -52,7 +94,7 @@ export default function CheckoutPage() {
       }));
       const affiliateCode = getRefCookie();
 
-      // Save order to DB as pending_payment before redirecting to Whop
+      // Save order to DB as pending_payment before redirecting to payment
       await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -63,10 +105,13 @@ export default function CheckoutPage() {
           email: form.email,
           address: `${form.address}, ${form.city}, ${form.stateField} ${form.zip}`,
           items,
-          total: totalPrice,
+          total: finalTotal,
           status: "pending_payment",
           payment_status: "pending",
           ...(affiliateCode ? { affiliate_code: affiliateCode } : {}),
+          ...(discountData
+            ? { discount_code: discountData.code, discount_amount: discountData.discount_amount }
+            : {}),
         }),
       });
 
@@ -74,16 +119,16 @@ export default function CheckoutPage() {
         id: orderId,
         date: orderDate,
         items,
-        total: totalPrice,
+        total: finalTotal,
         email: form.email,
         name: `${form.firstName} ${form.lastName}`,
       }));
 
-      // Get Whop checkout URL for this cart
+      // Get checkout URL for this cart
       const whopRes = await fetch("/api/checkout/whop-session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderId, items: state.items.map((i) => i.product.id), total: totalPrice }),
+        body: JSON.stringify({ orderId, items: state.items.map((i) => i.product.id), total: finalTotal }),
       });
       const whopData = await whopRes.json();
 
@@ -238,7 +283,63 @@ export default function CheckoutPage() {
               </label>
             </div>
 
-            {/* Payment — via Whop */}
+            {/* Discount Code */}
+            <div
+              className="p-6 rounded-2xl"
+              style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+            >
+              <h2
+                className="font-bold text-lg mb-4"
+                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
+              >
+                Discount Code
+              </h2>
+              {discountData ? (
+                <div className="flex items-center justify-between px-4 py-3 rounded-xl" style={{ background: "rgba(27,122,69,0.06)", border: "1px solid rgba(27,122,69,0.2)" }}>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="w-4 h-4" style={{ color: "#1B7A45" }} />
+                    <span className="text-sm font-semibold" style={{ color: "#1B7A45" }}>{discountData.code}</span>
+                    <span className="text-xs" style={{ color: "#6E6E73" }}>
+                      — {discountData.type === "percentage" ? `${discountData.value}% off` : `$${discountData.value} off`}
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => { setDiscountData(null); setDiscountInput(""); }}
+                    className="text-xs underline"
+                    style={{ color: "#9E9EA8" }}
+                  >
+                    Remove
+                  </button>
+                </div>
+              ) : (
+                <div className="flex gap-2">
+                  <input
+                    value={discountInput}
+                    onChange={(e) => { setDiscountInput(e.target.value); setDiscountError(""); }}
+                    onKeyDown={(e) => e.key === "Enter" && applyDiscount()}
+                    className={INPUT_CLASS + " flex-1"}
+                    style={INPUT_STYLE}
+                    placeholder="Enter discount code"
+                  />
+                  <button
+                    onClick={applyDiscount}
+                    disabled={!discountInput.trim() || discountLoading}
+                    className="px-4 py-3 rounded-xl text-sm font-semibold transition-opacity"
+                    style={{ background: "#1D1D1F", color: "#FFFFFF", opacity: !discountInput.trim() || discountLoading ? 0.4 : 1 }}
+                  >
+                    {discountLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Apply"}
+                  </button>
+                </div>
+              )}
+              {discountError && (
+                <div className="flex items-center gap-1.5 mt-2">
+                  <XCircle className="w-3.5 h-3.5" style={{ color: "#FF3B30" }} />
+                  <p className="text-xs" style={{ color: "#FF3B30" }}>{discountError}</p>
+                </div>
+              )}
+            </div>
+
+            {/* Payment */}
             <div
               className="p-5 rounded-2xl flex items-center gap-4"
               style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
@@ -250,9 +351,9 @@ export default function CheckoutPage() {
                 <CreditCard className="w-5 h-5" style={{ color: "#0A84FF" }} />
               </div>
               <div>
-                <p className="text-sm font-semibold" style={{ color: "#1D1D1F" }}>Secure Payment via Whop</p>
+                <p className="text-sm font-semibold" style={{ color: "#1D1D1F" }}>Secure Payment</p>
                 <p className="text-xs mt-0.5" style={{ color: "#9E9EA8" }}>
-                  You&apos;ll be redirected to Whop&apos;s secure checkout to complete payment.
+                  You&apos;ll be redirected to our secure checkout to complete payment.
                 </p>
               </div>
             </div>
@@ -317,13 +418,28 @@ export default function CheckoutPage() {
 
               <div className="pt-4 space-y-2" style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }}>
                 <div className="flex justify-between text-sm">
+                  <span style={{ color: "#6E6E73" }}>Subtotal</span>
+                  <span className="font-medium" style={{ color: "#1D1D1F" }}>${totalPrice.toFixed(2)}</span>
+                </div>
+                {discountData && (
+                  <div className="flex justify-between text-sm">
+                    <span style={{ color: "#1B7A45" }}>
+                      <Tag className="w-3 h-3 inline mr-1" />
+                      {discountData.code}
+                    </span>
+                    <span className="font-medium" style={{ color: "#1B7A45" }}>
+                      −${discountData.discount_amount.toFixed(2)}
+                    </span>
+                  </div>
+                )}
+                <div className="flex justify-between text-sm">
                   <span style={{ color: "#6E6E73" }}>Shipping</span>
                   <span className="font-medium" style={{ color: "#1B7A45" }}>FREE</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between pt-2" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <span className="font-bold" style={{ color: "#1D1D1F" }}>Total</span>
                   <span className="font-bold text-2xl" style={{ color: "#1D1D1F" }}>
-                    ${totalPrice.toFixed(2)}
+                    ${finalTotal.toFixed(2)}
                   </span>
                 </div>
               </div>

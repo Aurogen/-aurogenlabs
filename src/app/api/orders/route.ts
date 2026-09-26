@@ -5,7 +5,7 @@ import { getServiceClient } from "@/lib/supabase-server";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { id, date, name, email, address, items, total, status, payment_status, affiliate_code } = body;
+    const { id, date, name, email, address, items, total, status, payment_status, affiliate_code, discount_code, discount_amount } = body;
 
     if (!id || !email || !items || !total) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -42,6 +42,7 @@ export async function POST(req: NextRequest) {
       ...(affiliate_code && commission_amount !== null
         ? { affiliate_code, commission_amount }
         : {}),
+      ...(discount_code ? { discount_code, discount_amount: discount_amount ?? null } : {}),
     });
 
     if (error) {
