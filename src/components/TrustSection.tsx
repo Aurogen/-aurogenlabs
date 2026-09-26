@@ -1,117 +1,114 @@
-import { FlaskConical, ShieldCheck, Microscope, Truck, HeartHandshake } from "lucide-react";
+"use client";
 
-const FEATURES = [
+import { useLanguage } from "@/context/LanguageContext";
+
+const STATS = [
+  { value: "100+", label_en: "Peptides available", label_es: "Péptidos disponibles" },
+  { value: "99%+", label_en: "Guaranteed purity", label_es: "Pureza garantizada" },
+  { value: "2–5", label_en: "Day US delivery", label_es: "Días de envío US" },
+  { value: "24/7", label_en: "Technical support", label_es: "Soporte técnico" },
+];
+
+const PILLARS = [
   {
-    icon: FlaskConical,
-    title: "CoA Every Batch",
-    desc: "Third-party Certificate of Analysis included with every shipment — batch number, purity, identity.",
+    code: "CoA",
+    title_en: "Certificate of Analysis",
+    title_es: "Certificado de Análisis",
+    desc_en: "Third-party CoA included with every shipment — batch number, purity, identity verified.",
+    desc_es: "CoA de terceros incluido con cada envío — número de lote, pureza e identidad verificados.",
   },
   {
-    icon: ShieldCheck,
-    title: "99%+ Purity",
-    desc: "HPLC-verified purity guaranteed across all compounds. Batches below threshold are rejected.",
+    code: "HPLC",
+    title_en: "HPLC-Verified Purity",
+    title_es: "Pureza Verificada HPLC",
+    desc_en: "High-performance liquid chromatography confirms 99%+ purity. Batches below threshold are rejected.",
+    desc_es: "Cromatografía líquida de alta eficiencia confirma pureza 99%+. Lotes por debajo del umbral son rechazados.",
   },
   {
-    icon: Microscope,
-    title: "Research Grade",
-    desc: "Formulated exclusively for scientific research and controlled laboratory studies.",
-  },
-  {
-    icon: Truck,
-    title: "Fast Shipping",
-    desc: "Discreet, secure delivery in 2–5 business days anywhere in the continental US.",
-  },
-  {
-    icon: HeartHandshake,
-    title: "Expert Support",
-    desc: "Peptide-specialized team available for technical queries and reconstitution guidance.",
+    code: "cGMP",
+    title_en: "Research Grade Only",
+    title_es: "Solo Grado Investigación",
+    desc_en: "Formulated exclusively for scientific research and controlled laboratory studies.",
+    desc_es: "Formulado exclusivamente para investigación científica y estudios de laboratorio controlados.",
   },
 ];
 
-export default function TrustSection() {
+function TrustSectionInner({ lang }: { lang: "en" | "es" }) {
   return (
-    <section className="py-24 px-4" style={{ background: "#F4F3EF", borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-      <div className="max-w-7xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div className="flex items-center justify-center gap-3 mb-5">
-            <span style={{ display: "block", width: 24, height: 1, background: "#B8975A" }} />
-            <p className="text-[10px] font-semibold tracking-[0.38em] uppercase" style={{ color: "#9E9EA8" }}>
-              Why researchers choose us
-            </p>
-            <span style={{ display: "block", width: 24, height: 1, background: "#B8975A" }} />
-          </div>
-          <h2
-            className="font-bold mb-4"
-            style={{
-              fontFamily: "var(--font-heading, sans-serif)",
-              color: "#111111",
-              fontSize: "clamp(36px, 4.5vw, 58px)",
-              letterSpacing: "-0.02em",
-              lineHeight: 1.05,
-            }}
-          >
-            Trust &amp; Transparency
-          </h2>
-          <p className="max-w-lg mx-auto text-sm" style={{ color: "#6B6B6B" }}>
-            Our mission is to supply researchers with the purest, most reliable compounds on the market.
+    <section style={{ background: "#080808", borderTop: "1px solid rgba(255,255,255,0.04)" }}>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 md:py-28">
+
+        {/* Top label */}
+        <div className="flex items-center gap-3 mb-14">
+          <span style={{ display: "block", width: 24, height: 1, background: "#B8975A" }} />
+          <p className="text-[10px] font-semibold tracking-[0.38em] uppercase" style={{ color: "#B8975A" }}>
+            {lang === "es" ? "Por qué nos eligen" : "Why researchers choose us"}
           </p>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
-          {FEATURES.map((f) => (
+        {/* Big stats row */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 mb-16"
+          style={{ borderTop: "1px solid rgba(255,255,255,0.06)", borderLeft: "1px solid rgba(255,255,255,0.06)" }}
+        >
+          {STATS.map((stat) => (
             <div
-              key={f.title}
-              className="group p-6 rounded-2xl transition-all duration-300 hover:shadow-[0_6px_28px_rgba(0,0,0,0.07)]"
-              style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.06)" }}
-            >
-              <div
-                className="w-11 h-11 rounded-xl flex items-center justify-center mb-4"
-                style={{ background: "rgba(0,0,0,0.04)", border: "1px solid rgba(0,0,0,0.07)" }}
-              >
-                <f.icon className="w-5 h-5" style={{ color: "#111111" }} />
-              </div>
-              <h3 className="font-bold text-base mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#111111" }}>
-                {f.title}
-              </h3>
-              <p className="text-sm leading-relaxed" style={{ color: "#6B6B6B" }}>{f.desc}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Stats */}
-        <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4">
-          {[
-            { value: "100+", label: "Peptides available" },
-            { value: "99%+", label: "Guaranteed purity" },
-            { value: "2–5", label: "Day US delivery" },
-            { value: "24/7", label: "Technical support" },
-          ].map((stat) => (
-            <div
-              key={stat.label}
-              className="text-center py-8 px-6 rounded-2xl"
-              style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.06)" }}
+              key={stat.value}
+              className="flex flex-col justify-center py-10 px-8"
+              style={{ borderRight: "1px solid rgba(255,255,255,0.06)", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
             >
               <p
-                className="font-bold mb-1"
+                className="font-bold leading-none mb-2"
                 style={{
                   fontFamily: "var(--font-heading, sans-serif)",
-                  color: "#111111",
-                  fontSize: "clamp(32px, 4vw, 44px)",
-                  letterSpacing: "-0.02em",
-                  lineHeight: 1,
+                  fontSize: "clamp(40px, 5vw, 64px)",
+                  color: "#F2EDE4",
+                  letterSpacing: "-0.025em",
                 }}
               >
                 {stat.value}
               </p>
-              <p className="text-xs tracking-wide uppercase" style={{ color: "#9E9EA8", letterSpacing: "0.08em" }}>
-                {stat.label}
+              <p className="text-[10px] font-semibold tracking-[0.14em] uppercase" style={{ color: "#3A3A3E" }}>
+                {lang === "es" ? stat.label_es : stat.label_en}
               </p>
             </div>
           ))}
         </div>
+
+        {/* Pillars */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-px"
+          style={{ background: "rgba(255,255,255,0.06)" }}
+        >
+          {PILLARS.map((p) => (
+            <div
+              key={p.code}
+              className="flex flex-col p-8"
+              style={{ background: "#080808" }}
+            >
+              <p
+                className="text-[10px] font-bold tracking-[0.2em] uppercase mb-4"
+                style={{ fontFamily: "var(--font-jetbrains, monospace)", color: "#B8975A" }}
+              >
+                {p.code}
+              </p>
+              <h3
+                className="font-bold text-xl mb-3 leading-tight"
+                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#F2EDE4" }}
+              >
+                {lang === "es" ? p.title_es : p.title_en}
+              </h3>
+              <p className="text-sm leading-relaxed" style={{ color: "#4A4A4E" }}>
+                {lang === "es" ? p.desc_es : p.desc_en}
+              </p>
+            </div>
+          ))}
+        </div>
+
       </div>
     </section>
   );
+}
+
+export default function TrustSection() {
+  const { lang } = useLanguage();
+  return <TrustSectionInner lang={lang} />;
 }
