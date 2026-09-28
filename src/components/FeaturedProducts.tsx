@@ -253,7 +253,7 @@ function LineupCard({
       <Link
         href={`/product/${product.slug}`}
         className="relative flex-1 flex items-center justify-center overflow-hidden"
-        style={{ background: product.image ? "#F8F8FA" : "rgba(10,12,16,0.97)" }}
+        style={{ background: "rgba(10,12,16,0.97)" }}
       >
         {/* Grain texture */}
         <div
