@@ -1,5 +1,10 @@
 import { getServiceClient } from "./supabase-server";
 import type { Product, Goal } from "@/data/products";
+import { PRODUCTS } from "@/data/products";
+
+function supabaseConfigured() {
+  return !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
+}
 
 export interface DbProduct {
   id: number;
@@ -57,6 +62,7 @@ export function mapToProduct(row: DbProduct): Product {
 }
 
 export async function fetchProducts(): Promise<Product[]> {
+  if (!supabaseConfigured()) return PRODUCTS;
   const supabase = getServiceClient();
   const { data, error } = await supabase
     .from("products")
@@ -65,11 +71,12 @@ export async function fetchProducts(): Promise<Product[]> {
     .order("sort_order", { ascending: true })
     .order("id", { ascending: true });
 
-  if (error || !data) return [];
+  if (error || !data) return PRODUCTS;
   return (data as DbProduct[]).map(mapToProduct);
 }
 
 export async function fetchProductBySlug(slug: string): Promise<Product | null> {
+  if (!supabaseConfigured()) return PRODUCTS.find((p) => p.slug === slug) ?? null;
   const supabase = getServiceClient();
   const { data, error } = await supabase
     .from("products")
@@ -78,6 +85,6 @@ export async function fetchProductBySlug(slug: string): Promise<Product | null> 
     .eq("visible", true)
     .single();
 
-  if (error || !data) return null;
+  if (error || !data) return PRODUCTS.find((p) => p.slug === slug) ?? null;
   return mapToProduct(data as DbProduct);
 }
