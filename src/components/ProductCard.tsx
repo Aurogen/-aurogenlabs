@@ -119,9 +119,9 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                     key={g}
                     className="px-2 py-0.5 text-[10px] font-medium tracking-wide"
                     style={{
-                      background: "rgba(255,255,255,0.04)",
-                      color: "#5A5A5E",
-                      border: "1px solid rgba(255,255,255,0.07)",
+                      background: "rgba(184,151,90,0.08)",
+                      color: "rgba(184,151,90,0.75)",
+                      border: "1px solid rgba(184,151,90,0.2)",
                       borderRadius: "2px",
                     }}
                   >
