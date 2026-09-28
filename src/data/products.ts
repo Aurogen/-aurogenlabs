@@ -47,13 +47,13 @@ const IPAMORELIN_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkq
 const MOTSC_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175604_c7657ce3-c73c-4d3f-93be-67fc4de8f34d.png";
 const TB500_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_202208_1cd9e6c4-858f-4765-8e3c-f6f962241c6e.png";
 const CJC_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_202208_f9c2b75e-2a44-473b-bd2c-d3e5cd5d49b9.png";
-const GHKCU_IMG = "/products/ghk-cu.png";
-const TESAMORELIN_IMG = "/products/tesamorelin.png";
-const TB500BPC157_IMG = "/products/tb500-bpc157.png";
-const NADPLUS_IMG = "/products/nad-plus.png";
-const SERMORELIN_IMG = "/products/sermorelin.png";
-const KLOWBLEND_IMG = "/products/klow-blend.png";
-const BACWATER_IMG = "/products/bac-water.png";
+const GHKCU_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260928_140428_c3264137-cd4e-4628-b7ee-45b3fb9d6c80.png";
+const TESAMORELIN_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260928_140518_d065b87b-b195-4b4a-89ee-ea87bf24d163.png";
+const TB500BPC157_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260928_135831_cadc8d3d-f2ff-430f-897d-b930e99822b6.png";
+const NADPLUS_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260928_140553_bb666a77-7810-4ec6-99ca-06595a4cc1c1.png";
+const SERMORELIN_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260928_135832_a39b8022-343c-4dae-95ae-899750ae73f8.png";
+const KLOWBLEND_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260928_140639_451ccec6-20ea-4cff-ad6c-c7134d0aeaaa.png";
+const BACWATER_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260928_141556_58887869-2af7-41a1-96a8-4f6358cc66b1.png";
 
 export const PRODUCTS: Product[] = [
   // ── Retatrutide ──────────────────────────────────────────────
