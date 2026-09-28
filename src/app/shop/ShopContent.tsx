@@ -74,7 +74,7 @@ export default function ShopContent({ initialProducts }: Props) {
       {/* Page header */}
       {selectedGoal && GOAL_VIDEOS[selectedGoal] ? (
         <div className="relative py-20 px-4 text-center overflow-hidden" style={{ minHeight: "220px", borderBottom: "1px solid rgba(0,0,0,0.12)" }}>
-          <video key={selectedGoal} autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" style={{ filter: "brightness(0.42)" }} src={GOAL_VIDEOS[selectedGoal]} />
+          <video key={selectedGoal} ref={(el) => { if (el) el.muted = true; }} autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" style={{ filter: "brightness(0.42)" }} src={GOAL_VIDEOS[selectedGoal]} />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%)" }} />
           <div className="relative z-10">
             <p className="text-xs font-semibold tracking-[0.28em] uppercase mb-3" style={{ color: "rgba(255,255,255,0.55)" }}>Research compounds</p>
@@ -88,7 +88,7 @@ export default function ShopContent({ initialProducts }: Props) {
         </div>
       ) : (
         <div className="relative py-20 px-4 text-center overflow-hidden" style={{ minHeight: "220px", borderBottom: "1px solid rgba(0,0,0,0.12)" }}>
-          <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" style={{ filter: "brightness(0.42)" }} src={ALL_PEPTIDES_VIDEO} />
+          <video ref={(el) => { if (el) el.muted = true; }} autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover" style={{ filter: "brightness(0.42)" }} src={ALL_PEPTIDES_VIDEO} />
           <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%)" }} />
           <div className="relative z-10">
             <p className="text-xs font-semibold tracking-[0.28em] uppercase mb-3" style={{ color: "rgba(255,255,255,0.55)" }}>Research compounds</p>

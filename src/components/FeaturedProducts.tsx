@@ -57,12 +57,13 @@ function VideoCycler() {
       {BG_VIDEOS.map((src, i) => (
         <video
           key={src}
-          ref={(el) => { videoRefs.current[i] = el; }}
+          ref={(el) => { videoRefs.current[i] = el; if (el) el.muted = true; }}
+          src={src}
           autoPlay
           muted
           loop
           playsInline
-          preload="auto"
+          preload={i === 0 ? "auto" : "none"}
           className="absolute inset-0 w-full h-full object-cover"
           style={{
             zIndex: 0,
@@ -70,9 +71,7 @@ function VideoCycler() {
             transition: "opacity 1.4s ease-in-out",
             pointerEvents: "none",
           }}
-        >
-          <source src={src} type="video/mp4" />
-        </video>
+        />
       ))}
     </>
   );
@@ -95,7 +94,7 @@ export default function FeaturedProducts() {
       <div
         className="absolute inset-0"
         style={{
-          background: "linear-gradient(135deg, rgba(10,12,16,0.82) 0%, rgba(18,22,28,0.72) 50%, rgba(10,12,16,0.82) 100%)",
+          background: "linear-gradient(135deg, rgba(10,12,16,0.65) 0%, rgba(18,22,28,0.52) 50%, rgba(10,12,16,0.65) 100%)",
           zIndex: 1,
         }}
       />
