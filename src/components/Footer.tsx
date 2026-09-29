@@ -24,6 +24,7 @@ const LINKS = {
   Support: [
     { label: "FAQ", href: "/faq" },
     { label: "Shipping & Returns", href: "/shipping" },
+    { label: "Refund Policy", href: "/refund" },
     { label: "Privacy Policy", href: "/privacy" },
     { label: "Terms of Service", href: "/terms" },
     { label: "Disclaimer", href: "/disclaimer" },
@@ -95,6 +96,8 @@ export default function Footer() {
             </span>
           </div>
           <div className="flex gap-4">
+            <Link href="/shipping" className="hover:text-gray-300 transition-colors">Shipping</Link>
+            <Link href="/refund" className="hover:text-gray-300 transition-colors">Refund</Link>
             <Link href="/privacy" className="hover:text-gray-300 transition-colors">Privacy</Link>
             <Link href="/terms" className="hover:text-gray-300 transition-colors">Terms</Link>
             <Link href="/disclaimer" className="hover:text-gray-300 transition-colors">Disclaimer</Link>

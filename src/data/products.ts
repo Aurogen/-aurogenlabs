@@ -31,13 +31,13 @@ export interface Product {
 }
 
 export const GOALS: { label: Goal; icon: string; description: string; count: number }[] = [
-  { label: "Fat Loss", icon: "🔥", description: "Metabolic optimization & body recomposition", count: 12 },
-  { label: "Muscle Growth", icon: "💪", description: "Anabolic signaling & protein synthesis", count: 4 },
-  { label: "Recovery", icon: "⚡", description: "Tissue repair & inflammation modulation", count: 3 },
-  { label: "Anti-Aging", icon: "🧬", description: "Cellular rejuvenation & longevity pathways", count: 8 },
-  { label: "Skin & Hair", icon: "✨", description: "Collagen synthesis & follicle stimulation", count: 2 },
-  { label: "Brain Health", icon: "🧠", description: "Neuroprotection & cognitive enhancement", count: 1 },
-  { label: "Performance", icon: "🚀", description: "Energy, endurance & VO2 optimization", count: 9 },
+  { label: "Fat Loss", icon: "🔥", description: "Adipogenesis & metabolic pathway research", count: 12 },
+  { label: "Muscle Growth", icon: "💪", description: "Anabolic signaling & protein synthesis research", count: 4 },
+  { label: "Recovery", icon: "⚡", description: "Tissue repair models & inflammatory pathway studies", count: 3 },
+  { label: "Anti-Aging", icon: "🧬", description: "Senescence biomarkers & longevity pathway research", count: 8 },
+  { label: "Skin & Hair", icon: "✨", description: "Dermal regeneration & follicle biology models", count: 2 },
+  { label: "Brain Health", icon: "🧠", description: "Neuroprotection & neurochemistry research models", count: 1 },
+  { label: "Performance", icon: "🚀", description: "Metabolic efficiency & exercise adaptation research", count: 9 },
 ];
 
 const RETATRUTIDE_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175600_5f980e7c-9f25-4669-b2fe-804995810942.png";
