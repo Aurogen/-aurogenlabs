@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import { useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import {
   Package,
   DollarSign,
@@ -85,6 +87,9 @@ function fmt(d?: string) {
 
 /* ─── Main page ─────────────────────────────────────────── */
 export default function AdminPage() {
+  const { isLoaded, isSignedIn } = useUser();
+  const router = useRouter();
+  const [authorized, setAuthorized] = useState(false);
   const [tab, setTab] = useState<"orders" | "newsletter" | "affiliates" | "waitlist" | "products" | "discounts" | "analytics" | "quickbooks">("orders");
   const [stats, setStats] = useState<Stats | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
@@ -93,6 +98,15 @@ export default function AdminPage() {
   const [waitlist, setWaitlist] = useState<WaitlistEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    if (!isLoaded) return;
+    if (!isSignedIn) { router.replace("/sign-in"); return; }
+    fetch("/api/admin-check").then((r) => {
+      if (r.ok) setAuthorized(true);
+      else router.replace("/");
+    });
+  }, [isLoaded, isSignedIn, router]);
 
   const load = useCallback(async (quiet = false) => {
     quiet ? setRefreshing(true) : setLoading(true);
@@ -149,6 +163,14 @@ export default function AdminPage() {
     const json = await res.json().catch(() => ({}));
     setAffiliates((prev) =>
       prev.map((a) => (a.id === id ? { ...a, status, ...(json.code ? { code: json.code } : {}) } : a))
+    );
+  }
+
+  if (!isLoaded || !authorized) {
+    return (
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "#F6F6F8" }}>
+        <div className="w-8 h-8 border-2 border-gray-200 border-t-gray-600 rounded-full animate-spin" />
+      </div>
     );
   }
 
@@ -1021,7 +1043,7 @@ function QuickBooksTab() {
   }
 
   async function handleDisconnect() {
-    if (!confirm("¿Desconectar QuickBooks? Los pedidos ya sincronizados no se eliminarán.")) return;
+    if (!confirm("Disconnect QuickBooks? Already-synced orders will not be deleted.")) return;
     setDisconnecting(true);
     await fetch("/api/quickbooks/disconnect", { method: "POST" });
     setStatus({ connected: false });
@@ -1047,7 +1069,7 @@ function QuickBooksTab() {
           <div>
             <h2 className="font-bold text-lg" style={{ color: "#1D1D1F" }}>QuickBooks Online</h2>
             <p className="text-sm mt-0.5" style={{ color: "#6E6E73" }}>
-              Sincronización automática de órdenes, clientes e inventario
+              Automatic sync of orders, customers, and inventory
             </p>
           </div>
           {status?.connected ? (
@@ -1056,7 +1078,7 @@ function QuickBooksTab() {
               style={{ background: "rgba(27,122,69,0.08)", color: "#1B7A45" }}
             >
               <CheckCircle2 className="w-3 h-3" />
-              Conectado
+              Connected
             </span>
           ) : (
             <span
@@ -1064,7 +1086,7 @@ function QuickBooksTab() {
               style={{ background: "rgba(110,110,115,0.10)", color: "#6E6E73" }}
             >
               <Link2Off className="w-3 h-3" />
-              Desconectado
+              Disconnected
             </span>
           )}
         </div>
@@ -1093,7 +1115,7 @@ function QuickBooksTab() {
               style={{ border: "1px solid rgba(192,57,43,0.3)", color: "#C0392B", background: "rgba(192,57,43,0.04)" }}
             >
               {disconnecting ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Link2Off className="w-3.5 h-3.5" />}
-              Desconectar QuickBooks
+              Disconnect QuickBooks
             </button>
           </div>
         ) : (
@@ -1171,12 +1193,12 @@ function QuickBooksTab() {
         className="p-6 rounded-2xl"
         style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
       >
-        <h3 className="font-bold mb-3" style={{ color: "#1D1D1F" }}>Qué se sincroniza automáticamente</h3>
+        <h3 className="font-bold mb-3" style={{ color: "#1D1D1F" }}>What syncs automatically</h3>
         <div className="space-y-2.5">
           {[
-            { label: "Órdenes pagadas", desc: "Cada pedido confirmado crea un SalesReceipt en QuickBooks" },
-            { label: "Clientes", desc: "Se crea o actualiza el cliente en QuickBooks por email" },
-            { label: "Inventario", desc: "Manual — usa el botón de arriba para jalar stock desde QuickBooks" },
+            { label: "Paid orders", desc: "Each confirmed order creates a SalesReceipt in QuickBooks" },
+            { label: "Customers", desc: "Customer is created or updated in QuickBooks by email" },
+            { label: "Inventory", desc: "Manual — use the button above to pull stock from QuickBooks" },
           ].map((item) => (
             <div key={item.label} className="flex items-start gap-3">
               <CheckCircle2 className="w-4 h-4 mt-0.5 shrink-0" style={{ color: "#1B7A45" }} />

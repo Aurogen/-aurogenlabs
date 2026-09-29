@@ -18,18 +18,20 @@ export async function POST(req: Request) {
   const body = await req.text();
 
   const secret = process.env.WHOP_WEBHOOK_SECRET;
-  if (secret) {
-    const sig =
-      req.headers.get("x-whop-signature") ??
-      req.headers.get("whop-signature") ??
-      "";
-    const expected = `sha256=${crypto
-      .createHmac("sha256", secret)
-      .update(body)
-      .digest("hex")}`;
-    if (sig !== expected) {
-      return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
-    }
+  if (!secret) {
+    console.error("WHOP_WEBHOOK_SECRET is not set — webhook rejected");
+    return NextResponse.json({ error: "Webhook not configured" }, { status: 500 });
+  }
+  const sig =
+    req.headers.get("x-whop-signature") ??
+    req.headers.get("whop-signature") ??
+    "";
+  const expected = `sha256=${crypto
+    .createHmac("sha256", secret)
+    .update(body)
+    .digest("hex")}`;
+  if (sig !== expected) {
+    return NextResponse.json({ error: "Invalid signature" }, { status: 401 });
   }
 
   let event: Record<string, unknown>;

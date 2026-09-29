@@ -1,9 +1,9 @@
 import { Shippo } from "shippo";
 
-const API_KEY = process.env.SHIPPO_API_KEY!;
-
 function getClient() {
-  return new Shippo({ apiKeyHeader: API_KEY });
+  const key = process.env.SHIPPO_API_KEY;
+  if (!key) throw new Error("SHIPPO_API_KEY is not set");
+  return new Shippo({ apiKeyHeader: key });
 }
 
 export interface ShipmentAddress {

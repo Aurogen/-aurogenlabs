@@ -115,7 +115,7 @@ export async function sendNewsletterWelcome(to: string) {
       Expect new peptides, research protocols, and exclusive offers — no spam, ever.
     </p>
     <a href="https://aurogenlabs.com/shop" style="display:inline-block;background:#0A84FF;color:#ffffff;font-weight:700;font-size:14px;letter-spacing:0.5px;padding:14px 32px;border-radius:100px;text-decoration:none;">Browse Compounds</a>
-    <p style="color:#9E9EA8;font-size:11px;margin:28px 0 0;">© 2025 Aurogen Labs · <a href="${unsubUrl}" style="color:#9E9EA8;">Unsubscribe</a></p>
+    <p style="color:#9E9EA8;font-size:11px;margin:28px 0 0;">© 2026 Aurogen Labs · <a href="${unsubUrl}" style="color:#9E9EA8;">Unsubscribe</a></p>
   </div>
 </body></html>`;
 
@@ -205,7 +205,7 @@ export async function sendWaitlistRestock(to: string, productName: string) {
       You&apos;re one of the first to know. Don&apos;t wait — stock goes fast.
     </p>
     <a href="https://aurogenlabs.com/shop" style="display:inline-block;background:#0A84FF;color:#ffffff;font-weight:700;font-size:14px;padding:14px 32px;border-radius:100px;text-decoration:none;">Order Now</a>
-    <p style="color:#9E9EA8;font-size:11px;margin:28px 0 0;">© 2025 Aurogen Labs · You received this because you joined the waitlist.</p>
+    <p style="color:#9E9EA8;font-size:11px;margin:28px 0 0;">© 2026 Aurogen Labs · You received this because you joined the waitlist.</p>
   </div>
 </body></html>`;
 

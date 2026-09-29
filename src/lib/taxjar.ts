@@ -1,9 +1,9 @@
 import Taxjar from "taxjar";
 
-const API_KEY = process.env.TAXJAR_API_KEY!;
-
 function getClient() {
-  return new Taxjar({ apiKey: API_KEY });
+  const key = process.env.TAXJAR_API_KEY;
+  if (!key) throw new Error("TAXJAR_API_KEY is not set");
+  return new Taxjar({ apiKey: key });
 }
 
 export interface TaxAddress {
