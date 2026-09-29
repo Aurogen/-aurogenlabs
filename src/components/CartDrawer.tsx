@@ -13,7 +13,7 @@ export default function CartDrawer() {
     <>
       {/* Backdrop */}
       <div
-        className={`fixed inset-0 z-50 bg-black/40 backdrop-blur-sm transition-opacity duration-300 ${
+        className={`fixed inset-0 z-50 bg-black/50 transition-opacity duration-300 ${
           state.isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={closeCart}

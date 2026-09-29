@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ShoppingCart, Bell, FlaskConical, ChevronRight,
@@ -101,10 +102,13 @@ export default function ProductDetail({ product, related }: Props) {
               style={{ background: "#F2F1ED" }}
             >
               {product.image ? (
-                <img
+                <Image
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 1023px) 100vw, 600px"
+                  preload
+                  className="object-cover"
                 />
               ) : (
                 <ProductDetailVial />
@@ -502,9 +506,7 @@ export default function ProductDetail({ product, related }: Props) {
           className="lg:hidden fixed inset-x-0 bottom-0 z-40 transition-transform duration-300 ease-out"
           style={{
             transform: showStickyBuy ? "translateY(0)" : "translateY(110%)",
-            background: "rgba(255,255,255,0.97)",
-            backdropFilter: "blur(12px)",
-            WebkitBackdropFilter: "blur(12px)",
+            background: "#FFFFFF",
             borderTop: "1px solid rgba(0,0,0,0.08)",
             paddingBottom: "max(12px, env(safe-area-inset-bottom))",
           }}

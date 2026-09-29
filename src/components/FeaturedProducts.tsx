@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronLeft, ChevronRight, ArrowRight, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import { FEATURED_PRODUCTS } from "@/data/products";
@@ -29,27 +30,37 @@ const ACCENT_COLORS = [
 
 function VideoCycler() {
   const [active, setActive] = useState(0);
+  const [visible, setVisible] = useState(true);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
+  // Stop decoding video while the section is scrolled out of view; it frees the main thread for the rest of the page.
   useEffect(() => {
+    const host = videoRefs.current[0]?.parentElement;
+    if (!host) return;
+    const io = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting));
+    io.observe(host);
+    return () => io.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!visible) return;
     const id = setInterval(() => setActive((prev) => (prev + 1) % BG_VIDEOS.length), 10000);
     return () => clearInterval(id);
-  }, []);
+  }, [visible]);
 
   // Only the visible clip plays; the next one buffers ahead so the crossfade is seamless.
   useEffect(() => {
     const next = (active + 1) % BG_VIDEOS.length;
     videoRefs.current.forEach((v, i) => {
       if (!v) return;
-      if (i === active) {
-        v.currentTime = 0;
+      if (i === active && visible) {
         v.play().catch(() => {});
       } else {
         v.pause();
         if (i === next) v.preload = "auto";
       }
     });
-  }, [active]);
+  }, [active, visible]);
 
   return (
     <>
@@ -63,6 +74,7 @@ function VideoCycler() {
           playsInline
           autoPlay={i === 0}
           preload={i === 0 ? "auto" : "none"}
+          disablePictureInPicture
           className="absolute inset-0 w-full h-full object-cover"
           style={{
             zIndex: 0,
@@ -367,10 +379,14 @@ function LineupCard({
         style={{ background: "#F2F1ED" }}
       >
         {product.image ? (
-          <img
+          <Image
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+            fill
+            sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 767px) 340px, 240px"
+            loading={index < 2 ? "eager" : "lazy"}
+            fetchPriority={index < 2 ? "high" : "auto"}
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">

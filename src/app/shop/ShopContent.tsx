@@ -85,7 +85,7 @@ export default function ShopContent({ initialProducts }: Props) {
       {/* Category chips — sticky under the header on scroll */}
       <div
         className="sticky top-16 z-30"
-        style={{ background: "rgba(245,244,240,0.96)", backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
+        style={{ background: "#F5F4F0", borderBottom: "1px solid rgba(0,0,0,0.06)" }}
       >
         <div
           className="max-w-7xl mx-auto flex gap-2 overflow-x-auto px-4 py-3"

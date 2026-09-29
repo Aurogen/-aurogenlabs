@@ -58,9 +58,7 @@ export default function Navbar() {
       <header
         className="sticky top-0 z-40 w-full"
         style={{
-          background: "rgba(245,244,240,0.94)",
-          backdropFilter: "blur(14px) saturate(160%)",
-          WebkitBackdropFilter: "blur(14px) saturate(160%)",
+          background: "#F5F4F0",
           borderBottom: `1px solid ${LINE}`,
         }}
       >
