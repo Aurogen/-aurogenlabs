@@ -79,13 +79,22 @@ function VideoCycler() {
 export default function FeaturedProducts() {
   const { t } = useLanguage();
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const total = FEATURED_PRODUCTS.length;
 
   function onCarouselScroll() {
     const el = scrollRef.current;
-    if (!el) return;
-    const max = el.scrollWidth - el.clientWidth;
-    setProgress(max > 0 ? el.scrollLeft / max : 0);
+    const first = el?.firstElementChild as HTMLElement | null;
+    if (!el || !first) return;
+    const step = first.offsetWidth + parseFloat(getComputedStyle(el).columnGap || "0");
+    setActiveIndex(Math.min(total - 1, Math.max(0, Math.round(el.scrollLeft / step))));
+  }
+
+  function goTo(i: number) {
+    const el = scrollRef.current;
+    const card = el?.children[i] as HTMLElement | undefined;
+    if (!el || !card) return;
+    el.scrollTo({ left: card.offsetLeft - parseFloat(getComputedStyle(el).paddingLeft), behavior: "smooth" });
   }
 
   function scroll(dir: "left" | "right") {
@@ -94,7 +103,7 @@ export default function FeaturedProducts() {
   }
 
   return (
-    <section className="relative overflow-hidden bg-[#F5F4F0] md:bg-[#0D1117] md:min-h-[480px]">
+    <section className="relative overflow-hidden bg-[#F5F4F0]">
       {/* Content */}
       <div className="relative">
         {/* Mobile intro — light, centered, one clear action */}
@@ -159,17 +168,18 @@ export default function FeaturedProducts() {
           </p>
         </div>
 
-        {/* Video — framed card on mobile, full-bleed background on desktop */}
-        <div className="relative mx-4 mt-9 h-[230px] rounded-3xl overflow-hidden md:m-0 md:mt-0 md:h-auto md:rounded-none md:absolute md:inset-0" style={{ background: "#0D1117" }}>
-          <VideoCycler />
-          <div
-            className="absolute inset-0"
-            style={{
-              background: "linear-gradient(to bottom, rgba(8,10,14,0.35) 0%, rgba(8,10,14,0.25) 45%, rgba(8,10,14,0.7) 100%)",
-              zIndex: 1,
-            }}
-          />
-        </div>
+        {/* Top sellers — the lab video plays behind the products */}
+        <div className="relative mt-10 md:mt-0 md:min-h-[480px]" style={{ background: "#0D1117" }}>
+          <div className="absolute inset-0 overflow-hidden">
+            <VideoCycler />
+            <div
+              className="absolute inset-0"
+              style={{
+                background: "linear-gradient(to bottom, rgba(8,10,14,0.55) 0%, rgba(8,10,14,0.35) 45%, rgba(8,10,14,0.75) 100%)",
+                zIndex: 1,
+              }}
+            />
+          </div>
 
         {/* Header */}
         <div className="relative z-[1] px-5 sm:px-8 md:px-12 lg:px-16 pt-10 sm:pt-14 pb-5 sm:pb-8 flex flex-col md:flex-row items-center md:items-end md:justify-between gap-2 md:gap-0 text-center md:text-left max-w-7xl mx-auto">
@@ -177,7 +187,7 @@ export default function FeaturedProducts() {
             <p className="hidden md:block text-sm mb-2" style={{ color: "rgba(255,255,255,0.65)" }}>
               {t("Top sellers", "Más vendidos")}
             </p>
-            <h2 className="md:hidden font-bold text-[28px]" style={{ color: "#111111", fontFamily: "var(--font-heading, sans-serif)" }}>
+            <h2 className="md:hidden font-bold text-[30px]" style={{ color: "#FFFFFF", fontFamily: "var(--font-heading, sans-serif)" }}>
               {t("Top sellers", "Más vendidos")}
             </h2>
             <h2
@@ -196,7 +206,7 @@ export default function FeaturedProducts() {
           <div className="flex items-center gap-5">
             <Link
               href="/shop"
-              className="text-sm underline underline-offset-4 decoration-current/40 transition-colors text-[#111111] md:text-white"
+              className="text-sm underline underline-offset-4 decoration-white/50 transition-colors text-white"
             >
               {t("Shop all", "Ver todo")}
             </Link>
@@ -225,7 +235,7 @@ export default function FeaturedProducts() {
         <div
           ref={scrollRef}
           onScroll={onCarouselScroll}
-          className="relative z-[1] flex gap-3 sm:gap-4 overflow-x-auto pb-5 md:pb-14 px-5 sm:px-8 md:px-12 scroll-px-5 sm:scroll-px-8 md:scroll-px-12 lg:px-[max(4rem,calc((100vw-80rem)/2+4rem))] lg:scroll-px-[max(4rem,calc((100vw-80rem)/2+4rem))]"
+          className="relative z-[1] flex gap-5 md:gap-4 overflow-x-auto pb-5 md:pb-14 px-5 sm:px-8 md:px-12 scroll-px-5 sm:scroll-px-8 md:scroll-px-12 lg:px-[max(4rem,calc((100vw-80rem)/2+4rem))] lg:scroll-px-[max(4rem,calc((100vw-80rem)/2+4rem))]"
           style={{
             scrollSnapType: "x mandatory",
             WebkitOverflowScrolling: "touch",
@@ -244,14 +254,40 @@ export default function FeaturedProducts() {
 
         </div>
 
-        {/* Swipe progress — mobile only */}
-        <div className="md:hidden px-5 pb-10">
-          <div className="h-[2px] rounded-full overflow-hidden mx-auto max-w-[160px]" style={{ background: "rgba(0,0,0,0.1)" }}>
-            <div
-              className="h-full rounded-full"
-              style={{ width: `${Math.max(18, progress * 100)}%`, background: "#111111", transition: "width 120ms linear" }}
-            />
+        {/* One-at-a-time controls — mobile only */}
+        <div className="relative z-[1] md:hidden flex items-center justify-center gap-5 pt-2 pb-10">
+          <button
+            onClick={() => goTo(Math.max(0, activeIndex - 1))}
+            disabled={activeIndex === 0}
+            aria-label={t("Previous product", "Producto anterior")}
+            className="w-12 h-12 rounded-full flex items-center justify-center transition-opacity disabled:opacity-35"
+            style={{ background: "rgba(255,255,255,0.14)", border: "1px solid rgba(255,255,255,0.35)", color: "#FFFFFF" }}
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <div className="flex items-center gap-2" role="tablist" aria-label={t("Top sellers", "Más vendidos")}>
+            {FEATURED_PRODUCTS.map((p, i) => (
+              <button
+                key={p.id}
+                onClick={() => goTo(i)}
+                role="tab"
+                aria-selected={i === activeIndex}
+                aria-label={`${i + 1} / ${total}: ${p.name}`}
+                className="h-2 rounded-full transition-all duration-300"
+                style={{ width: i === activeIndex ? 24 : 8, background: i === activeIndex ? "#FFFFFF" : "rgba(255,255,255,0.4)" }}
+              />
+            ))}
           </div>
+          <button
+            onClick={() => goTo(Math.min(total - 1, activeIndex + 1))}
+            disabled={activeIndex === total - 1}
+            aria-label={t("Next product", "Siguiente producto")}
+            className="w-12 h-12 rounded-full flex items-center justify-center transition-opacity disabled:opacity-35"
+            style={{ background: "#FFFFFF", color: "#111111" }}
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
         </div>
       </div>
     </section>
@@ -283,12 +319,12 @@ function LineupCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: Math.min(index, 4) * 0.05 }}
-      className="group shrink-0 flex flex-col rounded-xl overflow-hidden"
-      style={{ width: "min(68vw, 240px)", scrollSnapAlign: "start", background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.06)" }}
+      className="group shrink-0 flex flex-col rounded-2xl md:rounded-xl overflow-hidden w-[calc(100vw-2.5rem)] sm:w-[340px] md:w-[240px]"
+      style={{ scrollSnapAlign: "start", background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.06)" }}
     >
       <Link
         href={`/product/${product.slug}`}
-        className="relative block overflow-hidden aspect-square"
+        className="relative block overflow-hidden aspect-[5/4] md:aspect-square"
         style={{ background: "#F2F1ED" }}
       >
         {product.image ? (
