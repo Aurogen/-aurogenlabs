@@ -5,7 +5,6 @@ import Link from "next/link";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, ArrowRight, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
-import { FEATURED_PRODUCTS } from "@/data/products";
 import type { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/context/LanguageContext";
@@ -88,11 +87,11 @@ function VideoCycler() {
   );
 }
 
-export default function FeaturedProducts() {
+export default function FeaturedProducts({ products }: { products: Product[] }) {
   const { t } = useLanguage();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const total = FEATURED_PRODUCTS.length;
+  const total = products.length;
 
   function onCarouselScroll() {
     const el = scrollRef.current;
@@ -294,7 +293,7 @@ export default function FeaturedProducts() {
             scrollbarWidth: "none",
           }}
         >
-          {FEATURED_PRODUCTS.map((product, i) => (
+          {products.map((product, i) => (
             <LineupCard
               key={product.id}
               product={product}
@@ -317,7 +316,7 @@ export default function FeaturedProducts() {
             <ChevronLeft className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-2" role="tablist" aria-label={t("Top sellers", "Más vendidos")}>
-            {FEATURED_PRODUCTS.map((p, i) => (
+            {products.map((p, i) => (
               <button
                 key={p.id}
                 onClick={() => goTo(i)}
