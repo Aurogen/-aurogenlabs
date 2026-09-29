@@ -90,12 +90,49 @@ export default function FeaturedProducts() {
     setActiveIndex(Math.min(total - 1, Math.max(0, Math.round(el.scrollLeft / step))));
   }
 
-  function goTo(i: number) {
+  const activeRef = useRef(0);
+  const pausedUntil = useRef(0);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    activeRef.current = activeIndex;
+  }, [activeIndex]);
+
+  function scrollToCard(i: number) {
     const el = scrollRef.current;
     const card = el?.children[i] as HTMLElement | undefined;
     if (!el || !card) return;
     el.scrollTo({ left: card.offsetLeft - parseFloat(getComputedStyle(el).paddingLeft), behavior: "smooth" });
   }
+
+  function pauseAutoplay() {
+    pausedUntil.current = Date.now() + 8000;
+  }
+
+  function goTo(i: number) {
+    pauseAutoplay();
+    scrollToCard(i);
+  }
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const io = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.4 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // Mobile only: advance one product every few seconds while the carousel is on screen.
+  useEffect(() => {
+    if (!inView) return;
+    if (!window.matchMedia("(max-width: 767px)").matches) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const id = setInterval(() => {
+      if (Date.now() < pausedUntil.current) return;
+      scrollToCard((activeRef.current + 1) % total);
+    }, 4500);
+    return () => clearInterval(id);
+  }, [inView, total]);
 
   function scroll(dir: "left" | "right") {
     if (!scrollRef.current) return;
@@ -107,7 +144,7 @@ export default function FeaturedProducts() {
       {/* Content */}
       <div className="relative">
         {/* Mobile intro — light, centered, one clear action */}
-        <div className="md:hidden px-6 pt-10 text-center">
+        <div className="md:hidden px-5 pt-10 text-center">
           <motion.p
             initial={{ opacity: 0, y: 6 }}
             animate={{ opacity: 1, y: 0 }}
@@ -125,8 +162,8 @@ export default function FeaturedProducts() {
             className="mt-5 font-bold"
             style={{
               fontFamily: "var(--font-heading, sans-serif)",
-              fontSize: "clamp(32px, 9.4vw, 40px)",
-              lineHeight: 1.04,
+              fontSize: "clamp(24px, 6.9vw, 32px)",
+              lineHeight: 1.1,
               letterSpacing: "-0.02em",
               color: "#111111",
             }}
@@ -187,7 +224,7 @@ export default function FeaturedProducts() {
             <p className="hidden md:block text-sm mb-2" style={{ color: "rgba(255,255,255,0.65)" }}>
               {t("Top sellers", "Más vendidos")}
             </p>
-            <h2 className="md:hidden font-bold text-[30px]" style={{ color: "#FFFFFF", fontFamily: "var(--font-heading, sans-serif)" }}>
+            <h2 className="md:hidden font-bold text-[26px]" style={{ color: "#FFFFFF", fontFamily: "var(--font-heading, sans-serif)" }}>
               {t("Top sellers", "Más vendidos")}
             </h2>
             <h2
@@ -235,6 +272,8 @@ export default function FeaturedProducts() {
         <div
           ref={scrollRef}
           onScroll={onCarouselScroll}
+          onPointerDown={pauseAutoplay}
+          onTouchStart={pauseAutoplay}
           className="relative z-[1] flex gap-5 md:gap-4 overflow-x-auto pb-5 md:pb-14 px-5 sm:px-8 md:px-12 scroll-px-5 sm:scroll-px-8 md:scroll-px-12 lg:px-[max(4rem,calc((100vw-80rem)/2+4rem))] lg:scroll-px-[max(4rem,calc((100vw-80rem)/2+4rem))]"
           style={{
             scrollSnapType: "x mandatory",
