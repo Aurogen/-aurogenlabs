@@ -42,21 +42,6 @@ export const CATEGORIES: { label: Category; label_es: string }[] = [
   { label: "Reagents", label_es: "Reactivos" },
 ];
 
-const RETATRUTIDE_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_9fde8aa4-414d-4c37-a7f9-85d36ed6d7c0.png";
-const TIRZEPATIDE_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_0a1e32d0-3cdd-448d-86ed-a1978ccb4e9a.png";
-const BPC157_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204044_9a592981-ce95-4a2f-959b-732c7447dfc3.png";
-const IPAMORELIN_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204152_133852e6-357e-4e30-a155-b5deab3c2e4e.png";
-const MOTSC_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_015c0f05-e05e-4494-b9bf-5f4f3c2bd19b.png";
-const TB500_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_09558d4f-0819-44fb-95e5-b84a5fa39a85.png";
-const CJC_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_5e8d1ad5-892f-4355-af25-5334fb2cdb9c.png";
-const GHKCU_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_8dcb18b7-ea4d-4eca-b05f-69a13c7f5a3b.png";
-const TESAMORELIN_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_489fc8b4-1651-4fb5-adc7-0ef1cc33c2f2.png";
-const TB500BPC157_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_c1e43088-9807-451b-9fc5-f201730e98d5.png";
-const NADPLUS_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_f5a119af-32a7-4c5f-a6de-168791baa378.png";
-const SERMORELIN_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_e3935470-ae8b-4971-bce0-6cb0f6e7350a.png";
-const KLOWBLEND_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_5bc4f7d4-49bb-4d1f-8240-0eb9f5ec1ef5.png";
-const BACWATER_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204203_f01df26a-4249-4eeb-ae55-7404af2cdb45.png";
-
 export const PRODUCTS: Product[] = [
   // ── Retatrutide ──────────────────────────────────────────────
   {
@@ -76,7 +61,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "4731.4 g/mol",
     storage: "2-8°C · Protect from light",
     badge: "BEST SELLER",
-    image: RETATRUTIDE_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233032_77c503c9-ddb0-43c7-b461-6f30d95634d1.png",
   },
   {
     id: "2",
@@ -94,7 +79,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.2%",
     molecularWeight: "4731.4 g/mol",
     storage: "2-8°C · Protect from light",
-    image: RETATRUTIDE_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233032_394613be-a0fa-408e-9223-e57e7a3fb603.png",
   },
   {
     id: "3",
@@ -112,7 +97,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.2%",
     molecularWeight: "4731.4 g/mol",
     storage: "2-8°C · Protect from light",
-    image: RETATRUTIDE_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233033_c8ca8226-37d8-4c31-bd24-88a6f44fa223.png",
   },
   {
     id: "4",
@@ -130,7 +115,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.2%",
     molecularWeight: "4731.4 g/mol",
     storage: "2-8°C · Protect from light",
-    image: RETATRUTIDE_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233033_e493f2fb-369c-4b7e-bdcd-faa9d390c147.png",
   },
   {
     id: "5",
@@ -149,7 +134,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "4731.4 g/mol",
     storage: "2-8°C · Protect from light",
     badge: "BULK",
-    image: RETATRUTIDE_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233033_72e59d5e-12c9-4190-9613-d982371b2940.png",
   },
   // ── Tirzepatide ───────────────────────────────────────────────
   {
@@ -169,7 +154,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "4813.47 g/mol",
     storage: "2-8°C · Protect from light",
     badge: "POPULAR",
-    image: TIRZEPATIDE_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233033_98d9545f-2501-4286-ac39-0912b9411f6b.png",
   },
   {
     id: "7",
@@ -187,7 +172,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.3%",
     molecularWeight: "4813.47 g/mol",
     storage: "2-8°C · Protect from light",
-    image: TIRZEPATIDE_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233033_c8105c1d-0db6-4f8a-a1b8-818f7b1f310b.png",
   },
   {
     id: "8",
@@ -205,7 +190,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.3%",
     molecularWeight: "4813.47 g/mol",
     storage: "2-8°C · Protect from light",
-    image: TIRZEPATIDE_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233033_efbdcf20-6c8b-4690-bc0e-4c12c1324edf.png",
   },
   {
     id: "9",
@@ -223,7 +208,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.3%",
     molecularWeight: "4813.47 g/mol",
     storage: "2-8°C · Protect from light",
-    image: TIRZEPATIDE_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233033_98531e34-3d36-49e4-a731-5a122eba7fa6.png",
   },
   {
     id: "10",
@@ -242,7 +227,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "4813.47 g/mol",
     storage: "2-8°C · Protect from light",
     badge: "BULK",
-    image: TIRZEPATIDE_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233033_1a30c21f-720a-44dc-b219-7642a5db2a0d.png",
   },
   // ── GHK-Cu ────────────────────────────────────────────────────
   {
@@ -262,7 +247,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "340.38 g/mol",
     storage: "2-8°C · Protect from light",
     badge: "PREMIUM",
-    image: GHKCU_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233033_4c007785-2760-44e3-b786-e8d623ef7662.png",
   },
   // ── Tesamorelin ───────────────────────────────────────────────
   {
@@ -281,7 +266,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.0%",
     molecularWeight: "5135.5 g/mol",
     storage: "2-8°C · Protect from light",
-    image: TESAMORELIN_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233033_5484cf95-d023-4ce0-8c75-f5ec5dc66d2c.png",
   },
   // ── TB-500 ────────────────────────────────────────────────────
   {
@@ -300,7 +285,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.0%",
     molecularWeight: "2888.14 g/mol",
     storage: "2-8°C · Protect from light",
-    image: TB500_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233239_b0751c60-388f-4f62-a2b4-a75423795a6d.png",
   },
   // ── BPC-157 ───────────────────────────────────────────────────
   {
@@ -319,7 +304,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.1%",
     molecularWeight: "1419.55 g/mol",
     storage: "2-8°C · Protect from light",
-    image: BPC157_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233239_62b9b7f0-78a9-48d7-a258-e48132fe6b17.png",
   },
   // ── TB-500 + BPC-157 Combo ────────────────────────────────────
   {
@@ -338,7 +323,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.0%",
     storage: "2-8°C · Protect from light",
     badge: "COMBO",
-    image: TB500BPC157_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233239_021bc7bf-bee6-4792-ae41-aa4d97da47df.png",
   },
   // ── NAD+ ──────────────────────────────────────────────────────
   {
@@ -358,7 +343,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "663.43 g/mol",
     storage: "-20°C · Lyophilized",
     badge: "PREMIUM",
-    image: NADPLUS_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233239_49c9ae22-4314-40d9-8d92-77dccfbaef17.png",
   },
   // ── MOTS-C ────────────────────────────────────────────────────
   {
@@ -377,7 +362,7 @@ export const PRODUCTS: Product[] = [
     purity: "98.9%",
     molecularWeight: "2174.5 g/mol",
     storage: "-20°C · Lyophilized",
-    image: MOTSC_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233239_9ca0d0a1-2329-4302-af5d-0b24dacd842d.png",
   },
   {
     id: "18",
@@ -396,7 +381,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "2174.5 g/mol",
     storage: "-20°C · Lyophilized",
     badge: "NEW",
-    image: MOTSC_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233239_7d8956e5-ee3e-42ad-98ef-370991fb1a98.png",
   },
   // ── Ipamorelin ────────────────────────────────────────────────
   {
@@ -415,7 +400,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.0%",
     molecularWeight: "711.85 g/mol",
     storage: "2-8°C · Protect from light",
-    image: IPAMORELIN_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233239_19ebb7bc-479b-4e78-8929-b69efd6c31e2.png",
   },
   // ── Ipamorelin + CJC-1295 Combo ──────────────────────────────
   {
@@ -434,7 +419,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.0%",
     storage: "2-8°C · Protect from light",
     badge: "COMBO",
-    image: CJC_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233239_28162e88-1f43-4c46-9ffc-0fce2f3abd0e.png",
   },
   // ── Sermorelin ────────────────────────────────────────────────
   {
@@ -453,7 +438,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.1%",
     molecularWeight: "3357.93 g/mol",
     storage: "2-8°C · Protect from light",
-    image: SERMORELIN_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233239_f253dab4-f7f7-4cd2-8e3b-e3fbfab2d89f.png",
   },
   // ── KLOW Blend ────────────────────────────────────────────────
   {
@@ -472,7 +457,7 @@ export const PRODUCTS: Product[] = [
     purity: "99.0%",
     storage: "-20°C · Lyophilized",
     badge: "EXCLUSIVE",
-    image: KLOWBLEND_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_235409_e5fcbece-b4d7-4c7a-a618-87d390712a99.png",
   },
   // ── Bacteriostatic Water ──────────────────────────────────────
   {
@@ -490,7 +475,7 @@ export const PRODUCTS: Product[] = [
     featured: false,
     purity: "USP Grade",
     storage: "Room temperature · Keep sealed",
-    image: BACWATER_IMG,
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_233239_f5af126b-7d02-4e17-ae9d-fd3766346edd.png",
   },
 ];
 
