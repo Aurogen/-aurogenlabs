@@ -105,8 +105,8 @@ export default function TrustSection() {
                 transition={{ duration: 0.35 }}
                 className="flex items-center gap-3 mb-5"
               >
-                <span style={{ display: "block", width: 24, height: 1, background: "#B8975A" }} />
-                <span className="text-[10px] font-semibold tracking-[0.35em] uppercase" style={{ color: "#B8975A" }}>
+                <span style={{ display: "block", width: 24, height: 1, background: "#0A84FF" }} />
+                <span className="text-[10px] font-semibold tracking-[0.35em] uppercase" style={{ color: "#0A84FF" }}>
                   {t("Why researchers choose us", "Por qué nos eligen")}
                 </span>
               </motion.p>
@@ -144,14 +144,14 @@ export default function TrustSection() {
                 <div className="flex items-start gap-4 mb-4">
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                    style={{ background: "rgba(184,151,90,0.08)", border: "1px solid rgba(184,151,90,0.18)" }}
+                    style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
                   >
-                    <f.Icon className="w-4 h-4" style={{ color: "#B8975A" }} />
+                    <f.Icon className="w-4 h-4" style={{ color: "#0A84FF" }} />
                   </div>
                   <div>
                     <p
                       className="text-[9px] font-bold tracking-[0.2em] uppercase mb-1"
-                      style={{ fontFamily: "var(--font-jetbrains, monospace)", color: "#B8975A" }}
+                      style={{ fontFamily: "var(--font-jetbrains, monospace)", color: "#0A84FF" }}
                     >
                       {f.code}
                     </p>

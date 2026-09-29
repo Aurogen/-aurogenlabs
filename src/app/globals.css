@@ -6,8 +6,8 @@
   --color-navy-800: #111111;
   --color-navy-700: #171717;
   --color-navy-600: #202020;
-  --color-gold:     #B8975A;
-  --color-gold-light: #D4B47A;
+  --color-gold:     #0A84FF;
+  --color-gold-light: #4DA6FF;
   --color-silver:   #ABABAB;
   --color-text-primary: #F2EFE8;
   --color-text-muted:   #888888;
@@ -19,7 +19,7 @@
 :root {
   --background: #F4F3EF;
   --foreground: #111111;
-  --accent-gold: #B8975A;
+  --accent-gold: #0A84FF;
 }
 
 * {
@@ -51,33 +51,33 @@ h1, h2, h3, h4, h5, h6 {
 /* Scrollbar */
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: #EAE8E2; }
-::-webkit-scrollbar-thumb { background: #B8975A; border-radius: 3px; }
+::-webkit-scrollbar-thumb { background: #0A84FF; border-radius: 3px; }
 
 /* Selection */
 ::selection {
-  background: rgba(184, 151, 90, 0.2);
+  background: rgba(10, 132, 255, 0.2);
   color: #111111;
 }
 
 /* Card glass effect */
 .glass-card {
   background: rgba(18, 14, 8, 0.7);
-  border: 1px solid rgba(184, 151, 90, 0.15);
+  border: 1px solid rgba(10, 132, 255, 0.15);
   backdrop-filter: blur(12px);
 }
 
 /* Gradient mesh background */
 .gradient-mesh {
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(184, 151, 90, 0.04) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(184, 151, 90, 0.025) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 50%, rgba(10, 132, 255, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(10, 132, 255, 0.025) 0%, transparent 50%),
     #080808;
 }
 
 /* Animated border */
 @keyframes border-pulse {
-  0%, 100% { border-color: rgba(184, 151, 90, 0.2); }
-  50% { border-color: rgba(184, 151, 90, 0.5); }
+  0%, 100% { border-color: rgba(10, 132, 255, 0.2); }
+  50% { border-color: rgba(10, 132, 255, 0.5); }
 }
 
 .border-animate {
@@ -91,7 +91,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .shimmer {
-  background: linear-gradient(90deg, transparent 0%, rgba(184, 151, 90, 0.10) 50%, transparent 100%);
+  background: linear-gradient(90deg, transparent 0%, rgba(10, 132, 255, 0.10) 50%, transparent 100%);
   background-size: 200% 100%;
   animation: shimmer 2s infinite;
 }

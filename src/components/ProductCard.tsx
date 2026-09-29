@@ -41,7 +41,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
               border: "1px solid rgba(255,255,255,0.06)",
               borderRadius: "4px",
             }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(184,151,90,0.25)"; }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(10,132,255,0.25)"; }}
             onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.borderColor = "rgba(255,255,255,0.06)"; }}
           >
 
@@ -79,7 +79,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                   className="absolute inset-0 flex items-end justify-center pb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                   style={{ background: "linear-gradient(to top, rgba(0,0,0,0.4) 0%, transparent 55%)" }}
                 >
-                  <span className="flex items-center gap-1 text-[10px] font-semibold tracking-[0.2em] uppercase" style={{ color: "#B8975A" }}>
+                  <span className="flex items-center gap-1 text-[10px] font-semibold tracking-[0.2em] uppercase" style={{ color: "#0A84FF" }}>
                     View <ArrowRight className="w-3 h-3" />
                   </span>
                 </div>
@@ -97,7 +97,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                 {product.badge && (
                   <span
                     className="px-2.5 py-0.5 text-[9px] font-bold tracking-widest uppercase"
-                    style={{ background: "#B8975A", color: "#080808", borderRadius: "2px" }}
+                    style={{ background: "#0A84FF", color: "#080808", borderRadius: "2px" }}
                   >
                     {product.badge}
                   </span>
@@ -119,9 +119,9 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                     key={g}
                     className="px-2 py-0.5 text-[10px] font-medium tracking-wide"
                     style={{
-                      background: "rgba(184,151,90,0.08)",
-                      color: "rgba(184,151,90,0.75)",
-                      border: "1px solid rgba(184,151,90,0.2)",
+                      background: "rgba(10,132,255,0.08)",
+                      color: "rgba(10,132,255,0.75)",
+                      border: "1px solid rgba(10,132,255,0.2)",
                       borderRadius: "2px",
                     }}
                   >
@@ -147,7 +147,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
               </p>
 
               <div className="flex items-center gap-1 mb-3">
-                <FlaskConical className="w-3 h-3 shrink-0" style={{ color: "rgba(184,151,90,0.5)" }} />
+                <FlaskConical className="w-3 h-3 shrink-0" style={{ color: "rgba(10,132,255,0.5)" }} />
                 <span
                   className="text-[11px]"
                   style={{ fontFamily: "var(--font-jetbrains, monospace)", color: "#4A4A4E", letterSpacing: "0.04em" }}
@@ -187,9 +187,9 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
                     whileTap={{ scale: 0.97 }}
                     className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold transition-all"
                     style={{
-                      background: added ? "rgba(184,151,90,0.15)" : "rgba(255,255,255,0.06)",
-                      color: added ? "#B8975A" : "#9E9EA8",
-                      border: added ? "1px solid rgba(184,151,90,0.3)" : "1px solid rgba(255,255,255,0.08)",
+                      background: added ? "rgba(10,132,255,0.15)" : "rgba(255,255,255,0.06)",
+                      color: added ? "#0A84FF" : "#9E9EA8",
+                      border: added ? "1px solid rgba(10,132,255,0.3)" : "1px solid rgba(255,255,255,0.08)",
                       borderRadius: "2px",
                       transition: "all 0.3s",
                     }}
@@ -229,7 +229,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
   );
 }
 
-const VIAL_ACCENTS = ["#6B7A8D", "#B8975A", "#4D6080", "#6B7A8D", "#B8975A", "#4D6080"];
+const VIAL_ACCENTS = ["#6B7A8D", "#0A84FF", "#4D6080", "#6B7A8D", "#0A84FF", "#4D6080"];
 
 function ProductVialDetailed({ index }: { index: number }) {
   const accent = VIAL_ACCENTS[index % VIAL_ACCENTS.length];

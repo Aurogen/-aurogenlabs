@@ -152,7 +152,7 @@ export default function RefundPage() {
         {/* Research Use Disclaimer */}
         <div
           className="p-5 rounded-2xl mb-10 text-sm leading-relaxed"
-          style={{ background: "rgba(184,151,90,0.07)", border: "1px solid rgba(184,151,90,0.25)", color: "#6E6E73" }}
+          style={{ background: "rgba(10,132,255,0.07)", border: "1px solid rgba(10,132,255,0.25)", color: "#6E6E73" }}
         >
           <p className="font-semibold mb-2" style={{ color: "#1D1D1F" }}>Research Use Only</p>
           <p>

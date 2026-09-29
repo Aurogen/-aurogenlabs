@@ -58,8 +58,8 @@ export default function Hero() {
               transition={{ duration: 0.35 }}
               className="flex items-center gap-3 mb-7"
             >
-              <span style={{ display: "block", width: 28, height: 1, background: "#B8975A", flexShrink: 0 }} />
-              <span className="text-[10px] font-semibold tracking-[0.35em] uppercase" style={{ color: "#B8975A" }}>
+              <span style={{ display: "block", width: 28, height: 1, background: "#0A84FF", flexShrink: 0 }} />
+              <span className="text-[10px] font-semibold tracking-[0.35em] uppercase" style={{ color: "#0A84FF" }}>
                 {t("Research-Grade Peptides", "Péptidos de Investigación")}
               </span>
             </motion.p>
@@ -82,13 +82,13 @@ export default function Hero() {
                 <>
                   El estándar de oro<br />
                   en péptidos de<br />
-                  <span style={{ color: "#B8975A" }}>investigación.</span>
+                  <span style={{ color: "#0A84FF" }}>investigación.</span>
                 </>
               ) : (
                 <>
                   The gold standard<br />
                   in research<br />
-                  <span style={{ color: "#B8975A" }}>peptides.</span>
+                  <span style={{ color: "#0A84FF" }}>peptides.</span>
                 </>
               )}
             </motion.h2>
@@ -169,7 +169,7 @@ export default function Hero() {
                 </p>
                 <p
                   className="text-[9px] font-medium tracking-[0.1em] uppercase"
-                  style={{ fontFamily: "var(--font-jetbrains, monospace)", color: "#B8975A" }}
+                  style={{ fontFamily: "var(--font-jetbrains, monospace)", color: "#0A84FF" }}
                 >
                   {stat.sub}
                 </p>
@@ -189,7 +189,7 @@ export default function Hero() {
           <div className="flex items-center gap-6 sm:gap-10 min-w-max">
             {trust.map(({ Icon, text }, i) => (
               <div key={i} className="flex items-center gap-2.5 shrink-0">
-                <Icon className="w-3.5 h-3.5 shrink-0" style={{ color: "#B8975A" }} />
+                <Icon className="w-3.5 h-3.5 shrink-0" style={{ color: "#0A84FF" }} />
                 <span className="text-[11px] font-medium whitespace-nowrap" style={{ color: "#4A4A4A" }}>
                   {text}
                 </span>

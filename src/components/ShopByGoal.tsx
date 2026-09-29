@@ -80,11 +80,11 @@ export default function ShopByGoal() {
             viewport={{ once: true }}
             className="flex items-center justify-center gap-3 mb-5"
           >
-            <span style={{ display: "block", width: 24, height: 1, background: "#B8975A" }} />
+            <span style={{ display: "block", width: 24, height: 1, background: "#0A84FF" }} />
             <p className="text-[10px] font-semibold tracking-[0.38em] uppercase" style={{ color: "#9E9EA8" }}>
               Browse by objective
             </p>
-            <span style={{ display: "block", width: 24, height: 1, background: "#B8975A" }} />
+            <span style={{ display: "block", width: 24, height: 1, background: "#0A84FF" }} />
           </motion.div>
           <motion.h2
             initial={{ opacity: 0, transform: "translateY(16px)" }}

@@ -92,7 +92,7 @@ export default function Navbar() {
               style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#F2EDE4" }}
             >
               AUROGEN
-              <span className="text-[9px] tracking-[0.35em] ml-1.5 align-middle" style={{ color: "#B8975A" }}>
+              <span className="text-[9px] tracking-[0.35em] ml-1.5 align-middle" style={{ color: "#0A84FF" }}>
                 LABS
               </span>
             </span>
@@ -224,9 +224,9 @@ export default function Navbar() {
               <Link
                 href="/admin"
                 className="hidden md:flex items-center px-3 py-1.5 text-xs font-semibold rounded-full transition-colors"
-                style={{ color: "#B8975A", background: "rgba(184,151,90,0.08)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(184,151,90,0.15)")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(184,151,90,0.08)")}
+                style={{ color: "#0A84FF", background: "rgba(10,132,255,0.08)" }}
+                onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(10,132,255,0.15)")}
+                onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(10,132,255,0.08)")}
               >
                 Admin
               </Link>
@@ -262,7 +262,7 @@ export default function Navbar() {
               {totalItems > 0 && (
                 <span
                   className="absolute -top-0.5 -right-0.5 rounded-full text-[9px] font-bold flex items-center justify-center"
-                  style={{ background: "#B8975A", color: "#080808", minWidth: "15px", minHeight: "15px", padding: "0 2px" }}
+                  style={{ background: "#0A84FF", color: "#080808", minWidth: "15px", minHeight: "15px", padding: "0 2px" }}
                 >
                   {totalItems}
                 </span>
@@ -273,7 +273,7 @@ export default function Navbar() {
             <Link
               href="/shop"
               className="hidden lg:flex items-center gap-1.5 ml-1 px-5 py-2 rounded-full text-sm font-semibold transition-opacity hover:opacity-85"
-              style={{ background: "#B8975A", color: "#080808" }}
+              style={{ background: "#0A84FF", color: "#080808" }}
             >
               {lang === "es" ? "Ver Catálogo" : "Shop Now"}
               <ArrowRight className="w-3.5 h-3.5" />
@@ -335,7 +335,7 @@ export default function Navbar() {
                 href="/admin"
                 onClick={() => setMobileOpen(false)}
                 className="block px-5 py-3.5 text-sm font-semibold"
-                style={{ color: "#B8975A", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
+                style={{ color: "#0A84FF", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
               >
                 Admin
               </Link>
