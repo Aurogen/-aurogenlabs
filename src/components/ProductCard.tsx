@@ -64,20 +64,20 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
           )}
         </Link>
 
-        <div className="flex flex-col flex-1 p-4">
+        <div className="flex flex-col flex-1 p-3 sm:p-4">
           <Link href={`/product/${product.slug}`} className="block">
-            <h3 className="font-semibold text-[15px] leading-snug" style={{ color: "#111111", fontFamily: "var(--font-body, sans-serif)" }}>
+            <h3 className="font-semibold text-[14px] sm:text-[15px] leading-snug" style={{ color: "#111111", fontFamily: "var(--font-body, sans-serif)" }}>
               {product.name}
               <span className="font-normal" style={{ color: "#6B6B6B" }}> · {product.concentration}</span>
             </h3>
-            <p className="text-[13px] mt-1" style={{ color: "#6B6B6B" }}>
-              {product.goals[0] ?? product.compound} · {product.purity} purity
+            <p className="text-[12px] sm:text-[13px] mt-1 line-clamp-1" style={{ color: "#6B6B6B" }}>
+              {product.goals[0] ?? product.compound}
             </p>
           </Link>
 
-          <div className="mt-auto pt-4 flex items-center justify-between">
+          <div className="mt-auto pt-3 sm:pt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
             <div className="flex items-baseline gap-2">
-              <span className="font-semibold text-[17px]" style={{ color: "#111111" }}>${product.price}</span>
+              <span className="font-semibold text-[16px] sm:text-[17px]" style={{ color: "#111111" }}>${product.price}</span>
               {product.originalPrice && (
                 <span className="text-[13px] line-through" style={{ color: "#9A9AA0" }}>${product.originalPrice}</span>
               )}
@@ -85,7 +85,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
             {product.inStock ? (
               <button
                 onClick={handleAddToCart}
-                className="h-9 px-4 rounded-full text-[13px] font-medium transition-colors"
+                className="w-full sm:w-auto h-10 sm:h-9 px-4 rounded-full text-[13px] font-medium transition-colors"
                 style={{ background: added ? "#0A84FF" : "#111111", color: "#FFFFFF" }}
               >
                 {added ? "Added" : "Add to cart"}
@@ -93,7 +93,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
             ) : (
               <button
                 onClick={() => setShowNotify(true)}
-                className="h-9 px-4 rounded-full text-[13px] font-medium"
+                className="w-full sm:w-auto h-10 sm:h-9 px-4 rounded-full text-[13px] font-medium"
                 style={{ border: "1px solid rgba(0,0,0,0.15)", color: "#111111" }}
               >
                 Notify me

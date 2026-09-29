@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -37,6 +37,33 @@ export default function ProductDetail({ product, related }: Props) {
   const [activeTab, setActiveTab] = useState<Tab>("desc");
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
+  const buyRef = useRef<HTMLDivElement>(null);
+  const [showStickyBuy, setShowStickyBuy] = useState(false);
+
+  useEffect(() => {
+    const el = buyRef.current;
+    if (!el) return;
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      setShowStickyBuy(el.getBoundingClientRect().bottom < 0);
+    };
+    const onScroll = () => { if (!frame) frame = requestAnimationFrame(update); };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    update();
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  // Keep the Crisp chat bubble from covering the sticky buy button on mobile.
+  useEffect(() => {
+    const crisp = (window as unknown as { $crisp?: unknown[] }).$crisp;
+    if (!crisp || !window.matchMedia("(max-width: 1023px)").matches) return;
+    crisp.push(["do", showStickyBuy ? "chat:hide" : "chat:show"]);
+  }, [showStickyBuy]);
+
   function handleAdd() {
     for (let i = 0; i < qty; i++) addItem(product);
     setAdded(true);
@@ -52,7 +79,7 @@ export default function ProductDetail({ product, related }: Props) {
 
   return (
     <div className="min-h-screen" style={{ background: "#F6F6F8", color: "#1D1D1F" }}>
-      <div className="max-w-7xl mx-auto px-4 py-10">
+      <div className="max-w-7xl mx-auto px-4 pt-6 pb-28 lg:py-10">
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 text-sm mb-8" style={{ color: "#9E9EA8" }}>
           <Link href="/" className="transition-opacity hover:opacity-70" style={{ color: "#6E6E73" }}>Home</Link>
@@ -63,7 +90,7 @@ export default function ProductDetail({ product, related }: Props) {
         </nav>
 
         {/* Main grid */}
-        <div className="grid lg:grid-cols-2 gap-12 mb-16">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 mb-12 lg:mb-16">
           {/* Left: Vial + badges */}
           <div>
             <motion.div
@@ -199,14 +226,15 @@ export default function ProductDetail({ product, related }: Props) {
 
             {/* Qty + Add */}
             {product.inStock ? (
-              <div className="flex gap-3 mb-3">
+              <div ref={buyRef} className="flex gap-3 mb-3">
                 <div
                   className="flex items-center rounded-xl"
                   style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.12)" }}
                 >
                   <button
                     onClick={() => setQty(Math.max(1, qty - 1))}
-                    className="px-3 py-3 transition-opacity hover:opacity-70"
+                    aria-label="Decrease quantity"
+                    className="w-11 h-12 transition-opacity hover:opacity-70"
                     style={{ color: "#6E6E73" }}
                   >
                     −
@@ -214,7 +242,8 @@ export default function ProductDetail({ product, related }: Props) {
                   <span className="px-3 font-medium min-w-8 text-center" style={{ color: "#1D1D1F" }}>{qty}</span>
                   <button
                     onClick={() => setQty(qty + 1)}
-                    className="px-3 py-3 transition-opacity hover:opacity-70"
+                    aria-label="Increase quantity"
+                    className="w-11 h-12 transition-opacity hover:opacity-70"
                     style={{ color: "#6E6E73" }}
                   >
                     +
@@ -458,14 +487,46 @@ export default function ProductDetail({ product, related }: Props) {
               className="text-3xl font-bold mb-6"
               style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
             >
-              Related Products
+              You may also need
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
               {related.map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}
             </div>
           </div>
         )}
       </div>
+
+      {product.inStock && (
+        <div
+          className="lg:hidden fixed inset-x-0 bottom-0 z-40 transition-transform duration-300 ease-out"
+          style={{
+            transform: showStickyBuy ? "translateY(0)" : "translateY(110%)",
+            background: "rgba(255,255,255,0.97)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            borderTop: "1px solid rgba(0,0,0,0.08)",
+            paddingBottom: "max(12px, env(safe-area-inset-bottom))",
+          }}
+          aria-hidden={!showStickyBuy}
+        >
+          <div className="flex items-center gap-3 px-4 pt-3">
+            <div className="min-w-0 flex-1">
+              <p className="text-[14px] font-semibold truncate" style={{ color: "#111111" }}>
+                {product.name} <span className="font-normal" style={{ color: "#6B6B6B" }}>· {product.concentration}</span>
+              </p>
+              <p className="text-[15px] font-semibold" style={{ color: "#111111" }}>${product.price}</p>
+            </div>
+            <button
+              onClick={handleAdd}
+              tabIndex={showStickyBuy ? 0 : -1}
+              className="h-12 px-6 rounded-full text-[15px] font-semibold text-white shrink-0 transition-colors"
+              style={{ background: added ? "#1B7A45" : "#111111" }}
+            >
+              {added ? "Added" : "Add to cart"}
+            </button>
+          </div>
+        </div>
+      )}
 
       {showNotify && (
         <NotifyModal

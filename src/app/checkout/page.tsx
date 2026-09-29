@@ -13,7 +13,7 @@ const INPUT_STYLE = {
 const LABEL_CLASS = "block text-xs font-semibold tracking-[0.08em] uppercase mb-1.5";
 const LABEL_STYLE = { color: "#9E9EA8" };
 const INPUT_CLASS =
-  "w-full px-4 py-3 rounded-xl text-sm focus:outline-none transition-colors focus:border-black/30";
+  "w-full px-4 py-3 rounded-xl text-base sm:text-sm focus:outline-none transition-colors focus:border-black/30";
 
 export default function CheckoutPage() {
   const { state, totalPrice } = useCart();
@@ -172,6 +172,7 @@ export default function CheckoutPage() {
                   <div>
                     <label className={LABEL_CLASS} style={LABEL_STYLE}>First Name</label>
                     <input
+                    name="firstName" autoComplete="given-name"
                       value={form.firstName}
                       onChange={(e) => set("firstName", e.target.value)}
                       className={INPUT_CLASS} style={INPUT_STYLE} placeholder="John"
@@ -180,6 +181,7 @@ export default function CheckoutPage() {
                   <div>
                     <label className={LABEL_CLASS} style={LABEL_STYLE}>Last Name</label>
                     <input
+                    name="lastName" autoComplete="family-name"
                       value={form.lastName}
                       onChange={(e) => set("lastName", e.target.value)}
                       className={INPUT_CLASS} style={INPUT_STYLE} placeholder="Smith"
@@ -189,6 +191,7 @@ export default function CheckoutPage() {
                 <div>
                   <label className={LABEL_CLASS} style={LABEL_STYLE}>Email</label>
                   <input
+                    name="email" autoComplete="email" inputMode="email" autoCapitalize="none" spellCheck={false}
                     type="email"
                     value={form.email}
                     onChange={(e) => set("email", e.target.value)}
@@ -213,6 +216,7 @@ export default function CheckoutPage() {
                 <div>
                   <label className={LABEL_CLASS} style={LABEL_STYLE}>Address</label>
                   <input
+                    name="address" autoComplete="address-line1"
                     value={form.address}
                     onChange={(e) => set("address", e.target.value)}
                     className={INPUT_CLASS} style={INPUT_STYLE} placeholder="123 Research Blvd"
@@ -222,6 +226,7 @@ export default function CheckoutPage() {
                   <div>
                     <label className={LABEL_CLASS} style={LABEL_STYLE}>City</label>
                     <input
+                    name="city" autoComplete="address-level2"
                       value={form.city}
                       onChange={(e) => set("city", e.target.value)}
                       className={INPUT_CLASS} style={INPUT_STYLE} placeholder="Miami"
@@ -230,6 +235,7 @@ export default function CheckoutPage() {
                   <div>
                     <label className={LABEL_CLASS} style={LABEL_STYLE}>State</label>
                     <input
+                    name="state" autoComplete="address-level1" autoCapitalize="characters" maxLength={2}
                       value={form.stateField}
                       onChange={(e) => set("stateField", e.target.value)}
                       className={INPUT_CLASS} style={INPUT_STYLE} placeholder="FL"
@@ -239,6 +245,7 @@ export default function CheckoutPage() {
                 <div>
                   <label className={LABEL_CLASS} style={LABEL_STYLE}>ZIP Code</label>
                   <input
+                    name="zip" autoComplete="postal-code" inputMode="numeric" maxLength={10}
                     value={form.zip}
                     onChange={(e) => set("zip", e.target.value)}
                     className={INPUT_CLASS} style={INPUT_STYLE} placeholder="33101"

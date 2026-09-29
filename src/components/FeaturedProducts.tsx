@@ -31,27 +31,25 @@ function VideoCycler() {
   const [active, setActive] = useState(0);
   const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
-  // Start all videos playing so they're buffered before needed
   useEffect(() => {
-    videoRefs.current.forEach((v) => {
-      if (v) { v.muted = true; v.play().catch(() => {}); }
-    });
-  }, []);
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setActive((prev) => {
-        const nextIdx = (prev + 1) % BG_VIDEOS.length;
-        const nextVid = videoRefs.current[nextIdx];
-        if (nextVid) {
-          nextVid.currentTime = 0;
-          nextVid.play().catch(() => {});
-        }
-        return nextIdx;
-      });
-    }, 10000);
+    const id = setInterval(() => setActive((prev) => (prev + 1) % BG_VIDEOS.length), 10000);
     return () => clearInterval(id);
   }, []);
+
+  // Only the visible clip plays; the next one buffers ahead so the crossfade is seamless.
+  useEffect(() => {
+    const next = (active + 1) % BG_VIDEOS.length;
+    videoRefs.current.forEach((v, i) => {
+      if (!v) return;
+      if (i === active) {
+        v.currentTime = 0;
+        v.play().catch(() => {});
+      } else {
+        v.pause();
+        if (i === next) v.preload = "auto";
+      }
+    });
+  }, [active]);
 
   return (
     <>
@@ -60,10 +58,10 @@ function VideoCycler() {
           key={src}
           ref={(el) => { videoRefs.current[i] = el; if (el) el.muted = true; }}
           src={src}
-          autoPlay
           muted
           loop
           playsInline
+          autoPlay={i === 0}
           preload={i === 0 ? "auto" : "none"}
           className="absolute inset-0 w-full h-full object-cover"
           style={{
@@ -110,7 +108,7 @@ export default function FeaturedProducts() {
       {/* Content */}
       <div className="relative" style={{ zIndex: 2 }}>
         {/* Header */}
-        <div className="px-5 sm:px-8 md:px-12 lg:px-16 pt-14 pb-8 flex items-end justify-between max-w-7xl mx-auto">
+        <div className="px-5 sm:px-8 md:px-12 lg:px-16 pt-10 sm:pt-14 pb-6 sm:pb-8 flex items-end justify-between max-w-7xl mx-auto">
           <div>
             <p className="text-sm mb-2" style={{ color: "rgba(255,255,255,0.65)" }}>
               {t("Top sellers", "Más vendidos")}
@@ -160,7 +158,7 @@ export default function FeaturedProducts() {
         {/* Horizontal scroll */}
         <div
           ref={scrollRef}
-          className="flex gap-4 overflow-x-auto pb-14 px-5 sm:px-8 md:px-12 scroll-px-5 sm:scroll-px-8 md:scroll-px-12 lg:px-[max(4rem,calc((100vw-80rem)/2+4rem))] lg:scroll-px-[max(4rem,calc((100vw-80rem)/2+4rem))]"
+          className="flex gap-3 sm:gap-4 overflow-x-auto pb-10 sm:pb-14 px-5 sm:px-8 md:px-12 scroll-px-5 sm:scroll-px-8 md:scroll-px-12 lg:px-[max(4rem,calc((100vw-80rem)/2+4rem))] lg:scroll-px-[max(4rem,calc((100vw-80rem)/2+4rem))]"
           style={{
             scrollSnapType: "x mandatory",
             WebkitOverflowScrolling: "touch",
