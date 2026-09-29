@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
-import { FEATURED_PRODUCTS } from "@/data/products";
+import { FEATURED_PRODUCTS, CATEGORIES } from "@/data/products";
 import type { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/context/LanguageContext";
@@ -77,8 +77,16 @@ function VideoCycler() {
 }
 
 export default function FeaturedProducts() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
+
+  function onCarouselScroll() {
+    const el = scrollRef.current;
+    if (!el) return;
+    const max = el.scrollWidth - el.clientWidth;
+    setProgress(max > 0 ? el.scrollLeft / max : 0);
+  }
 
   function scroll(dir: "left" | "right") {
     if (!scrollRef.current) return;
@@ -107,14 +115,88 @@ export default function FeaturedProducts() {
 
       {/* Content */}
       <div className="relative" style={{ zIndex: 2 }}>
+        {/* Mobile intro: what we sell, why trust it, where to tap */}
+        <div className="md:hidden px-5 pt-9">
+          <motion.h1
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="font-bold"
+            style={{
+              fontFamily: "var(--font-heading, sans-serif)",
+              fontSize: 38,
+              lineHeight: 1.02,
+              letterSpacing: "-0.02em",
+              color: "#FFFFFF",
+            }}
+          >
+            {t("Research peptides, verified batch by batch.", "Péptidos de investigación, verificados lote a lote.")}
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.08 }}
+            className="mt-3 text-[15px] leading-relaxed"
+            style={{ color: "rgba(255,255,255,0.8)" }}
+          >
+            {t("≥98% purity by HPLC · COA with every lot · Ships in 48h", "Pureza ≥98% por HPLC · COA en cada lote · Envío en 48h")}
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.14 }}
+            className="mt-6 flex items-center gap-5"
+          >
+            <Link
+              href="/shop"
+              className="inline-flex items-center h-12 px-7 rounded-full text-[15px] font-semibold active:scale-[0.98] transition-transform"
+              style={{ background: "#FFFFFF", color: "#111111" }}
+            >
+              {t("Shop all", "Ver todo")}
+            </Link>
+            <Link
+              href="/research"
+              className="text-[15px] underline underline-offset-4 decoration-white/40"
+              style={{ color: "#FFFFFF" }}
+            >
+              {t("See COAs", "Ver COAs")}
+            </Link>
+          </motion.div>
+
+          <div
+            className="-mx-5 mt-7 flex gap-2 overflow-x-auto px-5"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {CATEGORIES.map((c) => (
+              <Link
+                key={c.label}
+                href={`/shop?category=${encodeURIComponent(c.label)}`}
+                className="shrink-0 h-9 px-4 inline-flex items-center rounded-full text-[13px] font-medium whitespace-nowrap"
+                style={{
+                  background: "rgba(255,255,255,0.12)",
+                  border: "1px solid rgba(255,255,255,0.22)",
+                  color: "#FFFFFF",
+                  backdropFilter: "blur(8px)",
+                  WebkitBackdropFilter: "blur(8px)",
+                }}
+              >
+                {lang === "es" ? c.label_es : c.label}
+              </Link>
+            ))}
+          </div>
+        </div>
+
         {/* Header */}
-        <div className="px-5 sm:px-8 md:px-12 lg:px-16 pt-10 sm:pt-14 pb-6 sm:pb-8 flex items-end justify-between max-w-7xl mx-auto">
+        <div className="px-5 sm:px-8 md:px-12 lg:px-16 pt-9 sm:pt-14 pb-4 sm:pb-8 flex items-end justify-between max-w-7xl mx-auto">
           <div>
-            <p className="text-sm mb-2" style={{ color: "rgba(255,255,255,0.65)" }}>
+            <p className="hidden md:block text-sm mb-2" style={{ color: "rgba(255,255,255,0.65)" }}>
               {t("Top sellers", "Más vendidos")}
             </p>
+            <h2 className="md:hidden font-semibold text-[18px]" style={{ color: "#FFFFFF" }}>
+              {t("Top sellers", "Más vendidos")}
+            </h2>
             <h2
-              className="font-bold leading-none"
+              className="hidden md:block font-bold leading-none"
               style={{
                 fontFamily: "var(--font-heading, sans-serif)",
                 fontSize: "clamp(34px, 4.5vw, 56px)",
@@ -129,7 +211,7 @@ export default function FeaturedProducts() {
           <div className="flex items-center gap-5">
             <Link
               href="/shop"
-              className="hidden sm:inline text-sm underline underline-offset-4 decoration-white/40 transition-colors hover:decoration-white"
+              className="text-sm underline underline-offset-4 decoration-white/40 transition-colors hover:decoration-white"
               style={{ color: "#FFFFFF" }}
             >
               {t("Shop all", "Ver todo")}
@@ -158,7 +240,8 @@ export default function FeaturedProducts() {
         {/* Horizontal scroll */}
         <div
           ref={scrollRef}
-          className="flex gap-3 sm:gap-4 overflow-x-auto pb-10 sm:pb-14 px-5 sm:px-8 md:px-12 scroll-px-5 sm:scroll-px-8 md:scroll-px-12 lg:px-[max(4rem,calc((100vw-80rem)/2+4rem))] lg:scroll-px-[max(4rem,calc((100vw-80rem)/2+4rem))]"
+          onScroll={onCarouselScroll}
+          className="flex gap-3 sm:gap-4 overflow-x-auto pb-5 md:pb-14 px-5 sm:px-8 md:px-12 scroll-px-5 sm:scroll-px-8 md:scroll-px-12 lg:px-[max(4rem,calc((100vw-80rem)/2+4rem))] lg:scroll-px-[max(4rem,calc((100vw-80rem)/2+4rem))]"
           style={{
             scrollSnapType: "x mandatory",
             WebkitOverflowScrolling: "touch",
@@ -175,6 +258,16 @@ export default function FeaturedProducts() {
             />
           ))}
 
+        </div>
+
+        {/* Swipe progress — mobile only */}
+        <div className="md:hidden px-5 pb-8">
+          <div className="h-[2px] rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.2)" }}>
+            <div
+              className="h-full rounded-full"
+              style={{ width: `${Math.max(18, progress * 100)}%`, background: "#FFFFFF", transition: "width 120ms linear" }}
+            />
+          </div>
         </div>
       </div>
     </section>
@@ -207,12 +300,12 @@ function LineupCard({
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: Math.min(index, 4) * 0.05 }}
       className="group shrink-0 flex flex-col rounded-xl overflow-hidden"
-      style={{ width: 240, scrollSnapAlign: "start", background: "#FFFFFF" }}
+      style={{ width: "min(68vw, 240px)", scrollSnapAlign: "start", background: "#FFFFFF" }}
     >
       <Link
         href={`/product/${product.slug}`}
-        className="relative block overflow-hidden"
-        style={{ height: 240, background: "#F2F1ED" }}
+        className="relative block overflow-hidden aspect-square"
+        style={{ background: "#F2F1ED" }}
       >
         {product.image ? (
           <img

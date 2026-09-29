@@ -28,8 +28,8 @@ export default function Hero() {
   });
 
   return (
-    <section style={{ background: "#F5F4F0" }}>
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-16 md:py-24 grid lg:grid-cols-12 gap-10 lg:gap-16 items-end">
+    <section className="hidden md:block" style={{ background: "#F5F4F0" }}>
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-16 md:py-24 hidden md:grid lg:grid-cols-12 gap-10 lg:gap-16 items-end">
         <div className="lg:col-span-7">
           <motion.h2
             {...fade(0)}
@@ -76,22 +76,22 @@ export default function Hero() {
 
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16">
         <dl
-          className="grid grid-cols-1 sm:grid-cols-3"
-          style={{ borderTop: "1px solid rgba(0,0,0,0.12)" }}
+          className="grid grid-cols-3 md:border-t"
+          style={{ borderColor: "rgba(0,0,0,0.12)" }}
         >
           {FACTS[lang].map((f, i) => (
             <div
               key={f.value}
-              className={`py-6 sm:py-7 flex items-baseline gap-3 ${i > 0 ? "sm:pl-8 sm:border-l border-t sm:border-t-0" : ""}`}
+              className={`py-6 sm:py-7 flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-3 ${i > 0 ? "pl-4 sm:pl-8 border-l" : ""}`}
               style={{ borderColor: "rgba(0,0,0,0.12)" }}
             >
               <dt
                 className="font-bold"
-                style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: 30, color: "#111111", letterSpacing: "-0.02em" }}
+                style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(24px, 3vw, 30px)", color: "#111111", letterSpacing: "-0.02em", lineHeight: 1.1 }}
               >
                 {f.value}
               </dt>
-              <dd className="text-[14px]" style={{ color: "#55555A" }}>{f.label}</dd>
+              <dd className="text-[12px] sm:text-[14px] leading-snug" style={{ color: "#55555A" }}>{f.label}</dd>
             </div>
           ))}
         </dl>
