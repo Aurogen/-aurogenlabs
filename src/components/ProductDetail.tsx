@@ -81,7 +81,7 @@ export default function ProductDetail({ product, related }: Props) {
     <div className="min-h-screen" style={{ background: "#F6F6F8", color: "#1D1D1F" }}>
       <div className="max-w-7xl mx-auto px-4 pt-6 pb-28 lg:py-10">
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 text-sm mb-8" style={{ color: "#9E9EA8" }}>
+        <nav className="flex items-center justify-center lg:justify-start gap-2 text-sm mb-6 lg:mb-8" style={{ color: "#9E9EA8" }}>
           <Link href="/" className="transition-opacity hover:opacity-70" style={{ color: "#6E6E73" }}>Home</Link>
           <ChevronRight className="w-3 h-3" />
           <Link href="/shop" className="transition-opacity hover:opacity-70" style={{ color: "#6E6E73" }}>Shop</Link>
@@ -143,9 +143,10 @@ export default function ProductDetail({ product, related }: Props) {
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-center lg:text-left"
           >
             {/* Category tags */}
-            <div className="flex flex-wrap gap-2 mb-4">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-2 mb-4">
               {product.goals.map((g) => (
                 <Link
                   key={g}
@@ -167,7 +168,7 @@ export default function ProductDetail({ product, related }: Props) {
             <p className="text-base mb-4" style={{ color: "#6E6E73" }}>{product.compound}</p>
 
             {/* Price */}
-            <div className="flex items-baseline gap-3 mb-5">
+            <div className="flex items-baseline justify-center lg:justify-start gap-3 mb-5">
               <span
                 className="font-bold text-4xl"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1B7A45" }}
@@ -202,7 +203,7 @@ export default function ProductDetail({ product, related }: Props) {
                   className="p-3 rounded-xl"
                   style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
                 >
-                  <div className="flex items-center gap-1.5 mb-1">
+                  <div className="flex items-center justify-center lg:justify-start gap-1.5 mb-1">
                     <Icon className="w-3 h-3" style={{ color: "#6B7A8D" }} />
                     <span className="text-[10px] tracking-wide font-medium" style={{ color: "#9E9EA8" }}>
                       {label.toUpperCase()}
@@ -484,7 +485,7 @@ export default function ProductDetail({ product, related }: Props) {
         {related.length > 0 && (
           <div>
             <h2
-              className="text-3xl font-bold mb-6"
+              className="text-3xl font-bold mb-6 text-center lg:text-left"
               style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
             >
               You may also need

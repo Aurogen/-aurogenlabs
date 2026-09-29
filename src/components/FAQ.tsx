@@ -59,11 +59,12 @@ function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
     >
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-start justify-between gap-4 py-5 text-left"
+        className="w-full flex items-start justify-between gap-4 py-5 text-center sm:text-left"
         aria-expanded={open}
       >
+        <span className="w-6 shrink-0 sm:hidden" aria-hidden="true" />
         <span
-          className="font-semibold text-sm sm:text-base leading-snug flex-1"
+          className="font-semibold text-[15px] sm:text-base leading-snug flex-1"
           style={{ color: "#111111" }}
         >
           {q}
@@ -89,7 +90,7 @@ function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
             transition={{ duration: reduceMotion ? 0 : 0.28, ease: "easeInOut" }}
             style={{ overflow: "hidden" }}
           >
-            <p className="pb-5 text-sm leading-relaxed" style={{ color: "#6B6B6B" }}>
+            <p className="pb-5 px-2 sm:px-0 text-sm leading-relaxed text-center sm:text-left" style={{ color: "#6B6B6B" }}>
               {a}
             </p>
           </motion.div>
@@ -107,7 +108,7 @@ export default function FAQ() {
       <div className="max-w-4xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-16 md:py-20">
 
         {/* Header */}
-        <div className="mb-10">
+        <div className="mb-10 text-center sm:text-left">
           <motion.h2
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -144,7 +145,7 @@ export default function FAQ() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.2 }}
-          className="mt-10 p-6 rounded-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+          className="mt-10 p-6 rounded-2xl flex flex-col sm:flex-row items-center sm:justify-between gap-4 text-center sm:text-left"
           style={{ background: "#F5F4F0" }}
         >
           <div>

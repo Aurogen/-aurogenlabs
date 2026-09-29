@@ -37,7 +37,7 @@ export default function Footer() {
       {/* Newsletter */}
       <div className="py-12 px-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
+          <div className="text-center md:text-left">
             <h3 className="text-white font-bold text-2xl mb-1" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
               Stay in the loop
             </h3>
@@ -49,17 +49,17 @@ export default function Footer() {
 
       {/* Links */}
       <div className="py-14 px-4">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-5 gap-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-5 gap-8 text-center lg:text-left">
           {/* Brand */}
           <div className="col-span-2 lg:col-span-1">
-            <Link href="/" className="flex items-center gap-2.5 mb-4">
+            <Link href="/" className="flex items-center justify-center lg:justify-start gap-2.5 mb-4">
               <Logo size={32} />
               <div>
                 <p className="text-white font-bold text-base tracking-widest" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>AUROGEN</p>
                 <p className="text-[9px] tracking-[0.4em] -mt-0.5" style={{ color: "#0A84FF" }}>LABS</p>
               </div>
             </Link>
-            <p className="text-gray-500 text-xs leading-relaxed mb-4">
+            <p className="text-gray-500 text-xs leading-relaxed mb-4 max-w-xs mx-auto lg:mx-0">
               Research peptides and reagents with a third-party Certificate of Analysis for every lot.
             </p>
           </div>
@@ -84,7 +84,7 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="py-6 px-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-gray-600">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-gray-600 text-center">
           <p>© 2026 Aurogen Labs · All rights reserved.</p>
           <div className="flex items-center gap-4">
             <span
@@ -94,7 +94,7 @@ export default function Footer() {
               For Research Use Only · Not for Human Consumption
             </span>
           </div>
-          <div className="flex gap-4">
+          <div className="flex flex-wrap justify-center gap-4">
             <Link href="/shipping" className="hover:text-gray-300 transition-colors">Shipping</Link>
             <Link href="/refund" className="hover:text-gray-300 transition-colors">Refund</Link>
             <Link href="/privacy" className="hover:text-gray-300 transition-colors">Privacy</Link>

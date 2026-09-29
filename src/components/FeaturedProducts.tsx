@@ -2,9 +2,9 @@
 
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ArrowRight, ShieldCheck } from "lucide-react";
 import { motion } from "framer-motion";
-import { FEATURED_PRODUCTS, CATEGORIES } from "@/data/products";
+import { FEATURED_PRODUCTS } from "@/data/products";
 import type { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/context/LanguageContext";
@@ -77,7 +77,7 @@ function VideoCycler() {
 }
 
 export default function FeaturedProducts() {
-  const { t, lang } = useLanguage();
+  const { t } = useLanguage();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
 
@@ -94,105 +94,90 @@ export default function FeaturedProducts() {
   }
 
   return (
-    <section className="relative overflow-hidden" style={{ minHeight: 480 }}>
-      {/* Video background cycler */}
-      <VideoCycler />
-
-      {/* Overlay — dark gradient for readability */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background: "linear-gradient(to bottom, rgba(8,10,14,0.55) 0%, rgba(8,10,14,0.35) 45%, rgba(8,10,14,0.7) 100%)",
-          zIndex: 1,
-        }}
-      />
-
-      {/* Fallback solid bg (shows when no video loaded) */}
-      <div
-        className="absolute inset-0"
-        style={{ background: "#0D1117", zIndex: -1 }}
-      />
-
+    <section className="relative overflow-hidden bg-[#F5F4F0] md:bg-[#0D1117] md:min-h-[480px]">
       {/* Content */}
-      <div className="relative" style={{ zIndex: 2 }}>
-        {/* Mobile intro: what we sell, why trust it, where to tap */}
-        <div className="md:hidden px-5 pt-9">
+      <div className="relative">
+        {/* Mobile intro — light, centered, one clear action */}
+        <div className="md:hidden px-6 pt-10 text-center">
+          <motion.p
+            initial={{ opacity: 0, y: 6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
+            className="inline-flex items-center gap-2 h-8 px-4 rounded-full text-[11px] font-semibold tracking-[0.12em] uppercase"
+            style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)", color: "#111111" }}
+          >
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#0A84FF" }} />
+            {t("Third-party tested · every lot", "Análisis externo · cada lote")}
+          </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="font-bold"
+            transition={{ duration: 0.5, delay: 0.05 }}
+            className="mt-5 font-bold"
             style={{
               fontFamily: "var(--font-heading, sans-serif)",
-              fontSize: 38,
-              lineHeight: 1.02,
+              fontSize: "clamp(32px, 9.4vw, 40px)",
+              lineHeight: 1.04,
               letterSpacing: "-0.02em",
-              color: "#FFFFFF",
+              color: "#111111",
             }}
           >
-            {t("Research peptides, verified batch by batch.", "Péptidos de investigación, verificados lote a lote.")}
+            {t("Research peptides.", "Péptidos de investigación.")}
+            <br />
+            <span style={{ color: "#0A84FF" }}>{t("Verified batch by batch.", "Verificados lote a lote.")}</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.08 }}
-            className="mt-3 text-[15px] leading-relaxed"
-            style={{ color: "rgba(255,255,255,0.8)" }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="mt-4 text-[16px] leading-relaxed mx-auto max-w-[340px]"
+            style={{ color: "#5A5A60" }}
           >
-            {t("≥98% purity by HPLC · COA with every lot · Ships in 48h", "Pureza ≥98% por HPLC · COA en cada lote · Envío en 48h")}
+            {t(
+              "HPLC purity and mass-spec identity on every lot, with the certificate in the box. Ships within 48 hours.",
+              "Pureza por HPLC e identidad por espectrometría de masas en cada lote, con el certificado en la caja. Envío en 48 horas.",
+            )}
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.14 }}
-            className="mt-6 flex items-center gap-5"
+            transition={{ duration: 0.5, delay: 0.15 }}
+            className="mt-7"
           >
             <Link
               href="/shop"
-              className="inline-flex items-center h-12 px-7 rounded-full text-[15px] font-semibold active:scale-[0.98] transition-transform"
-              style={{ background: "#FFFFFF", color: "#111111" }}
+              className="inline-flex items-center gap-2 h-[52px] px-8 rounded-full text-[16px] font-semibold text-white active:scale-[0.98] transition-transform"
+              style={{ background: "#0A84FF", boxShadow: "0 10px 24px -10px rgba(10,132,255,0.6)" }}
             >
-              {t("Shop all", "Ver todo")}
-            </Link>
-            <Link
-              href="/research"
-              className="text-[15px] underline underline-offset-4 decoration-white/40"
-              style={{ color: "#FFFFFF" }}
-            >
-              {t("See COAs", "Ver COAs")}
+              {t("Browse catalog", "Ver catálogo")}
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
+          <p className="mt-5 inline-flex items-center gap-1.5 text-[12px]" style={{ color: "#6B6B70" }}>
+            <ShieldCheck className="w-3.5 h-3.5" style={{ color: "#0A84FF" }} />
+            {t("For laboratory research use only", "Solo para investigación de laboratorio")}
+          </p>
+        </div>
 
+        {/* Video — framed card on mobile, full-bleed background on desktop */}
+        <div className="relative mx-4 mt-9 h-[230px] rounded-3xl overflow-hidden md:m-0 md:mt-0 md:h-auto md:rounded-none md:absolute md:inset-0" style={{ background: "#0D1117" }}>
+          <VideoCycler />
           <div
-            className="-mx-5 mt-7 flex gap-2 overflow-x-auto px-5"
-            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-          >
-            {CATEGORIES.map((c) => (
-              <Link
-                key={c.label}
-                href={`/shop?category=${encodeURIComponent(c.label)}`}
-                className="shrink-0 h-9 px-4 inline-flex items-center rounded-full text-[13px] font-medium whitespace-nowrap"
-                style={{
-                  background: "rgba(255,255,255,0.12)",
-                  border: "1px solid rgba(255,255,255,0.22)",
-                  color: "#FFFFFF",
-                  backdropFilter: "blur(8px)",
-                  WebkitBackdropFilter: "blur(8px)",
-                }}
-              >
-                {lang === "es" ? c.label_es : c.label}
-              </Link>
-            ))}
-          </div>
+            className="absolute inset-0"
+            style={{
+              background: "linear-gradient(to bottom, rgba(8,10,14,0.35) 0%, rgba(8,10,14,0.25) 45%, rgba(8,10,14,0.7) 100%)",
+              zIndex: 1,
+            }}
+          />
         </div>
 
         {/* Header */}
-        <div className="px-5 sm:px-8 md:px-12 lg:px-16 pt-9 sm:pt-14 pb-4 sm:pb-8 flex items-end justify-between max-w-7xl mx-auto">
+        <div className="relative z-[1] px-5 sm:px-8 md:px-12 lg:px-16 pt-10 sm:pt-14 pb-5 sm:pb-8 flex flex-col md:flex-row items-center md:items-end md:justify-between gap-2 md:gap-0 text-center md:text-left max-w-7xl mx-auto">
           <div>
             <p className="hidden md:block text-sm mb-2" style={{ color: "rgba(255,255,255,0.65)" }}>
               {t("Top sellers", "Más vendidos")}
             </p>
-            <h2 className="md:hidden font-semibold text-[18px]" style={{ color: "#FFFFFF" }}>
+            <h2 className="md:hidden font-bold text-[28px]" style={{ color: "#111111", fontFamily: "var(--font-heading, sans-serif)" }}>
               {t("Top sellers", "Más vendidos")}
             </h2>
             <h2
@@ -211,8 +196,7 @@ export default function FeaturedProducts() {
           <div className="flex items-center gap-5">
             <Link
               href="/shop"
-              className="text-sm underline underline-offset-4 decoration-white/40 transition-colors hover:decoration-white"
-              style={{ color: "#FFFFFF" }}
+              className="text-sm underline underline-offset-4 decoration-current/40 transition-colors text-[#111111] md:text-white"
             >
               {t("Shop all", "Ver todo")}
             </Link>
@@ -241,7 +225,7 @@ export default function FeaturedProducts() {
         <div
           ref={scrollRef}
           onScroll={onCarouselScroll}
-          className="flex gap-3 sm:gap-4 overflow-x-auto pb-5 md:pb-14 px-5 sm:px-8 md:px-12 scroll-px-5 sm:scroll-px-8 md:scroll-px-12 lg:px-[max(4rem,calc((100vw-80rem)/2+4rem))] lg:scroll-px-[max(4rem,calc((100vw-80rem)/2+4rem))]"
+          className="relative z-[1] flex gap-3 sm:gap-4 overflow-x-auto pb-5 md:pb-14 px-5 sm:px-8 md:px-12 scroll-px-5 sm:scroll-px-8 md:scroll-px-12 lg:px-[max(4rem,calc((100vw-80rem)/2+4rem))] lg:scroll-px-[max(4rem,calc((100vw-80rem)/2+4rem))]"
           style={{
             scrollSnapType: "x mandatory",
             WebkitOverflowScrolling: "touch",
@@ -261,11 +245,11 @@ export default function FeaturedProducts() {
         </div>
 
         {/* Swipe progress — mobile only */}
-        <div className="md:hidden px-5 pb-8">
-          <div className="h-[2px] rounded-full overflow-hidden" style={{ background: "rgba(255,255,255,0.2)" }}>
+        <div className="md:hidden px-5 pb-10">
+          <div className="h-[2px] rounded-full overflow-hidden mx-auto max-w-[160px]" style={{ background: "rgba(0,0,0,0.1)" }}>
             <div
               className="h-full rounded-full"
-              style={{ width: `${Math.max(18, progress * 100)}%`, background: "#FFFFFF", transition: "width 120ms linear" }}
+              style={{ width: `${Math.max(18, progress * 100)}%`, background: "#111111", transition: "width 120ms linear" }}
             />
           </div>
         </div>
@@ -300,7 +284,7 @@ function LineupCard({
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: Math.min(index, 4) * 0.05 }}
       className="group shrink-0 flex flex-col rounded-xl overflow-hidden"
-      style={{ width: "min(68vw, 240px)", scrollSnapAlign: "start", background: "#FFFFFF" }}
+      style={{ width: "min(68vw, 240px)", scrollSnapAlign: "start", background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.06)" }}
     >
       <Link
         href={`/product/${product.slug}`}
@@ -328,7 +312,7 @@ function LineupCard({
         )}
       </Link>
 
-      <div className="flex flex-col flex-1 p-4">
+      <div className="flex flex-col flex-1 p-4 text-center md:text-left">
         <Link href={`/product/${product.slug}`} className="block">
           <h3 className="font-semibold text-[15px] leading-snug" style={{ color: "#111111", fontFamily: "var(--font-body, sans-serif)" }}>
             {product.name}
@@ -339,14 +323,14 @@ function LineupCard({
           </p>
         </Link>
 
-        <div className="mt-auto pt-4 flex items-center justify-between">
+        <div className="mt-auto pt-3 md:pt-4 flex flex-col md:flex-row items-center md:justify-between gap-3 md:gap-0">
           <span className="font-semibold text-[17px]" style={{ color: "#111111" }}>
             ${product.price}
           </span>
           {product.inStock ? (
             <button
               onClick={handleAdd}
-              className="h-9 px-4 rounded-full text-[13px] font-medium transition-colors"
+              className="w-full md:w-auto h-11 md:h-9 px-4 rounded-full text-[14px] md:text-[13px] font-medium transition-colors"
               style={{ background: added ? "#0A84FF" : "#111111", color: "#FFFFFF" }}
             >
               {added ? t("Added", "Añadido") : t("Add to cart", "Añadir")}

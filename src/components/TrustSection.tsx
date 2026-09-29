@@ -38,7 +38,7 @@ export default function TrustSection() {
   return (
     <section style={{ background: "#FFFFFF", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-20 md:py-28 grid lg:grid-cols-12 gap-12 lg:gap-16">
-        <div className="lg:col-span-5">
+        <div className="lg:col-span-5 text-center lg:text-left">
           <div className="lg:sticky lg:top-28">
             <h2
               className="font-bold mb-5"
@@ -52,7 +52,7 @@ export default function TrustSection() {
             >
               {t("How every lot is checked", "Cómo se revisa cada lote")}
             </h2>
-            <p className="text-[16px] leading-relaxed mb-6 max-w-md" style={{ color: "#4A4A4F" }}>
+            <p className="text-[16px] leading-relaxed mb-6 max-w-md mx-auto lg:mx-0" style={{ color: "#4A4A4F" }}>
               {t(
                 "Purity claims are easy to make. We would rather show the paperwork. This is the path each vial takes before it reaches your lab.",
                 "Decir que algo es puro es fácil. Preferimos mostrar los documentos. Este es el recorrido de cada vial antes de llegar a tu laboratorio.",
@@ -76,7 +76,7 @@ export default function TrustSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.45, delay: i * 0.05 }}
-              className="grid grid-cols-[48px_1fr] gap-4 py-7"
+              className="grid grid-cols-1 lg:grid-cols-[48px_1fr] gap-2 lg:gap-4 py-7 text-center lg:text-left"
               style={{ borderTop: "1px solid rgba(0,0,0,0.1)" }}
             >
               <span className="text-[14px] tabular-nums pt-1" style={{ color: "#9A9AA0" }}>

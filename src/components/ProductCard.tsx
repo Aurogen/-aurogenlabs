@@ -64,7 +64,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
           )}
         </Link>
 
-        <div className="flex flex-col flex-1 p-3 sm:p-4">
+        <div className="flex flex-col flex-1 p-3 sm:p-4 text-center sm:text-left">
           <Link href={`/product/${product.slug}`} className="block">
             <h3 className="font-semibold text-[14px] sm:text-[15px] leading-snug" style={{ color: "#111111", fontFamily: "var(--font-body, sans-serif)" }}>
               {product.name}
@@ -75,7 +75,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
             </p>
           </Link>
 
-          <div className="mt-auto pt-3 sm:pt-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+          <div className="mt-auto pt-3 sm:pt-4 flex flex-col sm:flex-row items-center sm:justify-between gap-2">
             <div className="flex items-baseline gap-2">
               <span className="font-semibold text-[16px] sm:text-[17px]" style={{ color: "#111111" }}>${product.price}</span>
               {product.originalPrice && (

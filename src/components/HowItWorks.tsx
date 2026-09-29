@@ -32,7 +32,7 @@ export default function HowItWorks() {
   return (
     <section style={{ background: "#F5F4F0", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-20 md:py-24">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
+        <div className="flex flex-col md:flex-row items-center md:items-end md:justify-between gap-4 mb-12 text-center md:text-left">
           <h2
             className="font-bold"
             style={{
@@ -62,7 +62,7 @@ export default function HowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: i * 0.06 }}
-              className="pt-6"
+              className="pt-6 text-center md:text-left"
               style={{ borderTop: "1px solid rgba(0,0,0,0.14)" }}
             >
               <span className="block text-[14px] mb-4 tabular-nums" style={{ color: "#9A9AA0" }}>

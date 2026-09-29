@@ -146,7 +146,7 @@ export default function ShopContent({ initialProducts }: Props) {
             <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500 pointer-events-none" />
           </div>
         </div>
-        <p className="text-[13px] mb-4" style={{ color: "#6E6E73" }}>{filtered.length} products</p>
+        <p className="text-[13px] mb-4 text-center sm:text-left" style={{ color: "#6E6E73" }}>{filtered.length} products</p>
 
         {/* Products grid */}
         {filtered.length > 0 ? (
