@@ -44,7 +44,7 @@ const STATS = [
   { value: "99.8%", label_en: "Avg. Purity", label_es: "Pureza Promedio" },
   { value: "100+", label_en: "Compounds", label_es: "Compuestos" },
   { value: "48h", label_en: "Ship Time", label_es: "Tiempo de Envío" },
-  { value: "3rd", label_en: "Party Tested", label_es: "Testado Externo" },
+  { value: "100%", label_en: "COA Every Batch", label_es: "COA Cada Lote" },
 ];
 
 export default function TrustSection() {
@@ -53,12 +53,50 @@ export default function TrustSection() {
 
   return (
     <>
-      {/* ── Dark features section ── */}
-      <section style={{ background: "#0D1117", borderTop: "1px solid rgba(255,255,255,0.05)" }}>
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-16 md:py-24">
+      {/* ── Stats strip ── */}
+      <section style={{ background: "#F5F4F0", borderTop: "1px solid rgba(0,0,0,0.07)" }}>
+        <div
+          className="grid grid-cols-2 lg:grid-cols-4"
+          style={{ borderBottom: "1px solid rgba(0,0,0,0.07)" }}
+        >
+          {STATS.map((s, i) => (
+            <motion.div
+              key={s.value}
+              initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.07 }}
+              className="flex flex-col items-center justify-center py-10 px-5 text-center"
+              style={{
+                borderRight: i < 3 ? "1px solid rgba(0,0,0,0.07)" : "none",
+                borderBottom: i < 2 ? "1px solid rgba(0,0,0,0.07)" : "none",
+              }}
+            >
+              <p
+                className="font-bold leading-none mb-2"
+                style={{
+                  fontFamily: "var(--font-heading, sans-serif)",
+                  fontSize: "clamp(36px, 4.5vw, 60px)",
+                  color: "#111111",
+                  letterSpacing: "-0.025em",
+                }}
+              >
+                {s.value}
+              </p>
+              <p className="text-[10px] font-semibold tracking-[0.14em] uppercase" style={{ color: "#9E9EA8" }}>
+                {lang === "es" ? s.label_es : s.label_en}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
 
-          {/* Top row: eyebrow + heading */}
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
+      {/* ── Features section ── */}
+      <section style={{ background: "#F5F4F0" }}>
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-16 md:py-20">
+
+          {/* Section header */}
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
             <div>
               <motion.p
                 initial={{ opacity: 0, y: reduceMotion ? 0 : 8 }}
@@ -73,15 +111,15 @@ export default function TrustSection() {
                 </span>
               </motion.p>
               <motion.h2
-                initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
+                initial={{ opacity: 0, y: reduceMotion ? 0 : 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: 0.05 }}
                 className="font-bold"
                 style={{
                   fontFamily: "var(--font-heading, sans-serif)",
-                  fontSize: "clamp(32px, 4.5vw, 56px)",
-                  color: "#FFFFFF",
+                  fontSize: "clamp(30px, 4vw, 52px)",
+                  color: "#111111",
                   letterSpacing: "-0.025em",
                   lineHeight: 1.05,
                 }}
@@ -89,41 +127,10 @@ export default function TrustSection() {
                 {t("Built for serious\nresearchers.", "Construido para\ninvestigadores serios.")}
               </motion.h2>
             </div>
-
-            {/* Stat row — right-aligned on desktop */}
-            <motion.div
-              initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              className="flex gap-6 sm:gap-10 shrink-0"
-            >
-              {STATS.map((s) => (
-                <div key={s.value} className="flex flex-col">
-                  <span
-                    className="font-bold leading-none"
-                    style={{
-                      fontFamily: "var(--font-heading, sans-serif)",
-                      fontSize: "clamp(24px, 3vw, 36px)",
-                      color: "#FFFFFF",
-                      letterSpacing: "-0.025em",
-                    }}
-                  >
-                    {s.value}
-                  </span>
-                  <span
-                    className="text-[10px] font-medium tracking-[0.12em] uppercase mt-1"
-                    style={{ color: "rgba(255,255,255,0.35)" }}
-                  >
-                    {lang === "es" ? s.label_es : s.label_en}
-                  </span>
-                </div>
-              ))}
-            </motion.div>
           </div>
 
-          {/* Features grid — 2 cols on tablet+, 1 col on mobile */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-px" style={{ background: "rgba(255,255,255,0.06)" }}>
+          {/* Feature cards — 2 cols on tablet+, 1 on mobile */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {FEATURES.map((f, i) => (
               <motion.div
                 key={f.code}
@@ -131,15 +138,15 @@ export default function TrustSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.45, delay: i * 0.08 }}
-                className="flex flex-col p-7 sm:p-8 gap-4"
-                style={{ background: "#0D1117" }}
+                className="flex flex-col p-7 rounded-2xl"
+                style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.07)" }}
               >
-                <div className="flex items-start gap-4">
+                <div className="flex items-start gap-4 mb-4">
                   <div
                     className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                    style={{ background: "rgba(184,151,90,0.1)", border: "1px solid rgba(184,151,90,0.2)" }}
+                    style={{ background: "rgba(184,151,90,0.08)", border: "1px solid rgba(184,151,90,0.18)" }}
                   >
-                    <f.Icon className="w-4.5 h-4.5" style={{ color: "#B8975A" }} />
+                    <f.Icon className="w-4 h-4" style={{ color: "#B8975A" }} />
                   </div>
                   <div>
                     <p
@@ -149,14 +156,14 @@ export default function TrustSection() {
                       {f.code}
                     </p>
                     <h3
-                      className="font-bold text-base sm:text-lg leading-tight"
-                      style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#FFFFFF" }}
+                      className="font-bold text-lg leading-tight"
+                      style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#111111" }}
                     >
                       {lang === "es" ? f.title_es : f.title_en}
                     </h3>
                   </div>
                 </div>
-                <p className="text-sm leading-relaxed" style={{ color: "rgba(255,255,255,0.45)" }}>
+                <p className="text-sm leading-relaxed" style={{ color: "#6B6B6B" }}>
                   {lang === "es" ? f.desc_es : f.desc_en}
                 </p>
               </motion.div>
@@ -166,19 +173,19 @@ export default function TrustSection() {
       </section>
 
       {/* ── CTA Section ── */}
-      <section style={{ background: "#F5F4F0", borderTop: "1px solid rgba(0,0,0,0.07)" }}>
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-16 md:py-20">
+      <section style={{ background: "#EFEDE8", borderTop: "1px solid rgba(0,0,0,0.07)" }}>
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-14 md:py-16">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
             <div className="max-w-xl">
               <motion.h2
-                initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
+                initial={{ opacity: 0, y: reduceMotion ? 0 : 10 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.45 }}
                 className="font-bold mb-3"
                 style={{
                   fontFamily: "var(--font-heading, sans-serif)",
-                  fontSize: "clamp(28px, 3.5vw, 44px)",
+                  fontSize: "clamp(26px, 3vw, 40px)",
                   color: "#111111",
                   letterSpacing: "-0.02em",
                   lineHeight: 1.1,
@@ -205,20 +212,20 @@ export default function TrustSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: 0.12 }}
-              className="flex flex-col sm:flex-row items-start sm:items-center gap-3 shrink-0"
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0"
             >
               <Link
                 href="/shop"
-                className="flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-sm text-white transition-opacity hover:opacity-85 active:opacity-70 w-full sm:w-auto justify-center"
-                style={{ background: "#111111", minHeight: 48 }}
+                className="flex items-center justify-center gap-2 px-8 rounded-full font-semibold text-sm text-white transition-opacity hover:opacity-85 active:opacity-70"
+                style={{ background: "#111111", height: 48 }}
               >
                 {t("Shop the Catalog", "Ver el Catálogo")}
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
                 href="/research"
-                className="flex items-center justify-center px-7 py-3.5 rounded-full font-semibold text-sm transition-colors hover:bg-black/5 w-full sm:w-auto"
-                style={{ border: "1px solid rgba(0,0,0,0.14)", color: "#1D1D1F", minHeight: 48 }}
+                className="flex items-center justify-center px-8 rounded-full font-semibold text-sm transition-colors hover:bg-black/5"
+                style={{ border: "1px solid rgba(0,0,0,0.14)", color: "#1D1D1F", height: 48 }}
               >
                 {t("Research Center", "Centro de Investigación")}
               </Link>
