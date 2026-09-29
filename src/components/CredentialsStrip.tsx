@@ -11,21 +11,23 @@ const CREDENTIALS = [
   { code: "3RD PARTY", label: "Independent Testing" },
 ];
 
+const BG = "#0D1117";
+
 function CredentialItem({ c, sep }: { c: (typeof CREDENTIALS)[0]; sep: boolean }) {
   return (
     <div className="flex items-center gap-8 shrink-0">
       <div className="flex items-center gap-2.5">
         <span
           className="font-bold text-[11px]"
-          style={{ fontFamily: "var(--font-jetbrains, monospace)", color: "#111111", letterSpacing: "0.1em" }}
+          style={{ fontFamily: "var(--font-jetbrains, monospace)", color: "#B8975A", letterSpacing: "0.12em" }}
         >
           {c.code}
         </span>
-        <span className="text-[11px]" style={{ color: "#9E9EA8", letterSpacing: "0.02em" }}>
+        <span className="text-[11px]" style={{ color: "rgba(255,255,255,0.3)", letterSpacing: "0.02em" }}>
           {c.label}
         </span>
       </div>
-      {sep && <div style={{ width: 1, height: 12, background: "rgba(0,0,0,0.1)", flexShrink: 0 }} />}
+      {sep && <div style={{ width: 1, height: 12, background: "rgba(255,255,255,0.08)", flexShrink: 0 }} />}
     </div>
   );
 }
@@ -34,9 +36,8 @@ export default function CredentialsStrip() {
   return (
     <div
       style={{
-        background: "#EFEDE8",
-        borderTop: "1px solid rgba(0,0,0,0.06)",
-        borderBottom: "1px solid rgba(0,0,0,0.06)",
+        background: BG,
+        borderTop: "1px solid rgba(255,255,255,0.05)",
         overflow: "hidden",
         position: "relative",
       }}
@@ -48,8 +49,8 @@ export default function CredentialsStrip() {
           left: 0,
           top: 0,
           bottom: 0,
-          width: 60,
-          background: "linear-gradient(to right, #EFEDE8, transparent)",
+          width: 80,
+          background: `linear-gradient(to right, ${BG}, transparent)`,
           zIndex: 1,
           pointerEvents: "none",
         }}
@@ -60,14 +61,14 @@ export default function CredentialsStrip() {
           right: 0,
           top: 0,
           bottom: 0,
-          width: 60,
-          background: "linear-gradient(to left, #EFEDE8, transparent)",
+          width: 80,
+          background: `linear-gradient(to left, ${BG}, transparent)`,
           zIndex: 1,
           pointerEvents: "none",
         }}
       />
 
-      <div className="animate-creds-scroll flex items-center py-3.5" style={{ willChange: "transform" }}>
+      <div className="animate-creds-scroll flex items-center py-4" style={{ willChange: "transform" }}>
         {/* Double-render for seamless loop */}
         {[...CREDENTIALS, ...CREDENTIALS].map((c, i) => (
           <CredentialItem key={i} c={c} sep={i < CREDENTIALS.length * 2 - 1} />
