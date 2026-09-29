@@ -12,7 +12,7 @@ const GOALS = [
     slug: "Fat Loss",
     count: 12,
     accent: "#FF6B35",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_194505_1e1d6d4c-8804-46ef-b061-fca2947e9a0b.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_194936_c04dae65-f2c6-49ff-b82c-f6d4f03717c0.png",
     featured: true,
   },
   {
@@ -21,7 +21,7 @@ const GOALS = [
     slug: "Muscle Growth",
     count: 4,
     accent: "#1B6BDE",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_194505_36854d40-7f0b-4b82-ade8-4fd18f2342ed.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_194936_c3009159-9e85-4a06-a0f7-543ac1da8bc4.png",
   },
   {
     label: "Recovery",
@@ -29,7 +29,7 @@ const GOALS = [
     slug: "Recovery",
     count: 3,
     accent: "#10B981",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_194505_b6194183-29da-43fb-b8ac-03065878d9a5.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_194936_59afc960-9ca8-4483-9a68-b41fb5e3e529.png",
   },
   {
     label: "Anti-Aging",
@@ -37,7 +37,7 @@ const GOALS = [
     slug: "Anti-Aging",
     count: 8,
     accent: "#8B5CF6",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_194505_5a15de9c-5f9c-447c-be69-37455c8772f9.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_194936_1cad2000-6cca-4cc3-a1f4-e984e43698ee.png",
   },
   {
     label: "Skin & Hair",
@@ -45,7 +45,7 @@ const GOALS = [
     slug: "Skin & Hair",
     count: 2,
     accent: "#EC4899",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_194505_0335bcea-8e9a-4b61-8cc5-075d629bd361.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_194935_bf007240-6f91-4c96-a4e7-971663e6480b.png",
   },
   {
     label: "Brain Health",
@@ -53,7 +53,7 @@ const GOALS = [
     slug: "Brain Health",
     count: 1,
     accent: "#06B6D4",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_194507_da0fa4be-8375-4459-b7ed-15fb15b44f6a.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_194936_439aaae2-e74e-43e2-afdb-9cf50a91db97.png",
   },
   {
     label: "Performance",
@@ -61,7 +61,7 @@ const GOALS = [
     slug: "Performance",
     count: 9,
     accent: "#0A84FF",
-    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_194505_db12880f-f997-4289-b13e-98e6c5f64ce2.png",
+    image: "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_194936_53970dc9-1cc5-42f8-96f1-0aa1c0677ee8.png",
   },
 ];
 
