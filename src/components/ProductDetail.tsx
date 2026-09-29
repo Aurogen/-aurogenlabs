@@ -4,24 +4,17 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  ShoppingCart, Bell, Star, FlaskConical, ChevronRight,
+  ShoppingCart, Bell, FlaskConical, ChevronRight,
   Thermometer, Scale, Package, FileText, CheckCircle,
   ChevronDown, ChevronUp,
-  BookOpen, User, ThumbsUp,
+  BookOpen,
 } from "lucide-react";
 import type { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 import NotifyModal from "./NotifyModal";
 import ProductCard from "./ProductCard";
 
-type Tab = "desc" | "specs" | "protocols" | "faq" | "reviews";
-
-const MOCK_REVIEWS = [
-  { name: "Dr. R. Martinez", lab: "BioResearch Institute", rating: 5, date: "Jan 12, 2025", text: "Exceptional purity. COA matched independent lab analysis within 0.1%. Reconstitution was smooth and consistent across all three vials from the same batch.", helpful: 34 },
-  { name: "Prof. S. Chen", lab: "Stanford Peptide Lab", rating: 5, date: "Dec 28, 2024", text: "Reliable quality control and fast shipping. The lyophilized powder dissolved cleanly with bacteriostatic water. Will reorder for next research cycle.", helpful: 28 },
-  { name: "J. Thompson", lab: "Independent Researcher", rating: 4, date: "Jan 5, 2025", text: "Good product, purity as advertised. Packaging was excellent — vacuum sealed and UV-protected. Slight delay in shipping but customer support was responsive.", helpful: 19 },
-  { name: "Dr. A. Patel", lab: "MetaboLab EU", rating: 5, date: "Jan 18, 2025", text: "Third consecutive order. Consistent quality every time. Research applications have been performing exactly as expected. Highly recommend for serious researchers.", helpful: 41 },
-];
+type Tab = "desc" | "specs" | "protocols" | "faq";
 
 const FAQ_ITEMS = [
   { q: "What solvent should I use for reconstitution?", a: "Use sterile bacteriostatic water (BAC water) for reconstitution. Add the solvent slowly along the vial wall to minimize foaming. Do not use regular sterile water as it does not preserve the peptide as long." },
@@ -55,7 +48,6 @@ export default function ProductDetail({ product, related }: Props) {
     { id: "specs", label: "Specifications", icon: Scale },
     { id: "protocols", label: "Protocols", icon: BookOpen },
     { id: "faq", label: "FAQ", icon: ChevronDown },
-    { id: "reviews", label: "Reviews", icon: Star },
   ];
 
   return (
@@ -147,14 +139,6 @@ export default function ProductDetail({ product, related }: Props) {
               {product.name}
             </h1>
             <p className="text-base mb-4" style={{ color: "#6E6E73" }}>{product.compound}</p>
-
-            {/* Stars */}
-            <div className="flex items-center gap-2 mb-5">
-              <div className="flex">
-                {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-current" style={{ color: "#6B7A8D" }} />)}
-              </div>
-              <span className="text-sm" style={{ color: "#6E6E73" }}>4.9 · {MOCK_REVIEWS.length} reviews</span>
-            </div>
 
             {/* Price */}
             <div className="flex items-baseline gap-3 mb-5">
@@ -303,14 +287,6 @@ export default function ProductDetail({ product, related }: Props) {
               >
                 <Icon className="w-3.5 h-3.5" />
                 {label}
-                {id === "reviews" && (
-                  <span
-                    className="ml-1 text-[10px] px-1.5 py-0.5 rounded-full font-bold"
-                    style={{ background: "rgba(10,132,255,0.10)", color: "#6B7A8D" }}
-                  >
-                    {MOCK_REVIEWS.length}
-                  </span>
-                )}
               </button>
             ))}
           </div>
@@ -472,67 +448,6 @@ export default function ProductDetail({ product, related }: Props) {
                 </div>
               )}
 
-              {activeTab === "reviews" && (
-                <div>
-                  <div
-                    className="flex items-center gap-6 p-5 rounded-xl mb-6"
-                    style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.08)" }}
-                  >
-                    <div className="text-center shrink-0">
-                      <p className="font-bold text-5xl" style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}>4.9</p>
-                      <div className="flex mt-1">
-                        {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-current" style={{ color: "#6B7A8D" }} />)}
-                      </div>
-                      <p className="text-xs mt-1" style={{ color: "#9E9EA8" }}>{MOCK_REVIEWS.length} reviews</p>
-                    </div>
-                    <div className="flex-1 space-y-1.5">
-                      {[5, 4, 3].map((stars) => {
-                        const count = MOCK_REVIEWS.filter((r) => r.rating === stars).length;
-                        return (
-                          <div key={stars} className="flex items-center gap-2">
-                            <span className="text-xs w-3" style={{ color: "#6E6E73" }}>{stars}</span>
-                            <Star className="w-3 h-3 fill-current" style={{ color: "#6B7A8D" }} />
-                            <div className="flex-1 h-1.5 rounded-full overflow-hidden" style={{ background: "rgba(10,132,255,0.12)" }}>
-                              <div className="h-full rounded-full" style={{ width: `${(count / MOCK_REVIEWS.length) * 100}%`, background: "#6B7A8D" }} />
-                            </div>
-                            <span className="text-xs w-3" style={{ color: "#9E9EA8" }}>{count}</span>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                  <div className="space-y-4">
-                    {MOCK_REVIEWS.map((r, i) => (
-                      <div key={i} className="p-5 rounded-xl" style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.08)" }}>
-                        <div className="flex items-start justify-between gap-3 mb-3">
-                          <div className="flex items-center gap-3">
-                            <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.15)" }}>
-                              <User className="w-4 h-4" style={{ color: "#6B7A8D" }} />
-                            </div>
-                            <div>
-                              <p className="font-semibold text-sm" style={{ color: "#1D1D1F" }}>{r.name}</p>
-                              <p className="text-xs" style={{ color: "#9E9EA8" }}>{r.lab}</p>
-                            </div>
-                          </div>
-                          <div className="text-right shrink-0">
-                            <div className="flex">
-                              {[...Array(5)].map((_, j) => (
-                                <Star key={j} className="w-3 h-3" style={{ color: j < r.rating ? "#6B7A8D" : "rgba(0,0,0,0.12)" }} fill={j < r.rating ? "#6B7A8D" : "none"} />
-                              ))}
-                            </div>
-                            <p className="text-[10px] mt-0.5" style={{ color: "#9E9EA8" }}>{r.date}</p>
-                          </div>
-                        </div>
-                        <p className="text-sm leading-relaxed mb-3" style={{ color: "#6E6E73" }}>{r.text}</p>
-                        <button className="flex items-center gap-1.5 text-xs transition-opacity hover:opacity-70" style={{ color: "#9E9EA8" }}>
-                          <ThumbsUp className="w-3 h-3" />
-                          Helpful ({r.helpful})
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
             </motion.div>
           </AnimatePresence>
         </div>

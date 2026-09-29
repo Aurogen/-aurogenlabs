@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   },
   description:
     "Premium quality research peptides — 99%+ purity, third-party tested, US manufactured. For laboratory and scientific research use only.",
-  keywords: ["peptides", "research peptides", "BPC-157", "semaglutide", "TB-500", "IGF-1", "peptide research", "Aurogen Labs"],
+  keywords: ["research peptides", "peptide reagents", "BPC-157", "TB-500", "retatrutide", "tirzepatide", "HPLC-verified", "certificate of analysis", "Aurogen Labs"],
   openGraph: {
     siteName: "Aurogen Labs",
     type: "website",

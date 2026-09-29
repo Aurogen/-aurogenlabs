@@ -201,7 +201,7 @@ export default function AffiliatesPage() {
                     value={form.audience}
                     onChange={(e) => set("audience", e.target.value)}
                     className={INPUT_CLASS} style={INPUT_STYLE}
-                    placeholder="e.g. researchers, bodybuilders, physicians, 10k followers"
+                    placeholder="e.g. research labs, university departments, biotech newsletter"
                   />
                 </div>
 

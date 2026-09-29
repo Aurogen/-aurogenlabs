@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 const RESOURCES = [
-  { icon: BookOpen, title: "Peptide Science Library", desc: "Peer-reviewed articles, clinical studies, and literature reviews on research peptides.", href: "#" },
+  { icon: BookOpen, title: "Peptide Science Library", desc: "Peer-reviewed articles and literature reviews on peptide chemistry and in-vitro research.", href: "#" },
   { icon: FlaskConical, title: "Reconstitution Guides", desc: "Step-by-step instructions for reconstituting every lyophilized peptide in our catalog.", href: "#reconstitution" },
   { icon: Video, title: "Video Tutorials", desc: "Lab-grade video guides covering handling, storage, and reconstitution protocols.", href: "#" },
   { icon: FileCheck, title: "Certificates of Analysis", desc: "Access third-party CoAs for every batch — purity, identity, and lot traceability included.", href: "#sds" },
