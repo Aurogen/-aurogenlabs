@@ -214,13 +214,13 @@ function LineupCard({
       <Link
         href={`/product/${product.slug}`}
         className="relative block overflow-hidden"
-        style={{ height: 250, background: "#F2F1ED" }}
+        style={{ height: 240, background: "#F2F1ED" }}
       >
         {product.image ? (
           <img
             src={product.image}
             alt={product.name}
-            className="w-full h-full object-contain p-4 transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
           />
         ) : (
           <div className="w-full h-full flex items-center justify-center">

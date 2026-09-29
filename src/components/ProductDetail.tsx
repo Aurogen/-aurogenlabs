@@ -70,15 +70,14 @@ export default function ProductDetail({ product, related }: Props) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="rounded-2xl flex items-center justify-center relative overflow-hidden"
-              style={{ background: "#F5F2EC", minHeight: 400, border: "1px solid rgba(0,0,0,0.06)" }}
+              className="rounded-2xl flex items-center justify-center relative overflow-hidden aspect-square"
+              style={{ background: "#F2F1ED" }}
             >
               {product.image ? (
                 <img
                   src={product.image}
                   alt={product.name}
                   className="w-full h-full object-cover"
-                  style={{ maxHeight: 400 }}
                 />
               ) : (
                 <ProductDetailVial />

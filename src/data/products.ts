@@ -42,20 +42,20 @@ export const CATEGORIES: { label: Category; label_es: string }[] = [
   { label: "Reagents", label_es: "Reactivos" },
 ];
 
-const RETATRUTIDE_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175600_5f980e7c-9f25-4669-b2fe-804995810942.png";
-const TIRZEPATIDE_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175603_9f89e6f4-e3df-4382-a7ee-6fea2c90eb48.png";
-const BPC157_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175602_ecc32a9f-7c2b-45d9-9d0f-62cbd62625da.png";
-const IPAMORELIN_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175602_b21856a5-a07d-4c6c-ad2d-e2da3189c51c.png";
-const MOTSC_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_175604_c7657ce3-c73c-4d3f-93be-67fc4de8f34d.png";
-const TB500_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_202208_1cd9e6c4-858f-4765-8e3c-f6f962241c6e.png";
-const CJC_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_202208_f9c2b75e-2a44-473b-bd2c-d3e5cd5d49b9.png";
-const GHKCU_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260928_140428_c3264137-cd4e-4628-b7ee-45b3fb9d6c80.png";
-const TESAMORELIN_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260928_140518_d065b87b-b195-4b4a-89ee-ea87bf24d163.png";
-const TB500BPC157_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260928_135831_cadc8d3d-f2ff-430f-897d-b930e99822b6.png";
-const NADPLUS_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260928_140553_bb666a77-7810-4ec6-99ca-06595a4cc1c1.png";
-const SERMORELIN_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260928_135832_a39b8022-343c-4dae-95ae-899750ae73f8.png";
-const KLOWBLEND_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260928_140639_451ccec6-20ea-4cff-ad6c-c7134d0aeaaa.png";
-const BACWATER_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260928_141556_58887869-2af7-41a1-96a8-4f6358cc66b1.png";
+const RETATRUTIDE_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_9fde8aa4-414d-4c37-a7f9-85d36ed6d7c0.png";
+const TIRZEPATIDE_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_0a1e32d0-3cdd-448d-86ed-a1978ccb4e9a.png";
+const BPC157_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204044_9a592981-ce95-4a2f-959b-732c7447dfc3.png";
+const IPAMORELIN_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204152_133852e6-357e-4e30-a155-b5deab3c2e4e.png";
+const MOTSC_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_015c0f05-e05e-4494-b9bf-5f4f3c2bd19b.png";
+const TB500_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_09558d4f-0819-44fb-95e5-b84a5fa39a85.png";
+const CJC_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_5e8d1ad5-892f-4355-af25-5334fb2cdb9c.png";
+const GHKCU_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_8dcb18b7-ea4d-4eca-b05f-69a13c7f5a3b.png";
+const TESAMORELIN_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_489fc8b4-1651-4fb5-adc7-0ef1cc33c2f2.png";
+const TB500BPC157_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_c1e43088-9807-451b-9fc5-f201730e98d5.png";
+const NADPLUS_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_f5a119af-32a7-4c5f-a6de-168791baa378.png";
+const SERMORELIN_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_e3935470-ae8b-4971-bce0-6cb0f6e7350a.png";
+const KLOWBLEND_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204150_5bc4f7d4-49bb-4d1f-8240-0eb9f5ec1ef5.png";
+const BACWATER_IMG = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260929_204203_f01df26a-4249-4eeb-ae55-7404af2cdb45.png";
 
 export const PRODUCTS: Product[] = [
   // ── Retatrutide ──────────────────────────────────────────────
