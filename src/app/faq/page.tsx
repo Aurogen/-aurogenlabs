@@ -8,7 +8,7 @@ const CATEGORIES = [
   {
     category: "Products & Quality",
     items: [
-      { q: "What purity level are your peptides?", a: "All Aurogen Labs peptides are manufactured to a minimum of 99%+ purity, verified by third-party HPLC analysis. Each batch comes with a Certificate of Analysis (COA) available on the product page." },
+      { q: "What purity level are your peptides?", a: "All Aurogen Labs peptides are manufactured to a minimum of 98% purity, verified by third-party HPLC analysis. Each batch comes with a Certificate of Analysis (COA) available on the product page." },
       { q: "How are the compounds stored?", a: "Lyophilized peptides should be stored at -20°C (freezer) in an airtight container away from light and moisture. Once reconstituted, store at 2–8°C (refrigerator) and use within 30 days. Always follow the storage guidelines on the product page." },
       { q: "Do your products come with a Certificate of Analysis?", a: "Yes. Every product has a batch-specific COA available via the 'View COA' button on the product page. The COA includes HPLC purity data, molecular weight verification, and mass spectrometry results." },
       { q: "Are your peptides synthesized in the US?", a: "Yes. All compounds are synthesized and quality-tested in our US-based facility, following strict GMP-adjacent protocols." },

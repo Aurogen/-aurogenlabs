@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Search, Menu, X, ChevronDown, ArrowRight } from "lucide-react";
+import { ShoppingBag, Search, Menu, X, ChevronDown } from "lucide-react";
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useCart } from "@/context/CartContext";
@@ -11,383 +11,301 @@ import { useLanguage } from "@/context/LanguageContext";
 import { CATEGORIES } from "@/data/products";
 import { useUser, UserButton, SignInButton } from "@clerk/nextjs";
 
-interface NavLink {
-  label: string;
-  href: string;
-  match?: string;
-  sub?: string[];
-  subEn?: string[];
-}
-
-const NAV_LINKS_EN: NavLink[] = [
-  { label: "Home", href: "/", match: "/" },
-  {
-    label: "Shop by Category",
-    href: "/shop",
-    match: "/shop",
-    sub: CATEGORIES.map((c) => c.label),
-  },
-  { label: "Shop by Compound", href: "/shop", match: "/shop" },
-  { label: "Protocols", href: "/protocols", match: "/protocols" },
-  { label: "Research Center", href: "/research", match: "/research" },
-];
-
-const NAV_LINKS_ES: NavLink[] = [
-  { label: "Inicio", href: "/", match: "/" },
-  {
-    label: "Comprar por Categoría",
-    href: "/shop",
-    match: "/shop",
-    sub: CATEGORIES.map((c) => c.label_es),
-    subEn: CATEGORIES.map((c) => c.label),
-  },
-  { label: "Comprar por Compuesto", href: "/shop", match: "/shop" },
-  { label: "Protocolos", href: "/protocols", match: "/protocols" },
-  { label: "Centro de Investigación", href: "/research", match: "/research" },
-];
+const INK = "#111111";
+const MUTED = "#55555A";
+const LINE = "rgba(0,0,0,0.09)";
 
 export default function Navbar() {
   const { totalItems, openCart } = useCart();
-  const { lang, setLang } = useLanguage();
+  const { lang, setLang, t } = useLanguage();
   const { isSignedIn } = useUser();
+  const pathname = usePathname();
   const [isAdmin, setIsAdmin] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [menu, setMenu] = useState<"shop" | "account" | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
-    if (!isSignedIn) { setIsAdmin(false); return; }
+    if (!isSignedIn) return;
     fetch("/api/admin-check")
       .then((r) => r.json())
       .then((d) => setIsAdmin(d.isAdmin === true))
       .catch(() => setIsAdmin(false));
   }, [isSignedIn]);
-  const pathname = usePathname();
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  const [searchOpen, setSearchOpen] = useState(false);
 
-  const NAV_LINKS = lang === "es" ? NAV_LINKS_ES : NAV_LINKS_EN;
+  const links = [
+    { href: "/protocols", label: t("Protocols", "Protocolos") },
+    { href: "/research", label: t("Research Center", "Centro de Investigación") },
+    { href: "/quality", label: t("Quality", "Calidad") },
+  ];
 
-  function isActive(link: NavLink) {
-    if (link.match === "/") return pathname === "/";
-    return link.match ? pathname.startsWith(link.match) : false;
-  }
+  const accountLinks = [
+    { href: "/account/orders", label: t("My Orders", "Mis Pedidos") },
+    { href: "/account/affiliate", label: t("Affiliate Portal", "Portal de Afiliados") },
+    ...(isSignedIn && isAdmin ? [{ href: "/admin", label: "Admin" }] : []),
+  ];
+
+  const navLinkStyle = (href: string) => {
+    const active = pathname.startsWith(href);
+    return {
+      color: active ? INK : MUTED,
+      boxShadow: active ? `inset 0 -1.5px 0 ${INK}` : "none",
+    };
+  };
 
   return (
     <>
-      {/* ── Floating pill header ── */}
-      <header className="sticky top-0 z-40 w-full px-4 pt-3 pointer-events-none">
-        <div
-          className="max-w-[1400px] mx-auto flex items-center justify-between h-[50px] px-3 rounded-full pointer-events-auto"
-          style={{
-            background: "rgba(8,8,8,0.88)",
-            backdropFilter: "blur(20px) saturate(180%)",
-            WebkitBackdropFilter: "blur(20px) saturate(180%)",
-            border: "1px solid rgba(255,255,255,0.08)",
-            boxShadow: "0 2px 24px rgba(0,0,0,0.4), 0 0 0 0.5px rgba(255,255,255,0.04)",
-          }}
-        >
-          {/* ── Logo ── */}
-          <Link href="/" className="flex items-center gap-2 shrink-0 pl-1">
-            <Logo size={26} variant="light" />
-            <span
-              className="font-bold text-sm tracking-widest leading-none"
-              style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#F2EDE4" }}
-            >
-              AUROGEN
-              <span className="text-[9px] tracking-[0.35em] ml-1.5 align-middle" style={{ color: "#0A84FF" }}>
-                LABS
-              </span>
+      <header
+        className="sticky top-0 z-40 w-full"
+        style={{
+          background: "rgba(245,244,240,0.94)",
+          backdropFilter: "blur(14px) saturate(160%)",
+          WebkitBackdropFilter: "blur(14px) saturate(160%)",
+          borderBottom: `1px solid ${LINE}`,
+        }}
+      >
+        <div className="max-w-7xl mx-auto h-16 px-5 sm:px-8 md:px-12 lg:px-16 flex items-center gap-8">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2.5 shrink-0" aria-label="Aurogen Labs home">
+            <Logo size={28} variant="light" />
+            <span className="leading-none" style={{ color: INK }}>
+              <span className="block font-semibold text-[15px] tracking-[0.14em]">AUROGEN</span>
+              <span className="block text-[9px] tracking-[0.3em] mt-0.5" style={{ color: MUTED }}>LABS</span>
             </span>
           </Link>
 
-          {/* ── Desktop nav ── */}
-          <nav className="hidden lg:flex items-center gap-0">
-            {NAV_LINKS.map((link) => {
-              const active = isActive(link);
-              return (
-                <div
-                  key={link.label}
-                  className="relative"
-                  onMouseEnter={() => link.sub && setActiveDropdown(link.label)}
-                  onMouseLeave={() => setActiveDropdown(null)}
-                >
-                  <Link
-                    href={link.href}
-                    className="flex items-center gap-0.5 px-3.5 py-1.5 text-sm transition-colors"
-                    style={{ color: active ? "#F2EDE4" : "#5A5A5E", fontWeight: active ? 600 : 400 }}
-                    onMouseEnter={(e) => { if (!active) e.currentTarget.style.color = "#F2EDE4"; }}
-                    onMouseLeave={(e) => { if (!active) e.currentTarget.style.color = "#5A5A5E"; }}
-                  >
-                    {link.label}
-                    {link.sub && (
-                      <ChevronDown className="w-3 h-3 ml-0.5" style={{ opacity: 0.5 }} />
-                    )}
-                  </Link>
+          {/* Desktop nav */}
+          <nav className="hidden lg:flex items-center gap-7 h-full text-[14px]">
+            <div
+              className="relative h-full flex items-center"
+              onMouseEnter={() => setMenu("shop")}
+              onMouseLeave={() => setMenu(null)}
+            >
+              <Link
+                href="/shop"
+                className="flex items-center gap-1 h-full transition-colors hover:text-[#111111]"
+                style={navLinkStyle("/shop")}
+              >
+                {t("Shop", "Tienda")}
+                <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+              </Link>
 
-                  {link.sub && activeDropdown === link.label && (
-                    <div className="absolute top-full left-0 pt-2" style={{ width: "210px" }}>
-                      <div
-                        className="rounded-xl overflow-hidden shadow-xl"
-                        style={{
-                          background: "rgba(12,12,14,0.97)",
-                          backdropFilter: "blur(24px)",
-                          border: "1px solid rgba(255,255,255,0.08)",
-                        }}
-                      >
-                        {link.sub.map((item, i) => (
-                          <Link
-                            key={item}
-                            href={`/shop?category=${encodeURIComponent(link.subEn ? link.subEn[i] : item)}`}
-                            className="block px-4 py-2.5 text-sm transition-colors"
-                            style={{
-                              color: "#5A5A5E",
-                              borderBottom: i < link.sub!.length - 1 ? "1px solid rgba(255,255,255,0.05)" : "none",
-                            }}
-                            onMouseEnter={(e) => {
-                              e.currentTarget.style.color = "#F2EDE4";
-                              e.currentTarget.style.background = "rgba(255,255,255,0.04)";
-                            }}
-                            onMouseLeave={(e) => {
-                              e.currentTarget.style.color = "#5A5A5E";
-                              e.currentTarget.style.background = "transparent";
-                            }}
-                          >
-                            {item}
-                          </Link>
-                        ))}
-                      </div>
+              {menu === "shop" && (
+                <div className="absolute top-full left-[-20px] pt-px">
+                  <div
+                    className="w-[480px] p-5 rounded-b-xl"
+                    style={{ background: "#FFFFFF", border: `1px solid ${LINE}`, borderTop: "none", boxShadow: "0 18px 40px -18px rgba(0,0,0,0.18)" }}
+                  >
+                    <p className="text-xs mb-3" style={{ color: MUTED }}>
+                      {t("Browse by compound class", "Explorar por clase de compuesto")}
+                    </p>
+                    <div className="grid grid-cols-2 gap-x-6">
+                      {CATEGORIES.map((c) => (
+                        <Link
+                          key={c.label}
+                          href={`/shop?category=${encodeURIComponent(c.label)}`}
+                          className="py-2 text-[14px] transition-colors hover:text-[#0A84FF]"
+                          style={{ color: INK, borderBottom: `1px solid ${LINE}` }}
+                          onClick={() => setMenu(null)}
+                        >
+                          {lang === "es" ? c.label_es : c.label}
+                        </Link>
+                      ))}
                     </div>
-                  )}
+                    <Link
+                      href="/shop"
+                      className="inline-block mt-4 text-[13px] font-medium"
+                      style={{ color: "#0A84FF" }}
+                      onClick={() => setMenu(null)}
+                    >
+                      {t("View all products →", "Ver todos los productos →")}
+                    </Link>
+                  </div>
                 </div>
-              );
-            })}
+              )}
+            </div>
+
+            {links.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className="flex items-center h-full transition-colors hover:text-[#111111]"
+                style={navLinkStyle(l.href)}
+              >
+                {l.label}
+              </Link>
+            ))}
           </nav>
 
-          {/* ── Right actions ── */}
-          <div className="flex items-center gap-0.5">
-
-            {/* Search */}
+          {/* Right */}
+          <div className="ml-auto flex items-center gap-1 sm:gap-2">
             <button
               onClick={() => setSearchOpen(true)}
-              className="hidden md:flex w-8 h-8 items-center justify-center rounded-full transition-colors"
-              style={{ color: "#5A5A5E" }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.06)")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
-              aria-label="Search"
+              className="w-10 h-10 flex items-center justify-center rounded-full transition-colors hover:bg-black/5"
+              style={{ color: INK }}
+              aria-label={t("Search", "Buscar")}
             >
-              <Search className="w-4 h-4" />
+              <Search className="w-[18px] h-[18px]" />
             </button>
 
-            {/* Language toggle */}
-            <div className="hidden md:flex items-center gap-0.5 mx-1 p-0.5 rounded-full" style={{ background: "rgba(255,255,255,0.06)" }}>
-              {(["en", "es"] as const).map((l) => (
-                <button
-                  key={l}
-                  onClick={() => setLang(l)}
-                  className="px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wide transition-all"
-                  style={{
-                    background: lang === l ? "#F2EDE4" : "transparent",
-                    color: lang === l ? "#080808" : "#5A5A5E",
-                  }}
-                >
-                  {l.toUpperCase()}
-                </button>
+            <div className="hidden md:flex items-center text-[13px] px-1" aria-label="Language">
+              {(["en", "es"] as const).map((l, i) => (
+                <span key={l} className="flex items-center">
+                  {i > 0 && <span className="mx-1.5" style={{ color: "rgba(0,0,0,0.2)" }}>/</span>}
+                  <button
+                    onClick={() => setLang(l)}
+                    className="transition-colors"
+                    style={{ color: lang === l ? INK : "#9A9AA0", fontWeight: lang === l ? 600 : 400 }}
+                    aria-pressed={lang === l}
+                  >
+                    {l.toUpperCase()}
+                  </button>
+                </span>
               ))}
             </div>
 
-            {/* My Orders link */}
-            {isSignedIn && (
-              <Link
-                href="/account/orders"
-                className="hidden md:flex items-center px-3 py-1.5 text-xs font-semibold rounded-full transition-colors"
-                style={{ color: "#5A5A5E", background: "rgba(255,255,255,0.05)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.09)")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.05)")}
-              >
-                {lang === "es" ? "Mis Pedidos" : "My Orders"}
-              </Link>
-            )}
-
-            {/* Affiliate link */}
-            {isSignedIn && (
-              <Link
-                href="/account/affiliate"
-                className="hidden md:flex items-center px-3 py-1.5 text-xs font-semibold rounded-full transition-colors"
-                style={{ color: "#5A5A5E", background: "rgba(255,255,255,0.05)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.09)")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.05)")}
-              >
-                {lang === "es" ? "Afiliados" : "Affiliates"}
-              </Link>
-            )}
-
-            {/* Admin link */}
-            {isAdmin && (
-              <Link
-                href="/admin"
-                className="hidden md:flex items-center px-3 py-1.5 text-xs font-semibold rounded-full transition-colors"
-                style={{ color: "#0A84FF", background: "rgba(10,132,255,0.08)" }}
-                onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(10,132,255,0.15)")}
-                onMouseLeave={(e) => (e.currentTarget.style.background = "rgba(10,132,255,0.08)")}
-              >
-                Admin
-              </Link>
-            )}
-
-            {/* Account */}
             {isSignedIn ? (
-              <div className="hidden md:flex items-center ml-1">
-                <UserButton />
+              <div
+                className="relative hidden md:flex items-center h-16"
+                onMouseEnter={() => setMenu("account")}
+                onMouseLeave={() => setMenu(null)}
+              >
+                <button className="flex items-center gap-1 px-2 text-[14px]" style={{ color: INK }}>
+                  {t("Account", "Cuenta")}
+                  <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+                </button>
+                {menu === "account" && (
+                  <div className="absolute top-full right-0 pt-px">
+                    <div
+                      className="w-56 py-2 rounded-b-xl"
+                      style={{ background: "#FFFFFF", border: `1px solid ${LINE}`, borderTop: "none", boxShadow: "0 18px 40px -18px rgba(0,0,0,0.18)" }}
+                    >
+                      {accountLinks.map((l) => (
+                        <Link
+                          key={l.href}
+                          href={l.href}
+                          className="block px-4 py-2.5 text-[14px] transition-colors hover:bg-black/[0.03]"
+                          style={{ color: INK }}
+                          onClick={() => setMenu(null)}
+                        >
+                          {l.label}
+                        </Link>
+                      ))}
+                      <div className="px-4 pt-2 mt-1" style={{ borderTop: `1px solid ${LINE}` }}>
+                        <UserButton />
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             ) : (
               <SignInButton mode="redirect">
-                <button
-                  className="hidden md:flex items-center px-3 py-1.5 text-sm transition-colors rounded-full"
-                  style={{ color: "#5A5A5E" }}
-                  onMouseEnter={(e) => (e.currentTarget.style.color = "#F2EDE4")}
-                  onMouseLeave={(e) => (e.currentTarget.style.color = "#5A5A5E")}
-                >
-                  {lang === "es" ? "Mi Cuenta" : "My Account"}
+                <button className="hidden md:block px-2 text-[14px] transition-colors hover:text-[#111111]" style={{ color: MUTED }}>
+                  {t("Sign in", "Iniciar sesión")}
                 </button>
               </SignInButton>
             )}
 
-            {/* Cart */}
             <button
               onClick={openCart}
-              className="relative flex w-8 h-8 items-center justify-center rounded-full transition-colors"
-              style={{ color: "#5A5A5E" }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.06)")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+              className="relative w-10 h-10 flex items-center justify-center rounded-full transition-colors hover:bg-black/5"
+              style={{ color: INK }}
+              aria-label={t("Cart", "Carrito")}
             >
-              <ShoppingCart className="w-4 h-4" />
+              <ShoppingBag className="w-[18px] h-[18px]" />
               {totalItems > 0 && (
                 <span
-                  className="absolute -top-0.5 -right-0.5 rounded-full text-[9px] font-bold flex items-center justify-center"
-                  style={{ background: "#0A84FF", color: "#080808", minWidth: "15px", minHeight: "15px", padding: "0 2px" }}
+                  className="absolute top-1 right-1 min-w-[16px] h-4 px-1 rounded-full text-[10px] font-semibold flex items-center justify-center"
+                  style={{ background: "#0A84FF", color: "#FFFFFF" }}
                 >
                   {totalItems}
                 </span>
               )}
             </button>
 
-            {/* Shop Now CTA */}
             <Link
               href="/shop"
-              className="hidden lg:flex items-center gap-1.5 ml-1 px-5 py-2 rounded-full text-sm font-semibold transition-opacity hover:opacity-85"
-              style={{ background: "#0A84FF", color: "#080808" }}
+              className="hidden lg:flex items-center h-10 px-5 ml-1 rounded-full text-[14px] font-medium transition-opacity hover:opacity-90"
+              style={{ background: INK, color: "#FFFFFF" }}
             >
-              {lang === "es" ? "Ver Catálogo" : "Shop Now"}
-              <ArrowRight className="w-3.5 h-3.5" />
+              {t("Shop now", "Comprar")}
             </Link>
 
-            {/* Mobile toggle */}
             <button
-              className="lg:hidden flex w-8 h-8 items-center justify-center rounded-full transition-colors ml-1"
-              style={{ color: "#5A5A5E" }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(255,255,255,0.06)")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-full transition-colors hover:bg-black/5"
+              style={{ color: INK }}
               onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Menu"
+              aria-expanded={mobileOpen}
             >
-              {mobileOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
             </button>
           </div>
         </div>
 
-        {/* ── Mobile menu — card below pill ── */}
+        {/* Mobile menu */}
         {mobileOpen && (
-          <div
-            className="lg:hidden mt-2 max-w-[1400px] mx-auto rounded-2xl overflow-hidden pointer-events-auto"
-            style={{
-              background: "rgba(10,10,12,0.97)",
-              border: "1px solid rgba(255,255,255,0.08)",
-              boxShadow: "0 8px 40px rgba(0,0,0,0.6)",
-            }}
-          >
-            <button
-              onClick={() => { setSearchOpen(true); setMobileOpen(false); }}
-              className="w-full flex items-center gap-3 px-5 py-3.5 text-sm"
-              style={{ color: "#5A5A5E", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
-            >
-              <Search className="w-4 h-4" />
-              {lang === "es" ? "Buscar" : "Search"}
-            </button>
-
-            {NAV_LINKS.map((link) => {
-              const active = isActive(link);
-              return (
+          <div className="lg:hidden" style={{ background: "#F5F4F0", borderTop: `1px solid ${LINE}` }}>
+            <div className="px-5 sm:px-8 py-2">
+              {[{ href: "/shop", label: t("Shop all", "Toda la tienda") }, ...links].map((l) => (
                 <Link
-                  key={link.label}
-                  href={link.href}
+                  key={l.href}
+                  href={l.href}
                   onClick={() => setMobileOpen(false)}
-                  className="block px-5 py-3.5 text-sm transition-colors"
-                  style={{
-                    color: active ? "#F2EDE4" : "#5A5A5E",
-                    fontWeight: active ? 600 : 400,
-                    borderBottom: "1px solid rgba(255,255,255,0.06)",
-                  }}
+                  className="block py-3.5 text-[16px]"
+                  style={{ color: INK, borderBottom: `1px solid ${LINE}` }}
                 >
-                  {link.label}
+                  {l.label}
                 </Link>
-              );
-            })}
+              ))}
 
-            {isAdmin && (
-              <Link
-                href="/admin"
-                onClick={() => setMobileOpen(false)}
-                className="block px-5 py-3.5 text-sm font-semibold"
-                style={{ color: "#0A84FF", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
-              >
-                Admin
-              </Link>
-            )}
-            {isSignedIn ? (
-              <>
-                <Link
-                  href="/account/orders"
-                  onClick={() => setMobileOpen(false)}
-                  className="block px-5 py-3.5 text-sm"
-                  style={{ color: "#5A5A5E", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
-                >
-                  {lang === "es" ? "Mis Pedidos" : "My Orders"}
-                </Link>
-                <Link
-                  href="/account/affiliate"
-                  onClick={() => setMobileOpen(false)}
-                  className="block px-5 py-3.5 text-sm"
-                  style={{ color: "#5A5A5E", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
-                >
-                  {lang === "es" ? "Portal de Afiliados" : "Affiliate Portal"}
-                </Link>
-              </>
-            ) : (
-              <SignInButton mode="redirect">
-                <button
-                  className="w-full text-left px-5 py-3.5 text-sm"
-                  style={{ color: "#5A5A5E", borderBottom: "1px solid rgba(255,255,255,0.06)" }}
-                  onClick={() => setMobileOpen(false)}
-                >
-                  {lang === "es" ? "Mi Cuenta" : "My Account"}
-                </button>
-              </SignInButton>
-            )}
+              <p className="pt-5 pb-2 text-xs" style={{ color: MUTED }}>
+                {t("Compound classes", "Clases de compuesto")}
+              </p>
+              <div className="grid grid-cols-2 gap-x-4">
+                {CATEGORIES.map((c) => (
+                  <Link
+                    key={c.label}
+                    href={`/shop?category=${encodeURIComponent(c.label)}`}
+                    onClick={() => setMobileOpen(false)}
+                    className="py-2.5 text-[14px]"
+                    style={{ color: MUTED }}
+                  >
+                    {lang === "es" ? c.label_es : c.label}
+                  </Link>
+                ))}
+              </div>
 
-            <div className="flex items-center gap-3 px-5 py-4">
-              <span className="text-xs" style={{ color: "#3A3A3E" }}>
-                {lang === "es" ? "Idioma:" : "Language:"}
-              </span>
-              <div className="flex gap-0.5 p-0.5 rounded-full" style={{ background: "rgba(255,255,255,0.06)" }}>
+              <div className="mt-3 pt-3" style={{ borderTop: `1px solid ${LINE}` }}>
+                {isSignedIn ? (
+                  accountLinks.map((l) => (
+                    <Link
+                      key={l.href}
+                      href={l.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="block py-3 text-[15px]"
+                      style={{ color: INK }}
+                    >
+                      {l.label}
+                    </Link>
+                  ))
+                ) : (
+                  <SignInButton mode="redirect">
+                    <button className="block py-3 text-[15px]" style={{ color: INK }} onClick={() => setMobileOpen(false)}>
+                      {t("Sign in", "Iniciar sesión")}
+                    </button>
+                  </SignInButton>
+                )}
+              </div>
+
+              <div className="flex items-center gap-4 py-4 text-[14px]">
                 {(["en", "es"] as const).map((l) => (
                   <button
                     key={l}
                     onClick={() => setLang(l)}
-                    className="px-3 py-1 rounded-full text-xs font-semibold transition-all"
-                    style={{
-                      background: lang === l ? "#F2EDE4" : "transparent",
-                      color: lang === l ? "#080808" : "#5A5A5E",
-                    }}
+                    style={{ color: lang === l ? INK : "#9A9AA0", fontWeight: lang === l ? 600 : 400 }}
                   >
-                    {l.toUpperCase()}
+                    {l === "en" ? "English" : "Español"}
                   </button>
                 ))}
               </div>

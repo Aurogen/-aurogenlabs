@@ -4,10 +4,10 @@ import NewsletterForm from "./NewsletterForm";
 
 const LINKS = {
   Shop: [
-    { label: "Shop by Category", href: "/shop" },
-    { label: "Shop by Compound", href: "/shop" },
-    { label: "New Arrivals", href: "/shop?sort=popular" },
-    { label: "Best Sellers", href: "/shop?sort=popular" },
+    { label: "All Products", href: "/shop" },
+    { label: "Incretin Analogs", href: "/shop?category=Incretin%20Analogs" },
+    { label: "GH Secretagogues", href: "/shop?category=GH%20Secretagogues" },
+    { label: "Reagents", href: "/shop?category=Reagents" },
   ],
   Research: [
     { label: "Protocols", href: "/protocols" },
@@ -39,9 +39,9 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div>
             <h3 className="text-white font-bold text-2xl mb-1" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-              STAY IN THE LOOP
+              Stay in the loop
             </h3>
-            <p className="text-gray-500 text-sm">New peptides, protocols, and research updates</p>
+            <p className="text-gray-500 text-sm">New compounds, lab guides and restock notices. No spam.</p>
           </div>
           <NewsletterForm />
         </div>
@@ -60,9 +60,8 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-gray-500 text-xs leading-relaxed mb-4">
-              Engineering the Future of Peptide Research. Premium compounds for advanced scientific investigation.
+              Research peptides and reagents with a third-party Certificate of Analysis for every lot.
             </p>
-            <p className="text-gray-600 text-[11px]">COA Available · cGMP Certified</p>
           </div>
 
           {/* Nav columns */}

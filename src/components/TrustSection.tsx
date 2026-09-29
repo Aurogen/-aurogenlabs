@@ -3,48 +3,32 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
-import { ShieldCheck, FlaskConical, Truck, Award, ArrowRight } from "lucide-react";
 
-const FEATURES = [
+const STEPS = [
   {
-    Icon: ShieldCheck,
-    code: "CoA",
-    title_en: "Batch-Level COA",
-    title_es: "COA por Lote",
-    desc_en: "Every shipment includes a third-party Certificate of Analysis. Batch number, purity, and identity fully verified.",
-    desc_es: "Cada envío incluye un COA de terceros. Número de lote, pureza e identidad totalmente verificados.",
+    title_en: "Synthesis",
+    title_es: "Síntesis",
+    desc_en: "Peptides are synthesized, purified and lyophilized. Each lot gets its own number from the start.",
+    desc_es: "Los péptidos se sintetizan, se purifican y se liofilizan. Cada lote recibe su propio número desde el inicio.",
   },
   {
-    Icon: FlaskConical,
-    code: "HPLC",
-    title_en: "HPLC-Verified Purity",
-    title_es: "Pureza Verificada HPLC",
-    desc_en: "High-performance liquid chromatography confirms 99%+ purity on every compound. Any batch below threshold is rejected.",
-    desc_es: "La cromatografía líquida confirma pureza 99%+ en cada compuesto. Cualquier lote por debajo del umbral es rechazado.",
+    title_en: "Independent testing",
+    title_es: "Análisis independiente",
+    desc_en: "A sample from every lot goes to an outside laboratory for HPLC purity and mass spectrometry identity testing.",
+    desc_es: "Una muestra de cada lote va a un laboratorio externo para pureza por HPLC e identidad por espectrometría de masas.",
   },
   {
-    Icon: Truck,
-    code: "SHIP",
-    title_en: "Ships in 48 Hours",
-    title_es: "Envío en 48 Horas",
-    desc_en: "US orders ship within 2 business days. Temperature-controlled packaging ensures compound integrity in transit.",
-    desc_es: "Los pedidos en EEUU se envían en 2 días hábiles. Embalaje con control de temperatura garantiza la integridad del compuesto.",
+    title_en: "Release or reject",
+    title_es: "Aprobar o rechazar",
+    desc_en: "Lots below 98% purity are not sold. Approved lots are labeled, sealed and stored at the listed temperature.",
+    desc_es: "Los lotes por debajo del 98% de pureza no se venden. Los aprobados se etiquetan, sellan y almacenan a la temperatura indicada.",
   },
   {
-    Icon: Award,
-    code: "cGMP",
-    title_en: "Research Grade Only",
-    title_es: "Solo Grado Investigación",
-    desc_en: "Formulated exclusively for scientific research and controlled laboratory studies. Not for human use.",
-    desc_es: "Formulado exclusivamente para investigación científica y estudios de laboratorio controlados. No para uso humano.",
+    title_en: "Certificate with your order",
+    title_es: "Certificado con tu pedido",
+    desc_en: "The Certificate of Analysis for your exact lot ships in the box and can be downloaded before you buy.",
+    desc_es: "El Certificado de Análisis de tu lote exacto va en la caja y se puede descargar antes de comprar.",
   },
-];
-
-const STATS = [
-  { value: "99.8%", label_en: "Avg. Purity", label_es: "Pureza Promedio" },
-  { value: "100+", label_en: "Compounds", label_es: "Compuestos" },
-  { value: "48h", label_en: "Ship Time", label_es: "Tiempo de Envío" },
-  { value: "100%", label_en: "COA Every Batch", label_es: "COA Cada Lote" },
 ];
 
 export default function TrustSection() {
@@ -52,187 +36,64 @@ export default function TrustSection() {
   const reduceMotion = useReducedMotion();
 
   return (
-    <>
-      {/* ── Stats strip ── */}
-      <section style={{ background: "#F5F4F0", borderTop: "1px solid rgba(0,0,0,0.07)" }}>
-        <div
-          className="grid grid-cols-2 lg:grid-cols-4"
-          style={{ borderBottom: "1px solid rgba(0,0,0,0.07)" }}
-        >
-          {STATS.map((s, i) => (
-            <motion.div
-              key={s.value}
-              initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.07 }}
-              className="flex flex-col items-center justify-center py-10 px-5 text-center"
+    <section style={{ background: "#FFFFFF", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-20 md:py-28 grid lg:grid-cols-12 gap-12 lg:gap-16">
+        <div className="lg:col-span-5">
+          <div className="lg:sticky lg:top-28">
+            <h2
+              className="font-bold mb-5"
               style={{
-                borderRight: i < 3 ? "1px solid rgba(0,0,0,0.07)" : "none",
-                borderBottom: i < 2 ? "1px solid rgba(0,0,0,0.07)" : "none",
+                fontFamily: "var(--font-heading, sans-serif)",
+                fontSize: "clamp(32px, 4vw, 52px)",
+                color: "#111111",
+                letterSpacing: "-0.02em",
+                lineHeight: 1.05,
               }}
             >
-              <p
-                className="font-bold leading-none mb-2"
-                style={{
-                  fontFamily: "var(--font-heading, sans-serif)",
-                  fontSize: "clamp(36px, 4.5vw, 60px)",
-                  color: "#111111",
-                  letterSpacing: "-0.025em",
-                }}
-              >
-                {s.value}
-              </p>
-              <p className="text-[10px] font-semibold tracking-[0.14em] uppercase" style={{ color: "#9E9EA8" }}>
-                {lang === "es" ? s.label_es : s.label_en}
-              </p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Features section ── */}
-      <section style={{ background: "#F5F4F0" }}>
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-16 md:py-20">
-
-          {/* Section header */}
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
-            <div>
-              <motion.p
-                initial={{ opacity: 0, y: reduceMotion ? 0 : 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.35 }}
-                className="flex items-center gap-3 mb-5"
-              >
-                <span style={{ display: "block", width: 24, height: 1, background: "#0A84FF" }} />
-                <span className="text-[10px] font-semibold tracking-[0.35em] uppercase" style={{ color: "#0A84FF" }}>
-                  {t("Why researchers choose us", "Por qué nos eligen")}
-                </span>
-              </motion.p>
-              <motion.h2
-                initial={{ opacity: 0, y: reduceMotion ? 0 : 14 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.05 }}
-                className="font-bold"
-                style={{
-                  fontFamily: "var(--font-heading, sans-serif)",
-                  fontSize: "clamp(30px, 4vw, 52px)",
-                  color: "#111111",
-                  letterSpacing: "-0.025em",
-                  lineHeight: 1.05,
-                }}
-              >
-                {t("Built for serious\nresearchers.", "Construido para\ninvestigadores serios.")}
-              </motion.h2>
-            </div>
-          </div>
-
-          {/* Feature cards — 2 cols on tablet+, 1 on mobile */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {FEATURES.map((f, i) => (
-              <motion.div
-                key={f.code}
-                initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45, delay: i * 0.08 }}
-                className="flex flex-col p-7 rounded-2xl"
-                style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.07)" }}
-              >
-                <div className="flex items-start gap-4 mb-4">
-                  <div
-                    className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                    style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
-                  >
-                    <f.Icon className="w-4 h-4" style={{ color: "#0A84FF" }} />
-                  </div>
-                  <div>
-                    <p
-                      className="text-[9px] font-bold tracking-[0.2em] uppercase mb-1"
-                      style={{ fontFamily: "var(--font-jetbrains, monospace)", color: "#0A84FF" }}
-                    >
-                      {f.code}
-                    </p>
-                    <h3
-                      className="font-bold text-lg leading-tight"
-                      style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#111111" }}
-                    >
-                      {lang === "es" ? f.title_es : f.title_en}
-                    </h3>
-                  </div>
-                </div>
-                <p className="text-sm leading-relaxed" style={{ color: "#6B6B6B" }}>
-                  {lang === "es" ? f.desc_es : f.desc_en}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA Section ── */}
-      <section style={{ background: "#EFEDE8", borderTop: "1px solid rgba(0,0,0,0.07)" }}>
-        <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-14 md:py-16">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
-            <div className="max-w-xl">
-              <motion.h2
-                initial={{ opacity: 0, y: reduceMotion ? 0 : 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.45 }}
-                className="font-bold mb-3"
-                style={{
-                  fontFamily: "var(--font-heading, sans-serif)",
-                  fontSize: "clamp(26px, 3vw, 40px)",
-                  color: "#111111",
-                  letterSpacing: "-0.02em",
-                  lineHeight: 1.1,
-                }}
-              >
-                {t("Ready to start your research?", "¿Listo para comenzar tu investigación?")}
-              </motion.h2>
-              <motion.p
-                initial={{ opacity: 0, y: reduceMotion ? 0 : 8 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: 0.07 }}
-                className="text-sm leading-relaxed"
-                style={{ color: "#6B6B6B" }}
-              >
-                {t(
-                  "Browse 100+ research-grade compounds. Every order includes a batch-specific COA.",
-                  "Explora más de 100 compuestos de grado investigación. Cada pedido incluye un COA por lote.",
-                )}
-              </motion.p>
-            </div>
-            <motion.div
-              initial={{ opacity: 0, y: reduceMotion ? 0 : 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.12 }}
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0"
+              {t("How every lot is checked", "Cómo se revisa cada lote")}
+            </h2>
+            <p className="text-[16px] leading-relaxed mb-6 max-w-md" style={{ color: "#4A4A4F" }}>
+              {t(
+                "Purity claims are easy to make. We would rather show the paperwork. This is the path each vial takes before it reaches your lab.",
+                "Decir que algo es puro es fácil. Preferimos mostrar los documentos. Este es el recorrido de cada vial antes de llegar a tu laboratorio.",
+              )}
+            </p>
+            <Link
+              href="/quality"
+              className="text-[15px] underline underline-offset-4 decoration-black/25 transition-colors hover:decoration-black"
+              style={{ color: "#111111" }}
             >
-              <Link
-                href="/shop"
-                className="flex items-center justify-center gap-2 px-8 rounded-full font-semibold text-sm text-white transition-opacity hover:opacity-85 active:opacity-70"
-                style={{ background: "#111111", height: 48 }}
-              >
-                {t("Shop the Catalog", "Ver el Catálogo")}
-                <ArrowRight className="w-4 h-4" />
-              </Link>
-              <Link
-                href="/research"
-                className="flex items-center justify-center px-8 rounded-full font-semibold text-sm transition-colors hover:bg-black/5"
-                style={{ border: "1px solid rgba(0,0,0,0.14)", color: "#1D1D1F", height: 48 }}
-              >
-                {t("Research Center", "Centro de Investigación")}
-              </Link>
-            </motion.div>
+              {t("Read our quality standards", "Ver nuestros estándares de calidad")}
+            </Link>
           </div>
         </div>
-      </section>
-    </>
+
+        <ol className="lg:col-span-7">
+          {STEPS.map((s, i) => (
+            <motion.li
+              key={s.title_en}
+              initial={{ opacity: 0, y: reduceMotion ? 0 : 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.45, delay: i * 0.05 }}
+              className="grid grid-cols-[48px_1fr] gap-4 py-7"
+              style={{ borderTop: "1px solid rgba(0,0,0,0.1)" }}
+            >
+              <span className="text-[14px] tabular-nums pt-1" style={{ color: "#9A9AA0" }}>
+                0{i + 1}
+              </span>
+              <div>
+                <h3 className="font-semibold text-[19px] mb-2" style={{ color: "#111111" }}>
+                  {lang === "es" ? s.title_es : s.title_en}
+                </h3>
+                <p className="text-[15px] leading-relaxed" style={{ color: "#55555A" }}>
+                  {lang === "es" ? s.desc_es : s.desc_en}
+                </p>
+              </div>
+            </motion.li>
+          ))}
+        </ol>
+      </div>
+    </section>
   );
 }

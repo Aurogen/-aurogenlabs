@@ -2,11 +2,12 @@
 
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, ChevronLeft, ChevronRight, ShoppingCart } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { FEATURED_PRODUCTS } from "@/data/products";
 import type { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 const BG_VIDEOS = [
   "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_164633_8fe5fae4-2747-4529-94ab-d2f81453f2c5.mp4",
@@ -78,11 +79,12 @@ function VideoCycler() {
 }
 
 export default function FeaturedProducts() {
+  const { t } = useLanguage();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   function scroll(dir: "left" | "right") {
     if (!scrollRef.current) return;
-    scrollRef.current.scrollBy({ left: dir === "right" ? 260 : -260, behavior: "smooth" });
+    scrollRef.current.scrollBy({ left: dir === "right" ? 500 : -500, behavior: "smooth" });
   }
 
   return (
@@ -94,7 +96,7 @@ export default function FeaturedProducts() {
       <div
         className="absolute inset-0"
         style={{
-          background: "linear-gradient(135deg, rgba(10,12,16,0.65) 0%, rgba(18,22,28,0.52) 50%, rgba(10,12,16,0.65) 100%)",
+          background: "linear-gradient(to bottom, rgba(8,10,14,0.55) 0%, rgba(8,10,14,0.35) 45%, rgba(8,10,14,0.7) 100%)",
           zIndex: 1,
         }}
       />
@@ -108,47 +110,46 @@ export default function FeaturedProducts() {
       {/* Content */}
       <div className="relative" style={{ zIndex: 2 }}>
         {/* Header */}
-        <div className="px-6 md:px-16 pt-10 pb-6 flex items-end justify-between max-w-[1440px] mx-auto">
+        <div className="px-5 sm:px-8 md:px-12 lg:px-16 pt-14 pb-8 flex items-end justify-between max-w-7xl mx-auto">
           <div>
-            <p
-              className="text-xs font-semibold tracking-[0.28em] uppercase mb-3"
-              style={{ color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-body, sans-serif)" }}
-            >
-              Top sellers
+            <p className="text-sm mb-2" style={{ color: "rgba(255,255,255,0.65)" }}>
+              {t("Top sellers", "Más vendidos")}
             </p>
             <h2
-              className="font-bold leading-[1.0]"
+              className="font-bold leading-none"
               style={{
                 fontFamily: "var(--font-heading, sans-serif)",
-                fontSize: "clamp(28px, 4vw, 48px)",
-                letterSpacing: "-0.01em",
+                fontSize: "clamp(34px, 4.5vw, 56px)",
+                letterSpacing: "-0.015em",
                 color: "#FFFFFF",
               }}
             >
-              Explore the lineup.
+              {t("The lineup", "El catálogo")}
             </h2>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-5">
             <Link
               href="/shop"
-              className="hidden sm:flex items-center gap-1.5 text-sm font-medium transition-opacity hover:opacity-60"
-              style={{ color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-body, sans-serif)" }}
+              className="hidden sm:inline text-sm underline underline-offset-4 decoration-white/40 transition-colors hover:decoration-white"
+              style={{ color: "#FFFFFF" }}
             >
-              View all <ArrowRight className="w-3.5 h-3.5" />
+              {t("Shop all", "Ver todo")}
             </Link>
-            <div className="flex items-center gap-2 ml-4">
+            <div className="hidden md:flex items-center gap-2">
               <button
                 onClick={() => scroll("left")}
-                className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:bg-white/20"
-                style={{ background: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.7)" }}
+                aria-label="Previous"
+                className="w-10 h-10 rounded-full flex items-center justify-center transition-colors hover:bg-white/15"
+                style={{ border: "1px solid rgba(255,255,255,0.3)", color: "#FFFFFF" }}
               >
                 <ChevronLeft className="w-4 h-4" />
               </button>
               <button
                 onClick={() => scroll("right")}
-                className="w-8 h-8 rounded-full flex items-center justify-center transition-all hover:bg-white/20"
-                style={{ background: "rgba(255,255,255,0.1)", color: "rgba(255,255,255,0.7)" }}
+                aria-label="Next"
+                className="w-10 h-10 rounded-full flex items-center justify-center transition-colors hover:bg-white/15"
+                style={{ border: "1px solid rgba(255,255,255,0.3)", color: "#FFFFFF" }}
               >
                 <ChevronRight className="w-4 h-4" />
               </button>
@@ -159,7 +160,7 @@ export default function FeaturedProducts() {
         {/* Horizontal scroll */}
         <div
           ref={scrollRef}
-          className="flex gap-3 overflow-x-auto pb-10 px-6 md:px-16"
+          className="flex gap-4 overflow-x-auto pb-14 px-5 sm:px-8 md:px-12 scroll-px-5 sm:scroll-px-8 md:scroll-px-12 lg:px-[max(4rem,calc((100vw-80rem)/2+4rem))] lg:scroll-px-[max(4rem,calc((100vw-80rem)/2+4rem))]"
           style={{
             scrollSnapType: "x mandatory",
             WebkitOverflowScrolling: "touch",
@@ -176,39 +177,6 @@ export default function FeaturedProducts() {
             />
           ))}
 
-          {/* View all card */}
-          <motion.div
-            initial={{ opacity: 0, transform: "translateY(16px)" }}
-            whileInView={{ opacity: 1, transform: "translateY(0px)" }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.45, delay: FEATURED_PRODUCTS.length * 0.06 }}
-            className="shrink-0 rounded-2xl flex flex-col items-center justify-center gap-4"
-            style={{
-              width: 200,
-              height: 360,
-              scrollSnapAlign: "start",
-              background: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(255,255,255,0.1)",
-              backdropFilter: "blur(12px)",
-            }}
-          >
-            <p
-              className="font-bold text-center text-lg px-6 leading-snug"
-              style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#FFFFFF" }}
-            >
-              100+ Compounds
-            </p>
-            <p className="text-xs text-center px-8" style={{ color: "rgba(255,255,255,0.45)" }}>
-              Research-grade. Third-party tested.
-            </p>
-            <Link
-              href="/shop"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold"
-              style={{ background: "rgba(255,255,255,0.15)", color: "#FFFFFF", border: "1px solid rgba(255,255,255,0.2)" }}
-            >
-              Full catalog <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </motion.div>
         </div>
       </div>
     </section>
@@ -225,155 +193,76 @@ function LineupCard({
   index: number;
 }) {
   const { addItem } = useCart();
+  const { t } = useLanguage();
+  const [added, setAdded] = useState(false);
+
+  function handleAdd() {
+    addItem(product);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1400);
+  }
 
   return (
     <motion.div
-      initial={{ opacity: 0, transform: "translateY(16px)" }}
-      whileInView={{ opacity: 1, transform: "translateY(0px)" }}
-      whileHover={{ transform: "translateY(-6px)" }}
+      initial={{ opacity: 0, y: 12 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{
-        opacity: { duration: 0.45, delay: index * 0.06 },
-        transform: { type: "spring", stiffness: 320, damping: 26 },
-      }}
-      className="group relative shrink-0 rounded-2xl overflow-hidden flex flex-col"
-      style={{
-        width: 210,
-        height: 360,
-        scrollSnapAlign: "start",
-        background: "rgba(14,16,22,0.88)",
-        border: "1px solid rgba(255,255,255,0.09)",
-        backdropFilter: "blur(20px)",
-        boxShadow: "0 8px 32px rgba(0,0,0,0.5)",
-      }}
+      transition={{ duration: 0.4, delay: Math.min(index, 4) * 0.05 }}
+      className="group shrink-0 flex flex-col rounded-xl overflow-hidden"
+      style={{ width: 240, scrollSnapAlign: "start", background: "#FFFFFF" }}
     >
-
-      {/* Vial display */}
       <Link
         href={`/product/${product.slug}`}
-        className="relative flex-1 flex items-center justify-center overflow-hidden"
-        style={{ background: "rgba(10,12,16,0.97)" }}
+        className="relative block overflow-hidden"
+        style={{ height: 250, background: "#F2F1ED" }}
       >
-        {/* Grain texture */}
-        <div
-          className="absolute inset-0 pointer-events-none"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E")`,
-            backgroundSize: "180px 180px",
-            mixBlendMode: "overlay",
-          }}
-        />
         {product.image ? (
           <img
             src={product.image}
             alt={product.name}
-            className="transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-2"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-              objectPosition: "center center",
-              padding: "14px 18px",
-              filter: undefined,
-            }}
+            className="w-full h-full object-contain p-4 transition-transform duration-500 ease-out group-hover:scale-[1.04]"
           />
         ) : (
-          <div className="transition-transform duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-2">
+          <div className="w-full h-full flex items-center justify-center">
             <LineupVial accent={accent} index={index} />
           </div>
         )}
-        {/* View overlay */}
-        <div
-          className="absolute inset-0 flex items-end justify-center pb-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-          style={{ background: "linear-gradient(to top, rgba(0,0,0,0.28) 0%, transparent 55%)" }}
-        >
-          <span className="flex items-center gap-1 text-white text-[10px] font-semibold tracking-[0.2em] uppercase">
-            View <ArrowRight className="w-3 h-3" />
+        {product.badge && (
+          <span
+            className="absolute top-3 left-3 px-2 py-1 rounded text-[10px] font-semibold tracking-wide"
+            style={{ background: "#111111", color: "#FFFFFF" }}
+          >
+            {product.badge}
           </span>
-        </div>
+        )}
       </Link>
 
-      {/* Info */}
-      <div className="px-4 pb-4 pt-3">
-        {/* Badge row */}
-        <div className="flex items-center gap-2 mb-2">
-          {product.badge && (
-            <span
-              className="px-2.5 py-0.5 rounded text-[9px] font-bold tracking-widest uppercase"
-              style={{
-                background: "#111111",
-                color: "#FFFFFF",
-                fontFamily: "var(--font-body, sans-serif)",
-              }}
-            >
-              {product.badge}
-            </span>
-          )}
-          {!product.inStock && (
-            <span
-              className="px-2.5 py-0.5 rounded text-[9px] font-bold tracking-widest uppercase"
-              style={{ background: "rgba(255,255,255,0.12)", color: "rgba(255,255,255,0.5)", fontFamily: "var(--font-body, sans-serif)" }}
-            >
-              Out of stock
-            </span>
-          )}
-        </div>
-        <h3
-          className="font-semibold mb-1"
-          style={{
-            fontFamily: "var(--font-heading, sans-serif)",
-            fontSize: "clamp(16px, 2vw, 20px)",
-            letterSpacing: "-0.01em",
-            lineHeight: 1.1,
-            color: "#FFFFFF",
-          }}
-        >
-          {product.name}
-        </h3>
+      <div className="flex flex-col flex-1 p-4">
+        <Link href={`/product/${product.slug}`} className="block">
+          <h3 className="font-semibold text-[15px] leading-snug" style={{ color: "#111111", fontFamily: "var(--font-body, sans-serif)" }}>
+            {product.name}
+            <span className="font-normal" style={{ color: "#6B6B6B" }}> · {product.concentration}</span>
+          </h3>
+          <p className="text-[13px] mt-1" style={{ color: "#6B6B6B" }}>
+            {product.goals[0] ?? product.compound}
+          </p>
+        </Link>
 
-        <p
-          className="text-xs mb-3 leading-relaxed line-clamp-2"
-          style={{ color: "rgba(255,255,255,0.45)", fontFamily: "var(--font-body, sans-serif)" }}
-        >
-          {product.description}
-        </p>
-
-        <p
-          className="font-bold mb-3"
-          style={{
-            fontSize: "1.25rem",
-            color: "#10B981",
-            fontFamily: "var(--font-body, sans-serif)",
-            letterSpacing: "-0.02em",
-          }}
-        >
-          ${product.price}
-        </p>
-
-        <div className="flex items-center gap-2">
-          <Link
-            href={`/product/${product.slug}`}
-            className="flex-1 text-center py-2 rounded-full text-xs font-semibold transition-opacity hover:opacity-85"
-            style={{
-              background: "rgba(255,255,255,0.12)",
-              color: "#FFFFFF",
-              border: "1px solid rgba(255,255,255,0.18)",
-              fontFamily: "var(--font-body, sans-serif)",
-            }}
-          >
-            Learn more
-          </Link>
+        <div className="mt-auto pt-4 flex items-center justify-between">
+          <span className="font-semibold text-[17px]" style={{ color: "#111111" }}>
+            ${product.price}
+          </span>
           {product.inStock ? (
             <button
-              onClick={() => addItem(product)}
-              className="p-2 rounded-full flex items-center justify-center transition-all hover:scale-105"
-              style={{ background: "rgba(255,255,255,0.1)" }}
+              onClick={handleAdd}
+              className="h-9 px-4 rounded-full text-[13px] font-medium transition-colors"
+              style={{ background: added ? "#0A84FF" : "#111111", color: "#FFFFFF" }}
             >
-              <ShoppingCart className="w-3.5 h-3.5" style={{ color: "rgba(255,255,255,0.7)" }} />
+              {added ? t("Added", "Añadido") : t("Add to cart", "Añadir")}
             </button>
           ) : (
-            <span className="text-[10px]" style={{ color: "rgba(255,255,255,0.3)", fontFamily: "var(--font-body)" }}>
-              Sold out
+            <span className="text-[13px]" style={{ color: "#9A9AA0" }}>
+              {t("Sold out", "Agotado")}
             </span>
           )}
         </div>

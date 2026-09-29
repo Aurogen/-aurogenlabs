@@ -4,7 +4,7 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const ITEMS_EN = [
   "Third-Party Tested",
-  "99%+ Purity",
+  "≥98% Purity",
   "Ships 2–5 Business Days",
   "Batch Verified",
   "US Manufactured",
@@ -15,7 +15,7 @@ const ITEMS_EN = [
 
 const ITEMS_ES = [
   "Testado por Terceros",
-  "Pureza 99%+",
+  "Pureza ≥98%",
   "Envío en 2–5 Días",
   "Lote Verificado",
   "Fabricado en EE.UU.",

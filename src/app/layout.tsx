@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     template: "%s | Aurogen Labs",
   },
   description:
-    "Premium quality research peptides — 99%+ purity, third-party tested, US manufactured. For laboratory and scientific research use only.",
+    "Premium quality research peptides — ≥98% purity, third-party tested, US manufactured. For laboratory and scientific research use only.",
   keywords: ["research peptides", "peptide reagents", "BPC-157", "TB-500", "retatrutide", "tirzepatide", "HPLC-verified", "certificate of analysis", "Aurogen Labs"],
   openGraph: {
     siteName: "Aurogen Labs",

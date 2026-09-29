@@ -16,8 +16,8 @@ const FAQS = [
   {
     q_en: "How do I verify the purity of what I receive?",
     q_es: "¿Cómo verifico la pureza de lo que recibo?",
-    a_en: "Every shipment includes a batch-specific Certificate of Analysis (COA) from an independent third-party laboratory. The COA confirms identity, purity (99%+ via HPLC), and is traceable to the exact lot number of your product. You can also download COAs from our Research Center before purchasing.",
-    a_es: "Cada envío incluye un Certificado de Análisis (COA) específico del lote de un laboratorio independiente de terceros. El COA confirma identidad, pureza (99%+ mediante HPLC) y es rastreable al número de lote exacto de tu producto. También puedes descargar los COAs desde nuestro Centro de Investigación antes de comprar.",
+    a_en: "Every shipment includes a batch-specific Certificate of Analysis (COA) from an independent third-party laboratory. The COA confirms identity, purity (≥98% by HPLC), and is traceable to the exact lot number of your product. You can also download COAs from our Research Center before purchasing.",
+    a_es: "Cada envío incluye un Certificado de Análisis (COA) específico del lote de un laboratorio independiente de terceros. El COA confirma identidad, pureza (≥98% mediante HPLC) y es rastreable al número de lote exacto de tu producto. También puedes descargar los COAs desde nuestro Centro de Investigación antes de comprar.",
   },
   {
     q_en: "How fast will my order ship?",
@@ -103,23 +103,11 @@ export default function FAQ() {
   const { lang, t } = useLanguage();
 
   return (
-    <section style={{ background: "#F5F4F0", borderTop: "1px solid rgba(0,0,0,0.07)" }}>
+    <section style={{ background: "#FFFFFF", borderTop: "1px solid rgba(0,0,0,0.08)" }}>
       <div className="max-w-4xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-16 md:py-20">
 
         {/* Header */}
         <div className="mb-10">
-          <motion.p
-            initial={{ opacity: 0, y: 8 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.35 }}
-            className="flex items-center gap-3 mb-5"
-          >
-            <span style={{ display: "block", width: 24, height: 1, background: "#0A84FF" }} />
-            <span className="text-[10px] font-semibold tracking-[0.35em] uppercase" style={{ color: "#0A84FF" }}>
-              {t("Common questions", "Preguntas frecuentes")}
-            </span>
-          </motion.p>
           <motion.h2
             initial={{ opacity: 0, y: 14 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -128,13 +116,13 @@ export default function FAQ() {
             className="font-bold"
             style={{
               fontFamily: "var(--font-heading, sans-serif)",
-              fontSize: "clamp(30px, 4vw, 52px)",
+              fontSize: "clamp(32px, 4vw, 52px)",
               color: "#111111",
               letterSpacing: "-0.025em",
               lineHeight: 1.05,
             }}
           >
-            {t("Everything you need to know.", "Todo lo que necesitas saber.")}
+            {t("Common questions", "Preguntas frecuentes")}
           </motion.h2>
         </div>
 
@@ -157,7 +145,7 @@ export default function FAQ() {
           viewport={{ once: true }}
           transition={{ duration: 0.4, delay: 0.2 }}
           className="mt-10 p-6 rounded-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
-          style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.07)" }}
+          style={{ background: "#F5F4F0" }}
         >
           <div>
             <p className="font-semibold mb-1" style={{ color: "#111111" }}>

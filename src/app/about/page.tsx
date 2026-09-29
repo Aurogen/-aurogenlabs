@@ -3,12 +3,12 @@ import { FlaskConical, Award, Users, Globe } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About Us",
-  description: "Aurogen Labs is a US-based research peptide company committed to 99%+ purity, full COA transparency, and serving the scientific research community.",
+  description: "Aurogen Labs is a US-based research peptide company committed to ≥98% purity, full COA transparency, and serving the scientific research community.",
 };
 
 const STATS = [
-  { value: "99%+", label: "Purity Guaranteed" },
-  { value: "100+", label: "Active Compounds" },
+  { value: "≥98%", label: "Minimum Purity" },
+  { value: "100%", label: "Lots with COA" },
   { value: "12k+", label: "Researchers Served" },
   { value: "US", label: "Manufactured" },
 ];
@@ -22,7 +22,7 @@ const VALUES = [
   {
     icon: Award,
     title: "Uncompromising Quality",
-    desc: "Our synthesis protocols follow GMP-adjacent standards. We reject any batch that does not meet our 99%+ purity threshold — no exceptions.",
+    desc: "Our synthesis protocols follow GMP-adjacent standards. We reject any batch that does not meet our ≥98% purity threshold — no exceptions.",
   },
   {
     icon: Users,
