@@ -124,20 +124,10 @@ export default function CheckoutPage() {
         name: `${form.firstName} ${form.lastName}`,
       }));
 
-      // Get checkout URL for this cart
-      const whopRes = await fetch("/api/checkout/whop-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ orderId, items: state.items.map((i) => i.product.id), total: finalTotal }),
-      });
-      const whopData = await whopRes.json();
-
-      if (whopData.checkout_url) {
-        window.location.href = whopData.checkout_url;
-      } else {
-        alert("Payment is not yet configured for this product. Please contact support.");
-        setLoading(false);
-      }
+      // TODO: redirect to payment processor once configured (Authorize.net / PaymentCloud)
+      // Order is saved to DB; payment integration will be wired here.
+      alert("Your order has been received. Our team will contact you to complete payment. Thank you!");
+      window.location.href = `/order-success?id=${orderId}`;
     } catch {
       setLoading(false);
     }
@@ -353,7 +343,7 @@ export default function CheckoutPage() {
               <div>
                 <p className="text-sm font-semibold" style={{ color: "#1D1D1F" }}>Secure Payment</p>
                 <p className="text-xs mt-0.5" style={{ color: "#9E9EA8" }}>
-                  You&apos;ll be redirected to our secure checkout to complete payment.
+                  All transactions are encrypted and processed securely.
                 </p>
               </div>
             </div>
@@ -372,7 +362,7 @@ export default function CheckoutPage() {
               ) : (
                 <Lock className="w-4 h-4" />
               )}
-              {loading ? "Redirecting to payment..." : "Continue to Payment"}
+              {loading ? "Placing order..." : "Place Order"}
               {!loading && <ArrowRight className="w-4 h-4" />}
             </button>
 

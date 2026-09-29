@@ -12,6 +12,7 @@ import Footer from "@/components/Footer";
 import RefTracker from "@/components/RefTracker";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import { CrispChat } from "@/components/CrispChat";
+import CookieConsent from "@/components/CookieConsent";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -81,6 +82,7 @@ export default function RootLayout({
                 <Footer />
                 <CartDrawer />
                 <CrispChat />
+                <CookieConsent />
               </LanguageProvider>
             </CartProvider>
           </PostHogProvider>
