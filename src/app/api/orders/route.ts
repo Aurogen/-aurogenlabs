@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { getServiceClient } from "@/lib/supabase-server";
+import { sendOrderConfirmation, sendAdminOrderNotification } from "@/lib/email";
 
 export async function POST(req: NextRequest) {
   try {
@@ -12,6 +13,9 @@ export async function POST(req: NextRequest) {
     }
 
     const { userId } = await auth();
+    if (!userId) {
+      return NextResponse.json({ error: "Sign in required" }, { status: 401 });
+    }
 
     const supabase = getServiceClient();
 
@@ -38,7 +42,7 @@ export async function POST(req: NextRequest) {
       total,
       status: status ?? "processing",
       ...(payment_status ? { payment_status } : {}),
-      ...(userId ? { user_id: userId } : {}),
+      user_id: userId,
       ...(affiliate_code && commission_amount !== null
         ? { affiliate_code, commission_amount }
         : {}),
@@ -50,8 +54,23 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    // Emails are sent after payment is confirmed via the Whop webhook,
-    // not here — avoids sending confirmations for abandoned checkouts.
+    // Manual-payment orders get their emails now; card-paid orders get them from the payment webhook.
+    if (payment_status === "pending") {
+      const user = await currentUser();
+      const accountEmail = user?.primaryEmailAddress?.emailAddress ?? email;
+      const results = await Promise.allSettled([
+        sendOrderConfirmation(accountEmail, {
+          id, name, items, total, address, date, email,
+          discountCode: discount_code ?? null,
+          discountAmount: discount_amount ?? null,
+          paymentPending: true,
+        }),
+        sendAdminOrderNotification({ id, name, email, address, items, total }),
+      ]);
+      results.forEach((r) => {
+        if (r.status === "rejected") console.error("Order email error:", r.reason);
+      });
+    }
 
     return NextResponse.json({ success: true, id });
   } catch (err) {
@@ -70,6 +89,12 @@ export async function GET(req: NextRequest) {
     const email = req.nextUrl.searchParams.get("email");
     if (!email) {
       return NextResponse.json({ error: "Email required" }, { status: 400 });
+    }
+
+    const user = await currentUser();
+    const ownEmails = (user?.emailAddresses ?? []).map((e) => e.emailAddress.toLowerCase());
+    if (!ownEmails.includes(email.toLowerCase())) {
+      return NextResponse.json({ error: "Forbidden" }, { status: 403 });
     }
 
     const supabase = getServiceClient();

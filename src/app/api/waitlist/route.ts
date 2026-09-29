@@ -19,10 +19,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    // Send confirmation email (non-blocking)
-    sendWaitlistConfirmation(email, product_name).catch((err) =>
-      console.error("Waitlist email error:", err)
-    );
+    // Awaited so the serverless function doesn't exit before the email is handed off.
+    try {
+      await sendWaitlistConfirmation(email, product_name);
+    } catch (err) {
+      console.error("Waitlist email error:", err);
+    }
 
     return NextResponse.json({ success: true });
   } catch (err) {

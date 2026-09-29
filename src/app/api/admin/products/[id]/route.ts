@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase-server";
 import { isAdmin } from "@/lib/admin";
+import { notifyWaitlist } from "@/lib/waitlist";
 
 export async function PATCH(
   req: Request,
@@ -31,6 +32,13 @@ export async function PATCH(
   if ("sort_order" in update) update.sort_order = Number(update.sort_order);
 
   const supabase = getServiceClient();
+
+  let wasOutOfStock = false;
+  if (update.in_stock === true) {
+    const { data: before } = await supabase.from("products").select("in_stock").eq("id", id).maybeSingle();
+    wasOutOfStock = before?.in_stock === false;
+  }
+
   const { data, error } = await supabase
     .from("products")
     .update(update)
@@ -39,7 +47,17 @@ export async function PATCH(
     .single();
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json({ product: data });
+
+  let waitlist: Awaited<ReturnType<typeof notifyWaitlist>> | undefined;
+  if (wasOutOfStock && data) {
+    try {
+      waitlist = await notifyWaitlist(`${data.name} ${data.concentration}`);
+    } catch (err) {
+      console.error("Auto waitlist notify error:", err);
+    }
+  }
+
+  return NextResponse.json({ product: data, waitlist });
 }
 
 export async function DELETE(

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Lock, ArrowRight, Loader2, CreditCard, Tag, CheckCircle, XCircle } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 
 const INPUT_STYLE = {
@@ -17,10 +18,18 @@ const INPUT_CLASS =
 
 export default function CheckoutPage() {
   const { state, totalPrice } = useCart();
-  const [form, setForm] = useState({
+  const { user } = useUser();
+  const [edited, setEdited] = useState({
     firstName: "", lastName: "", email: "",
     address: "", city: "", stateField: "", zip: "",
   });
+  // Contact fields default to the signed-in account until the customer types over them.
+  const form = {
+    ...edited,
+    firstName: edited.firstName || user?.firstName || "",
+    lastName: edited.lastName || user?.lastName || "",
+    email: edited.email || user?.primaryEmailAddress?.emailAddress || "",
+  };
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [discountInput, setDiscountInput] = useState("");
@@ -71,7 +80,7 @@ export default function CheckoutPage() {
   }
 
   function set(field: string, value: string) {
-    setForm((prev) => ({ ...prev, [field]: value }));
+    setEdited((prev) => ({ ...prev, [field]: value }));
   }
 
   function getRefCookie(): string | null {

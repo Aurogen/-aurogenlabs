@@ -27,6 +27,10 @@ const FOOTER = `
     <p style="color:#9E9EA8;font-size:11px;margin:0;">© 2026 Aurogen Labs · For research use only</p>
   </div>`;
 
+function esc(value: string) {
+  return value.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+}
+
 /* ── Order Confirmation ── */
 export async function sendOrderConfirmation(to: string, order: {
   id: string;
@@ -34,11 +38,22 @@ export async function sendOrderConfirmation(to: string, order: {
   items: OrderItem[];
   total: number;
   address: string;
+  date?: string;
+  email?: string;
+  discountCode?: string | null;
+  discountAmount?: number | null;
+  paymentPending?: boolean;
 }) {
+  const subtotal = order.items.reduce((sum, i) => sum + i.price * i.quantity, 0);
+  const discount = order.discountAmount ?? 0;
+  const placedOn = new Date(order.date ?? Date.now()).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" });
+  const pending = order.paymentPending === true;
+
   const itemRows = order.items.map((i) => `
     <tr>
       <td style="padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.06);color:#1D1D1F;font-size:14px;">
-        ${i.name}${i.concentration ? ` · ${i.concentration}` : ""}
+        ${esc(i.name)}${i.concentration ? ` · ${esc(i.concentration)}` : ""}
+        <div style="color:#9E9EA8;font-size:12px;margin-top:2px;">$${i.price.toFixed(2)} each</div>
       </td>
       <td style="padding:10px 0;border-bottom:1px solid rgba(0,0,0,0.06);color:#6E6E73;font-size:14px;text-align:center;">
         ×${i.quantity}
@@ -49,48 +64,71 @@ export async function sendOrderConfirmation(to: string, order: {
     </tr>
   `).join("");
 
+  const heading = pending ? "Order Received" : "Order Confirmed";
+  const intro = pending
+    ? `Thanks, ${esc(order.name.split(" ")[0] || order.name)}. We&apos;ve reserved your items. Our team will contact you within 1 business day to complete payment, and your order ships as soon as payment is confirmed.`
+    : "Payment received. Your research compounds are being prepared for shipment.";
+
   const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="${BODY}">
   <div style="${WRAP}">
     ${LOGO}
 
     <div style="text-align:center;margin-bottom:28px;">
-      <div style="display:inline-block;background:rgba(27,122,69,0.08);border:1px solid rgba(27,122,69,0.2);border-radius:50%;padding:16px;margin-bottom:16px;">
-        <span style="font-size:28px;">✓</span>
-      </div>
-      <h1 style="color:#1D1D1F;font-size:26px;font-weight:800;margin:0 0 8px;">Order Confirmed</h1>
-      <p style="color:#6E6E73;font-size:14px;margin:0;">Your research compounds are being prepared for shipment.</p>
+      <h1 style="color:#1D1D1F;font-size:26px;font-weight:800;margin:0 0 8px;">${heading}</h1>
+      <p style="color:#6E6E73;font-size:14px;line-height:1.6;margin:0;">${intro}</p>
     </div>
 
     <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:16px;overflow:hidden;margin-bottom:16px;">
-      <div style="padding:14px 20px;border-bottom:1px solid rgba(0,0,0,0.06);display:flex;justify-content:space-between;align-items:center;">
-        <span style="color:#6E6E73;font-size:13px;">Order</span>
-        <span style="color:#0A84FF;font-family:monospace;font-weight:700;font-size:14px;">#${order.id}</span>
-      </div>
+      <table style="width:100%;border-collapse:collapse;border-bottom:1px solid rgba(0,0,0,0.06);">
+        <tr>
+          <td style="padding:14px 20px;color:#6E6E73;font-size:13px;">Order <span style="color:#0A84FF;font-family:monospace;font-weight:700;">#${esc(order.id)}</span></td>
+          <td style="padding:14px 20px;color:#6E6E73;font-size:13px;text-align:right;">${placedOn}</td>
+        </tr>
+      </table>
       <div style="padding:16px 20px;">
         <table style="width:100%;border-collapse:collapse;">
           ${itemRows}
           <tr>
-            <td colspan="2" style="padding:10px 0 4px;color:#6E6E73;font-size:13px;">Shipping</td>
-            <td style="padding:10px 0 4px;color:#1B7A45;font-size:13px;text-align:right;font-weight:600;">FREE</td>
+            <td colspan="2" style="padding:10px 0 4px;color:#6E6E73;font-size:13px;">Subtotal</td>
+            <td style="padding:10px 0 4px;color:#1D1D1F;font-size:13px;text-align:right;">$${subtotal.toFixed(2)}</td>
+          </tr>
+          ${discount > 0 ? `<tr>
+            <td colspan="2" style="padding:4px 0;color:#6E6E73;font-size:13px;">Discount${order.discountCode ? ` (${esc(order.discountCode)})` : ""}</td>
+            <td style="padding:4px 0;color:#1B7A45;font-size:13px;text-align:right;">−$${discount.toFixed(2)}</td>
+          </tr>` : ""}
+          <tr>
+            <td colspan="2" style="padding:4px 0;color:#6E6E73;font-size:13px;">Shipping</td>
+            <td style="padding:4px 0;color:#1B7A45;font-size:13px;text-align:right;font-weight:600;">FREE</td>
           </tr>
           <tr>
-            <td colspan="2" style="padding:4px 0;color:#1D1D1F;font-size:16px;font-weight:700;">Total</td>
-            <td style="padding:4px 0;color:#1D1D1F;font-size:20px;font-weight:800;text-align:right;">$${order.total.toFixed(2)}</td>
+            <td colspan="2" style="padding:8px 0 4px;color:#1D1D1F;font-size:16px;font-weight:700;">Total${pending ? " due" : ""}</td>
+            <td style="padding:8px 0 4px;color:#1D1D1F;font-size:20px;font-weight:800;text-align:right;">$${order.total.toFixed(2)}</td>
           </tr>
         </table>
       </div>
     </div>
 
     <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:16px 20px;margin-bottom:16px;">
-      <p style="color:#1D1D1F;font-weight:600;font-size:13px;margin:0 0 4px;">Estimated Delivery</p>
-      <p style="color:#6E6E73;font-size:13px;margin:0 0 6px;">2–5 business days · Ships from US</p>
-      <p style="color:#9E9EA8;font-size:12px;margin:0;">Shipping to: ${order.address}</p>
+      <p style="color:#1D1D1F;font-weight:600;font-size:13px;margin:0 0 6px;">Shipping to</p>
+      <p style="color:#6E6E73;font-size:13px;line-height:1.5;margin:0;">${esc(order.name)}<br>${esc(order.address)}</p>
+      ${order.email ? `<p style="color:#9E9EA8;font-size:12px;margin:8px 0 0;">${esc(order.email)}</p>` : ""}
+    </div>
+
+    <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:16px 20px;margin-bottom:16px;">
+      <p style="color:#1D1D1F;font-weight:600;font-size:13px;margin:0 0 6px;">What happens next</p>
+      <p style="color:#6E6E73;font-size:13px;line-height:1.6;margin:0;">
+        ${pending ? "1. We contact you to complete payment.<br>" : ""}${pending ? "2" : "1"}. Your order ships within 2 business days with tracking.<br>
+        ${pending ? "3" : "2"}. Delivery takes 2–5 business days. A Certificate of Analysis for your lot is in the box.
+      </p>
+      <p style="margin:14px 0 0;"><a href="https://aurogenlabs.com/account/orders" style="color:#0A84FF;font-size:13px;font-weight:600;text-decoration:none;">View your order →</a></p>
     </div>
 
     <div style="background:rgba(234,179,8,0.06);border:1px solid rgba(234,179,8,0.2);border-radius:10px;padding:12px 16px;margin-bottom:24px;">
       <p style="color:#9A6400;font-size:11px;margin:0;">For Research Use Only · Not for Human Consumption · Not a drug or supplement</p>
     </div>
+
+    <p style="color:#9E9EA8;font-size:12px;text-align:center;margin:0 0 16px;">Questions? Reply to this email or write to support@aurogenlabs.com</p>
 
     ${FOOTER}
   </div>
@@ -99,7 +137,7 @@ export async function sendOrderConfirmation(to: string, order: {
   return getResend().emails.send({
     from: FROM,
     to,
-    subject: `Order Confirmed #${order.id} — Aurogen Labs`,
+    subject: `${heading} #${order.id} — Aurogen Labs`,
     html,
   });
 }
@@ -134,7 +172,7 @@ export async function sendWaitlistConfirmation(to: string, productName: string) 
     ${LOGO}
     <h1 style="color:#1D1D1F;font-size:24px;font-weight:800;margin:0 0 12px;">You&apos;re on the waitlist</h1>
     <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:16px;margin:0 0 20px;">
-      <p style="color:#0A84FF;font-weight:600;font-size:15px;margin:0;">${productName}</p>
+      <p style="color:#0A84FF;font-weight:600;font-size:15px;margin:0;">${esc(productName)}</p>
       <p style="color:#9E9EA8;font-size:12px;margin:4px 0 0;">Out of stock · You&apos;ll be notified first when it&apos;s back</p>
     </div>
     <p style="color:#6E6E73;font-size:14px;line-height:1.6;margin:0 0 24px;">
@@ -166,15 +204,15 @@ export async function sendAdminOrderNotification(order: {
   if (!adminEmail) return;
 
   const itemLines = order.items
-    .map((i) => `${i.name} ${i.concentration ?? ""} ×${i.quantity} — $${(i.price * i.quantity).toFixed(2)}`)
+    .map((i) => `${esc(i.name)} ${esc(i.concentration ?? "")} ×${i.quantity} — $${(i.price * i.quantity).toFixed(2)}`)
     .join("<br>");
 
   const html = `<!DOCTYPE html><html>
 <body style="font-family:sans-serif;background:#F6F6F8;padding:20px;">
   <div style="max-width:500px;margin:0 auto;background:#fff;border-radius:12px;padding:24px;border:1px solid rgba(0,0,0,0.08);">
-    <h2 style="margin:0 0 16px;color:#1D1D1F;">New Order — #${order.id}</h2>
-    <p style="color:#1D1D1F;"><strong>Customer:</strong> ${order.name} (${order.email})</p>
-    <p style="color:#1D1D1F;"><strong>Ship to:</strong> ${order.address}</p>
+    <h2 style="margin:0 0 16px;color:#1D1D1F;">New Order — #${esc(order.id)}</h2>
+    <p style="color:#1D1D1F;"><strong>Customer:</strong> ${esc(order.name)} (${esc(order.email)})</p>
+    <p style="color:#1D1D1F;"><strong>Ship to:</strong> ${esc(order.address)}</p>
     <p style="color:#1D1D1F;"><strong>Items:</strong><br>${itemLines}</p>
     <p style="font-size:18px;font-weight:700;border-top:1px solid rgba(0,0,0,0.08);padding-top:12px;margin-top:12px;color:#1B7A45;">
       Total: $${order.total.toFixed(2)}
@@ -198,7 +236,7 @@ export async function sendWaitlistRestock(to: string, productName: string) {
     ${LOGO}
     <h1 style="color:#1D1D1F;font-size:24px;font-weight:800;margin:0 0 12px;">Back in Stock</h1>
     <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:20px;margin:0 0 20px;">
-      <p style="color:#0A84FF;font-weight:700;font-size:18px;margin:0 0 6px;">${productName}</p>
+      <p style="color:#0A84FF;font-weight:700;font-size:18px;margin:0 0 6px;">${esc(productName)}</p>
       <p style="color:#9E9EA8;font-size:13px;margin:0;">Available now — limited stock</p>
     </div>
     <p style="color:#6E6E73;font-size:15px;line-height:1.6;margin:0 0 28px;">
