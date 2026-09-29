@@ -45,7 +45,7 @@ export default function Hero() {
     <section style={{ background: "#F5F4F0", borderTop: "1px solid rgba(0,0,0,0.07)" }}>
 
       {/* ── Main content ── */}
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 pt-14 pb-0 md:pt-20 md:pb-0">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 pt-10 pb-0 md:pt-14 md:pb-0">
         <div className="flex flex-col lg:flex-row lg:items-stretch gap-10 lg:gap-16">
 
           {/* Left: eyebrow + headline + sub + CTAs */}
