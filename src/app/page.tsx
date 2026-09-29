@@ -19,11 +19,11 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      {/* 1. Brand statement: headline + stats + trust strip */}
-      <Hero />
-
-      {/* 2. Impact: video hero + immediate product showcase */}
+      {/* 1. Impact: video hero + immediate product showcase */}
       <FeaturedProducts />
+
+      {/* 2. Brand statement: headline + stats + trust strip */}
+      <Hero />
 
       {/* 3. Credentials scrolling marquee */}
       <CredentialsStrip />
