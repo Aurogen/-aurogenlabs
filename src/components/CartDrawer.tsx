@@ -98,23 +98,25 @@ export default function CartDrawer() {
 
                   <div className="flex items-center justify-between">
                     {/* Qty controls */}
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1">
                       <button
                         onClick={() => updateQty(item.product.id, item.quantity - 1)}
-                        className="w-6 h-6 rounded flex items-center justify-center transition-all"
+                        className="w-8 h-8 rounded-lg flex items-center justify-center transition-all"
                         style={{ border: "1px solid rgba(0,0,0,0.12)", color: "#6E6E73", background: "#FFFFFF" }}
+                        aria-label="Decrease quantity"
                       >
-                        <Minus className="w-3 h-3" />
+                        <Minus className="w-3.5 h-3.5" />
                       </button>
-                      <span className="text-sm font-medium w-5 text-center" style={{ color: "#1D1D1F" }}>
+                      <span className="text-sm font-medium w-6 text-center" style={{ color: "#1D1D1F" }}>
                         {item.quantity}
                       </span>
                       <button
                         onClick={() => updateQty(item.product.id, item.quantity + 1)}
-                        className="w-6 h-6 rounded flex items-center justify-center transition-all"
+                        className="w-8 h-8 rounded-lg flex items-center justify-center transition-all"
                         style={{ border: "1px solid rgba(0,0,0,0.12)", color: "#6E6E73", background: "#FFFFFF" }}
+                        aria-label="Increase quantity"
                       >
-                        <Plus className="w-3 h-3" />
+                        <Plus className="w-3.5 h-3.5" />
                       </button>
                     </div>
 
@@ -124,10 +126,11 @@ export default function CartDrawer() {
                       </span>
                       <button
                         onClick={() => removeItem(item.product.id)}
-                        className="transition-colors"
+                        className="w-8 h-8 flex items-center justify-center rounded-lg transition-colors"
                         style={{ color: "#9E9EA8" }}
                         onMouseEnter={e => (e.currentTarget.style.color = "#DC2626")}
                         onMouseLeave={e => (e.currentTarget.style.color = "#9E9EA8")}
+                        aria-label="Remove item"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>

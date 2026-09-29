@@ -154,7 +154,7 @@ export default function CheckoutPage() {
         <div className="grid lg:grid-cols-5 gap-8">
 
           {/* Left: Form */}
-          <div className="lg:col-span-3 space-y-5">
+          <div className="lg:col-span-3 space-y-5 order-2 lg:order-1">
 
             {/* Contact */}
             <div
@@ -371,8 +371,8 @@ export default function CheckoutPage() {
             </p>
           </div>
 
-          {/* Right: Order Summary */}
-          <div className="lg:col-span-2">
+          {/* Right: Order Summary — shows first on mobile */}
+          <div className="lg:col-span-2 order-1 lg:order-2">
             <div
               className="sticky top-24 p-6 rounded-2xl"
               style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}

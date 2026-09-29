@@ -1,5 +1,6 @@
 "use client";
 
+import { motion, useReducedMotion } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
 
 const STATS = [
@@ -34,34 +35,46 @@ const PILLARS = [
 ];
 
 function TrustSectionInner({ lang }: { lang: "en" | "es" }) {
+  const reduceMotion = useReducedMotion();
+
   return (
     <section style={{ background: "#F5F4F0", borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 md:py-24">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-16 md:py-20 lg:py-24">
 
         {/* Top label */}
-        <div className="flex items-center gap-3 mb-14">
+        <motion.div
+          initial={{ opacity: 0, y: reduceMotion ? 0 : 8 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="flex items-center gap-3 mb-12 md:mb-14"
+        >
           <span style={{ display: "block", width: 24, height: 1, background: "#B8975A" }} />
           <p className="text-[10px] font-semibold tracking-[0.38em] uppercase" style={{ color: "#B8975A" }}>
             {lang === "es" ? "Por qué nos eligen" : "Why researchers choose us"}
           </p>
-        </div>
+        </motion.div>
 
-        {/* Big stats grid */}
+        {/* Stats grid — 2×2 on mobile, 4-column on large */}
         <div
-          className="grid grid-cols-2 lg:grid-cols-4 mb-14"
+          className="grid grid-cols-2 lg:grid-cols-4 mb-12 md:mb-14"
           style={{ borderTop: "1px solid rgba(0,0,0,0.08)", borderLeft: "1px solid rgba(0,0,0,0.08)" }}
         >
-          {STATS.map((stat) => (
-            <div
+          {STATS.map((stat, i) => (
+            <motion.div
               key={stat.value}
-              className="flex flex-col justify-center py-10 px-8"
+              initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.07 }}
+              className="flex flex-col justify-center py-8 px-5 sm:py-10 sm:px-8"
               style={{ borderRight: "1px solid rgba(0,0,0,0.08)", borderBottom: "1px solid rgba(0,0,0,0.08)" }}
             >
               <p
                 className="font-bold leading-none mb-2"
                 style={{
                   fontFamily: "var(--font-heading, sans-serif)",
-                  fontSize: "clamp(38px, 4.5vw, 60px)",
+                  fontSize: "clamp(32px, 4vw, 56px)",
                   color: "#111111",
                   letterSpacing: "-0.025em",
                 }}
@@ -71,19 +84,23 @@ function TrustSectionInner({ lang }: { lang: "en" | "es" }) {
               <p className="text-[10px] font-semibold tracking-[0.14em] uppercase" style={{ color: "#9E9EA8" }}>
                 {lang === "es" ? stat.label_es : stat.label_en}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        {/* Pillars */}
+        {/* Pillars — single col on mobile, 3-col on md+ */}
         <div
           className="grid grid-cols-1 md:grid-cols-3 gap-px"
           style={{ background: "rgba(0,0,0,0.08)" }}
         >
-          {PILLARS.map((p) => (
-            <div
+          {PILLARS.map((p, i) => (
+            <motion.div
               key={p.code}
-              className="flex flex-col p-8"
+              initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+              className="flex flex-col p-6 sm:p-8"
               style={{ background: "#F5F4F0" }}
             >
               <p
@@ -93,7 +110,7 @@ function TrustSectionInner({ lang }: { lang: "en" | "es" }) {
                 {p.code}
               </p>
               <h3
-                className="font-bold text-xl mb-3 leading-tight"
+                className="font-bold text-lg sm:text-xl mb-3 leading-tight"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#111111" }}
               >
                 {lang === "es" ? p.title_es : p.title_en}
@@ -101,7 +118,7 @@ function TrustSectionInner({ lang }: { lang: "en" | "es" }) {
               <p className="text-sm leading-relaxed" style={{ color: "#6B6B6B" }}>
                 {lang === "es" ? p.desc_es : p.desc_en}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
 

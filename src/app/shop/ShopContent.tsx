@@ -99,41 +99,44 @@ export default function ShopContent({ initialProducts }: Props) {
         </div>
       )}
 
-      <div className="max-w-7xl mx-auto px-4 py-8">
+      <div className="max-w-7xl mx-auto px-4 py-6 sm:py-8">
         {/* Search & filters bar */}
-        <div className="flex flex-wrap gap-3 mb-8 items-center justify-between">
-          <div className="relative flex-1 min-w-60 max-w-sm">
+        <div className="flex flex-col sm:flex-row gap-3 mb-6 sm:mb-8">
+          {/* Search — full width on mobile */}
+          <div className="relative flex-1">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search peptides, compounds..."
-              className="w-full pl-10 pr-4 py-2.5 rounded-xl text-sm focus:outline-none transition-colors"
-              style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F" }}
+              className="w-full pl-10 pr-4 rounded-xl text-sm focus:outline-none transition-colors"
+              style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F", height: 44 }}
             />
           </div>
 
-          <div className="flex items-center gap-3">
+          {/* Controls row */}
+          <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium border transition-all"
+              className="flex items-center gap-2 px-4 rounded-xl text-sm font-medium border transition-all shrink-0"
               style={{
                 background: showFilters ? "rgba(10,132,255,0.08)" : "#FFFFFF",
                 borderColor: showFilters ? "#0A84FF" : "rgba(0,0,0,0.12)",
                 color: showFilters ? "#0A84FF" : "#6E6E73",
+                height: 44,
               }}
             >
               <SlidersHorizontal className="w-4 h-4" />
               Filters
             </button>
 
-            <div className="relative">
+            <div className="relative flex-1 sm:flex-none">
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-                className="appearance-none pl-4 pr-8 py-2.5 rounded-xl text-sm focus:outline-none cursor-pointer"
-                style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F" }}
+                className="appearance-none w-full sm:w-auto pl-4 pr-8 rounded-xl text-sm focus:outline-none cursor-pointer"
+                style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F", height: 44 }}
               >
                 <option value="popular">Most Popular</option>
                 <option value="price-asc">Price: Low to High</option>
@@ -143,9 +146,10 @@ export default function ShopContent({ initialProducts }: Props) {
               <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500 pointer-events-none" />
             </div>
 
-            <p className="text-sm" style={{ color: "#6E6E73" }}>{filtered.length} products</p>
+            <p className="text-sm shrink-0 hidden sm:block" style={{ color: "#6E6E73" }}>{filtered.length} products</p>
           </div>
         </div>
+        <p className="text-sm sm:hidden mb-4" style={{ color: "#6E6E73" }}>{filtered.length} products</p>
 
         {/* Expanded filters */}
         {showFilters && (

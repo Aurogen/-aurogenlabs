@@ -112,6 +112,20 @@ h1, h2, h3, h4, h5, h6 {
   to   { transform: translateX(-33.333%); }
 }
 
+/* Credentials strip scroll */
+@keyframes creds-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-creds-scroll {
+  animation: creds-scroll 28s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-creds-scroll {
+    animation: none;
+  }
+}
+
 /* Cart drawer transition */
 .cart-enter {
   transform: translateX(100%);
