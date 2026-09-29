@@ -27,7 +27,7 @@ const VALUES = [
   {
     icon: Users,
     title: "Researcher-First",
-    desc: "We built Aurogen Labs for the scientific community. From our interactive dosing tools to our protocol library, every feature is designed for real researchers.",
+    desc: "We built Aurogen Labs for the scientific community. From batch-level COAs to our laboratory handling guides, every feature is designed for real researchers.",
   },
   {
     icon: Globe,
@@ -92,7 +92,7 @@ export default function AboutPage() {
               Aurogen Labs was born out of frustration with the status quo in the research peptide market — inconsistent quality, opaque sourcing, and a lack of resources for researchers trying to do serious scientific work.
             </p>
             <p>
-              We invested in US-based synthesis infrastructure, established relationships with independent testing laboratories, and built a platform that puts the researcher&apos;s needs first: full COAs on every batch, interactive dosing tools, detailed protocols, and a catalog curated around real research applications.
+              We invested in US-based synthesis infrastructure, established relationships with independent testing laboratories, and built a platform that puts the researcher&apos;s needs first: full COAs on every batch, laboratory handling guides, and a catalog organized by compound class.
             </p>
             <p>
               Today, Aurogen Labs serves thousands of researchers, laboratories, and institutions across the United States. Our commitment to purity, transparency, and scientific integrity remains unchanged.

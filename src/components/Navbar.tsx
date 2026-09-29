@@ -8,6 +8,7 @@ import { useCart } from "@/context/CartContext";
 import Logo from "./Logo";
 import SearchModal from "./SearchModal";
 import { useLanguage } from "@/context/LanguageContext";
+import { CATEGORIES } from "@/data/products";
 import { useUser, UserButton, SignInButton } from "@clerk/nextjs";
 
 interface NavLink {
@@ -21,10 +22,10 @@ interface NavLink {
 const NAV_LINKS_EN: NavLink[] = [
   { label: "Home", href: "/", match: "/" },
   {
-    label: "Shop by Goal",
+    label: "Shop by Category",
     href: "/shop",
     match: "/shop",
-    sub: ["Fat Loss", "Muscle Growth", "Recovery", "Anti-Aging", "Skin & Hair", "Brain Health", "Performance"],
+    sub: CATEGORIES.map((c) => c.label),
   },
   { label: "Shop by Compound", href: "/shop", match: "/shop" },
   { label: "Protocols", href: "/protocols", match: "/protocols" },
@@ -34,11 +35,11 @@ const NAV_LINKS_EN: NavLink[] = [
 const NAV_LINKS_ES: NavLink[] = [
   { label: "Inicio", href: "/", match: "/" },
   {
-    label: "Comprar por Objetivo",
+    label: "Comprar por Categoría",
     href: "/shop",
     match: "/shop",
-    sub: ["Pérdida de Grasa", "Crecimiento Muscular", "Recuperación", "Antienvejecimiento", "Piel y Cabello", "Salud Cerebral", "Rendimiento"],
-    subEn: ["Fat Loss", "Muscle Growth", "Recovery", "Anti-Aging", "Skin & Hair", "Brain Health", "Performance"],
+    sub: CATEGORIES.map((c) => c.label_es),
+    subEn: CATEGORIES.map((c) => c.label),
   },
   { label: "Comprar por Compuesto", href: "/shop", match: "/shop" },
   { label: "Protocolos", href: "/protocols", match: "/protocols" },
@@ -135,7 +136,7 @@ export default function Navbar() {
                         {link.sub.map((item, i) => (
                           <Link
                             key={item}
-                            href={`/shop?goal=${encodeURIComponent(link.subEn ? link.subEn[i] : item)}`}
+                            href={`/shop?category=${encodeURIComponent(link.subEn ? link.subEn[i] : item)}`}
                             className="block px-4 py-2.5 text-sm transition-colors"
                             style={{
                               color: "#5A5A5E",

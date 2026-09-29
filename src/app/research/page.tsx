@@ -17,7 +17,7 @@ const RESOURCES = [
 const RECON_STEPS = [
   { step: "1", title: "Gather supplies", desc: "Bacteriostatic water (BAC water), 1mL insulin syringe, 25–27g needle, 70% isopropyl alcohol." },
   { step: "2", title: "Sterilize", desc: "Wipe the vial septum with alcohol. Allow to dry 10–15 seconds before inserting the needle." },
-  { step: "3", title: "Add solvent", desc: "Inject BAC water slowly along the vial wall — not directly onto the powder. Use 1–2 mL per 5 mg vial." },
+  { step: "3", title: "Add solvent", desc: "Add BAC water slowly along the vial wall — not directly onto the powder. Use 1–2 mL per 5 mg vial." },
   { step: "4", title: "Gentle mixing", desc: "Roll the vial gently between your fingers. Do NOT shake. Allow powder to dissolve fully (1–2 minutes)." },
   { step: "5", title: "Storage", desc: "Refrigerate at 2–8 °C. Once reconstituted, use within 30 days. Keep away from light." },
 ];

@@ -1,60 +1,48 @@
 import type { Metadata } from "next";
-import { FileText, Download, Clock, ChevronRight } from "lucide-react";
+import { FileText, Download, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Research Protocols",
-  description: "Download research protocols for BPC-157, Semaglutide, IGF-1 LR3, TB-500, and more. Detailed dosing, reconstitution, and study guides for researchers.",
+  title: "Laboratory Protocols",
+  description: "Laboratory handling guides for research peptides: reconstitution, storage and stability, COA interpretation, HPLC verification and concentration calculations. For in-vitro research use only.",
 };
 
 const PROTOCOLS = [
   {
-    name: "BPC-157 Reconstitution Protocol",
-    compound: "BPC-157",
-    goal: "Recovery",
-    duration: "8–12 weeks",
-    description: "Detailed reconstitution guide for BPC-157 including solvent ratios, storage, and injection protocols for research models.",
-    tags: ["Recovery", "Tissue Repair"],
+    name: "Peptide Reconstitution Guide",
+    format: "Lab guide",
+    description: "Laboratory procedure for reconstituting lyophilized peptides: solvent selection, volume calculation, aseptic handling and vial labeling.",
+    tags: ["Reconstitution", "Lab Handling"],
   },
   {
-    name: "Semaglutide Research Protocol",
-    compound: "Semaglutide",
-    goal: "Fat Loss",
-    duration: "16–24 weeks",
-    description: "GLP-1 receptor agonist research protocol covering dosing escalation models, metabolic parameter tracking, and safety monitoring.",
-    tags: ["Fat Loss", "Metabolic"],
+    name: "Storage & Stability Guidelines",
+    format: "Reference",
+    description: "Recommended temperatures for lyophilized and reconstituted material, light protection, freeze-thaw limits and shelf-life considerations.",
+    tags: ["Storage", "Stability"],
   },
   {
-    name: "Anti-Aging Peptide Stack",
-    compound: "Multiple",
-    goal: "Anti-Aging",
-    duration: "12 weeks",
-    description: "Multi-compound protocol investigating synergistic effects of Epithalon, MOTS-c, and CJC-1295 in longevity research models.",
-    tags: ["Anti-Aging", "Longevity"],
+    name: "Reading a Certificate of Analysis",
+    format: "Reference",
+    description: "How to interpret HPLC chromatograms, mass spectrometry identity data, purity calculations and lot traceability on a batch COA.",
+    tags: ["QC", "Documentation"],
   },
   {
-    name: "IGF-1 LR3 Research Protocol",
-    compound: "IGF-1 LR3",
-    goal: "Muscle Growth",
-    duration: "4 weeks",
-    description: "Anabolic signaling research using IGF-1 LR3 with detailed reconstitution, dosing, and outcome measurement methodologies.",
-    tags: ["Muscle Growth", "Anabolic"],
+    name: "HPLC Purity Verification",
+    format: "Method",
+    description: "General reverse-phase HPLC method for independently reproducing identity and purity verification of peptide reagents in your own lab.",
+    tags: ["Analytical", "HPLC"],
   },
   {
-    name: "TB-500 Wound Healing Study",
-    compound: "TB-500",
-    goal: "Recovery",
-    duration: "6–8 weeks",
-    description: "Thymosin Beta-4 analog protocol for musculoskeletal repair research, including tendon and ligament injury models.",
-    tags: ["Recovery", "Wound Healing"],
+    name: "Concentration & Dilution Calculations",
+    format: "Worksheet",
+    description: "Worked examples for calculating stock concentrations (mg/mL, molarity) and preparing serial dilutions for in-vitro assays.",
+    tags: ["Calculations", "In-Vitro"],
   },
   {
-    name: "Nootropic Peptide Protocol",
-    compound: "Selank + Epithalon",
-    goal: "Brain Health",
-    duration: "8 weeks",
-    description: "Cognitive enhancement research protocol combining anxiolytic and neuroprotective peptides for neurological studies.",
-    tags: ["Brain Health", "Neuroprotection"],
+    name: "Laboratory Safety & Disposal",
+    format: "Reference",
+    description: "Personal protective equipment, spill response and disposal procedures for chemical research reagents.",
+    tags: ["Safety", "Compliance"],
   },
 ];
 
@@ -73,10 +61,10 @@ export default function ProtocolsPage() {
           className="text-4xl md:text-5xl font-bold mb-4 tracking-tight"
           style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
         >
-          Research Protocols
+          Laboratory Protocols
         </h1>
         <p className="max-w-xl mx-auto text-base leading-relaxed" style={{ color: "#6E6E73" }}>
-          Evidence-based research protocols for laboratory use. All protocols are for research purposes only.
+          Handling, storage and analytical guides for in-vitro laboratory work. For research use only.
         </p>
       </div>
 
@@ -95,10 +83,7 @@ export default function ProtocolsPage() {
                 >
                   <FileText className="w-5 h-5" style={{ color: "#6B7A8D" }} />
                 </div>
-                <div className="flex items-center gap-1.5 shrink-0">
-                  <Clock className="w-3.5 h-3.5" style={{ color: "#9E9EA8" }} />
-                  <span className="text-xs" style={{ color: "#9E9EA8" }}>{p.duration}</span>
-                </div>
+                <span className="text-xs shrink-0" style={{ color: "#9E9EA8" }}>{p.format}</span>
               </div>
 
               <h3
@@ -119,9 +104,6 @@ export default function ProtocolsPage() {
                     {tag}
                   </span>
                 ))}
-                <span className="text-xs px-2.5 py-1" style={{ color: "#9E9EA8" }}>
-                  Compound: {p.compound}
-                </span>
               </div>
 
               <div className="flex items-center justify-between">
@@ -150,17 +132,17 @@ export default function ProtocolsPage() {
             className="text-2xl font-bold mb-2"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
-            Need a Custom Protocol?
+            Need Technical Documentation?
           </h3>
           <p className="mb-6 text-sm leading-relaxed" style={{ color: "#6E6E73" }}>
-            Our expert team can help you design research protocols tailored to your specific compounds and objectives.
+            Our team can provide Certificates of Analysis, Safety Data Sheets and analytical data for any compound in our catalog.
           </p>
           <Link
             href="/contact"
             className="inline-flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-sm text-white transition-opacity hover:opacity-85"
             style={{ background: "#1D1D1F" }}
           >
-            Contact Our Experts
+            Contact Support
           </Link>
         </div>
       </div>

@@ -4,7 +4,7 @@ import NewsletterForm from "./NewsletterForm";
 
 const LINKS = {
   Shop: [
-    { label: "Shop by Goal", href: "/shop" },
+    { label: "Shop by Category", href: "/shop" },
     { label: "Shop by Compound", href: "/shop" },
     { label: "New Arrivals", href: "/shop?sort=popular" },
     { label: "Best Sellers", href: "/shop?sort=popular" },

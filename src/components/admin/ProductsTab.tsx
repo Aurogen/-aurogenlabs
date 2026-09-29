@@ -6,8 +6,9 @@ import {
   Upload, FileText, ExternalLink, Trash2, ImagePlus, Loader2, RefreshCw,
 } from "lucide-react";
 import type { DbProduct } from "@/lib/products-db";
+import { CATEGORIES } from "@/data/products";
 
-const ALL_GOALS = ["Fat Loss", "Muscle Growth", "Recovery", "Anti-Aging", "Skin & Hair", "Brain Health", "Performance"];
+const ALL_GOALS: string[] = CATEGORIES.map((c) => c.label);
 
 const EMPTY_FORM = {
   name: "", slug: "", compound: "", concentration: "", size: "1 Vial",
@@ -746,7 +747,7 @@ function ProductForm({
 
         {/* Goals */}
         <div className="sm:col-span-2 lg:col-span-3">
-          <label className={lbl} style={lblStyle}>Goals</label>
+          <label className={lbl} style={lblStyle}>Categories</label>
           <div className="flex flex-wrap gap-2 mt-1">
             {ALL_GOALS.map((g) => (
               <button

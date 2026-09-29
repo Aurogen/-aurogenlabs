@@ -27,7 +27,7 @@ const FAQ_ITEMS = [
   { q: "What solvent should I use for reconstitution?", a: "Use sterile bacteriostatic water (BAC water) for reconstitution. Add the solvent slowly along the vial wall to minimize foaming. Do not use regular sterile water as it does not preserve the peptide as long." },
   { q: "How should I store the reconstituted peptide?", a: "Once reconstituted, store at 2–8°C (refrigerator) and use within 28–30 days. For longer storage of the lyophilized (dry) form, keep at -20°C away from light." },
   { q: "What does 'research use only' mean?", a: "Our peptides are sold exclusively for in-vitro laboratory and scientific research purposes. They are not intended for human consumption, are not drugs or supplements, and have not been evaluated by the FDA." },
-  { q: "How do I calculate my research dose?", a: "We recommend consulting your research protocol for reconstitution ratios. A standard approach is to add 1–2 mL of bacteriostatic water per vial; contact our support team for guidance specific to your compound." },
+  { q: "How do I calculate the concentration after reconstitution?", a: "Divide the peptide mass by the solvent volume. For example, 10 mg reconstituted in 2 mL of solvent yields a 5 mg/mL solution. Follow the handling procedures defined in your laboratory's own protocol." },
   { q: "Do you provide a Certificate of Analysis (COA)?", a: "Yes. Every batch has a third-party COA verifiable via batch number. Access it from the Research Center or contact our team with your order number." },
 ];
 
@@ -126,12 +126,12 @@ export default function ProductDetail({ product, related }: Props) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            {/* Goal tags */}
+            {/* Category tags */}
             <div className="flex flex-wrap gap-2 mb-4">
               {product.goals.map((g) => (
                 <Link
                   key={g}
-                  href={`/shop?goal=${encodeURIComponent(g)}`}
+                  href={`/shop?category=${encodeURIComponent(g)}`}
                   className="px-3 py-1 rounded text-xs font-medium tracking-wide transition-opacity hover:opacity-80"
                   style={{ background: "rgba(10,132,255,0.06)", color: "#0A84FF", border: "1px solid rgba(10,132,255,0.15)" }}
                 >
@@ -391,16 +391,16 @@ export default function ProductDetail({ product, related }: Props) {
                       tags: ["Reconstitution", "Lab Setup"],
                     },
                     {
-                      title: `${product.goals[0] ?? "Research"} Research Protocol`,
-                      duration: "8–12 weeks",
-                      desc: `Standard research protocol for ${(product.goals[0] ?? "research").toLowerCase()} studies.`,
-                      tags: [product.goals[0] ?? "Research", "Research Design"],
+                      title: "Storage & Stability Handling",
+                      duration: "Ongoing",
+                      desc: "Recommended storage temperatures for lyophilized and reconstituted material, light protection, and freeze-thaw guidance to preserve sample integrity.",
+                      tags: ["Storage", "Stability"],
                     },
                     {
-                      title: "Peptide Combination Stack",
-                      duration: "12 weeks",
-                      desc: "Multi-compound protocol investigating synergistic effects.",
-                      tags: ["Advanced", "Multi-compound"],
+                      title: "Analytical Verification (HPLC / MS)",
+                      duration: "Per batch",
+                      desc: "How to read the batch Certificate of Analysis and reproduce identity and purity verification with HPLC and mass spectrometry in your own lab.",
+                      tags: ["QC", "Analytical"],
                     },
                   ].map((p) => (
                     <div

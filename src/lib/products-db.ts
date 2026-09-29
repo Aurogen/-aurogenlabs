@@ -1,6 +1,15 @@
 import { getServiceClient } from "./supabase-server";
-import type { Product, Goal } from "@/data/products";
-import { PRODUCTS } from "@/data/products";
+import type { Product, Category } from "@/data/products";
+import { PRODUCTS, CATEGORIES } from "@/data/products";
+
+const VALID_CATEGORIES = new Set<string>(CATEGORIES.map((c) => c.label));
+
+// Rows not yet migrated still hold legacy goal labels; fall back to the static catalog by slug.
+function resolveCategories(row: { slug: string; goals: string[] | null }): Category[] {
+  const goals = row.goals ?? [];
+  if (goals.length > 0 && goals.every((g) => VALID_CATEGORIES.has(g))) return goals as Category[];
+  return PRODUCTS.find((p) => p.slug === row.slug)?.goals ?? [];
+}
 
 function supabaseConfigured() {
   return !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
@@ -46,7 +55,7 @@ export function mapToProduct(row: DbProduct): Product {
     size: row.size,
     price: Number(row.price),
     originalPrice: row.original_price != null ? Number(row.original_price) : undefined,
-    goals: (row.goals ?? []) as Goal[],
+    goals: resolveCategories(row),
     description: row.description,
     longDescription: row.long_description,
     inStock: row.in_stock,

@@ -50,7 +50,7 @@ export default function SearchModal({ onClose }: Props) {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search peptides, compounds, goals..."
+            placeholder="Search peptides, compounds, categories..."
             className="flex-1 bg-transparent text-base focus:outline-none"
             style={{ color: "#1D1D1F" }}
           />
