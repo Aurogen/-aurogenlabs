@@ -229,6 +229,42 @@ export async function sendAdminOrderNotification(order: {
   });
 }
 
+/* ── Admin: new partner application ── */
+export async function sendAdminPartnerApplication(app: {
+  name: string;
+  email: string;
+  answers: { label: string; value: string }[];
+}) {
+  const adminEmail = process.env.ADMIN_EMAIL;
+  if (!adminEmail) return;
+  const site = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://aurogenlabs.com").replace(/\/$/, "");
+
+  const rows = app.answers
+    .map(
+      (a) => `<p style="margin:0 0 10px;color:#1D1D1F;font-size:13px;"><strong>${esc(a.label)}</strong><br>
+        <span style="color:#6E6E73;white-space:pre-wrap;">${esc(a.value || "—")}</span></p>`
+    )
+    .join("");
+
+  const html = `<!DOCTYPE html><html>
+<body style="font-family:sans-serif;background:#F6F6F8;padding:20px;">
+  <div style="max-width:520px;margin:0 auto;background:#fff;border-radius:12px;padding:24px;border:1px solid rgba(0,0,0,0.08);">
+    <h2 style="margin:0 0 16px;color:#1D1D1F;">New partner application</h2>
+    <p style="color:#1D1D1F;margin:0 0 16px;"><strong>${esc(app.name)}</strong> (${esc(app.email)})</p>
+    ${rows}
+    <a href="${site}/admin" style="display:inline-block;margin-top:8px;background:#1D1D1F;color:#fff;font-weight:600;font-size:13px;padding:10px 20px;border-radius:100px;text-decoration:none;">Review in admin</a>
+    <p style="color:#9E9EA8;font-size:12px;margin-top:16px;">Aurogen Labs — Internal notification</p>
+  </div>
+</body></html>`;
+
+  return getResend().emails.send({
+    from: FROM,
+    to: adminEmail,
+    subject: `New partner application — ${app.name}`,
+    html,
+  });
+}
+
 /* ── Waitlist Restock ── */
 export async function sendWaitlistRestock(to: string, productName: string) {
   const html = `<!DOCTYPE html><html><body style="${BODY}">
@@ -379,13 +415,13 @@ export async function sendAffiliateReceived(to: string, name: string) {
     ${LOGO}
     <h1 style="color:#1D1D1F;font-size:24px;font-weight:800;margin:0 0 12px;">Application Received</h1>
     <p style="color:#6E6E73;font-size:15px;line-height:1.6;margin:0 0 20px;">
-      Hi ${name}, thanks for applying to the Aurogen Labs Affiliate Program.
+      Hi ${esc(name)}, thanks for applying to the Aurogen Labs Partner Program.
     </p>
     <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:20px;margin:0 0 24px;text-align:left;">
       <p style="color:#1D1D1F;font-weight:600;font-size:14px;margin:0 0 12px;">What happens next:</p>
-      <p style="color:#6E6E73;font-size:13px;margin:0 0 8px;">✓ &nbsp;Our team reviews your application within 24–48 hours</p>
+      <p style="color:#6E6E73;font-size:13px;margin:0 0 8px;">✓ &nbsp;Our team reviews every application personally</p>
       <p style="color:#6E6E73;font-size:13px;margin:0 0 8px;">✓ &nbsp;You&apos;ll receive your unique affiliate link and coupon code</p>
-      <p style="color:#6E6E73;font-size:13px;margin:0;">✓ &nbsp;Earn up to 20% commission on every referred sale</p>
+      <p style="color:#6E6E73;font-size:13px;margin:0;">✓ &nbsp;If approved, you earn commission on every sale made through your link or coupon</p>
     </div>
     ${FOOTER}
   </div>
@@ -394,7 +430,7 @@ export async function sendAffiliateReceived(to: string, name: string) {
   return getResend().emails.send({
     from: FROM,
     to,
-    subject: "Affiliate application received — Aurogen Labs",
+    subject: "Partner application received — Aurogen Labs",
     html,
   });
 }

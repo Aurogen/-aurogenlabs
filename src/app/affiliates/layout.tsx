@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Affiliate Program",
-  description: "Join the Aurogen Labs affiliate program. Earn 10–20% commission on every referral. Three tiers: Researcher, Associate, and Elite.",
+  title: "Become a Partner",
+  description: "Apply to the Aurogen Labs partner program: get a unique link and coupon for your audience and earn commission on every referred sale.",
 };
 
 export default function AffiliatesLayout({ children }: { children: React.ReactNode }) {

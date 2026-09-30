@@ -16,7 +16,17 @@ export async function PATCH(
   }
 
   const { id } = await params;
-  const { status } = await req.json() as { status: "approved" | "rejected" };
+  const { status, admin_notes } = await req.json() as { status?: "approved" | "rejected"; admin_notes?: string };
+
+  // Saving review notes only
+  if (status === undefined && admin_notes !== undefined) {
+    const { error } = await getServiceClient()
+      .from("affiliate_applications")
+      .update({ admin_notes: admin_notes.slice(0, 2000) || null })
+      .eq("id", id);
+    if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ ok: true });
+  }
 
   if (status !== "approved" && status !== "rejected") {
     return NextResponse.json({ error: "Invalid status" }, { status: 400 });
@@ -34,10 +44,13 @@ export async function PATCH(
     return NextResponse.json({ error: "Not found" }, { status: 404 });
   }
 
-  const { error: updateError } = await supabase
+  let { error: updateError } = await supabase
     .from("affiliate_applications")
-    .update({ status })
+    .update({ status, reviewed_at: new Date().toISOString() })
     .eq("id", id);
+  if (updateError && /reviewed_at/.test(updateError.message)) {
+    ({ error: updateError } = await supabase.from("affiliate_applications").update({ status }).eq("id", id));
+  }
 
   if (updateError) {
     return NextResponse.json({ error: updateError.message }, { status: 500 });

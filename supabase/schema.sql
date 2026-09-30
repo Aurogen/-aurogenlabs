@@ -87,6 +87,9 @@ CREATE TABLE IF NOT EXISTS affiliate_applications (
   audience   TEXT,
   message    TEXT,
   status     TEXT NOT NULL DEFAULT 'pending',  -- pending | approved | rejected
+  answers     JSONB NOT NULL DEFAULT '[]',      -- snapshot of the form questions and answers
+  admin_notes TEXT,
+  reviewed_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
@@ -143,6 +146,15 @@ CREATE TABLE IF NOT EXISTS affiliate_payouts (
 );
 
 CREATE INDEX IF NOT EXISTS idx_affiliate_payouts_code ON affiliate_payouts (affiliate_code, created_at DESC);
+
+
+-- ── site_settings ────────────────────────────────────────────
+-- Key/value settings edited from the admin panel (e.g. 'partner_form')
+CREATE TABLE IF NOT EXISTS site_settings (
+  key        TEXT        PRIMARY KEY,
+  value      JSONB       NOT NULL,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
 
 
 -- ── discount_codes ───────────────────────────────────────────

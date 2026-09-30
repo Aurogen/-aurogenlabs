@@ -1,6 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import PartnerFormBuilder from "@/components/admin/PartnerFormBuilder";
+import { answerToText, type ApplicationAnswer } from "@/lib/partner-form";
 import {
   Plus, X, Check, Copy, Loader2, ChevronDown, ChevronUp, Pencil, Power, Wallet, Ban, RotateCcw, Users,
 } from "lucide-react";
@@ -42,6 +44,8 @@ interface Application {
   created_at?: string;
   status?: "pending" | "approved" | "rejected";
   code?: string | null;
+  answers?: ApplicationAnswer[] | null;
+  admin_notes?: string | null;
 }
 interface ReferredOrder {
   id: string;
@@ -133,7 +137,7 @@ export default function AffiliatesTab() {
   const [affiliates, setAffiliates] = useState<AffiliateRow[]>([]);
   const [applications, setApplications] = useState<Application[]>([]);
   const [loading, setLoading] = useState(true);
-  const [view, setView] = useState<"partners" | "applications">("partners");
+  const [view, setView] = useState<"partners" | "applications" | "form">("partners");
   const [adding, setAdding] = useState(false);
   const [openId, setOpenId] = useState<string | null>(null);
   const [search, setSearch] = useState("");
@@ -202,14 +206,18 @@ export default function AffiliatesTab() {
       {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-2">
         <div className="flex rounded-xl p-1" style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}>
-          {(["partners", "applications"] as const).map((v) => (
+          {(["partners", "applications", "form"] as const).map((v) => (
             <button
               key={v}
               onClick={() => setView(v)}
               className="px-4 py-1.5 rounded-lg text-sm font-medium"
               style={view === v ? { background: "#1D1D1F", color: "#FFFFFF" } : { color: "#6E6E73" }}
             >
-              {v === "partners" ? `Partners (${affiliates.length})` : `Applications${pendingApps ? ` (${pendingApps} new)` : ""}`}
+              {v === "partners"
+                ? `Partners (${affiliates.length})`
+                : v === "applications"
+                ? `Applications${pendingApps ? ` (${pendingApps} new)` : ""}`
+                : "Application form"}
             </button>
           ))}
         </div>
@@ -264,8 +272,10 @@ export default function AffiliatesTab() {
             ))}
           </div>
         )
-      ) : (
+      ) : view === "applications" ? (
         <ApplicationsList applications={applications} onChanged={load} />
+      ) : (
+        <PartnerFormBuilder />
       )}
     </div>
   );
@@ -745,12 +755,53 @@ function EditAffiliateForm({ affiliate: a, onDone }: { affiliate: AffiliateRow; 
 
 /* ─── Applications ──────────────────────────────────────── */
 function ApplicationsList({ applications, onChanged }: { applications: Application[]; onChanged: () => Promise<void> }) {
-  const [loading, setLoading] = useState<string | null>(null);
+  const [filter, setFilter] = useState<"pending" | "approved" | "rejected" | "all">("pending");
+  const shown = filter === "all" ? applications : applications.filter((a) => (a.status ?? "pending") === filter);
+  const count = (s: string) => applications.filter((a) => (a.status ?? "pending") === s).length;
 
-  async function handle(id: string, status: "approved" | "rejected") {
-    setLoading(`${id}-${status}`);
+  return (
+    <div className="space-y-3">
+      <div className="flex flex-wrap gap-2">
+        {(["pending", "approved", "rejected", "all"] as const).map((f) => (
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
+            className="px-3 py-1.5 rounded-full text-xs font-semibold capitalize"
+            style={
+              filter === f
+                ? { background: "#1D1D1F", color: "#FFFFFF" }
+                : { background: "#FFFFFF", color: "#6E6E73", border: "1px solid rgba(0,0,0,0.10)" }
+            }
+          >
+            {f === "all" ? `All (${applications.length})` : `${f} (${count(f)})`}
+          </button>
+        ))}
+      </div>
+
+      {shown.length === 0 ? (
+        <p className="py-14 text-center text-sm rounded-2xl" style={{ ...CARD, color: "#6E6E73" }}>
+          {applications.length === 0 ? "No partner applications yet" : "Nothing here"}
+        </p>
+      ) : (
+        shown.map((a) => <ApplicationCard key={a.id} app={a} onChanged={onChanged} />)
+      )}
+    </div>
+  );
+}
+
+function ApplicationCard({ app: a, onChanged }: { app: Application; onChanged: () => Promise<void> }) {
+  const [loading, setLoading] = useState<string | null>(null);
+  const [notes, setNotes] = useState(a.admin_notes ?? "");
+  const [notesSaved, setNotesSaved] = useState(false);
+  const status = a.status ?? "pending";
+  const answers = Array.isArray(a.answers) ? a.answers : [];
+
+  async function handle(next: "approved" | "rejected") {
+    const verb = next === "approved" ? "Approve" : "Reject";
+    if (!confirm(`${verb} ${a.name}? They will receive an email.`)) return;
+    setLoading(next);
     try {
-      await api(`/api/admin/affiliates/${id}`, "PATCH", { status });
+      await api(`/api/admin/affiliates/${a.id}`, "PATCH", { status: next });
       await onChanged();
     } catch (e) {
       alert((e as Error).message);
@@ -759,51 +810,89 @@ function ApplicationsList({ applications, onChanged }: { applications: Applicati
     }
   }
 
-  if (applications.length === 0) {
-    return (
-      <p className="py-14 text-center text-sm rounded-2xl" style={{ ...CARD, color: "#6E6E73" }}>
-        No affiliate applications yet
-      </p>
-    );
+  async function saveNotes() {
+    setLoading("notes");
+    try {
+      await api(`/api/admin/affiliates/${a.id}`, "PATCH", { admin_notes: notes });
+      setNotesSaved(true);
+      setTimeout(() => setNotesSaved(false), 1500);
+    } catch (e) {
+      alert((e as Error).message);
+    } finally {
+      setLoading(null);
+    }
   }
 
   return (
-    <div className="space-y-3">
-      {applications.map((a) => {
-        const status = a.status ?? "pending";
-        return (
-          <div key={a.id} className="p-5 rounded-2xl" style={CARD}>
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center gap-2 mb-1">
-                  <p className="font-bold text-sm" style={{ color: "#1D1D1F" }}>{a.name}</p>
-                  <Badge cfg={APP_BADGE[status]} />
-                </div>
-                <p className="text-xs" style={{ color: "#6E6E73" }}>{a.email}</p>
-                {a.website && <p className="text-xs mt-0.5" style={{ color: "#6B7A8D" }}>{a.website}</p>}
-                {a.audience && <p className="text-xs mt-0.5" style={{ color: "#6E6E73" }}>Audience: {a.audience}</p>}
-                {a.message && <p className="text-xs mt-2 max-w-lg leading-relaxed" style={{ color: "#6E6E73" }}>{a.message}</p>}
-                {status === "approved" && a.code && (
-                  <p className="text-xs font-mono mt-2" style={{ color: "#1B7A45" }}>/r/{a.code}</p>
-                )}
-              </div>
-              <div className="flex flex-col items-end gap-2 shrink-0">
-                <p className="text-xs" style={{ color: "#9E9EA8" }}>{fmt(a.created_at)}</p>
-                {status === "pending" && (
-                  <div className="flex gap-2">
-                    <ActionButton onClick={() => handle(a.id, "approved")} busy={loading === `${a.id}-approved`} disabled={!!loading} icon={Check} color="#1B7A45">
-                      Approve
-                    </ActionButton>
-                    <ActionButton onClick={() => handle(a.id, "rejected")} busy={loading === `${a.id}-rejected`} disabled={!!loading} icon={X} color="#C0392B">
-                      Reject
-                    </ActionButton>
-                  </div>
-                )}
-              </div>
-            </div>
+    <div className="p-5 rounded-2xl" style={CARD}>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-2 mb-1">
+            <p className="font-bold text-sm" style={{ color: "#1D1D1F" }}>{a.name}</p>
+            <Badge cfg={APP_BADGE[status]} />
           </div>
-        );
-      })}
+          <p className="text-xs" style={{ color: "#6E6E73" }}>{a.email}</p>
+          {status === "approved" && a.code && (
+            <p className="text-xs font-mono mt-1" style={{ color: "#1B7A45" }}>/r/{a.code}</p>
+          )}
+        </div>
+        <div className="flex flex-col items-end gap-2 shrink-0">
+          <p className="text-xs" style={{ color: "#9E9EA8" }}>{fmt(a.created_at)}</p>
+          {status === "pending" && (
+            <div className="flex gap-2">
+              <ActionButton onClick={() => handle("approved")} busy={loading === "approved"} disabled={!!loading} icon={Check} color="#1B7A45">
+                Approve
+              </ActionButton>
+              <ActionButton onClick={() => handle("rejected")} busy={loading === "rejected"} disabled={!!loading} icon={X} color="#C0392B">
+                Reject
+              </ActionButton>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Answers */}
+      <div className="mt-4 grid sm:grid-cols-2 gap-x-6 gap-y-3">
+        {answers.length > 0 ? (
+          answers.map((ans) => {
+            const text = answerToText(ans);
+            const isLink = ans.type === "url" && /^https?:\/\//i.test(text);
+            return (
+              <div key={ans.id} className={ans.type === "textarea" || ans.type === "consent" ? "sm:col-span-2" : ""}>
+                <p className="text-[11px] font-semibold uppercase tracking-wide mb-0.5" style={{ color: "#9E9EA8" }}>{ans.label}</p>
+                {isLink ? (
+                  <a href={text} target="_blank" rel="noopener noreferrer" className="text-sm break-all underline" style={{ color: "#0A84FF" }}>{text}</a>
+                ) : (
+                  <p className="text-sm whitespace-pre-wrap break-words" style={{ color: text ? "#1D1D1F" : "#C0C0C5" }}>{text || "—"}</p>
+                )}
+              </div>
+            );
+          })
+        ) : (
+          <>
+            {a.website && <p className="text-xs sm:col-span-2" style={{ color: "#6B7A8D" }}>{a.website}</p>}
+            {a.audience && <p className="text-xs sm:col-span-2" style={{ color: "#6E6E73" }}>Audience: {a.audience}</p>}
+            {a.message && <p className="text-xs sm:col-span-2 whitespace-pre-wrap leading-relaxed" style={{ color: "#6E6E73" }}>{a.message}</p>}
+          </>
+        )}
+      </div>
+
+      {/* Private review notes */}
+      <div className="mt-4 pt-4 flex flex-wrap items-end gap-2" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
+        <label className="flex-1 min-w-[220px]">
+          <span className="block text-[11px] font-semibold uppercase tracking-wide mb-1" style={{ color: "#9E9EA8" }}>Internal notes (only admins see this)</span>
+          <input
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            placeholder="e.g. checked profile, real engagement, good fit"
+            className={INPUT}
+            style={INPUT_STYLE}
+          />
+        </label>
+        <ActionButton onClick={saveNotes} busy={loading === "notes"} disabled={notes === (a.admin_notes ?? "")} icon={Check} color="#1D1D1F">
+          {notesSaved ? "Saved" : "Save note"}
+        </ActionButton>
+      </div>
     </div>
   );
 }
