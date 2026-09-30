@@ -68,26 +68,7 @@ export async function POST(req: Request) {
       if (order) {
         const { id, name, email, address, items, total } = order;
 
-        // Increment discount code uses if one was applied to this order
-        if ((order as Record<string, unknown>).discount_code) {
-          supabase
-            .from("discount_codes")
-            .select("id, uses")
-            .eq("code", (order as Record<string, unknown>).discount_code as string)
-            .maybeSingle()
-            .then(({ data: dc }) => {
-              if (dc) {
-                supabase
-                  .from("discount_codes")
-                  .update({ uses: (dc.uses ?? 0) + 1 })
-                  .eq("id", dc.id)
-                  .then(({ error }) => {
-                    if (error) console.error("Discount uses increment error:", error);
-                  });
-              }
-            });
-        }
-
+        // Discount code uses are counted when the order is created (/api/orders).
         sendOrderConfirmation(email, { id, name, items, total, address }).catch((err) =>
           console.error("Order confirmation email error:", err)
         );

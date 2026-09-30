@@ -83,10 +83,10 @@ function OrderSuccessContent() {
             className="text-4xl font-bold mb-2"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
-            Order Confirmed
+            Order Received
           </h1>
           <p style={{ color: "#6E6E73" }}>
-            Your research compounds are being prepared for shipment.
+            Our team will contact you by email to complete payment. Your order ships as soon as payment is confirmed.
           </p>
         </motion.div>
 
@@ -136,6 +136,16 @@ function OrderSuccessContent() {
 
           {/* Total */}
           <div className="px-6 py-4 space-y-2">
+            {order && order.items.length > 0 && (() => {
+              const subtotal = order.items.reduce((s, i) => s + i.price * i.quantity, 0);
+              const saved = Math.round((subtotal - order.total) * 100) / 100;
+              return saved > 0 ? (
+                <div className="flex justify-between text-sm">
+                  <span style={{ color: "#6E6E73" }}>Discount</span>
+                  <span className="font-medium" style={{ color: "#1B7A45" }}>−${saved.toFixed(2)}</span>
+                </div>
+              ) : null;
+            })()}
             <div className="flex justify-between text-sm">
               <span style={{ color: "#6E6E73" }}>Shipping</span>
               <span className="font-medium" style={{ color: "#1B7A45" }}>FREE</span>

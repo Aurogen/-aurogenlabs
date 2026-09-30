@@ -17,7 +17,7 @@ const INPUT_CLASS =
   "w-full px-4 py-3 rounded-xl text-base sm:text-sm focus:outline-none transition-colors focus:border-black/30";
 
 export default function CheckoutPage() {
-  const { state, totalPrice } = useCart();
+  const { state, totalPrice, clearCart } = useCart();
   const { user } = useUser();
   const [edited, setEdited] = useState({
     firstName: "", lastName: "", email: "",
@@ -32,6 +32,7 @@ export default function CheckoutPage() {
   };
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [orderError, setOrderError] = useState("");
   const [discountInput, setDiscountInput] = useState("");
   const [discountLoading, setDiscountLoading] = useState(false);
   const [discountData, setDiscountData] = useState<{
@@ -86,50 +87,42 @@ export default function CheckoutPage() {
   async function handlePlaceOrder() {
     if (!filled || !agreed || state.items.length === 0 || loading) return;
     setLoading(true);
+    setOrderError("");
     try {
-      const orderId = `ORD-${Date.now().toString(36).toUpperCase()}`;
-      const orderDate = new Date().toISOString();
-      const items = state.items.map((item) => ({
-        name: item.product.name,
-        concentration: item.product.concentration,
-        quantity: item.quantity,
-        price: item.product.price,
-      }));
-
-      // Save order to DB as pending_payment before redirecting to payment
-      await fetch("/api/orders", {
+      const name = `${form.firstName} ${form.lastName}`.trim();
+      // Only product and quantity are sent; the server prices the order from the catalog.
+      const res = await fetch("/api/orders", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          id: orderId,
-          date: orderDate,
-          name: `${form.firstName} ${form.lastName}`,
+          name,
           email: form.email,
           address: `${form.address}, ${form.city}, ${form.stateField} ${form.zip}`,
-          items,
-          total: finalTotal,
-          status: "pending_payment",
-          payment_status: "pending",
-          ...(discountData
-            ? { discount_code: discountData.code, discount_amount: discountData.discount_amount }
-            : {}),
+          items: state.items.map((item) => ({ slug: item.product.slug, quantity: item.quantity })),
+          discount_code: discountData?.code ?? null,
         }),
       });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.id) {
+        setOrderError(data.error ?? "We couldn't place your order. Please try again or contact us.");
+        setLoading(false);
+        return;
+      }
 
       localStorage.setItem("aurogen_last_order", JSON.stringify({
-        id: orderId,
-        date: orderDate,
-        items,
-        total: finalTotal,
+        id: data.id,
+        date: data.date,
+        items: data.items,
+        total: data.total,
         email: form.email,
-        name: `${form.firstName} ${form.lastName}`,
+        name,
       }));
+      clearCart();
 
       // TODO: redirect to payment processor once configured (Authorize.net / PaymentCloud)
-      // Order is saved to DB; payment integration will be wired here.
-      alert("Your order has been received. Our team will contact you to complete payment. Thank you!");
-      window.location.href = `/order-success?id=${orderId}`;
+      window.location.href = `/order-success?id=${data.id}`;
     } catch {
+      setOrderError("Connection error. Please check your internet and try again.");
       setLoading(false);
     }
   }
@@ -355,6 +348,16 @@ export default function CheckoutPage() {
                 </p>
               </div>
             </div>
+
+            {orderError && (
+              <p
+                role="alert"
+                className="text-sm text-center px-4 py-3 rounded-xl"
+                style={{ background: "rgba(192,57,43,0.08)", color: "#C0392B" }}
+              >
+                {orderError}
+              </p>
+            )}
 
             <button
               onClick={handlePlaceOrder}

@@ -3,27 +3,52 @@ import { auth, currentUser } from "@clerk/nextjs/server";
 import { getServiceClient } from "@/lib/supabase-server";
 import { sendOrderConfirmation, sendAdminOrderNotification } from "@/lib/email";
 import { resolveAttribution, REF_COOKIE } from "@/lib/affiliates";
+import { priceOrder, recordDiscountUse } from "@/lib/pricing";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { id, date, name, email, address, items, total, status, payment_status, discount_code, discount_amount } = body;
-
-    if (!id || !email || !items || !total) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
-    }
+    const { name, email, address, items: cartItems, discount_code } = body as {
+      name?: string;
+      email?: string;
+      address?: string;
+      items?: { slug?: unknown; quantity?: unknown }[];
+      discount_code?: string | null;
+    };
 
     const { userId } = await auth();
     if (!userId) {
       return NextResponse.json({ error: "Sign in required" }, { status: 401 });
     }
 
+    const clean = (v: unknown, max: number) => (typeof v === "string" ? v.trim().slice(0, max) : "");
+    const customerName = clean(name, 120);
+    const customerEmail = clean(email, 200).toLowerCase();
+    const shippingAddress = clean(address, 400);
+    if (!customerName || !shippingAddress || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail)) {
+      return NextResponse.json({ error: "Please complete your name, email and shipping address." }, { status: 400 });
+    }
+
+    // Prices, stock and the discount are resolved from the database, never from the browser.
+    const priced = await priceOrder(cartItems ?? [], discount_code ?? null);
+    if (!priced.ok) {
+      return NextResponse.json({ error: priced.error }, { status: 400 });
+    }
+    const { total, discount } = priced;
+    const items = priced.lines.map(({ name, concentration, quantity, price }) => ({ name, concentration, quantity, price }));
+    const discount_amount = discount?.discount_amount ?? null;
+
+    const id = `ORD-${Date.now().toString(36).toUpperCase()}${Math.random().toString(36).slice(2, 4).toUpperCase()}`;
+    const date = new Date().toISOString();
+    const status = "pending_payment";
+    const payment_status = "pending";
+
     const supabase = getServiceClient();
 
     // Attribution is decided server-side: influencer coupon first, then the link cookie.
     const buyer = await currentUser();
     const attribution = await resolveAttribution({
-      couponCode: discount_code ?? null,
+      couponCode: discount?.referral ? discount.code : null,
       refCookie: req.cookies.get(REF_COOKIE)?.value ?? null,
       buyerUserId: userId,
       buyerEmails: (buyer?.emailAddresses ?? []).map((e) => e.emailAddress),
@@ -35,13 +60,13 @@ export async function POST(req: NextRequest) {
     const row: Record<string, unknown> = {
       id,
       created_at: date,
-      name,
-      email,
-      address,
+      name: customerName,
+      email: customerEmail,
+      address: shippingAddress,
       items,
       total,
-      status: status ?? "processing",
-      ...(payment_status ? { payment_status } : {}),
+      status,
+      payment_status,
       user_id: userId,
       ...(attribution
         ? {
@@ -51,7 +76,7 @@ export async function POST(req: NextRequest) {
             commission_status: "pending",
           }
         : {}),
-      ...(discount_code ? { discount_code, discount_amount: discount_amount ?? null } : {}),
+      ...(discount ? { discount_code: discount.code, discount_amount } : {}),
     };
     let { error } = await supabase.from("orders").insert(row);
     // Orders must never fail because the affiliate migration hasn't been applied yet.
@@ -66,24 +91,26 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    // Manual-payment orders get their emails now; card-paid orders get them from the payment webhook.
-    if (payment_status === "pending") {
-      const accountEmail = buyer?.primaryEmailAddress?.emailAddress ?? email;
+    await recordDiscountUse(discount?.code_id ?? null);
+
+    // Until a card processor is connected every order is paid manually, so emails go out now.
+    {
+      const accountEmail = buyer?.primaryEmailAddress?.emailAddress ?? customerEmail;
       const results = await Promise.allSettled([
         sendOrderConfirmation(accountEmail, {
-          id, name, items, total, address, date, email,
-          discountCode: discount_code ?? null,
-          discountAmount: discount_amount ?? null,
+          id, name: customerName, items, total, address: shippingAddress, date, email: customerEmail,
+          discountCode: discount?.code ?? null,
+          discountAmount: discount_amount,
           paymentPending: true,
         }),
-        sendAdminOrderNotification({ id, name, email, address, items, total }),
+        sendAdminOrderNotification({ id, name: customerName, email: customerEmail, address: shippingAddress, items, total }),
       ]);
       results.forEach((r) => {
         if (r.status === "rejected") console.error("Order email error:", r.reason);
       });
     }
 
-    return NextResponse.json({ success: true, id });
+    return NextResponse.json({ success: true, id, total, items, date });
   } catch (err) {
     console.error("Order POST error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
