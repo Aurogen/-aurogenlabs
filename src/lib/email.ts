@@ -256,14 +256,25 @@ export async function sendWaitlistRestock(to: string, productName: string) {
 }
 
 /* ── Affiliate Approved ── */
-export async function sendAffiliateApproved(to: string, name: string, code?: string) {
-  const refLink = code ? `https://aurogenlabs.com/shop?ref=${code}` : null;
+export async function sendAffiliateApproved(
+  to: string,
+  name: string,
+  opts: { code?: string; coupon?: string; commissionRate?: number; discountPct?: number } = {}
+) {
+  const site = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://aurogenlabs.com").replace(/\/$/, "");
+  const { code, coupon } = opts;
+  const rate = opts.commissionRate ?? 20;
+  const refLink = code ? `${site}/r/${encodeURIComponent(code)}` : null;
   const codeSection = code
-    ? `<div style="background:#F6F6F8;border:1px solid rgba(0,0,0,0.08);border-radius:10px;padding:16px;margin:0 0 16px;text-align:center;">
-        <p style="color:#9E9EA8;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin:0 0 6px;">Your referral code</p>
-        <p style="color:#1D1D1F;font-family:monospace;font-weight:800;font-size:22px;margin:0 0 10px;letter-spacing:2px;">${code}</p>
-        <a href="${refLink}" style="color:#0A84FF;font-size:13px;word-break:break-all;text-decoration:none;">${refLink}</a>
-      </div>`
+    ? `<div style="background:#F6F6F8;border:1px solid rgba(0,0,0,0.08);border-radius:10px;padding:16px;margin:0 0 12px;text-align:center;">
+        <p style="color:#9E9EA8;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin:0 0 6px;">Your unique link</p>
+        <a href="${refLink}" style="color:#0A84FF;font-size:15px;font-weight:700;word-break:break-all;text-decoration:none;">${esc(refLink ?? "")}</a>
+      </div>
+      ${coupon ? `<div style="background:#F6F6F8;border:1px solid rgba(0,0,0,0.08);border-radius:10px;padding:16px;margin:0 0 16px;text-align:center;">
+        <p style="color:#9E9EA8;font-size:11px;text-transform:uppercase;letter-spacing:1px;margin:0 0 6px;">Your coupon code</p>
+        <p style="color:#1D1D1F;font-family:monospace;font-weight:800;font-size:22px;margin:0 0 6px;letter-spacing:2px;">${esc(coupon)}</p>
+        ${opts.discountPct ? `<p style="color:#6E6E73;font-size:12px;margin:0;">Gives your audience ${opts.discountPct}% off at checkout</p>` : ""}
+      </div>` : ""}`
     : `<p style="color:#6E6E73;font-size:13px;margin:0 0 8px;">✓ &nbsp;We'll send your unique affiliate link within 24 hours</p>`;
 
   const html = `<!DOCTYPE html><html><body style="${BODY}">
@@ -271,14 +282,14 @@ export async function sendAffiliateApproved(to: string, name: string, code?: str
     ${LOGO}
     <h1 style="color:#1D1D1F;font-size:24px;font-weight:800;margin:0 0 12px;">You&apos;re approved!</h1>
     <p style="color:#6E6E73;font-size:15px;line-height:1.6;margin:0 0 20px;">
-      Congrats ${name}! Your Aurogen Labs affiliate application has been approved.
+      Congrats ${esc(name)}! Your Aurogen Labs affiliate account is active.
     </p>
     <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:20px;margin:0 0 24px;text-align:left;">
       <p style="color:#1D1D1F;font-weight:600;font-size:14px;margin:0 0 12px;">Your affiliate details:</p>
       ${codeSection}
-      <p style="color:#6E6E73;font-size:13px;margin:0 0 8px;">✓ &nbsp;Earn 20% commission on every referred sale</p>
-      <p style="color:#6E6E73;font-size:13px;margin:0 0 8px;">✓ &nbsp;Track your earnings at aurogenlabs.com/account/affiliate</p>
-      <p style="color:#6E6E73;font-size:13px;margin:0;">✓ &nbsp;Share your referral link and start earning today</p>
+      <p style="color:#6E6E73;font-size:13px;margin:0 0 8px;">✓ &nbsp;Earn ${rate}% commission on every sale made through your link or coupon</p>
+      <p style="color:#6E6E73;font-size:13px;margin:0 0 8px;">✓ &nbsp;Create an account with this email to track clicks, sales and commissions</p>
+      <p style="color:#6E6E73;font-size:13px;margin:0;">✓ &nbsp;Purchases are credited to you for 30 days after someone clicks your link</p>
     </div>
     <a href="https://aurogenlabs.com/account/affiliate" style="display:inline-block;background:#1D1D1F;color:#ffffff;font-weight:700;font-size:14px;padding:14px 32px;border-radius:100px;text-decoration:none;">View My Dashboard</a>
     ${FOOTER}

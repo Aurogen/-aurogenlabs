@@ -19,7 +19,6 @@ import {
   Download,
   Bell,
   Check,
-  X,
   Tag,
   Plus,
   Trash2,
@@ -32,6 +31,7 @@ import {
 } from "lucide-react";
 import ProductsTab from "@/components/admin/ProductsTab";
 import AnalyticsTab from "@/components/admin/AnalyticsTab";
+import AffiliatesTab from "@/components/admin/AffiliatesTab";
 
 /* ─── Types ─────────────────────────────────────────────── */
 interface OrderItem { name: string; concentration?: string; quantity: number; price: number }
@@ -57,17 +57,6 @@ interface Stats {
   waitlistCount: number;
 }
 interface Subscriber { email: string; created_at?: string }
-interface Affiliate {
-  id: string;
-  name: string;
-  email: string;
-  website?: string;
-  audience?: string;
-  message?: string;
-  created_at?: string;
-  status?: "pending" | "approved" | "rejected";
-  code?: string;
-}
 interface WaitlistEntry { email: string; product_name: string; created_at?: string }
 
 /* ─── Status config ─────────────────────────────────────── */
@@ -94,7 +83,6 @@ export default function AdminPage() {
   const [stats, setStats] = useState<Stats | null>(null);
   const [orders, setOrders] = useState<Order[]>([]);
   const [subscribers, setSubscribers] = useState<Subscriber[]>([]);
-  const [affiliates, setAffiliates] = useState<Affiliate[]>([]);
   const [waitlist, setWaitlist] = useState<WaitlistEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
@@ -111,17 +99,15 @@ export default function AdminPage() {
   const load = useCallback(async (quiet = false) => {
     quiet ? setRefreshing(true) : setLoading(true);
     try {
-      const [s, o, n, a, w] = await Promise.all([
+      const [s, o, n, w] = await Promise.all([
         fetch("/api/admin/stats").then((r) => r.json()),
         fetch("/api/admin/orders").then((r) => r.json()),
         fetch("/api/admin/newsletter").then((r) => r.json()),
-        fetch("/api/admin/affiliates").then((r) => r.json()),
         fetch("/api/admin/waitlist").then((r) => r.json()),
       ]);
       setStats(s);
       setOrders(o.orders ?? []);
       setSubscribers(n.subscribers ?? []);
-      setAffiliates(a.applications ?? []);
       setWaitlist(w.entries ?? []);
     } catch (e) {
       console.error(e);
@@ -151,18 +137,6 @@ export default function AdminPage() {
     });
     setOrders((prev) =>
       prev.map((o) => (o.id === id ? { ...o, status: "shipped", tracking_number, tracking_url } : o))
-    );
-  }
-
-  async function updateAffiliateStatus(id: string, status: "approved" | "rejected") {
-    const res = await fetch(`/api/admin/affiliates/${id}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ status }),
-    });
-    const json = await res.json().catch(() => ({}));
-    setAffiliates((prev) =>
-      prev.map((a) => (a.id === id ? { ...a, status, ...(json.code ? { code: json.code } : {}) } : a))
     );
   }
 
@@ -247,7 +221,7 @@ export default function AdminPage() {
                 : t === "newsletter"
                 ? `Newsletter (${subscribers.length})`
                 : t === "affiliates"
-                ? `Affiliates (${affiliates.length})`
+                ? "Affiliates"
                 : t === "waitlist"
                 ? `Waitlist (${waitlist.length})`
                 : t === "analytics"
@@ -267,7 +241,7 @@ export default function AdminPage() {
           <OrdersTab orders={orders} onStatusChange={updateOrderStatus} onSaveTracking={saveOrderTracking} />
         )}
         {tab === "newsletter" && <NewsletterTab subscribers={subscribers} />}
-        {tab === "affiliates" && <AffiliatesTab affiliates={affiliates} onStatusChange={updateAffiliateStatus} />}
+        {tab === "affiliates" && <AffiliatesTab />}
         {tab === "waitlist" && <WaitlistTab entries={waitlist} />}
         {tab === "analytics" && <AnalyticsTab />}
         {tab === "products" && <ProductsTab />}
@@ -525,105 +499,6 @@ function NewsletterTab({ subscribers }: { subscribers: Subscriber[] }) {
           </table>
         )}
       </div>
-    </div>
-  );
-}
-
-/* ─── Affiliates Tab ─────────────────────────────────────── */
-const AFFILIATE_STATUS_CONFIG: Record<string, { label: string; color: string; bg: string }> = {
-  pending:  { label: "Pending",  color: "#9A6400", bg: "rgba(234,179,8,0.08)" },
-  approved: { label: "Approved", color: "#1B7A45", bg: "rgba(27,122,69,0.08)" },
-  rejected: { label: "Rejected", color: "#C0392B", bg: "rgba(192,57,43,0.08)" },
-};
-
-function AffiliatesTab({
-  affiliates,
-  onStatusChange,
-}: {
-  affiliates: Affiliate[];
-  onStatusChange: (id: string, status: "approved" | "rejected") => void;
-}) {
-  const [loading, setLoading] = useState<string | null>(null);
-
-  async function handle(id: string, status: "approved" | "rejected") {
-    setLoading(`${id}-${status}`);
-    await onStatusChange(id, status);
-    setLoading(null);
-  }
-
-  if (affiliates.length === 0) return <EmptyState label="No affiliate applications yet" />;
-
-  return (
-    <div className="space-y-3">
-      {affiliates.map((a) => {
-        const sc = AFFILIATE_STATUS_CONFIG[a.status ?? "pending"];
-        return (
-          <div
-            key={a.id ?? a.email}
-            className="p-5 rounded-2xl"
-            style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
-          >
-            <div className="flex flex-wrap items-start justify-between gap-3">
-              <div className="min-w-0 flex-1">
-                <div className="flex flex-wrap items-center gap-2 mb-1">
-                  <p className="font-bold text-sm" style={{ color: "#1D1D1F" }}>{a.name}</p>
-                  <span
-                    className="px-2 py-0.5 rounded-full text-xs font-semibold"
-                    style={{ background: sc.bg, color: sc.color }}
-                  >
-                    {sc.label}
-                  </span>
-                </div>
-                <p className="text-xs" style={{ color: "#6E6E73" }}>{a.email}</p>
-                {a.website && (
-                  <p className="text-xs mt-0.5" style={{ color: "#6B7A8D" }}>{a.website}</p>
-                )}
-                {a.audience && (
-                  <p className="text-xs mt-0.5" style={{ color: "#6E6E73" }}>Audience: {a.audience}</p>
-                )}
-                {a.message && (
-                  <p className="text-xs mt-2 max-w-lg leading-relaxed" style={{ color: "#6E6E73" }}>{a.message}</p>
-                )}
-                {a.status === "approved" && a.code && (
-                  <div className="mt-2 flex items-center gap-2">
-                    <span className="text-xs font-mono px-2 py-0.5 rounded" style={{ background: "rgba(27,122,69,0.08)", color: "#1B7A45" }}>
-                      ref: {a.code}
-                    </span>
-                    <span className="text-xs" style={{ color: "#9E9EA8" }}>
-                      aurogenlabs.com/shop?ref={a.code}
-                    </span>
-                  </div>
-                )}
-              </div>
-              <div className="flex flex-col items-end gap-2 shrink-0">
-                <p className="text-xs" style={{ color: "#9E9EA8" }}>{fmt(a.created_at)}</p>
-                {a.status !== "approved" && a.status !== "rejected" && (
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => handle(a.id, "approved")}
-                      disabled={!!loading}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-opacity hover:opacity-75 disabled:opacity-40"
-                      style={{ background: "rgba(27,122,69,0.10)", color: "#1B7A45" }}
-                    >
-                      <Check className="w-3 h-3" />
-                      {loading === `${a.id}-approved` ? "…" : "Approve"}
-                    </button>
-                    <button
-                      onClick={() => handle(a.id, "rejected")}
-                      disabled={!!loading}
-                      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-opacity hover:opacity-75 disabled:opacity-40"
-                      style={{ background: "rgba(192,57,43,0.08)", color: "#C0392B" }}
-                    >
-                      <X className="w-3 h-3" />
-                      {loading === `${a.id}-rejected` ? "…" : "Reject"}
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        );
-      })}
     </div>
   );
 }

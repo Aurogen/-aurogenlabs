@@ -59,6 +59,9 @@ CREATE TABLE IF NOT EXISTS orders (
   user_id          TEXT,                       -- Clerk user ID (optional)
   affiliate_code   TEXT,
   commission_amount NUMERIC(10,2),
+  attribution_source   TEXT,                   -- link | coupon
+  commission_status    TEXT,                   -- pending | approved | paid | void
+  commission_payout_id UUID,                   -- → affiliate_payouts(id)
   whop_order_id    TEXT
 );
 
@@ -99,11 +102,47 @@ CREATE TABLE IF NOT EXISTS affiliate_codes (
   email           TEXT NOT NULL,
   code            TEXT UNIQUE NOT NULL,
   commission_rate NUMERIC(5,2) NOT NULL DEFAULT 20.00,
+  active                BOOLEAN      NOT NULL DEFAULT true,
+  coupon_code           TEXT,                   -- influencer coupon, e.g. MARIA10
+  customer_discount_pct NUMERIC(5,2) NOT NULL DEFAULT 10,
+  user_id               TEXT,                   -- Clerk user ID of the affiliate
+  payout_method         TEXT,
+  payout_details        TEXT,
+  notes                 TEXT,
   created_at      TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE INDEX IF NOT EXISTS idx_affiliate_codes_code  ON affiliate_codes(code);
 CREATE INDEX IF NOT EXISTS idx_affiliate_codes_email ON affiliate_codes(email);
+CREATE UNIQUE INDEX IF NOT EXISTS idx_affiliate_codes_coupon ON affiliate_codes (upper(coupon_code));
+CREATE INDEX IF NOT EXISTS idx_affiliate_codes_user  ON affiliate_codes(user_id);
+
+
+-- ── affiliate_clicks ─────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS affiliate_clicks (
+  id            BIGSERIAL PRIMARY KEY,
+  code          TEXT        NOT NULL,
+  landing_path  TEXT,
+  referrer      TEXT,
+  visitor_hash  TEXT,                          -- daily salted hash, no raw IPs
+  created_at    TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_affiliate_clicks_code_date ON affiliate_clicks (code, created_at DESC);
+
+
+-- ── affiliate_payouts ────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS affiliate_payouts (
+  id              UUID          NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+  affiliate_code  TEXT          NOT NULL,
+  amount          NUMERIC(10,2) NOT NULL,
+  order_count     INTEGER       NOT NULL DEFAULT 0,
+  method          TEXT,
+  reference       TEXT,
+  created_at      TIMESTAMPTZ   NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS idx_affiliate_payouts_code ON affiliate_payouts (affiliate_code, created_at DESC);
 
 
 -- ── discount_codes ───────────────────────────────────────────

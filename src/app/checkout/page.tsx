@@ -83,12 +83,6 @@ export default function CheckoutPage() {
     setEdited((prev) => ({ ...prev, [field]: value }));
   }
 
-  function getRefCookie(): string | null {
-    if (typeof document === "undefined") return null;
-    const match = document.cookie.match(/(?:^|;\s*)aurogen_ref=([^;]+)/);
-    return match ? decodeURIComponent(match[1]) : null;
-  }
-
   async function handlePlaceOrder() {
     if (!filled || !agreed || state.items.length === 0 || loading) return;
     setLoading(true);
@@ -101,7 +95,6 @@ export default function CheckoutPage() {
         quantity: item.quantity,
         price: item.product.price,
       }));
-      const affiliateCode = getRefCookie();
 
       // Save order to DB as pending_payment before redirecting to payment
       await fetch("/api/orders", {
@@ -117,7 +110,6 @@ export default function CheckoutPage() {
           total: finalTotal,
           status: "pending_payment",
           payment_status: "pending",
-          ...(affiliateCode ? { affiliate_code: affiliateCode } : {}),
           ...(discountData
             ? { discount_code: discountData.code, discount_amount: discountData.discount_amount }
             : {}),

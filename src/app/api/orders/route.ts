@@ -2,11 +2,12 @@ import { NextRequest, NextResponse } from "next/server";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import { getServiceClient } from "@/lib/supabase-server";
 import { sendOrderConfirmation, sendAdminOrderNotification } from "@/lib/email";
+import { resolveAttribution, REF_COOKIE } from "@/lib/affiliates";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { id, date, name, email, address, items, total, status, payment_status, affiliate_code, discount_code, discount_amount } = body;
+    const { id, date, name, email, address, items, total, status, payment_status, discount_code, discount_amount } = body;
 
     if (!id || !email || !items || !total) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
@@ -19,20 +20,19 @@ export async function POST(req: NextRequest) {
 
     const supabase = getServiceClient();
 
-    // Resolve commission if a referral code was provided
-    let commission_amount: number | null = null;
-    if (affiliate_code) {
-      const { data: aff } = await supabase
-        .from("affiliate_codes")
-        .select("commission_rate")
-        .eq("code", affiliate_code)
-        .maybeSingle();
-      if (aff) {
-        commission_amount = Math.round((total * aff.commission_rate) / 100 * 100) / 100;
-      }
-    }
+    // Attribution is decided server-side: influencer coupon first, then the link cookie.
+    const buyer = await currentUser();
+    const attribution = await resolveAttribution({
+      couponCode: discount_code ?? null,
+      refCookie: req.cookies.get(REF_COOKIE)?.value ?? null,
+      buyerUserId: userId,
+      buyerEmails: (buyer?.emailAddresses ?? []).map((e) => e.emailAddress),
+    });
+    const commission_amount = attribution
+      ? Math.round(Number(total) * Number(attribution.affiliate.commission_rate) / 100 * 100) / 100
+      : null;
 
-    const { error } = await supabase.from("orders").insert({
+    const row: Record<string, unknown> = {
       id,
       created_at: date,
       name,
@@ -43,11 +43,23 @@ export async function POST(req: NextRequest) {
       status: status ?? "processing",
       ...(payment_status ? { payment_status } : {}),
       user_id: userId,
-      ...(affiliate_code && commission_amount !== null
-        ? { affiliate_code, commission_amount }
+      ...(attribution
+        ? {
+            affiliate_code: attribution.affiliate.code,
+            attribution_source: attribution.source,
+            commission_amount,
+            commission_status: "pending",
+          }
         : {}),
       ...(discount_code ? { discount_code, discount_amount: discount_amount ?? null } : {}),
-    });
+    };
+    let { error } = await supabase.from("orders").insert(row);
+    // Orders must never fail because the affiliate migration hasn't been applied yet.
+    if (error && /attribution_source|commission_status/.test(error.message)) {
+      delete row.attribution_source;
+      delete row.commission_status;
+      ({ error } = await supabase.from("orders").insert(row));
+    }
 
     if (error) {
       console.error("Order insert error:", error);
@@ -56,8 +68,7 @@ export async function POST(req: NextRequest) {
 
     // Manual-payment orders get their emails now; card-paid orders get them from the payment webhook.
     if (payment_status === "pending") {
-      const user = await currentUser();
-      const accountEmail = user?.primaryEmailAddress?.emailAddress ?? email;
+      const accountEmail = buyer?.primaryEmailAddress?.emailAddress ?? email;
       const results = await Promise.allSettled([
         sendOrderConfirmation(accountEmail, {
           id, name, items, total, address, date, email,

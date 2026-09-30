@@ -2,18 +2,10 @@ import { NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase-server";
 import { isAdmin } from "@/lib/admin";
 import { sendAffiliateApproved, sendAffiliateRejected } from "@/lib/email";
+import { generateUniqueCode, generateUniqueCoupon } from "@/lib/affiliates";
 
-function slugify(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "")
-    .slice(0, 20);
-}
-
-function randomSuffix(): string {
-  return Math.random().toString(36).slice(2, 6);
-}
+const DEFAULT_COMMISSION = 20;
+const DEFAULT_DISCOUNT = 10;
 
 export async function PATCH(
   req: Request,
@@ -52,41 +44,47 @@ export async function PATCH(
   }
 
   let affiliateCode: string | undefined;
+  let couponCode: string | undefined;
 
   if (status === "approved") {
-    // Generate a unique referral code
-    const base = slugify(app.name);
-    let code = `${base}-${randomSuffix()}`;
-
-    // Retry until unique (very unlikely to collide)
-    for (let i = 0; i < 5; i++) {
-      const { data: existing } = await supabase
-        .from("affiliate_codes")
-        .select("id")
-        .eq("code", code)
-        .maybeSingle();
-      if (!existing) break;
-      code = `${base}-${randomSuffix()}`;
-    }
-
-    const { error: codeErr } = await supabase
+    const { data: existing } = await supabase
       .from("affiliate_codes")
-      .insert({
+      .select("code, coupon_code")
+      .eq("email", app.email)
+      .maybeSingle();
+
+    if (existing) {
+      affiliateCode = existing.code;
+      couponCode = existing.coupon_code ?? undefined;
+    } else {
+      const code = await generateUniqueCode(app.name);
+      const coupon = await generateUniqueCoupon(app.name, DEFAULT_DISCOUNT);
+      const { error: codeErr } = await supabase.from("affiliate_codes").insert({
         application_id: id,
         name: app.name,
         email: app.email,
         code,
-        commission_rate: 20,
+        coupon_code: coupon,
+        commission_rate: DEFAULT_COMMISSION,
+        customer_discount_pct: DEFAULT_DISCOUNT,
+        active: true,
       });
-
-    if (!codeErr) {
+      if (codeErr) {
+        return NextResponse.json({ error: codeErr.message }, { status: 500 });
+      }
       affiliateCode = code;
+      couponCode = coupon;
     }
   }
 
   try {
     if (status === "approved") {
-      await sendAffiliateApproved(app.email, app.name, affiliateCode);
+      await sendAffiliateApproved(app.email, app.name, {
+        code: affiliateCode,
+        coupon: couponCode,
+        commissionRate: DEFAULT_COMMISSION,
+        discountPct: DEFAULT_DISCOUNT,
+      });
     } else {
       await sendAffiliateRejected(app.email, app.name);
     }
@@ -94,5 +92,5 @@ export async function PATCH(
     // Email failure doesn't roll back status
   }
 
-  return NextResponse.json({ ok: true, code: affiliateCode });
+  return NextResponse.json({ ok: true, code: affiliateCode, coupon_code: couponCode });
 }

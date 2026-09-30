@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServiceClient } from "@/lib/supabase-server";
+import { findAffiliateByCoupon } from "@/lib/affiliates";
 
 export async function POST(req: NextRequest) {
   const { code, order_total } = await req.json();
@@ -16,6 +17,19 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (error || !data) {
+    // Not a store promo — it may be an influencer's personal coupon.
+    const affiliate = await findAffiliateByCoupon(code);
+    if (affiliate) {
+      const pct = Number(affiliate.customer_discount_pct) || 0;
+      return NextResponse.json({
+        valid: true,
+        type: "percentage",
+        value: pct,
+        discount_amount: Math.round(((order_total ?? 0) * pct) / 100 * 100) / 100,
+        code_id: null,
+        referral: true,
+      });
+    }
     return NextResponse.json({ valid: false, error: "Invalid or expired code" });
   }
 
