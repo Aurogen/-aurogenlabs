@@ -9,7 +9,6 @@ import Logo from "./Logo";
 import SearchModal from "./SearchModal";
 import { useLanguage } from "@/context/LanguageContext";
 import { CATEGORIES } from "@/data/products";
-import { UserButton } from "@clerk/nextjs";
 
 const INK = "#111111";
 const MUTED = "#55555A";
@@ -184,9 +183,6 @@ export default function Navbar() {
                           {l.label}
                         </Link>
                       ))}
-                      <div className="px-4 pt-2 mt-1" style={{ borderTop: `1px solid ${LINE}` }}>
-                        <UserButton />
-                      </div>
                     </div>
                   </div>
                 )}

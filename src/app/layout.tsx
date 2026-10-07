@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
 import { CartProvider } from "@/context/CartContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import Navbar from "@/components/Navbar";
@@ -54,7 +53,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider signInUrl="/sign-in" signUpUrl="/sign-up">
       <html lang="en" className={`${cormorant.variable} ${dmSans.variable} ${jetbrainsMono.variable} h-full`}>
         <body className="min-h-full flex flex-col" style={{ background: "#F5F4F0" }}>
           {/* Investor preview: no age gate, referral tracking, live chat or analytics. */}
@@ -69,6 +67,5 @@ export default function RootLayout({
           </CartProvider>
         </body>
       </html>
-    </ClerkProvider>
   );
 }

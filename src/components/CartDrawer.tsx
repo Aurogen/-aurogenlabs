@@ -4,11 +4,9 @@ import { X, Minus, Plus, ShoppingCart, Trash2, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
-import { useUser } from "@clerk/nextjs";
 
 export default function CartDrawer() {
   const { state, closeCart, removeItem, updateQty, totalPrice, totalItems } = useCart();
-  const { isSignedIn } = useUser();
 
   return (
     <>
@@ -169,14 +167,9 @@ export default function CartDrawer() {
               className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full font-semibold text-white transition-opacity hover:opacity-85"
               style={{ background: "#1D1D1F" }}
             >
-              {isSignedIn ? "Proceed to Checkout" : "Sign in to Checkout"}
+              Proceed to Checkout
               <ArrowRight className="w-4 h-4" />
             </Link>
-            {!isSignedIn && (
-              <p className="text-center text-xs mt-2" style={{ color: "#6E6E73" }}>
-                An account is required to place orders. New here? You can create one in a minute.
-              </p>
-            )}
             <p className="text-center text-xs mt-3" style={{ color: "#9E9EA8" }}>
               🔒 Secure payment · SSL Encrypted
             </p>
