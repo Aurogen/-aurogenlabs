@@ -8,40 +8,40 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const FAQS = [
   {
-    q_en: "Is it legal to purchase these compounds?",
-    q_es: "¿Es legal comprar estos compuestos?",
-    a_en: "Yes. All compounds sold by Aurogen Labs are strictly for in-vitro research and laboratory use only. They are not intended for human consumption, diagnostic use, or veterinary applications. Purchasing for legitimate research purposes is legal in the United States.",
-    a_es: "Sí. Todos los compuestos vendidos por Aurogen Labs son estrictamente para uso en investigación in vitro y de laboratorio únicamente. No están destinados al consumo humano, uso diagnóstico o aplicaciones veterinarias. La compra con fines de investigación legítima es legal en los Estados Unidos.",
+    q_en: "What is creatine monohydrate and who is it for?",
+    q_es: "¿Qué es la creatina monohidratada y para quién es?",
+    a_en: "Creatine is a compound your body already makes and stores in muscle, where it helps regenerate energy during short, intense efforts like lifting or sprinting. Supplementing with 5 g a day is one of the most studied ways to support strength and power. It suits most healthy adults who train regularly.",
+    a_es: "La creatina es un compuesto que tu cuerpo ya produce y almacena en el músculo, donde ayuda a regenerar energía en esfuerzos cortos e intensos como levantar pesas o hacer sprints. Tomar 5 g al día es una de las formas más estudiadas de apoyar la fuerza y la potencia. Es adecuada para la mayoría de adultos sanos que entrenan con regularidad.",
   },
   {
-    q_en: "How do I verify the purity of what I receive?",
-    q_es: "¿Cómo verifico la pureza de lo que recibo?",
-    a_en: "Every shipment includes a batch-specific Certificate of Analysis (COA) from an independent third-party laboratory. The COA confirms identity, purity (≥98% by HPLC), and is traceable to the exact lot number of your product. You can also download COAs from our Research Center before purchasing.",
-    a_es: "Cada envío incluye un Certificado de Análisis (COA) específico del lote de un laboratorio independiente de terceros. El COA confirma identidad, pureza (≥98% mediante HPLC) y es rastreable al número de lote exacto de tu producto. También puedes descargar los COAs desde nuestro Centro de Investigación antes de comprar.",
+    q_en: "Whey isolate vs. whey concentrate: what's the difference?",
+    q_es: "Proteína isolada vs. concentrada: ¿cuál es la diferencia?",
+    a_en: "Isolate is filtered further than concentrate, so it has more protein per scoop (about 90%) and less lactose, fat and sugar. It's a good choice if you want a lean protein source or are sensitive to lactose.",
+    a_es: "La isolada pasa por un filtrado adicional, por eso tiene más proteína por scoop (alrededor del 90%) y menos lactosa, grasa y azúcar. Es buena opción si buscas una proteína magra o eres sensible a la lactosa.",
+  },
+  {
+    q_en: "Are your products tested?",
+    q_es: "¿Sus productos están analizados?",
+    a_en: "Yes. A sample of every batch is tested by an independent laboratory to confirm the label is accurate and to screen for heavy metals and contaminants. The lot number is printed on every container.",
+    a_es: "Sí. Una muestra de cada lote se analiza en un laboratorio independiente para confirmar que la etiqueta es correcta y descartar metales pesados y contaminantes. El número de lote va impreso en cada envase.",
+  },
+  {
+    q_en: "Can I take creatine and protein together?",
+    q_es: "¿Puedo tomar creatina y proteína juntas?",
+    a_en: "Yes. Many people add their daily 5 g of creatine to their post-workout protein shake. Creatine is unflavored, so it won't change the taste.",
+    a_es: "Sí. Muchas personas añaden sus 5 g diarios de creatina al batido de proteína después de entrenar. La creatina no tiene sabor, así que no cambia el gusto.",
   },
   {
     q_en: "How fast will my order ship?",
-    q_es: "¿Qué tan rápido se enviará mi pedido?",
-    a_en: "All US orders are processed and shipped within 48 hours of payment confirmation (business days). Delivery is 2–5 business days via USPS Priority Mail or FedEx. You'll receive a tracking number by email as soon as your order leaves our facility.",
-    a_es: "Todos los pedidos en EE.UU. se procesan y envían dentro de las 48 horas de la confirmación del pago (días hábiles). La entrega es de 2 a 5 días hábiles mediante USPS Priority Mail o FedEx. Recibirás un número de seguimiento por correo electrónico tan pronto como tu pedido salga de nuestras instalaciones.",
+    q_es: "¿Qué tan rápido se envía mi pedido?",
+    a_en: "Orders are processed within 1–2 business days and delivered in 2–5 business days within the US. You'll receive a tracking number by email as soon as your order ships.",
+    a_es: "Los pedidos se procesan en 1–2 días hábiles y se entregan en 2–5 días hábiles dentro de EE.UU. Recibirás un número de seguimiento por correo en cuanto salga tu pedido.",
   },
   {
-    q_en: "What if my order arrives damaged?",
-    q_es: "¿Qué pasa si mi pedido llega dañado?",
-    a_en: "Contact our support team within 7 days of delivery with a photo of the damage. We will send a replacement at no charge or issue a full refund — your choice. We take product integrity seriously at every step of the supply chain.",
-    a_es: "Contacta a nuestro equipo de soporte dentro de los 7 días posteriores a la entrega con una foto del daño. Enviaremos un reemplazo sin cargo adicional o emitiremos un reembolso completo, a tu elección. Nos tomamos muy en serio la integridad del producto en cada paso de la cadena de suministro.",
-  },
-  {
-    q_en: "Where are your compounds manufactured?",
-    q_es: "¿Dónde se fabrican sus compuestos?",
-    a_en: "All compounds are synthesized and quality-tested in domestic (US) cGMP-compliant facilities. We do not source from overseas suppliers. Every batch undergoes independent HPLC verification before it's cleared for sale.",
-    a_es: "Todos los compuestos se sintetizan y someten a pruebas de calidad en instalaciones domésticas (EE.UU.) que cumplen con cGMP. No utilizamos proveedores extranjeros. Cada lote se somete a verificación HPLC independiente antes de ser aprobado para la venta.",
-  },
-  {
-    q_en: "What payment methods do you accept?",
-    q_es: "¿Qué métodos de pago aceptan?",
-    a_en: "We accept all major credit and debit cards. All transactions are SSL-encrypted and processed through a secure payment gateway. We do not store card details on our servers.",
-    a_es: "Aceptamos todas las tarjetas de crédito y débito principales. Todas las transacciones están cifradas con SSL y se procesan a través de una pasarela de pago segura. No almacenamos datos de tarjetas en nuestros servidores.",
+    q_en: "Do I need to consult a doctor before taking supplements?",
+    q_es: "¿Debo consultar a un médico antes de tomar suplementos?",
+    a_en: "If you are pregnant, nursing, taking medication or have a medical condition, check with your healthcare provider before using any supplement. These statements have not been evaluated by the FDA; our products are not intended to diagnose, treat, cure or prevent any disease.",
+    a_es: "Si estás embarazada, en lactancia, tomas medicación o tienes una condición médica, consulta a tu profesional de salud antes de usar cualquier suplemento. Estas declaraciones no han sido evaluadas por la FDA; nuestros productos no pretenden diagnosticar, tratar, curar ni prevenir ninguna enfermedad.",
   },
 ];
 

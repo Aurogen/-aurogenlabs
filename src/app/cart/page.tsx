@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { ShoppingCart, Minus, Plus, Trash2, ArrowRight, ArrowLeft } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 
@@ -17,7 +18,7 @@ export default function CartPage() {
           <h2 className="text-2xl font-bold mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}>
             Your Cart Is Empty
           </h2>
-          <p style={{ color: "#6E6E73" }}>Add research compounds to get started.</p>
+          <p style={{ color: "#6E6E73" }}>Add your favorites to get started.</p>
         </div>
         <Link
           href="/shop"
@@ -53,24 +54,14 @@ export default function CartPage() {
                 className="flex gap-4 p-5 rounded-2xl"
                 style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
               >
-                {/* Vial thumb */}
+                {/* Product thumb */}
                 <div
-                  className="w-20 h-20 rounded-xl shrink-0 flex items-center justify-center"
-                  style={{ background: "#F5F2EC", border: "1px solid rgba(0,0,0,0.06)" }}
+                  className="w-20 h-20 rounded-xl shrink-0 overflow-hidden"
+                  style={{ background: "#F2F1ED", border: "1px solid rgba(0,0,0,0.06)" }}
                 >
-                  <svg width="28" height="40" viewBox="0 0 28 40" fill="none">
-                    <rect x="9" y="0" width="10" height="5" rx="2" fill="#C9C9C9" />
-                    <rect x="5" y="4" width="18" height="32" rx="5" fill="url(#cartVial)" />
-                    <rect x="7" y="12" width="14" height="16" rx="2.5" fill="#1E1E1E" opacity="0.85" />
-                    <text x="14" y="23" textAnchor="middle" fill="#6B7A8D" fontSize="5" fontWeight="bold" fontFamily="sans-serif">A</text>
-                    <rect x="5" y="32" width="18" height="5" rx="2.5" fill="#6B7A8D" opacity="0.18" />
-                    <defs>
-                      <linearGradient id="cartVial" x1="5" y1="4" x2="23" y2="36" gradientUnits="userSpaceOnUse">
-                        <stop offset="0%" stopColor="#2A2A2A" />
-                        <stop offset="100%" stopColor="#111111" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
+                  {item.product.image ? (
+                    <Image src={item.product.image} alt="" width={80} height={80} className="w-full h-full object-cover" />
+                  ) : null}
                 </div>
 
                 {/* Info */}
@@ -180,13 +171,6 @@ export default function CartPage() {
                   <span className="font-bold" style={{ color: "#1D1D1F" }}>Total</span>
                   <span className="font-bold text-2xl" style={{ color: "#1D1D1F" }}>${totalPrice.toFixed(2)}</span>
                 </div>
-              </div>
-
-              <div
-                className="mb-4 p-3 rounded-xl text-center text-xs"
-                style={{ background: "rgba(10,132,255,0.06)", border: "1px solid rgba(10,132,255,0.15)", color: "#0A84FF" }}
-              >
-                For Research Use Only · Not for Human Consumption
               </div>
 
               <Link

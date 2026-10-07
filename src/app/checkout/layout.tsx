@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Checkout",
-  description: "Complete your Aurogen Labs research compound order.",
+  description: "Complete your Aurogen order.",
   robots: { index: false, follow: false },
 };
 

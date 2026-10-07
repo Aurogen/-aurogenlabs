@@ -9,13 +9,13 @@ import type { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/context/LanguageContext";
 
+// Supplement brand clips: manufacturing line, protein scoop, creatine in a shaker, gym, hydration pour.
 const BG_VIDEOS = [
-  "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_164633_8fe5fae4-2747-4529-94ab-d2f81453f2c5.mp4",
-  "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_163541_332a7688-cf41-400e-ab3c-56c2f6433499.mp4",
-  "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_164706_bd49faa1-adfa-490c-8b49-7007e9ea0303.mp4",
-  "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_164633_35c4e890-6344-450c-be9e-ff0388c2037b.mp4",
-  "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_181937_4b40fd95-b588-404a-8148-2b55717d36ff.mp4",
-  "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20260811_181937_4071d56a-fbd2-40e4-9b62-5dab69a84576.mp4",
+  "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20261007_204952_24e73299-e68d-44aa-bbdf-59656c786392.mp4",
+  "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20261007_204219_9cf6699e-0cdd-4cf2-8e2e-be8ec34d949b.mp4",
+  "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20261007_204220_e3e03cad-6987-48a9-ab04-4feb1fd7502d.mp4",
+  "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20261007_204952_9f31fcfe-1af5-45ff-9778-4623e7243ae6.mp4",
+  "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/hf_20261007_204220_9cb50a79-c7ed-4306-b152-6eb90e37f7a2.mp4",
 ];
 
 const ACCENT_COLORS = [
@@ -164,7 +164,7 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
             style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)", color: "#111111" }}
           >
             <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#0A84FF" }} />
-            {t("Third-party tested · every lot", "Análisis externo · cada lote")}
+            {t("Third-party tested · clean labels", "Analizado por terceros · etiquetas limpias")}
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 10 }}
@@ -179,9 +179,9 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
               color: "#111111",
             }}
           >
-            {t("Research peptides.", "Péptidos de investigación.")}
+            {t("Performance nutrition.", "Nutrición deportiva.")}
             <br />
-            <span style={{ color: "#0A84FF" }}>{t("Verified batch by batch.", "Verificados lote a lote.")}</span>
+            <span style={{ color: "#0A84FF" }}>{t("Made to perform.", "Hecha para rendir.")}</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 8 }}
@@ -191,8 +191,8 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
             style={{ color: "#5A5A60" }}
           >
             {t(
-              "HPLC purity and mass-spec identity on every lot, with the certificate in the box. Ships within 48 hours.",
-              "Pureza por HPLC e identidad por espectrometría de masas en cada lote, con el certificado en la caja. Envío en 48 horas.",
+              "Whey isolate, creatine, pre-workout, electrolytes and recovery essentials. Simple formulas, full-dose ingredients, nothing hidden.",
+              "Proteína isolada, creatina, pre-entreno, electrolitos y esenciales de recuperación. Fórmulas simples, dosis completas, nada oculto.",
             )}
           </motion.p>
           <motion.div
@@ -206,17 +206,17 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
               className="inline-flex items-center gap-2 h-[52px] px-8 rounded-full text-[16px] font-semibold text-white active:scale-[0.98] transition-transform"
               style={{ background: "#0A84FF", boxShadow: "0 10px 24px -10px rgba(10,132,255,0.6)" }}
             >
-              {t("Browse catalog", "Ver catálogo")}
+              {t("Shop the lineup", "Ver productos")}
               <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
           <p className="mt-5 inline-flex items-center gap-1.5 text-[12px]" style={{ color: "#6B6B70" }}>
             <ShieldCheck className="w-3.5 h-3.5" style={{ color: "#0A84FF" }} />
-            {t("For laboratory research use only", "Solo para investigación de laboratorio")}
+            {t("Every batch tested for label accuracy", "Cada lote analizado para verificar la etiqueta")}
           </p>
         </div>
 
-        {/* Top sellers — the lab video plays behind the products */}
+        {/* Top sellers — the brand video plays behind the products */}
         <div className="relative mt-10 md:mt-0 md:min-h-[480px]" style={{ background: "#0D1117" }}>
           <div className="absolute inset-0 overflow-hidden">
             <VideoCycler />
@@ -449,7 +449,7 @@ function LineupVial({ accent, index }: { accent: string; index: number }) {
       <text x="38" y="50" textAnchor="middle" fill="white" fontSize="11" fontWeight="bold" opacity="0.92" fontFamily="sans-serif">A</text>
       <text x="38" y="59" textAnchor="middle" fill={accent} fontSize="4.5" fontWeight="bold" letterSpacing="1.5" fontFamily="sans-serif">AUROGEN</text>
       <text x="38" y="67" textAnchor="middle" fill="white" fontSize="7" fontWeight="bold" fontFamily="sans-serif">5MG</text>
-      <text x="38" y="74" textAnchor="middle" fill="white" fontSize="3.8" fontFamily="sans-serif" opacity="0.45">RESEARCH ONLY</text>
+      <text x="38" y="74" textAnchor="middle" fill="white" fontSize="3.8" fontFamily="sans-serif" opacity="0.45">AUROGEN</text>
       <rect x="16" y="82" width="44" height="13" rx="6" fill={accent} opacity="0.14" />
       <rect x="20" y="84" width="12" height="9" rx="3" fill="white" opacity="0.04" />
       <defs>

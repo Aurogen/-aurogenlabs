@@ -141,7 +141,7 @@ function ProductVialDetailed({ index }: { index: number }) {
       <text x="38" y="50" textAnchor="middle" fill="white" fontSize="11" fontWeight="bold" opacity="0.9" fontFamily="sans-serif">A</text>
       <text x="38" y="59" textAnchor="middle" fill={accent} fontSize="4.5" fontWeight="bold" letterSpacing="1.5" fontFamily="sans-serif">AUROGEN</text>
       <text x="38" y="67" textAnchor="middle" fill="white" fontSize="7" fontWeight="bold" fontFamily="sans-serif">5MG</text>
-      <text x="38" y="74" textAnchor="middle" fill="white" fontSize="3.8" fontFamily="sans-serif" opacity="0.4">RESEARCH ONLY</text>
+      <text x="38" y="74" textAnchor="middle" fill="white" fontSize="3.8" fontFamily="sans-serif" opacity="0.4">AUROGEN</text>
       {/* Liquid */}
       <rect x="16" y="82" width="44" height="13" rx="6" fill={accent} opacity="0.1" />
       <defs>

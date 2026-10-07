@@ -12,10 +12,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!product) return { title: "Product Not Found" };
   return {
     title: product.name,
-    description: `${product.name} (${product.concentration}) — ${product.purity} purity research peptide. Third-party tested, US manufactured. For laboratory research use only.`,
+    description: `${product.name} (${product.concentration}) — ${product.description}`,
     openGraph: {
-      title: `${product.name} | Aurogen Labs`,
-      description: `${product.name} ${product.concentration} · ${product.purity} purity · $${product.price}`,
+      title: `${product.name} | Aurogen`,
+      description: `${product.name} ${product.concentration} · $${product.price}`,
     },
   };
 }

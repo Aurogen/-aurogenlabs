@@ -11,8 +11,9 @@ function resolveCategories(row: { slug: string; goals: string[] | null }): Categ
   return PRODUCTS.find((p) => p.slug === row.slug)?.goals ?? [];
 }
 
+// Investor demo: the supplement catalog lives in code and never touches the production database.
 function supabaseConfigured() {
-  return !!(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY);
+  return false;
 }
 
 export interface DbProduct {

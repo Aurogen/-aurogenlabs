@@ -2,6 +2,7 @@
 
 import { X, Minus, Plus, ShoppingCart, Trash2, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import { useUser } from "@clerk/nextjs";
 
@@ -67,7 +68,7 @@ export default function CartDrawer() {
               </div>
               <div>
                 <p className="font-medium mb-1" style={{ color: "#1D1D1F" }}>Your cart is empty</p>
-                <p className="text-sm" style={{ color: "#6E6E73" }}>Add research compounds to get started</p>
+                <p className="text-sm" style={{ color: "#6E6E73" }}>Add your favorites to get started</p>
               </div>
               <Link
                 href="/shop"
@@ -87,10 +88,12 @@ export default function CartDrawer() {
               >
                 {/* Product visual */}
                 <div
-                  className="w-16 h-16 rounded-lg shrink-0 flex items-center justify-center"
-                  style={{ background: "#F5F2EC", border: "1px solid rgba(0,0,0,0.07)" }}
+                  className="w-16 h-16 rounded-lg shrink-0 overflow-hidden"
+                  style={{ background: "#F2F1ED", border: "1px solid rgba(0,0,0,0.07)" }}
                 >
-                  <VialIcon />
+                  {item.product.image ? (
+                    <Image src={item.product.image} alt="" width={64} height={64} className="w-full h-full object-cover" />
+                  ) : null}
                 </div>
 
                 {/* Info */}
@@ -150,15 +153,6 @@ export default function CartDrawer() {
             className="p-5"
             style={{ borderTop: "1px solid rgba(0,0,0,0.08)", background: "#F6F6F8" }}
           >
-            {/* Research disclaimer */}
-            <div
-              className="mb-4 p-3 rounded-lg"
-              style={{ background: "rgba(10,132,255,0.05)", border: "1px solid rgba(10,132,255,0.15)" }}
-            >
-              <p className="text-[11px] text-center" style={{ color: "#0A84FF" }}>
-                ⚠️ For Research Use Only · Not for Human Consumption
-              </p>
-            </div>
 
             <div className="flex items-center justify-between mb-3">
               <span style={{ color: "#6E6E73" }}>Subtotal</span>
@@ -193,20 +187,3 @@ export default function CartDrawer() {
   );
 }
 
-function VialIcon() {
-  return (
-    <svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="9" y="0" width="10" height="4" rx="2" fill="#6B7A8D" opacity="0.9" />
-      <rect x="11" y="3" width="6" height="2" fill="#0A84FF" opacity="0.7" />
-      <rect x="8" y="5" width="12" height="22" rx="4" fill="url(#vialGrad)" />
-      <rect x="10" y="5" width="3" height="22" rx="1.5" fill="white" opacity="0.06" />
-      <rect x="10" y="20" width="8" height="7" rx="2" fill="#6B7A8D" opacity="0.15" />
-      <defs>
-        <linearGradient id="vialGrad" x1="8" y1="5" x2="20" y2="27" gradientUnits="userSpaceOnUse">
-          <stop offset="0%" stopColor="#2A2A2C" />
-          <stop offset="100%" stopColor="#111111" />
-        </linearGradient>
-      </defs>
-    </svg>
-  );
-}

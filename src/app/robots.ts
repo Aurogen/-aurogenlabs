@@ -1,12 +1,6 @@
 import type { MetadataRoute } from "next";
 
+// Investor preview: keep the demo out of search engines.
 export default function robots(): MetadataRoute.Robots {
-  return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-      disallow: ["/checkout", "/order-success", "/dashboard", "/api/"],
-    },
-    sitemap: "https://aurogenlabs.com/sitemap.xml",
-  };
+  return { rules: { userAgent: "*", disallow: "/" } };
 }

@@ -7,7 +7,7 @@ import { CATEGORIES, type Category, type Product } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 
 const CDN = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/";
-const ALL_PEPTIDES_VIDEO = `${CDN}hf_20260811_193152_9c04b585-b216-4708-a3b0-36372b2881f7.mp4`;
+const SHOP_VIDEO = `${CDN}hf_20261007_204219_9cf6699e-0cdd-4cf2-8e2e-be8ec34d949b.mp4`;
 
 interface Props {
   initialProducts: Product[];
@@ -70,14 +70,14 @@ export default function ShopContent({ initialProducts }: Props) {
     <div className="min-h-screen" style={{ background: "#F5F4F0" }}>
       {/* Page header */}
       <div className="relative py-10 sm:py-16 px-4 text-center overflow-hidden" style={{ borderBottom: "1px solid rgba(0,0,0,0.12)" }}>
-        <video ref={(el) => { if (el) el.muted = true; }} autoPlay muted loop playsInline preload="metadata" className="absolute inset-0 w-full h-full object-cover" style={{ filter: "brightness(0.42)" }} src={ALL_PEPTIDES_VIDEO} />
+        <video ref={(el) => { if (el) el.muted = true; }} autoPlay muted loop playsInline preload="metadata" className="absolute inset-0 w-full h-full object-cover" style={{ filter: "brightness(0.42)" }} src={SHOP_VIDEO} />
         <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%)" }} />
         <div className="relative z-10">
           <h1 className="font-bold" style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(32px, 6vw, 64px)", letterSpacing: "-0.01em", color: "#FFFFFF", lineHeight: 1.05 }}>
-            {selectedCategory ?? "All Peptides"}
+            {selectedCategory ?? "All Products"}
           </h1>
           <p className="mt-3 text-[12px] sm:text-[13px]" style={{ color: "rgba(255,255,255,0.7)" }}>
-            For laboratory research use only · Not for human consumption
+            Full-dose, clean-label formulas · Every batch third-party tested
           </p>
         </div>
       </div>
@@ -124,7 +124,7 @@ export default function ShopContent({ initialProducts }: Props) {
               type="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search compounds"
+              placeholder="Search products"
               enterKeyHint="search"
               className="w-full pl-10 pr-3 rounded-xl text-base sm:text-sm focus:outline-none"
               style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F", height: 44 }}

@@ -2,14 +2,14 @@
 
 import Link from "next/link";
 import { ShoppingBag, Search, Menu, X, ChevronDown } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import Logo from "./Logo";
 import SearchModal from "./SearchModal";
 import { useLanguage } from "@/context/LanguageContext";
 import { CATEGORIES } from "@/data/products";
-import { useUser, UserButton, SignInButton } from "@clerk/nextjs";
+import { UserButton } from "@clerk/nextjs";
 
 const INK = "#111111";
 const MUTED = "#55555A";
@@ -18,26 +18,20 @@ const LINE = "rgba(0,0,0,0.09)";
 export default function Navbar() {
   const { totalItems, openCart } = useCart();
   const { lang, setLang, t } = useLanguage();
-  const { isSignedIn } = useUser();
+  // Investor preview: no accounts, so the navbar never shows sign-in or account menus.
+  const isSignedIn = false;
   const pathname = usePathname();
-  const [isAdmin, setIsAdmin] = useState(false);
+  const isAdmin = false;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [menu, setMenu] = useState<"shop" | "account" | null>(null);
   const [searchOpen, setSearchOpen] = useState(false);
 
-  useEffect(() => {
-    if (!isSignedIn) return;
-    fetch("/api/admin-check")
-      .then((r) => r.json())
-      .then((d) => setIsAdmin(d.isAdmin === true))
-      .catch(() => setIsAdmin(false));
-  }, [isSignedIn]);
 
   const links = [
-    { href: "/protocols", label: t("Protocols", "Protocolos") },
-    { href: "/research", label: t("Research Center", "Centro de Investigación") },
-    { href: "/quality", label: t("Quality", "Calidad") },
-    { href: "/affiliates", label: t("Partners", "Partners") },
+    { href: "/shop?category=Protein", label: t("Protein", "Proteína") },
+    { href: "/shop?category=Performance", label: t("Performance", "Rendimiento") },
+    { href: "/shop?category=Hydration", label: t("Hydration", "Hidratación") },
+    { href: "/shop?category=Wellness", label: t("Wellness", "Bienestar") },
   ];
 
   const accountLinks = [
@@ -96,7 +90,7 @@ export default function Navbar() {
                     style={{ background: "#FFFFFF", border: `1px solid ${LINE}`, borderTop: "none", boxShadow: "0 18px 40px -18px rgba(0,0,0,0.18)" }}
                   >
                     <p className="text-xs mb-3" style={{ color: MUTED }}>
-                      {t("Browse by compound class", "Explorar por clase de compuesto")}
+                      {t("Browse by category", "Explorar por categoría")}
                     </p>
                     <div className="grid grid-cols-2 gap-x-6">
                       {CATEGORIES.map((c) => (
@@ -198,11 +192,7 @@ export default function Navbar() {
                 )}
               </div>
             ) : (
-              <SignInButton mode="redirect">
-                <button className="hidden md:block px-2 text-[14px] transition-colors hover:text-[#111111]" style={{ color: MUTED }}>
-                  {t("Sign in", "Iniciar sesión")}
-                </button>
-              </SignInButton>
+              null
             )}
 
             <button
@@ -259,7 +249,7 @@ export default function Navbar() {
               ))}
 
               <p className="pt-5 pb-2 text-xs" style={{ color: MUTED }}>
-                {t("Compound classes", "Clases de compuesto")}
+                {t("Categories", "Categorías")}
               </p>
               <div className="grid grid-cols-2 gap-x-4">
                 {CATEGORIES.map((c) => (
@@ -289,11 +279,7 @@ export default function Navbar() {
                     </Link>
                   ))
                 ) : (
-                  <SignInButton mode="redirect">
-                    <button className="block py-3 text-[15px]" style={{ color: INK }} onClick={() => setMobileOpen(false)}>
-                      {t("Sign in", "Iniciar sesión")}
-                    </button>
-                  </SignInButton>
+                  null
                 )}
               </div>
 

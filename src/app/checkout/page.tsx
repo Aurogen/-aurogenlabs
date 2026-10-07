@@ -30,7 +30,7 @@ export default function CheckoutPage() {
     lastName: edited.lastName || user?.lastName || "",
     email: edited.email || user?.primaryEmailAddress?.emailAddress || "",
   };
-  const [agreed, setAgreed] = useState(false);
+  const agreed = true;
   const [loading, setLoading] = useState(false);
   const [orderError, setOrderError] = useState("");
   const [discountInput, setDiscountInput] = useState("");
@@ -189,7 +189,7 @@ export default function CheckoutPage() {
                     type="email"
                     value={form.email}
                     onChange={(e) => set("email", e.target.value)}
-                    className={INPUT_CLASS} style={INPUT_STYLE} placeholder="john@research.com"
+                    className={INPUT_CLASS} style={INPUT_STYLE} placeholder="john@email.com"
                   />
                 </div>
               </div>
@@ -213,7 +213,7 @@ export default function CheckoutPage() {
                     name="address" autoComplete="address-line1"
                     value={form.address}
                     onChange={(e) => set("address", e.target.value)}
-                    className={INPUT_CLASS} style={INPUT_STYLE} placeholder="123 Research Blvd"
+                    className={INPUT_CLASS} style={INPUT_STYLE} placeholder="123 Main St"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
@@ -248,30 +248,14 @@ export default function CheckoutPage() {
               </div>
             </div>
 
-            {/* Research agreement */}
+            {/* Preview notice */}
             <div
               className="p-4 rounded-xl"
               style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)" }}
             >
-              <label className="flex items-start gap-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={agreed}
-                  onChange={(e) => setAgreed(e.target.checked)}
-                  className="mt-0.5 w-4 h-4 shrink-0 rounded accent-black"
-                />
-                <p className="text-xs leading-relaxed" style={{ color: "#6E6E73" }}>
-                  I confirm I am a qualified researcher, that products are for laboratory/research use only,
-                  that I am 18+ years old, and that I agree to the{" "}
-                  <Link href="/terms" className="underline hover:opacity-70" style={{ color: "#1D1D1F" }}>
-                    Terms of Use
-                  </Link>{" "}
-                  and{" "}
-                  <Link href="/privacy" className="underline hover:opacity-70" style={{ color: "#1D1D1F" }}>
-                    Privacy Policy
-                  </Link>.
-                </p>
-              </label>
+              <p className="text-xs leading-relaxed" style={{ color: "#0A84FF" }}>
+                Preview store: this demo shows the full checkout experience, but no order is placed and no payment is taken.
+              </p>
             </div>
 
             {/* Discount Code */}

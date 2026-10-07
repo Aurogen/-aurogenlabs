@@ -15,14 +15,14 @@ import { useCart } from "@/context/CartContext";
 import NotifyModal from "./NotifyModal";
 import ProductCard from "./ProductCard";
 
-type Tab = "desc" | "specs" | "protocols" | "faq";
+type Tab = "desc" | "specs" | "protocols" | "faq"; // specs = Supplement Facts, protocols = How to use
 
 const FAQ_ITEMS = [
-  { q: "What solvent should I use for reconstitution?", a: "Use sterile bacteriostatic water (BAC water) for reconstitution. Add the solvent slowly along the vial wall to minimize foaming. Do not use regular sterile water as it does not preserve the peptide as long." },
-  { q: "How should I store the reconstituted peptide?", a: "Once reconstituted, store at 2–8°C (refrigerator) and use within 28–30 days. For longer storage of the lyophilized (dry) form, keep at -20°C away from light." },
-  { q: "What does 'research use only' mean?", a: "Our peptides are sold exclusively for in-vitro laboratory and scientific research purposes. They are not intended for human consumption, are not drugs or supplements, and have not been evaluated by the FDA." },
-  { q: "How do I calculate the concentration after reconstitution?", a: "Divide the peptide mass by the solvent volume. For example, 10 mg reconstituted in 2 mL of solvent yields a 5 mg/mL solution. Follow the handling procedures defined in your laboratory's own protocol." },
-  { q: "Do you provide a Certificate of Analysis (COA)?", a: "Yes. Every batch has a third-party COA verifiable via batch number. Access it from the Research Center or contact our team with your order number." },
+  { q: "When should I take it?", a: "Follow the directions on the label. Most people take protein and creatine around their workout, pre-workout 20–30 minutes before training, and magnesium in the evening." },
+  { q: "Can I combine it with other Aurogen products?", a: "Yes. The lineup is designed to stack: for example, creatine mixes easily into a protein shake, and electrolytes pair well with long training sessions." },
+  { q: "Is every batch tested?", a: "Yes. A sample of every batch is tested by an independent lab for label accuracy and screened for heavy metals and contaminants. The lot number is printed on the container." },
+  { q: "How should I store it?", a: "Keep the container tightly closed in a cool, dry place away from direct sunlight. Do not refrigerate powders, as moisture can cause clumping." },
+  { q: "Is it safe for everyone?", a: "Our products are intended for healthy adults. If you are pregnant, nursing, taking medication or have a medical condition, consult your healthcare provider before use. Keep out of reach of children." },
 ];
 
 interface Props {
@@ -73,8 +73,8 @@ export default function ProductDetail({ product, related }: Props) {
 
   const TABS: { id: Tab; label: string; icon: React.ElementType }[] = [
     { id: "desc", label: "Description", icon: FileText },
-    { id: "specs", label: "Specifications", icon: Scale },
-    { id: "protocols", label: "Protocols", icon: BookOpen },
+    { id: "specs", label: "Supplement Facts", icon: Scale },
+    { id: "protocols", label: "How to Use", icon: BookOpen },
     { id: "faq", label: "FAQ", icon: ChevronDown },
   ];
 
@@ -127,8 +127,8 @@ export default function ProductDetail({ product, related }: Props) {
             <div className="grid grid-cols-3 gap-3 mt-4">
               {[
                 { label: "Third-Party Tested", icon: CheckCircle },
-                { label: product.purity + " Purity", icon: FlaskConical },
-                { label: "COA Verified", icon: FileText },
+                { label: product.purity, icon: FlaskConical },
+                { label: "Lot Traceable", icon: FileText },
               ].map(({ label, icon: Icon }) => (
                 <div
                   key={label}
@@ -198,9 +198,9 @@ export default function ProductDetail({ product, related }: Props) {
             <div className="grid grid-cols-2 gap-3 mb-5">
               {[
                 { icon: Package, label: "Size", value: `${product.concentration} · ${product.size}` },
-                { icon: FlaskConical, label: "Purity", value: product.purity },
+                { icon: FlaskConical, label: "Formula", value: product.purity },
                 { icon: Thermometer, label: "Storage", value: product.storage },
-                { icon: Scale, label: "Mol. Weight", value: product.molecularWeight || "N/A" },
+                { icon: Scale, label: "Serving", value: product.facts?.[0]?.[1] ?? "See label" },
               ].map(({ icon: Icon, label, value }) => (
                 <div
                   key={label}
@@ -216,17 +216,6 @@ export default function ProductDetail({ product, related }: Props) {
                   <p className="text-sm font-medium" style={{ color: "#1D1D1F" }}>{value}</p>
                 </div>
               ))}
-            </div>
-
-            {/* Research banner */}
-            <div
-              className="mb-5 p-3 rounded-xl"
-              style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)" }}
-            >
-              <p className="text-xs flex items-center gap-2" style={{ color: "#0A84FF" }}>
-                <span>⚠️</span>
-                <span>For Research Use Only · Not for Human Consumption · Not a drug or supplement</span>
-              </p>
             </div>
 
             {/* Qty + Add */}
@@ -278,27 +267,9 @@ export default function ProductDetail({ product, related }: Props) {
               </button>
             )}
 
-            {product.coaUrl ? (
-              <a
-                href={product.coaUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-full text-sm font-medium mb-6 transition-opacity hover:opacity-70"
-                style={{ border: "1px solid rgba(0,0,0,0.10)", color: "#6E6E73", background: "#FFFFFF" }}
-              >
-                <FileText className="w-4 h-4" />
-                View Certificate of Analysis (COA)
-              </a>
-            ) : (
-              <button
-                disabled
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-full text-sm font-medium mb-6 opacity-40 cursor-not-allowed"
-                style={{ border: "1px solid rgba(0,0,0,0.10)", color: "#6E6E73", background: "#FFFFFF" }}
-              >
-                <FileText className="w-4 h-4" />
-                COA Coming Soon
-              </button>
-            )}
+            <p className="text-xs mb-6 text-center lg:text-left" style={{ color: "#9E9EA8" }}>
+              Third-party tested · Lot number printed on every container
+            </p>
           </motion.div>
         </div>
 
@@ -338,107 +309,51 @@ export default function ProductDetail({ product, related }: Props) {
                 <div>
                   <p className="leading-relaxed mb-4" style={{ color: "#1D1D1F" }}>{product.longDescription}</p>
                   <ul className="space-y-2 mb-5">
-                    {[
-                      "Lyophilized for maximum stability",
-                      "Verified via HPLC and mass spectrometry",
-                      "Batch-specific COA available",
-                      "Ships with cold pack for temperature-sensitive compounds",
-                    ].map((item) => (
+                    {(product.benefits ?? []).map((item) => (
                       <li key={item} className="flex items-center gap-2 text-sm" style={{ color: "#6E6E73" }}>
                         <CheckCircle className="w-4 h-4 shrink-0" style={{ color: "#1B7A45" }} />
                         {item}
                       </li>
                     ))}
                   </ul>
-                  <div
-                    className="p-4 rounded-xl"
-                    style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)" }}
-                  >
-                    <p className="text-sm font-semibold mb-1" style={{ color: "#0A84FF" }}>Research Disclaimer</p>
-                    <p className="text-xs leading-relaxed" style={{ color: "#0A84FF" }}>
-                      All research peptides sold by Aurogen Labs are intended for laboratory and scientific research purposes only.
-                      These compounds are not intended for human consumption and have not been evaluated by the FDA.
-                    </p>
-                  </div>
+                  <p className="text-xs leading-relaxed" style={{ color: "#9E9EA8" }}>
+                    *These statements have not been evaluated by the Food and Drug Administration. This product is not
+                    intended to diagnose, treat, cure or prevent any disease.
+                  </p>
                 </div>
               )}
 
               {activeTab === "specs" && (
-                <div className="grid sm:grid-cols-2 gap-x-8">
-                  {[
-                    ["Compound", product.compound],
-                    ["Concentration", product.concentration],
-                    ["Purity", product.purity],
-                    ["Molecular Weight", product.molecularWeight || "N/A"],
-                    ["Form", "Lyophilized Powder"],
-                    ["Solvent", "Bacteriostatic Water (BAC)"],
-                    ["Appearance", "White to off-white powder"],
-                    ["Storage", product.storage],
-                  ].map(([k, v]) => (
+                <div className="max-w-md">
+                  <p className="font-bold text-lg pb-2 mb-1" style={{ color: "#1D1D1F", borderBottom: "6px solid #1D1D1F" }}>
+                    Supplement Facts
+                  </p>
+                  {(product.facts ?? []).map(([k, v]) => (
                     <div
                       key={k}
-                      className="flex justify-between py-3 last:border-0"
-                      style={{ borderBottom: "1px solid rgba(0,0,0,0.06)" }}
+                      className="flex justify-between py-2.5"
+                      style={{ borderBottom: "1px solid rgba(0,0,0,0.12)" }}
                     >
-                      <span className="text-sm" style={{ color: "#6E6E73" }}>{k}</span>
-                      <span className="text-sm font-medium text-right max-w-[55%]" style={{ color: "#1D1D1F" }}>{v}</span>
+                      <span className="text-sm" style={{ color: "#1D1D1F" }}>{k}</span>
+                      <span className="text-sm font-semibold text-right" style={{ color: "#1D1D1F" }}>{v}</span>
                     </div>
                   ))}
+                  <p className="text-xs mt-3" style={{ color: "#9E9EA8" }}>Storage: {product.storage}. Keep out of reach of children.</p>
                 </div>
               )}
 
               {activeTab === "protocols" && (
                 <div className="space-y-4">
-                  <p className="text-sm mb-5" style={{ color: "#6E6E73" }}>
-                    Research protocols commonly used with <strong style={{ color: "#1D1D1F" }}>{product.name}</strong>.
-                  </p>
-                  {[
-                    {
-                      title: `${product.name} Reconstitution Protocol`,
-                      duration: "Day 1",
-                      desc: "Step-by-step guide for reconstituting this compound, including recommended BAC water volumes, vial handling, and initial concentration verification.",
-                      tags: ["Reconstitution", "Lab Setup"],
-                    },
-                    {
-                      title: "Storage & Stability Handling",
-                      duration: "Ongoing",
-                      desc: "Recommended storage temperatures for lyophilized and reconstituted material, light protection, and freeze-thaw guidance to preserve sample integrity.",
-                      tags: ["Storage", "Stability"],
-                    },
-                    {
-                      title: "Analytical Verification (HPLC / MS)",
-                      duration: "Per batch",
-                      desc: "How to read the batch Certificate of Analysis and reproduce identity and purity verification with HPLC and mass spectrometry in your own lab.",
-                      tags: ["QC", "Analytical"],
-                    },
-                  ].map((p) => (
-                    <div
-                      key={p.title}
-                      className="p-5 rounded-xl"
-                      style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.08)" }}
-                    >
-                      <div className="flex items-start justify-between gap-3 mb-2">
-                        <h4 className="font-bold" style={{ color: "#1D1D1F" }}>{p.title}</h4>
-                        <span className="text-xs shrink-0" style={{ color: "#9E9EA8" }}>{p.duration}</span>
-                      </div>
-                      <p className="text-sm mb-3" style={{ color: "#6E6E73" }}>{p.desc}</p>
-                      <div className="flex flex-wrap gap-2">
-                        {p.tags.map((t) => (
-                          <span
-                            key={t}
-                            className="text-xs px-2.5 py-1 rounded font-medium"
-                            style={{ background: "rgba(10,132,255,0.06)", color: "#0A84FF", border: "1px solid rgba(10,132,255,0.15)" }}
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                  <div className="text-center pt-2">
-                    <Link href="/protocols" className="text-sm font-medium transition-opacity hover:opacity-70" style={{ color: "#6B7A8D" }}>
-                      View full Protocol Library →
-                    </Link>
+                  <div className="p-5 rounded-xl" style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.08)" }}>
+                    <h4 className="font-bold mb-2" style={{ color: "#1D1D1F" }}>Directions</h4>
+                    <p className="text-sm leading-relaxed" style={{ color: "#6E6E73" }}>{product.directions}</p>
+                  </div>
+                  <div className="p-5 rounded-xl" style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.08)" }}>
+                    <h4 className="font-bold mb-2" style={{ color: "#1D1D1F" }}>Warnings</h4>
+                    <p className="text-sm leading-relaxed" style={{ color: "#6E6E73" }}>
+                      For healthy adults only. Do not exceed the recommended serving. Consult a healthcare provider before use if
+                      you are pregnant, nursing, taking medication or have a medical condition.
+                    </p>
                   </div>
                 </div>
               )}
@@ -553,9 +468,9 @@ function ProductDetailVial() {
       <text x="80" y="84" textAnchor="middle" fill="white" fontSize="22" fontWeight="bold" opacity="0.95" fontFamily="sans-serif">A</text>
       <text x="80" y="102" textAnchor="middle" fill="#6B7A8D" fontSize="9" fontWeight="bold" letterSpacing="3" fontFamily="sans-serif">AUROGEN</text>
       <text x="80" y="115" textAnchor="middle" fill="#6B7A8D" fontSize="7.5" letterSpacing="2" fontFamily="sans-serif">LABS</text>
-      <text x="80" y="132" textAnchor="middle" fill="white" fontSize="13" fontWeight="bold" fontFamily="sans-serif">5MG</text>
-      <text x="80" y="146" textAnchor="middle" fill="white" fontSize="7" fontFamily="sans-serif" opacity="0.55">PEPTIDE SOLUTION</text>
-      <text x="80" y="156" textAnchor="middle" fill="white" fontSize="6.5" fontFamily="sans-serif" opacity="0.4">FOR RESEARCH ONLY</text>
+      <text x="80" y="132" textAnchor="middle" fill="white" fontSize="13" fontWeight="bold" fontFamily="sans-serif">A</text>
+      <text x="80" y="146" textAnchor="middle" fill="white" fontSize="7" fontFamily="sans-serif" opacity="0.55">SUPPLEMENT</text>
+      <text x="80" y="156" textAnchor="middle" fill="white" fontSize="6.5" fontFamily="sans-serif" opacity="0.4">AUROGEN</text>
       <rect x="38" y="178" width="84" height="20" rx="10" fill="#6B7A8D" opacity="0.12" />
       <defs>
         <linearGradient id="dcap" x1="48" y1="0" x2="112" y2="26" gradientUnits="userSpaceOnUse">
