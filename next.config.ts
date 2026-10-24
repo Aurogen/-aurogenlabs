@@ -12,6 +12,13 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "d8j0ntlcm91z4.cloudfront.net" },
     ],
   },
+  // Pages from the former research catalog now point to the store.
+  async redirects() {
+    return [
+      { source: "/research", destination: "/shop", permanent: true },
+      { source: "/protocols", destination: "/shop", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

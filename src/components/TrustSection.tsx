@@ -6,28 +6,28 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const STEPS = [
   {
-    title_en: "Synthesis",
-    title_es: "Síntesis",
-    desc_en: "Peptides are synthesized, purified and lyophilized. Each lot gets its own number from the start.",
-    desc_es: "Los péptidos se sintetizan, se purifican y se liofilizan. Cada lote recibe su propio número desde el inicio.",
+    title_en: "Sourcing",
+    title_es: "Materias primas",
+    desc_en: "Ingredients come from vetted suppliers and are checked for identity on arrival. Each production run gets its own lot number.",
+    desc_es: "Los ingredientes vienen de proveedores verificados y se revisan al llegar. Cada producción recibe su propio número de lote.",
+  },
+  {
+    title_en: "Manufacturing",
+    title_es: "Fabricación",
+    desc_en: "Formulas are blended, filled and sealed in a GMP-certified facility, with full-dose ingredients and no proprietary blends.",
+    desc_es: "Las fórmulas se mezclan, envasan y sellan en una planta con certificación GMP, con dosis completas y sin mezclas propietarias.",
   },
   {
     title_en: "Independent testing",
     title_es: "Análisis independiente",
-    desc_en: "A sample from every lot goes to an outside laboratory for HPLC purity and mass spectrometry identity testing.",
-    desc_es: "Una muestra de cada lote va a un laboratorio externo para pureza por HPLC e identidad por espectrometría de masas.",
+    desc_en: "A sample from every batch goes to an outside lab to confirm label accuracy and screen for heavy metals and contaminants.",
+    desc_es: "Una muestra de cada lote va a un laboratorio externo para confirmar la etiqueta y descartar metales pesados y contaminantes.",
   },
   {
-    title_en: "Release or reject",
-    title_es: "Aprobar o rechazar",
-    desc_en: "Lots below 98% purity are not sold. Approved lots are labeled, sealed and stored at the listed temperature.",
-    desc_es: "Los lotes por debajo del 98% de pureza no se venden. Los aprobados se etiquetan, sellan y almacenan a la temperatura indicada.",
-  },
-  {
-    title_en: "Certificate with your order",
-    title_es: "Certificado con tu pedido",
-    desc_en: "The Certificate of Analysis for your exact lot ships in the box and can be downloaded before you buy.",
-    desc_es: "El Certificado de Análisis de tu lote exacto va en la caja y se puede descargar antes de comprar.",
+    title_en: "Released to you",
+    title_es: "Listo para ti",
+    desc_en: "Only batches that pass are released. The lot number is printed on every tub, so results can always be traced.",
+    desc_es: "Solo se liberan los lotes que aprueban. El número de lote va impreso en cada bote para poder rastrear los resultados.",
   },
 ];
 
@@ -50,20 +50,20 @@ export default function TrustSection() {
                 lineHeight: 1.05,
               }}
             >
-              {t("How every lot is checked", "Cómo se revisa cada lote")}
+              {t("From ingredient to shaker", "Del ingrediente a tu shaker")}
             </h2>
             <p className="text-[16px] leading-relaxed mb-6 max-w-md mx-auto lg:mx-0" style={{ color: "#4A4A4F" }}>
               {t(
-                "Purity claims are easy to make. We would rather show the paperwork. This is the path each vial takes before it reaches your lab.",
-                "Decir que algo es puro es fácil. Preferimos mostrar los documentos. Este es el recorrido de cada vial antes de llegar a tu laboratorio.",
+                "Anyone can print a big number on a label. We would rather prove it. This is the path every Aurogen tub takes before it reaches you.",
+                "Cualquiera puede imprimir un número grande en una etiqueta. Nosotros preferimos demostrarlo. Este es el recorrido de cada bote Aurogen antes de llegar a ti.",
               )}
             </p>
             <Link
-              href="/quality"
+              href="/shop"
               className="text-[15px] underline underline-offset-4 decoration-black/25 transition-colors hover:decoration-black"
               style={{ color: "#111111" }}
             >
-              {t("Read our quality standards", "Ver nuestros estándares de calidad")}
+              {t("Shop the lineup", "Ver los productos")}
             </Link>
           </div>
         </div>

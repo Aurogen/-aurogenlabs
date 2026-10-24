@@ -57,13 +57,13 @@ export default async function OrdersPage() {
           >
             <Package className="w-10 h-10 mx-auto mb-4" style={{ color: "#D1D1D6" }} />
             <p className="font-medium mb-1" style={{ color: "#1D1D1F" }}>No orders yet</p>
-            <p className="text-sm mb-6" style={{ color: "#6E6E73" }}>Your research compound orders will appear here.</p>
+            <p className="text-sm mb-6" style={{ color: "#6E6E73" }}>Your orders will appear here.</p>
             <Link
               href="/shop"
               className="inline-block px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-75"
               style={{ background: "#1D1D1F", color: "#FFFFFF" }}
             >
-              Browse peptides
+              Browse products
             </Link>
           </div>
         ) : (

@@ -62,7 +62,7 @@ export default function ContactPage() {
             Contact Us
           </h1>
           <p className="text-sm max-w-md mx-auto" style={{ color: "#6E6E73" }}>
-            Have a question about our compounds, an order, or a research inquiry? We&apos;re here to help.
+            Have a question about our products, an order, or a wholesale partnership? We&apos;re here to help.
           </p>
         </div>
 
@@ -99,7 +99,7 @@ export default function ContactPage() {
               className="p-4 rounded-xl text-xs leading-relaxed"
               style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)", color: "#0A84FF" }}
             >
-              For research use inquiries only. We do not provide medical advice or therapeutic guidance.
+              We do not provide medical advice. For health questions, please consult a healthcare professional.
             </div>
           </div>
 
@@ -144,11 +144,11 @@ export default function ContactPage() {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <label className={LABEL_CLASS} style={LABEL_STYLE}>Name</label>
-                        <input value={form.name} onChange={(e) => set("name", e.target.value)} required className={INPUT_CLASS} style={INPUT_STYLE} placeholder="Dr. Smith" />
+                        <input value={form.name} onChange={(e) => set("name", e.target.value)} required className={INPUT_CLASS} style={INPUT_STYLE} placeholder="Jane Smith" />
                       </div>
                       <div>
                         <label className={LABEL_CLASS} style={LABEL_STYLE}>Email</label>
-                        <input type="email" value={form.email} onChange={(e) => set("email", e.target.value)} required className={INPUT_CLASS} style={INPUT_STYLE} placeholder="you@research.com" />
+                        <input type="email" value={form.email} onChange={(e) => set("email", e.target.value)} required className={INPUT_CLASS} style={INPUT_STYLE} placeholder="you@example.com" />
                       </div>
                     </div>
 
@@ -161,10 +161,9 @@ export default function ContactPage() {
                         style={INPUT_STYLE}
                       >
                         <option value="">Select a topic</option>
-                        <option>Order Inquiry</option>
-                        <option>Product Information</option>
-                        <option>Research Question</option>
-                        <option>Quality / COA</option>
+                        <option>Order question</option>
+                        <option>Product question</option>
+                        <option>Wholesale / partnerships</option>
                         <option>Affiliate Program</option>
                         <option>Other</option>
                       </select>

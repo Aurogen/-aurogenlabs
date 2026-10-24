@@ -49,8 +49,8 @@ export async function calculateTax(
         quantity: i.quantity,
         unit_price: i.unit_price,
         product_identifier: i.product_identifier,
-        // peptides as research chemicals — exempt from sales tax in most states
-        // adjust per product as needed
+        // No product_tax_code: TaxJar treats items as general goods (fully taxable).
+        // Dietary supplements are taxed differently by state; set a tax code here if needed.
       })),
     });
     return tax.tax;

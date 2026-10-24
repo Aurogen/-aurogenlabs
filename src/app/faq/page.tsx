@@ -8,10 +8,11 @@ const CATEGORIES = [
   {
     category: "Products & Quality",
     items: [
-      { q: "What purity level are your peptides?", a: "All Aurogen Labs peptides are manufactured to a minimum of 98% purity, verified by third-party HPLC analysis. Each batch comes with a Certificate of Analysis (COA) available on the product page." },
-      { q: "How are the compounds stored?", a: "Lyophilized peptides should be stored at -20°C (freezer) in an airtight container away from light and moisture. Once reconstituted, store at 2–8°C (refrigerator) and use within 30 days. Always follow the storage guidelines on the product page." },
-      { q: "Do your products come with a Certificate of Analysis?", a: "Yes. Every product has a batch-specific COA available via the 'View COA' button on the product page. The COA includes HPLC purity data, molecular weight verification, and mass spectrometry results." },
-      { q: "Are your peptides synthesized in the US?", a: "Yes. All compounds are synthesized and quality-tested in our US-based facility, following strict GMP-adjacent protocols." },
+      { q: "What is creatine?", a: "Creatine is a molecule your body makes naturally from amino acids and stores in muscle, where it helps supply energy for short, intense efforts like lifting and sprinting. Aurogen Creatine Monohydrate provides 5 g of micronized creatine per serving to support strength and power.*" },
+      { q: "What's the difference between whey isolate and whey concentrate?", a: "Whey isolate is filtered further than concentrate to remove most of the lactose, fat and carbohydrates, so it delivers more protein per scoop. Aurogen Whey Protein Isolate provides 25 g of protein per serving with minimal sugar and fat, and mixes smoothly." },
+      { q: "Can I stack your products?", a: "Yes. Our products are designed to work together. A common stack is Whey Protein Isolate and Creatine after training, Ignite Pre-Workout before, and Hydrate during. Follow the directions on each label, and note that Ignite contains 200 mg of caffeine per scoop, so account for other caffeine sources such as coffee." },
+      { q: "Is every batch tested?", a: "Yes. Every batch is tested by an independent third-party lab for label accuracy and screened for heavy metals and contaminants. Our products are manufactured in a GMP-certified facility, and a lot number is printed on every container." },
+      { q: "How should I store my supplements?", a: "Store all products in a cool, dry place with the lid tightly closed, away from direct sunlight. Always follow the storage guidelines on the product label." },
     ],
   },
   {
@@ -27,15 +28,15 @@ const CATEGORIES = [
     items: [
       { q: "How long does shipping take?", a: "Standard shipping takes 3–5 business days. Expedited (2–3 days) and overnight options are available. Orders placed before 2:00 PM EST typically ship same day." },
       { q: "Do you ship outside the United States?", a: "We currently ship within the United States only. International shipping is planned for a future update." },
-      { q: "How are peptides packaged for shipping?", a: "Lyophilized peptides are shipped in sealed vials with desiccants and padding to prevent breakage. All packaging is discreet and does not reference the contents on the exterior." },
+      { q: "How are orders packaged for shipping?", a: "Products ship in their sealed containers with padding to prevent damage in transit. All packaging is discreet and does not reference the contents on the exterior." },
     ],
   },
   {
-    category: "Research & Usage",
+    category: "Returns & Safety",
     items: [
-      { q: "Are your products approved for human use?", a: "No. All products are sold strictly for in vitro and laboratory research purposes. They are not approved by the FDA for human consumption, therapeutic, or veterinary use." },
-      { q: "Do you offer research protocols?", a: "Yes. Our Protocols Library contains laboratory handling guides covering reconstitution, storage and stability, COA interpretation and analytical verification." },
-      { q: "Where can I find reconstitution instructions?", a:  "Reconstitution guides are available in our Research Center. Step-by-step instructions for every compound in our catalog are provided there, including recommended volumes and handling procedures." },
+      { q: "Can I return a product?", a: "For product safety and hygiene reasons, all sales are final and we do not accept returns or exchanges. If your order arrives damaged, you receive the wrong item, or an item is missing, contact us within 7 days of delivery with photos and we'll make it right." },
+      { q: "Should I talk to my doctor before using supplements?", a: "Our products are dietary supplements intended for healthy adults 18 and over. Consult a healthcare professional before use if you are pregnant, nursing, taking medication, or have a medical condition. Use as directed on the label." },
+      { q: "Have these products been evaluated by the FDA?", a: "These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure, or prevent any disease." },
     ],
   },
 ];

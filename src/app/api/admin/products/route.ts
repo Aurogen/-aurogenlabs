@@ -33,7 +33,7 @@ export async function POST(req: Request) {
       name: body.name,
       compound: body.compound ?? "",
       concentration: body.concentration ?? "",
-      size: body.size ?? "1 Vial",
+      size: body.size ?? "",
       price: Number(body.price),
       original_price: body.original_price ? Number(body.original_price) : null,
       goals: body.goals ?? [],
@@ -51,6 +51,9 @@ export async function POST(req: Request) {
       coa_url: body.coa_url ?? null,
       visible: body.visible ?? true,
       sort_order: Number(body.sort_order ?? 0),
+      benefits: Array.isArray(body.benefits) ? body.benefits : [],
+      directions: body.directions ?? null,
+      facts: Array.isArray(body.facts) ? body.facts : [],
     })
     .select()
     .single();

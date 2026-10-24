@@ -6,8 +6,8 @@ import type { Metadata } from "next";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Shop — Aurogen Labs",
-  description: "Research-grade peptides and compounds. Third-party tested, COA verified.",
+  title: "Shop — Aurogen",
+  description: "Performance nutrition: protein, creatine, pre-workout, hydration and recovery. Third-party tested.",
 };
 
 export default async function ShopPage() {

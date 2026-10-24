@@ -7,11 +7,11 @@ import FAQ from "@/components/FAQ";
 import { fetchProducts } from "@/lib/products-db";
 
 export const metadata: Metadata = {
-  title: "Aurogen Labs | Premium Peptides for Research",
-  description: "Research-grade peptides and reagents, ≥98% purity by HPLC, with a third-party COA for every lot. Ships in 2–5 days. For laboratory research use only.",
+  title: "Aurogen | Performance Nutrition",
+  description: "Whey protein isolate, creatine monohydrate, pre-workout, electrolytes, collagen and magnesium. Full-dose, clean-label formulas, third-party tested.",
   openGraph: {
-    title: "Aurogen Labs | Premium Peptides for Research",
-    description: "Research-grade peptides, ≥98% purity by HPLC, third-party COA for every lot.",
+    title: "Aurogen | Performance Nutrition",
+    description: "Full-dose, clean-label sports nutrition. Every batch third-party tested.",
   },
 };
 

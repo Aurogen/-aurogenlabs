@@ -41,6 +41,9 @@ export interface DbProduct {
   sort_order: number;
   whop_product_id: string | null;
   whop_checkout_url: string | null;
+  benefits?: string[] | null;
+  directions?: string | null;
+  facts?: [string, string][] | null;
   created_at: string;
   updated_at: string;
 }
@@ -67,6 +70,9 @@ export function mapToProduct(row: DbProduct): Product {
     badge: row.badge ?? undefined,
     image: row.image ?? undefined,
     coaUrl: row.coa_url ?? undefined,
+    benefits: row.benefits ?? [],
+    directions: row.directions ?? undefined,
+    facts: Array.isArray(row.facts) ? row.facts : [],
   };
 }
 

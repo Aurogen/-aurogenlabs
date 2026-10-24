@@ -221,7 +221,7 @@ function OrderSuccessContent() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
         >
-          All compounds are shipped for research use only. Not for human consumption.
+          Questions about your order? Our team is here to help.
         </motion.p>
       </div>
     </div>

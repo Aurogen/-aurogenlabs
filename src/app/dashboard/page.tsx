@@ -38,9 +38,9 @@ interface Order {
 }
 
 const QUICK_ACTIONS = [
-  { icon: ShoppingBag, label: "Shop Now", desc: "Browse all peptides", href: "/shop" },
-  { icon: BookOpen, label: "Research Center", desc: "Guides & resources", href: "/research" },
-  { icon: FileText, label: "Protocols", desc: "Research protocols", href: "/protocols" },
+  { icon: ShoppingBag, label: "Shop Now", desc: "Browse all products", href: "/shop" },
+  { icon: BookOpen, label: "FAQ", desc: "Product questions", href: "/faq" },
+  { icon: FileText, label: "Quality", desc: "How every batch is tested", href: "/quality" },
   { icon: Users, label: "Affiliates", desc: "Earn commissions", href: "/affiliates" },
 ];
 
@@ -61,7 +61,7 @@ export default function DashboardPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [activeTab, setActiveTab] = useState<"overview" | "orders" | "profile">("overview");
 
-  const userName = user?.firstName ?? user?.username ?? "Researcher";
+  const userName = user?.firstName ?? user?.username ?? "there";
   const userEmail = user?.primaryEmailAddress?.emailAddress ?? "";
 
   useEffect(() => {
@@ -89,7 +89,7 @@ export default function DashboardPage() {
   const STATS = [
     { icon: Package, label: "Total Orders", value: orders.length.toString(), accent: "#6B7A8D" },
     { icon: DollarSign, label: "Total Spent", value: `$${totalSpent.toFixed(0)}`, accent: "#1B7A45" },
-    { icon: FlaskConical, label: "Compounds", value: uniqueCompounds.toString(), accent: "#6B7A8D" },
+    { icon: FlaskConical, label: "Products", value: uniqueCompounds.toString(), accent: "#6B7A8D" },
     { icon: Star, label: "Loyalty Points", value: loyaltyPoints.toLocaleString(), accent: "#6B7A8D" },
   ];
 
@@ -107,7 +107,7 @@ export default function DashboardPage() {
             </div>
             <div>
               <p className="text-xs font-bold tracking-[0.25em] mb-1" style={{ color: "#6E6E73" }}>
-                Researcher Account
+                Member Account
               </p>
               <h1
                 className="text-2xl font-bold"
@@ -127,7 +127,7 @@ export default function DashboardPage() {
             style={{ background: "rgba(10,132,255,0.06)", border: "1px solid rgba(10,132,255,0.18)" }}
           >
             <Star className="w-4 h-4 fill-current" style={{ color: "#6B7A8D" }} />
-            <span className="font-bold text-sm" style={{ color: "#6B7A8D" }}>Researcher Pro</span>
+            <span className="font-bold text-sm" style={{ color: "#6B7A8D" }}>Member</span>
           </div>
         </div>
 
@@ -317,7 +317,7 @@ function OverviewTab({
               </h3>
               <Star className="w-4 h-4 fill-current" style={{ color: "#6B7A8D" }} />
             </div>
-            <p className="font-bold text-xl mb-2" style={{ color: "#6B7A8D" }}>Researcher Pro</p>
+            <p className="font-bold text-xl mb-2" style={{ color: "#6B7A8D" }}>Member</p>
             <div className="w-full rounded-full h-1.5 mb-2" style={{ background: "rgba(10,132,255,0.15)" }}>
               <div className="h-1.5 rounded-full" style={{ width: "68%", background: "#6B7A8D" }} />
             </div>
@@ -575,7 +575,7 @@ function ProfileTab() {
             { label: "Order updates via email", checked: true },
             { label: "Restock notifications", checked: true },
             { label: "New product announcements", checked: false },
-            { label: "Research protocol updates", checked: true },
+            { label: "New product launches", checked: true },
           ].map((pref) => (
             <label key={pref.label} className="flex items-center justify-between cursor-pointer group">
               <span className="text-sm" style={{ color: "#1D1D1F" }}>{pref.label}</span>

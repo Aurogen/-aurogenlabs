@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Disclaimer — Aurogen Labs",
-  description: "Important disclaimer regarding Aurogen Labs research peptides and compounds.",
+  description: "Dietary supplement disclaimer for Aurogen Labs products, including the FDA statement, safe-use guidance, caffeine and allergen information.",
   robots: { index: true, follow: true },
 };
 
@@ -23,10 +23,10 @@ export default function DisclaimerPage() {
             className="text-4xl font-bold mb-3"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
-            Research Use Disclaimer
+            Supplement Disclaimer
           </h1>
           <p className="text-sm" style={{ color: "#6E6E73" }}>
-            Last updated: January 2026
+            Last updated: October 2026
           </p>
         </div>
 
@@ -36,43 +36,61 @@ export default function DisclaimerPage() {
         >
 
           <div className={SECTION}>
-            <h2 className={H2} style={{ color: "#1D1D1F" }}>Not for Human Consumption</h2>
+            <h2 className={H2} style={{ color: "#1D1D1F" }}>Dietary Supplements</h2>
             <p className={P} style={{ color: "#6E6E73" }}>
-              ALL products sold by Aurogen Labs are strictly intended for <strong>in vitro laboratory
-              research and scientific study only</strong>. They are NOT intended for human consumption,
-              veterinary use, food additive use, or any other use outside of controlled scientific
-              research settings. These compounds are not drugs, dietary supplements, or medical devices.
+              Products sold by Aurogen Labs are <strong>dietary supplements intended for healthy
+              adults</strong>. They are meant to supplement a balanced diet and active lifestyle, not to
+              replace a varied diet or healthy habits. Always use as directed on the product label and do
+              not exceed the recommended serving.
             </p>
           </div>
 
           <div className={SECTION}>
             <h2 className={H2} style={{ color: "#1D1D1F" }}>FDA Statement</h2>
             <p className={P} style={{ color: "#6E6E73" }}>
-              These statements have not been evaluated by the Food and Drug Administration (FDA).
-              Aurogen Labs products are not intended to diagnose, treat, cure, or prevent any disease
-              or medical condition. No claims are made regarding the safety or efficacy of these
-              compounds for use in humans or animals.
+              These statements have not been evaluated by the Food and Drug Administration. These
+              products are not intended to diagnose, treat, cure, or prevent any disease. Any statement
+              on this website marked with an asterisk (*) describes a supplement&apos;s role in
+              supporting normal structure or function of the body.
             </p>
           </div>
 
           <div className={SECTION}>
-            <h2 className={H2} style={{ color: "#1D1D1F" }}>Age Restriction</h2>
+            <h2 className={H2} style={{ color: "#1D1D1F" }}>Age Restriction &amp; Who Should Not Use</h2>
             <p className={P} style={{ color: "#6E6E73" }}>
-              All purchasers must be 18 years of age or older and must be qualified research
-              professionals, licensed scientists, or otherwise authorized to work with research
-              compounds in their jurisdiction. By purchasing from Aurogen Labs, you confirm
-              that you meet these requirements.
+              Our products are intended for healthy adults 18 years of age or older. They are not
+              intended for use by pregnant or nursing women. Keep all products out of reach of
+              children. By purchasing from Aurogen Labs, you confirm that you are at least 18 years old.
             </p>
           </div>
 
           <div className={SECTION}>
-            <h2 className={H2} style={{ color: "#1D1D1F" }}>Purchaser Responsibility</h2>
+            <h2 className={H2} style={{ color: "#1D1D1F" }}>Consult a Healthcare Professional</h2>
             <p className={P} style={{ color: "#6E6E73" }}>
-              The purchaser assumes full responsibility for complying with all applicable federal,
-              state, and local laws regarding the purchase, possession, and use of these research
-              compounds. Aurogen Labs is not responsible for any misuse of its products.
-              Purchasers are solely responsible for ensuring that research use complies with all
-              applicable laws in their jurisdiction.
+              Consult a physician or qualified healthcare professional before using any dietary
+              supplement, especially if you are pregnant or nursing, taking prescription medication,
+              or have a known medical condition. Discontinue use and consult your healthcare provider
+              if you experience any adverse reaction. Aurogen Labs is not responsible for any misuse
+              of its products.
+            </p>
+          </div>
+
+          <div className={SECTION}>
+            <h2 className={H2} style={{ color: "#1D1D1F" }}>Caffeine Warning</h2>
+            <p className={P} style={{ color: "#6E6E73" }}>
+              Ignite Pre-Workout contains 200 mg of caffeine per scoop. Do not combine with other
+              sources of caffeine or stimulants, and do not use within several hours of bedtime.
+              Not recommended for individuals sensitive to caffeine. Do not exceed the recommended
+              serving.
+            </p>
+          </div>
+
+          <div className={SECTION}>
+            <h2 className={H2} style={{ color: "#1D1D1F" }}>Allergen Information</h2>
+            <p className={P} style={{ color: "#6E6E73" }}>
+              Whey Protein Isolate contains milk. Always read the full ingredient list and allergen
+              statement on each product label before use, particularly if you have a food allergy
+              or sensitivity.
             </p>
           </div>
 
@@ -80,9 +98,8 @@ export default function DisclaimerPage() {
             <h2 className={H2} style={{ color: "#1D1D1F" }}>No Medical Advice</h2>
             <p className={P} style={{ color: "#6E6E73" }}>
               Nothing on this website or in any Aurogen Labs communication constitutes medical advice.
-              Any information provided about research compounds is for educational and scientific
-              reference purposes only. Always consult a licensed medical professional before making
-              any health decisions.
+              Any information provided about our products is for general educational purposes only.
+              Always consult a licensed medical professional before making any health decisions.
             </p>
           </div>
 
@@ -90,18 +107,18 @@ export default function DisclaimerPage() {
             <h2 className={H2} style={{ color: "#1D1D1F" }}>Limitation of Liability</h2>
             <p className={P} style={{ color: "#6E6E73" }}>
               Aurogen Labs shall not be held liable for any direct, indirect, incidental, special,
-              or consequential damages arising from the misuse, improper handling, or unauthorized
-              use of its products outside of their intended research application.
+              or consequential damages arising from the misuse, improper handling, or use of its
+              products other than as directed on the product label.
             </p>
           </div>
 
           <div className={SECTION}>
-            <h2 className={H2} style={{ color: "#1D1D1F" }}>Third-Party Research References</h2>
+            <h2 className={H2} style={{ color: "#1D1D1F" }}>Individual Results Vary</h2>
             <p className={P} style={{ color: "#6E6E73" }}>
-              Any scientific studies, research citations, or references to published literature
-              provided on this website are for informational purposes only. Aurogen Labs makes no
-              representations regarding the accuracy, completeness, or applicability of such
-              third-party research to any specific use case.
+              Results from using dietary supplements vary from person to person and depend on factors
+              such as diet, training, sleep, and individual health. Any scientific studies or references
+              to published literature provided on this website are for informational purposes only,
+              and Aurogen Labs makes no guarantee of specific results.
             </p>
           </div>
 

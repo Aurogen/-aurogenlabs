@@ -124,8 +124,8 @@ export default function PartnersPage() {
           </h1>
           <p className="text-base md:text-lg leading-relaxed mb-7" style={{ color: MUTED }}>
             {t(
-              "For creators, educators and communities in the research space. Share Aurogen Labs with your audience and earn commission on every referred sale.",
-              "Para creadores, educadores y comunidades del mundo de la investigación. Comparte Aurogen Labs con tu audiencia y gana comisión por cada venta referida."
+              "For athletes, coaches, creators and fitness communities. Share Aurogen Labs with your audience and earn commission on every referred sale.",
+              "Para atletas, entrenadores, creadores y comunidades fitness. Comparte Aurogen Labs con tu audiencia y gana comisión por cada venta referida."
             )}
           </p>
           <a

@@ -20,6 +20,7 @@ export async function PATCH(
     "in_stock", "stock_count", "featured", "purity", "sequence",
     "molecular_weight", "storage", "badge", "image", "coa_url",
     "visible", "sort_order", "whop_checkout_url",
+    "benefits", "directions", "facts",
   ];
 
   const update: Record<string, unknown> = {};

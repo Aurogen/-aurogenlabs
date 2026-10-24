@@ -24,10 +24,10 @@ CREATE TABLE IF NOT EXISTS products (
   in_stock          BOOLEAN NOT NULL DEFAULT true,
   stock_count       INTEGER NOT NULL DEFAULT 0,
   featured          BOOLEAN NOT NULL DEFAULT false,
-  purity            TEXT NOT NULL DEFAULT '99%+',
+  purity            TEXT NOT NULL DEFAULT '',        -- formula highlight, e.g. "90% protein"
   sequence          TEXT,
   molecular_weight  TEXT,
-  storage           TEXT NOT NULL DEFAULT 'Store at -20°C',
+  storage           TEXT NOT NULL DEFAULT 'Cool, dry place',
   badge             TEXT,
   image             TEXT,
   coa_url           TEXT,
@@ -35,6 +35,9 @@ CREATE TABLE IF NOT EXISTS products (
   sort_order        INTEGER NOT NULL DEFAULT 0,
   whop_product_id   TEXT,
   whop_checkout_url TEXT,
+  benefits          TEXT[] NOT NULL DEFAULT '{}',   -- one benefit per entry
+  directions        TEXT,                           -- how to use
+  facts             JSONB  NOT NULL DEFAULT '[]',   -- Supplement Facts as [["Label","value"], ...]
   created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   updated_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );

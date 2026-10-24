@@ -3,7 +3,7 @@ import { Truck, Package, RotateCcw, Clock } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Shipping & Returns",
-  description: "Aurogen Labs ships research peptides in 2–5 business days from our US facility. Learn about our shipping options and returns policy.",
+  description: "Aurogen Labs ships supplement orders in 2–5 business days from our US facility. Learn about our shipping options and returns policy.",
 };
 
 const SHIPPING_OPTIONS = [
@@ -15,7 +15,7 @@ const SHIPPING_OPTIONS = [
 const FAQ = [
   { q: "When will my order ship?", a: "Orders placed before 2:00 PM EST on business days are typically processed and shipped the same day. Orders placed after 2:00 PM or on weekends ship the next business day." },
   { q: "Do you ship internationally?", a: "Currently we ship within the United States only. International shipping is not available at this time." },
-  { q: "How are research compounds packaged?", a: "All compounds are shipped in temperature-appropriate packaging with desiccants as needed. Lyophilized peptides are shipped at ambient temperature. Vials are secured to prevent breakage during transit." },
+  { q: "How are orders packaged?", a: "All products ship in their sealed containers at ambient temperature. Containers are secured and padded to prevent damage during transit." },
   { q: "Can I track my order?", a: "Yes. Once your order ships, you will receive a tracking number via email. You can also view your order status in your account dashboard." },
   { q: "What if my package arrives damaged?", a: "Please photograph the damage immediately and contact us within 48 hours of delivery. We will arrange a replacement or refund for damaged shipments." },
 ];
@@ -45,7 +45,7 @@ export default function ShippingPage() {
             Shipping & Returns
           </h1>
           <p className="text-sm leading-relaxed" style={{ color: "#6E6E73" }}>
-            We ship all orders from our US facility. Research compounds are carefully packaged to ensure integrity during transit.
+            We ship all orders from our US facility. Every order is carefully packaged to arrive sealed and intact.
           </p>
         </div>
 
@@ -96,7 +96,7 @@ export default function ShippingPage() {
             style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)", color: "#6E6E73" }}
           >
             <p className="mb-3">
-              Due to the sensitive nature of research compounds, <strong style={{ color: "#1D1D1F" }}>all sales are final</strong>. We do not accept returns or exchanges.
+              For product safety and hygiene reasons, as our supplements are consumable products, <strong style={{ color: "#1D1D1F" }}>all sales are final</strong>. We do not accept returns or exchanges.
             </p>
             <p className="mb-3">
               If you receive a defective product, incorrect item, or your order arrives damaged, please contact us within <strong style={{ color: "#1D1D1F" }}>7 days of delivery</strong> with:

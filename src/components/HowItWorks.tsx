@@ -6,10 +6,10 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const STEPS = [
   {
-    title_en: "Choose your compounds",
-    title_es: "Elige tus compuestos",
-    desc_en: "Filter by compound class or search by name. Every product page lists specs, storage conditions and the current lot's COA.",
-    desc_es: "Filtra por clase de compuesto o busca por nombre. Cada producto muestra especificaciones, condiciones de almacenamiento y el COA del lote actual.",
+    title_en: "Pick your stack",
+    title_es: "Arma tu stack",
+    desc_en: "Protein, creatine, pre-workout, hydration or recovery. Every product page shows the full label, directions and serving facts.",
+    desc_es: "Proteína, creatina, pre-entreno, hidratación o recuperación. Cada producto muestra la etiqueta completa, el modo de uso y la información nutricional.",
   },
   {
     title_en: "Check out",
@@ -18,10 +18,10 @@ const STEPS = [
     desc_es: "Paga con tarjeta mediante una conexión cifrada. Recibes la confirmación del pedido por correo al instante.",
   },
   {
-    title_en: "Receive and verify",
-    title_es: "Recibe y verifica",
-    desc_en: "US orders leave within 2 business days with tracking. Match the lot number on the vial to the COA in the box.",
-    desc_es: "Los pedidos en EE.UU. salen en 2 días hábiles con seguimiento. Compara el número de lote del vial con el COA de la caja.",
+    title_en: "Train and repeat",
+    title_es: "Entrena y repite",
+    desc_en: "Orders ship with tracking. Every tub carries its lot number, so you always know exactly what you're taking.",
+    desc_es: "Los pedidos salen con seguimiento. Cada bote lleva su número de lote, así siempre sabes exactamente qué estás tomando.",
   },
 ];
 
@@ -46,11 +46,11 @@ export default function HowItWorks() {
             {t("Ordering is simple", "Pedir es sencillo")}
           </h2>
           <Link
-            href="/shipping"
+            href="/shop"
             className="text-[15px] underline underline-offset-4 decoration-black/25 transition-colors hover:decoration-black"
             style={{ color: "#111111" }}
           >
-            {t("Shipping details", "Detalles de envío")}
+            {t("Shop now", "Comprar ahora")}
           </Link>
         </div>
 

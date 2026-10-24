@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Contact Us",
-  description: "Get in touch with the Aurogen Labs team. Order support, product questions, research inquiries — we respond within 1–2 business days.",
+  description: "Get in touch with the Aurogen Labs team. Order support, product questions, wholesale and partnerships — we respond within 1–2 business days.",
 };
 
 export default function ContactLayout({ children }: { children: React.ReactNode }) {

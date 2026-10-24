@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Refund Policy — Aurogen Labs",
-  description: "Aurogen Labs refund and returns policy for research compounds. All sales are final. Learn about eligible claims for damaged or incorrect orders.",
+  description: "Aurogen Labs refund and returns policy for supplements. All sales are final. Learn about eligible claims for damaged or incorrect orders.",
 };
 
 export default function RefundPage() {
@@ -32,7 +32,7 @@ export default function RefundPage() {
             Refund Policy
           </h1>
           <p className="text-sm leading-relaxed" style={{ color: "#6E6E73" }}>
-            Last updated: September 2026
+            Last updated: October 2026
           </p>
         </div>
 
@@ -45,7 +45,7 @@ export default function RefundPage() {
           <div>
             <p className="font-semibold text-sm mb-1" style={{ color: "#1D1D1F" }}>All Sales Are Final</p>
             <p className="text-sm leading-relaxed" style={{ color: "#6E6E73" }}>
-              Due to the sensitive and perishable nature of research compounds, we do not accept returns, exchanges,
+              For product safety and hygiene reasons, as our supplements are consumable products, we do not accept returns, exchanges,
               or cancellations once an order has been placed and confirmed.
             </p>
           </div>
@@ -149,17 +149,17 @@ export default function RefundPage() {
           </div>
         </div>
 
-        {/* Research Use Disclaimer */}
+        {/* Supplement Disclaimer */}
         <div
           className="p-5 rounded-2xl mb-10 text-sm leading-relaxed"
           style={{ background: "rgba(10,132,255,0.07)", border: "1px solid rgba(10,132,255,0.25)", color: "#6E6E73" }}
         >
-          <p className="font-semibold mb-2" style={{ color: "#1D1D1F" }}>Research Use Only</p>
+          <p className="font-semibold mb-2" style={{ color: "#1D1D1F" }}>Dietary Supplement Notice</p>
           <p>
-            All products sold by Aurogen Labs are intended exclusively for in-vitro laboratory and scientific
-            research purposes. They are not intended for human consumption, are not drugs or supplements, and
-            have not been evaluated by the FDA. By placing an order, you confirm that you are a qualified
-            researcher and that the compounds will be used solely for research purposes.
+            All products sold by Aurogen Labs are dietary supplements intended for healthy adults 18 and over.
+            These statements have not been evaluated by the Food and Drug Administration. These products are
+            not intended to diagnose, treat, cure, or prevent any disease. By placing an order, you confirm that
+            you are at least 18 years old and will use our products as directed.
           </p>
         </div>
 

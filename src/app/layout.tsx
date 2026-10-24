@@ -7,7 +7,6 @@ import { CartProvider } from "@/context/CartContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
-import AgeGate from "@/components/AgeGate";
 import Footer from "@/components/Footer";
 import RefTracker from "@/components/RefTracker";
 import { PostHogProvider } from "@/components/PostHogProvider";
@@ -36,12 +35,12 @@ const jetbrainsMono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://aurogenlabs.com"),
   title: {
-    default: "Aurogen Labs | Premium Peptides for Research",
+    default: "Aurogen Labs | Performance Nutrition",
     template: "%s | Aurogen Labs",
   },
   description:
-    "Premium quality research peptides — ≥98% purity, third-party tested, US manufactured. For laboratory and scientific research use only.",
-  keywords: ["research peptides", "peptide reagents", "BPC-157", "TB-500", "retatrutide", "tirzepatide", "HPLC-verified", "certificate of analysis", "Aurogen Labs"],
+    "Aurogen performance nutrition: whey protein isolate, creatine monohydrate, pre-workout, electrolytes, collagen and magnesium. Full-dose, clean-label formulas, every batch third-party tested.",
+  keywords: ["whey protein isolate", "creatine monohydrate", "pre-workout", "electrolytes", "collagen", "magnesium glycinate", "sports nutrition", "supplements", "Aurogen Labs"],
   openGraph: {
     siteName: "Aurogen Labs",
     type: "website",
@@ -51,7 +50,7 @@ export const metadata: Metadata = {
         url: `${process.env.NEXT_PUBLIC_SITE_URL ?? ""}/og.png`,
         width: 1200,
         height: 630,
-        alt: "Aurogen Labs — Premium Research Peptides",
+        alt: "Aurogen Labs — Performance Nutrition",
       },
     ],
   },
@@ -73,7 +72,6 @@ export default function RootLayout({
           <PostHogProvider>
             <CartProvider>
               <LanguageProvider>
-                <AgeGate />
                 <Suspense fallback={null}>
                   <RefTracker />
                 </Suspense>

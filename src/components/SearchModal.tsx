@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Search, X, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { PRODUCTS } from "@/data/products";
 
 interface Props {
@@ -50,7 +51,7 @@ export default function SearchModal({ onClose }: Props) {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search peptides, compounds, categories..."
+            placeholder="Search protein, creatine, hydration..."
             className="flex-1 bg-transparent text-base focus:outline-none"
             style={{ color: "#1D1D1F" }}
           />
@@ -82,16 +83,14 @@ export default function SearchModal({ onClose }: Props) {
                   onMouseEnter={e => (e.currentTarget.style.background = "rgba(0,0,0,0.04)")}
                   onMouseLeave={e => (e.currentTarget.style.background = "transparent")}
                 >
-                  {/* Mini vial icon */}
+                  {/* Product thumb */}
                   <div
-                    className="w-10 h-10 rounded-lg shrink-0 flex items-center justify-center"
-                    style={{ background: "#F5F2EC", border: "1px solid rgba(0,0,0,0.07)" }}
+                    className="w-10 h-10 rounded-lg shrink-0 overflow-hidden"
+                    style={{ background: "#F2F1ED", border: "1px solid rgba(0,0,0,0.07)" }}
                   >
-                    <svg width="16" height="22" viewBox="0 0 16 22" fill="none">
-                      <rect x="5" y="0" width="6" height="3" rx="1.5" fill="#6B7A8D" opacity="0.9" />
-                      <rect x="3" y="3" width="10" height="16" rx="3" fill="#1D1D1F" />
-                      <rect x="4" y="10" width="8" height="6" rx="1.5" fill="#6B7A8D" opacity="0.2" />
-                    </svg>
+                    {p.image ? (
+                    <Image src={p.image} alt="" width={40} height={40} className="w-full h-full object-cover" />
+                  ) : null}
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-semibold text-sm truncate" style={{ color: "#1D1D1F" }}>

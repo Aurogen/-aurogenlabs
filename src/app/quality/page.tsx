@@ -3,23 +3,23 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Quality & Testing",
-  description: "Every Aurogen Labs peptide is third-party tested for purity and identity. Learn about our quality standards, CoA process, and manufacturing practices.",
+  description: "Every Aurogen Labs batch is tested by an independent third-party lab for label accuracy, heavy metals and contaminants. Learn about our sourcing, GMP manufacturing and lot traceability.",
 };
 
 const STEPS = [
-  { number: "01", title: "US Manufacturing", body: "All peptides are synthesized in FDA-registered US facilities under cGMP-compliant conditions. Strict environmental controls and documented batch records are maintained throughout production." },
-  { number: "02", title: "Identity Verification", body: "Every batch undergoes HPLC-MS (high-performance liquid chromatography–mass spectrometry) to confirm molecular identity and sequence integrity before leaving the facility." },
-  { number: "03", title: "Purity Testing", body: "Reverse-phase HPLC quantifies purity. We require ≥98% purity on all products. Batches that fall below threshold are rejected — no exceptions." },
-  { number: "04", title: "Third-Party Certificate", body: "An independent ISO-accredited laboratory issues a Certificate of Analysis (CoA) for each lot. CoAs are available on every product page and ship with every order." },
+  { number: "01", title: "Ingredient Sourcing", body: "Every formula starts with the ingredients and doses printed on the label. We use full doses of each ingredient and no proprietary blends, so you always know exactly how much you're getting." },
+  { number: "02", title: "GMP Manufacturing", body: "All Aurogen products are manufactured in a GMP-certified facility, following Good Manufacturing Practices for consistent, documented production from batch to batch." },
+  { number: "03", title: "Independent Third-Party Testing", body: "Every batch is tested by an independent third-party lab to verify label accuracy and screened for heavy metals and contaminants before it reaches you." },
+  { number: "04", title: "Lot Traceability", body: "A lot number is printed on every container, linking the product in your hands to the batch it was made and tested in." },
 ];
 
 const SPECS = [
-  { label: "Minimum purity", value: "≥98%" },
-  { label: "Testing method", value: "HPLC / HPLC-MS" },
-  { label: "Lab accreditation", value: "ISO 17025" },
-  { label: "Batch traceability", value: "Full lot tracking" },
-  { label: "Cold-chain shipping", value: "Included at no charge" },
-  { label: "Lyophilization", value: "Standard on all vials" },
+  { label: "Manufacturing", value: "GMP-certified facility" },
+  { label: "Third-party testing", value: "Every batch" },
+  { label: "Label accuracy", value: "Verified per batch" },
+  { label: "Heavy metals & contaminants", value: "Screened per batch" },
+  { label: "Proprietary blends", value: "None" },
+  { label: "Lot traceability", value: "Lot number on every container" },
 ];
 
 export default function QualityPage() {
@@ -41,7 +41,7 @@ export default function QualityPage() {
             Every Batch Tested.<br />Every Result Documented.
           </h1>
           <p className="text-lg leading-relaxed" style={{ color: "#6E6E73" }}>
-            We believe you should never have to take our word for it. That&apos;s why every vial ships with a third-party Certificate of Analysis from an ISO 17025-accredited lab.
+            We believe you should never have to take our word for it. That&apos;s why every batch is independently tested for label accuracy and screened for heavy metals and contaminants.
           </p>
         </div>
       </section>
@@ -106,24 +106,24 @@ export default function QualityPage() {
         </div>
       </section>
 
-      {/* CoA callout */}
+      {/* Label callout */}
       <section className="py-20 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h2
             className="text-2xl font-bold mb-4"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
-            Certificates of Analysis
+            Know What&apos;s in Every Scoop
           </h2>
           <p className="text-base mb-8 leading-relaxed" style={{ color: "#6E6E73" }}>
-            CoAs are linked on every product page. You can verify batch numbers, purity percentages, and testing dates before you order. A printed copy is included in every shipment.
+            Every product page lists the full supplement facts, serving size and directions, and every container carries a printed lot number. Have a question about a specific batch? Our FAQ and support team can help.
           </p>
           <Link
             href="/shop"
             className="inline-flex items-center gap-2 px-8 py-4 rounded-full font-semibold text-sm text-white transition-opacity hover:opacity-85"
             style={{ background: "#1D1D1F" }}
           >
-            Browse Products &amp; CoAs
+            Browse Products
           </Link>
         </div>
       </section>
@@ -131,7 +131,7 @@ export default function QualityPage() {
       {/* Footer note */}
       <div className="py-8 px-4 text-center" style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }}>
         <p className="text-xs" style={{ color: "#9E9EA8" }}>
-          Aurogen Labs products are intended for laboratory research use only. Not for human or veterinary use.
+          *These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure, or prevent any disease.
         </p>
       </div>
     </div>

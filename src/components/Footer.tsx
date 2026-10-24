@@ -5,15 +5,16 @@ import NewsletterForm from "./NewsletterForm";
 const LINKS = {
   Shop: [
     { label: "All Products", href: "/shop" },
-    { label: "Incretin Analogs", href: "/shop?category=Incretin%20Analogs" },
-    { label: "GH Secretagogues", href: "/shop?category=GH%20Secretagogues" },
-    { label: "Reagents", href: "/shop?category=Reagents" },
+    { label: "Protein", href: "/shop?category=Protein" },
+    { label: "Performance", href: "/shop?category=Performance" },
+    { label: "Hydration", href: "/shop?category=Hydration" },
+    { label: "Wellness", href: "/shop?category=Wellness" },
   ],
-  Research: [
-    { label: "Protocols", href: "/protocols" },
-    { label: "Research Center", href: "/research" },
-    { label: "Reconstitution Guide", href: "/research#reconstitution" },
-    { label: "Quality Standards", href: "/quality" },
+  "Best sellers": [
+    { label: "Whey Protein Isolate", href: "/product/whey-protein-isolate" },
+    { label: "Creatine Monohydrate", href: "/product/creatine-monohydrate" },
+    { label: "Ignite Pre-Workout", href: "/product/ignite-pre-workout" },
+    { label: "Hydrate Electrolytes", href: "/product/hydrate-electrolyte-mix" },
   ],
   Company: [
     { label: "About Us", href: "/about" },
@@ -41,7 +42,7 @@ export default function Footer() {
             <h3 className="text-white font-bold text-2xl mb-1" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
               Stay in the loop
             </h3>
-            <p className="text-gray-500 text-sm">New compounds, lab guides and restock notices. No spam.</p>
+            <p className="text-gray-500 text-sm">New products, training tips and restock notices. No spam.</p>
           </div>
           <NewsletterForm />
         </div>
@@ -60,7 +61,7 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-gray-500 text-xs leading-relaxed mb-4 max-w-xs mx-auto lg:mx-0">
-              Research peptides and reagents with a third-party Certificate of Analysis for every lot.
+              Performance nutrition with full-dose, clean-label formulas. Every batch third-party tested.
             </p>
           </div>
 
@@ -91,7 +92,7 @@ export default function Footer() {
               className="px-2.5 py-1 rounded text-[10px] tracking-[0.12em] uppercase font-medium"
               style={{ border: "1px solid rgba(10,132,255,0.25)", color: "rgba(10,132,255,0.7)" }}
             >
-              For Research Use Only · Not for Human Consumption
+              *Not evaluated by the FDA · Not intended to diagnose, treat, cure or prevent any disease
             </span>
           </div>
           <div className="flex flex-wrap justify-center gap-4">

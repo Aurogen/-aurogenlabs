@@ -24,7 +24,7 @@ const LOGO = `
   </div>`;
 const FOOTER = `
   <div style="text-align:center;padding-top:24px;border-top:1px solid rgba(0,0,0,0.07);margin-top:8px;">
-    <p style="color:#9E9EA8;font-size:11px;margin:0;">© 2026 Aurogen Labs · For research use only</p>
+    <p style="color:#9E9EA8;font-size:11px;margin:0;">© 2026 Aurogen Labs · Performance nutrition</p>
   </div>`;
 
 function esc(value: string) {
@@ -67,7 +67,7 @@ export async function sendOrderConfirmation(to: string, order: {
   const heading = pending ? "Order Received" : "Order Confirmed";
   const intro = pending
     ? `Thanks, ${esc(order.name.split(" ")[0] || order.name)}. We&apos;ve reserved your items. Our team will contact you within 1 business day to complete payment, and your order ships as soon as payment is confirmed.`
-    : "Payment received. Your research compounds are being prepared for shipment.";
+    : "Payment received. Your order is being prepared for shipment.";
 
   const html = `<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="${BODY}">
@@ -119,14 +119,12 @@ export async function sendOrderConfirmation(to: string, order: {
       <p style="color:#1D1D1F;font-weight:600;font-size:13px;margin:0 0 6px;">What happens next</p>
       <p style="color:#6E6E73;font-size:13px;line-height:1.6;margin:0;">
         ${pending ? "1. We contact you to complete payment.<br>" : ""}${pending ? "2" : "1"}. Your order ships within 2 business days with tracking.<br>
-        ${pending ? "3" : "2"}. Delivery takes 2–5 business days. A Certificate of Analysis for your lot is in the box.
+        ${pending ? "3" : "2"}. Delivery takes 2–5 business days.
       </p>
       <p style="margin:14px 0 0;"><a href="https://aurogenlabs.com/account/orders" style="color:#0A84FF;font-size:13px;font-weight:600;text-decoration:none;">View your order →</a></p>
     </div>
 
-    <div style="background:rgba(234,179,8,0.06);border:1px solid rgba(234,179,8,0.2);border-radius:10px;padding:12px 16px;margin-bottom:24px;">
-      <p style="color:#9A6400;font-size:11px;margin:0;">For Research Use Only · Not for Human Consumption · Not a drug or supplement</p>
-    </div>
+    <p style="color:#9E9EA8;font-size:11px;line-height:1.5;margin:0 0 24px;">*These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure, or prevent any disease. Use as directed.</p>
 
     <p style="color:#9E9EA8;font-size:12px;text-align:center;margin:0 0 16px;">Questions? Reply to this email or write to support@aurogenlabs.com</p>
 
@@ -150,9 +148,9 @@ export async function sendNewsletterWelcome(to: string) {
     ${LOGO}
     <h1 style="color:#1D1D1F;font-size:24px;font-weight:800;margin:0 0 12px;">You&apos;re on the list</h1>
     <p style="color:#6E6E73;font-size:15px;line-height:1.6;margin:0 0 28px;">
-      Expect new peptides, research protocols, and exclusive offers — no spam, ever.
+      Expect new product launches, training tips and exclusive offers — no spam, ever.
     </p>
-    <a href="https://aurogenlabs.com/shop" style="display:inline-block;background:#0A84FF;color:#ffffff;font-weight:700;font-size:14px;letter-spacing:0.5px;padding:14px 32px;border-radius:100px;text-decoration:none;">Browse Compounds</a>
+    <a href="https://aurogenlabs.com/shop" style="display:inline-block;background:#0A84FF;color:#ffffff;font-weight:700;font-size:14px;letter-spacing:0.5px;padding:14px 32px;border-radius:100px;text-decoration:none;">Shop Now</a>
     <p style="color:#9E9EA8;font-size:11px;margin:28px 0 0;">© 2026 Aurogen Labs · <a href="${unsubUrl}" style="color:#9E9EA8;">Unsubscribe</a></p>
   </div>
 </body></html>`;
@@ -176,7 +174,7 @@ export async function sendWaitlistConfirmation(to: string, productName: string) 
       <p style="color:#9E9EA8;font-size:12px;margin:4px 0 0;">Out of stock · You&apos;ll be notified first when it&apos;s back</p>
     </div>
     <p style="color:#6E6E73;font-size:14px;line-height:1.6;margin:0 0 24px;">
-      We&apos;ll email you the moment this compound is back in stock.
+      We&apos;ll email you the moment this product is back in stock.
     </p>
     <a href="https://aurogenlabs.com/shop" style="display:inline-block;background:#0A84FF;color:#ffffff;font-weight:700;font-size:14px;padding:14px 32px;border-radius:100px;text-decoration:none;">Browse Similar Compounds</a>
     ${FOOTER}
@@ -354,7 +352,7 @@ export async function sendAffiliateRejected(to: string, name: string) {
         After reviewing your application, we&apos;re unable to move forward at this time. We appreciate your interest and encourage you to re-apply in the future.
       </p>
     </div>
-    <a href="https://aurogenlabs.com/shop" style="display:inline-block;background:#1D1D1F;color:#ffffff;font-weight:700;font-size:14px;padding:14px 32px;border-radius:100px;text-decoration:none;">Browse Compounds</a>
+    <a href="https://aurogenlabs.com/shop" style="display:inline-block;background:#1D1D1F;color:#ffffff;font-weight:700;font-size:14px;padding:14px 32px;border-radius:100px;text-decoration:none;">Shop Now</a>
     ${FOOTER}
   </div>
 </body></html>`;
@@ -384,7 +382,7 @@ export async function sendShippingConfirmation(to: string, order: {
     ${LOGO}
 
     <h1 style="color:#1D1D1F;font-size:26px;font-weight:800;margin:0 0 8px;">Your Order Shipped</h1>
-    <p style="color:#6E6E73;font-size:14px;margin:0 0 28px;">Your research compounds are on the way.</p>
+    <p style="color:#6E6E73;font-size:14px;margin:0 0 28px;">Your order is on the way.</p>
 
     <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:16px;padding:24px;margin-bottom:16px;">
       <p style="color:#6E6E73;font-size:13px;margin:0 0 6px;">Order</p>

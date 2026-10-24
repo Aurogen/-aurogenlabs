@@ -3,36 +3,36 @@ import { FlaskConical, Award, Users, Globe } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "About Us",
-  description: "Aurogen Labs is a US-based research peptide company committed to ≥98% purity, full COA transparency, and serving the scientific research community.",
+  description: "Aurogen Labs makes full-dose, clean-label sports nutrition: whey protein isolate, creatine, pre-workout, electrolytes, collagen and magnesium. Every batch third-party tested.",
 };
 
 const STATS = [
-  { value: "≥98%", label: "Minimum Purity" },
-  { value: "100%", label: "Lots with COA" },
-  { value: "12k+", label: "Researchers Served" },
-  { value: "US", label: "Manufactured" },
+  { value: "6", label: "Core Formulas" },
+  { value: "100%", label: "Batches Third-Party Tested" },
+  { value: "0", label: "Proprietary Blends" },
+  { value: "GMP", label: "Certified Facility" },
 ];
 
 const VALUES = [
   {
     icon: FlaskConical,
-    title: "Scientific Integrity",
-    desc: "Every compound we produce undergoes rigorous third-party testing. We publish full COAs so researchers can verify exactly what they're working with.",
+    title: "Tested, Not Trusted",
+    desc: "Every batch is tested by an independent third-party lab for label accuracy and screened for heavy metals and contaminants, so what's on the label is what's in the tub.",
   },
   {
     icon: Award,
     title: "Uncompromising Quality",
-    desc: "Our synthesis protocols follow GMP-adjacent standards. We reject any batch that does not meet our ≥98% purity threshold — no exceptions.",
+    desc: "Our products are manufactured in a GMP-certified facility, and every container carries a printed lot number so each batch can be traced.",
   },
   {
     icon: Users,
-    title: "Researcher-First",
-    desc: "We built Aurogen Labs for the scientific community. From batch-level COAs to our laboratory handling guides, every feature is designed for real researchers.",
+    title: "Athlete-First",
+    desc: "We built Aurogen Labs for people who train. Six focused formulas covering protein, performance, hydration and wellness, with clear directions on every label.",
   },
   {
     icon: Globe,
-    title: "US-Based Operations",
-    desc: "Synthesized, tested, and shipped entirely from our US facility. No overseas sourcing, no gray-market supply chains — just transparent, domestic production.",
+    title: "Transparent Labels",
+    desc: "Full doses of every ingredient, listed in plain numbers. No proprietary blends, no hidden amounts — just honest formulas you can compare.",
   },
 ];
 
@@ -50,10 +50,10 @@ export default function AboutPage() {
             className="text-5xl font-bold mb-5"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
-            Built for Science
+            Built for Training
           </h1>
           <p className="leading-relaxed max-w-xl mx-auto" style={{ color: "#6E6E73" }}>
-            Aurogen Labs was founded with a single mission: to provide the scientific research community with the highest-purity peptides and research compounds available in the United States, backed by full transparency and rigorous quality control.
+            Aurogen Labs was founded with a single mission: to make sports nutrition you can trust, with full-dose, clean-label formulas backed by full transparency and independent third-party testing.
           </p>
         </div>
 
@@ -89,13 +89,13 @@ export default function AboutPage() {
           </h2>
           <div className="space-y-4 text-sm leading-relaxed" style={{ color: "#6E6E73" }}>
             <p>
-              Aurogen Labs was born out of frustration with the status quo in the research peptide market — inconsistent quality, opaque sourcing, and a lack of resources for researchers trying to do serious scientific work.
+              Aurogen Labs was born out of frustration with the status quo in the supplement aisle — underdosed formulas, proprietary blends that hide how much of each ingredient you actually get, and labels that are hard to verify.
             </p>
             <p>
-              We invested in US-based synthesis infrastructure, established relationships with independent testing laboratories, and built a platform that puts the researcher&apos;s needs first: full COAs on every batch, laboratory handling guides, and a catalog organized by compound class.
+              So we kept things simple: a focused lineup of six essentials across Protein, Performance, Hydration and Wellness. Each one is made in a GMP-certified facility, tested batch by batch by an independent third-party lab, and labeled with a lot number you can trace.
             </p>
             <p>
-              Today, Aurogen Labs serves thousands of researchers, laboratories, and institutions across the United States. Our commitment to purity, transparency, and scientific integrity remains unchanged.
+              Whether you&apos;re building strength, staying hydrated or supporting recovery, our commitment stays the same: full doses, honest labels and quality you can check for yourself.
             </p>
           </div>
         </div>
