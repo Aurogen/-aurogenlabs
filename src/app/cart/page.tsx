@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { shippingFor, FREE_SHIPPING_MIN } from "@/lib/shipping";
 import Image from "next/image";
 import { ShoppingCart, Minus, Plus, Trash2, ArrowRight, ArrowLeft } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 
 export default function CartPage() {
   const { state, removeItem, updateQty, totalPrice, totalItems } = useCart();
+  const shipping = shippingFor(totalPrice);
 
   if (state.items.length === 0) {
     return (
@@ -158,18 +160,21 @@ export default function CartPage() {
                 </div>
                 <div className="flex justify-between text-sm">
                   <span style={{ color: "#6E6E73" }}>Shipping</span>
-                  <span className="text-xs font-medium" style={{ color: "#1B7A45" }}>Calculated at checkout</span>
+                  <span className="font-medium" style={{ color: shipping ? "#1D1D1F" : "#1B7A45" }}>
+                    {shipping ? `$${shipping.toFixed(2)}` : "FREE"}
+                  </span>
                 </div>
-                <div className="flex justify-between text-sm">
-                  <span style={{ color: "#6E6E73" }}>Taxes</span>
-                  <span className="text-xs" style={{ color: "#9E9EA8" }}>Calculated at checkout</span>
-                </div>
+                {shipping > 0 && (
+                  <p className="text-xs" style={{ color: "#6E6E73" }}>
+                    Add ${(FREE_SHIPPING_MIN - totalPrice).toFixed(2)} more for free shipping.
+                  </p>
+                )}
               </div>
 
               <div className="pt-4 mb-5" style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }}>
                 <div className="flex justify-between">
                   <span className="font-bold" style={{ color: "#1D1D1F" }}>Total</span>
-                  <span className="font-bold text-2xl" style={{ color: "#1D1D1F" }}>${totalPrice.toFixed(2)}</span>
+                  <span className="font-bold text-2xl" style={{ color: "#1D1D1F" }}>${(totalPrice + shipping).toFixed(2)}</span>
                 </div>
               </div>
 

@@ -1,6 +1,7 @@
 import { getServiceClient } from "@/lib/supabase-server";
 import { PRODUCTS } from "@/data/products";
 import { findAffiliateByCoupon } from "@/lib/affiliates";
+import { shippingFor } from "@/lib/shipping";
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
 const MAX_QTY_PER_LINE = 50;
@@ -81,6 +82,7 @@ export interface PricedLine {
   concentration: string;
   quantity: number;
   price: number;
+  image: string | null;
 }
 
 interface CatalogRow {
@@ -90,6 +92,7 @@ interface CatalogRow {
   price: number;
   in_stock: boolean;
   visible: boolean;
+  image: string | null;
 }
 
 async function loadCatalog(slugs: string[]): Promise<Map<string, CatalogRow>> {
@@ -97,13 +100,13 @@ async function loadCatalog(slugs: string[]): Promise<Map<string, CatalogRow>> {
     return new Map(
       PRODUCTS.filter((p) => slugs.includes(p.slug)).map((p) => [
         p.slug,
-        { slug: p.slug, name: p.name, concentration: p.concentration, price: p.price, in_stock: p.inStock, visible: true },
+        { slug: p.slug, name: p.name, concentration: p.concentration, price: p.price, in_stock: p.inStock, visible: true, image: p.image ?? null },
       ])
     );
   }
   const { data, error } = await getServiceClient()
     .from("products")
-    .select("slug, name, concentration, price, in_stock, visible")
+    .select("slug, name, concentration, price, in_stock, visible, image")
     .in("slug", slugs);
   if (error) throw new Error(`Catalog lookup failed: ${error.message}`);
   return new Map((data ?? []).map((r) => [r.slug, { ...r, price: Number(r.price) } as CatalogRow]));
@@ -116,7 +119,17 @@ export async function priceOrder(
   rawItems: { slug?: unknown; quantity?: unknown }[],
   discountCode?: string | null
 ): Promise<
-  | { ok: true; lines: PricedLine[]; subtotal: number; discount: DiscountResult | null; total: number }
+  | {
+      ok: true;
+      lines: PricedLine[];
+      subtotal: number;
+      discount: DiscountResult | null;
+      /** Merchandise after discount: the base for affiliate commission. */
+      goodsTotal: number;
+      shipping: number;
+      /** What the customer pays: goods + shipping. */
+      total: number;
+    }
   | { ok: false; error: string }
 > {
   if (!Array.isArray(rawItems) || rawItems.length === 0) return { ok: false, error: "Your cart is empty" };
@@ -137,7 +150,7 @@ export async function priceOrder(
     if (!p || !p.visible) return { ok: false, error: "A product in your cart is no longer available. Please remove it and try again." };
     if (!p.in_stock) return { ok: false, error: `${p.name} ${p.concentration} is out of stock. Please remove it to continue.` };
     if (quantity > MAX_QTY_PER_LINE) return { ok: false, error: `Maximum ${MAX_QTY_PER_LINE} units per product` };
-    lines.push({ slug, name: p.name, concentration: p.concentration, quantity, price: p.price });
+    lines.push({ slug, name: p.name, concentration: p.concentration, quantity, price: p.price, image: p.image });
   }
 
   const subtotal = round2(lines.reduce((s, l) => s + l.price * l.quantity, 0));
@@ -149,10 +162,11 @@ export async function priceOrder(
     discount = result;
   }
 
-  const total = round2(Math.max(0, subtotal - (discount?.discount_amount ?? 0)));
-  if (total <= 0) return { ok: false, error: "Order total must be greater than zero" };
+  const goodsTotal = round2(Math.max(0, subtotal - (discount?.discount_amount ?? 0)));
+  if (goodsTotal <= 0) return { ok: false, error: "Order total must be greater than zero" };
+  const shipping = shippingFor(goodsTotal);
 
-  return { ok: true, lines, subtotal, discount, total };
+  return { ok: true, lines, subtotal, discount, goodsTotal, shipping, total: round2(goodsTotal + shipping) };
 }
 
 /** Counts one use of a store discount code (influencer coupons have no usage limit). */

@@ -65,7 +65,9 @@ CREATE TABLE IF NOT EXISTS orders (
   attribution_source   TEXT,                   -- link | coupon
   commission_status    TEXT,                   -- pending | approved | paid | void
   commission_payout_id UUID,                   -- → affiliate_payouts(id)
-  whop_order_id    TEXT
+  whop_order_id    TEXT,
+  stripe_session_id TEXT,                      -- Stripe Checkout session
+  shipping_amount   NUMERIC(10,2) NOT NULL DEFAULT 0
 );
 
 CREATE INDEX IF NOT EXISTS idx_orders_email          ON orders(email);

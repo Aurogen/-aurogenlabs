@@ -2,6 +2,7 @@
 
 import { X, Minus, Plus, ShoppingCart, Trash2, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { FREE_SHIPPING_MIN, FLAT_SHIPPING } from "@/lib/shipping";
 import Image from "next/image";
 import { useCart } from "@/context/CartContext";
 import { useUser } from "@clerk/nextjs";
@@ -161,7 +162,9 @@ export default function CartDrawer() {
               </span>
             </div>
             <p className="text-xs mb-4 text-center" style={{ color: "#9E9EA8" }}>
-              Shipping calculated at checkout · Delivery 2–5 business days
+              {totalPrice >= FREE_SHIPPING_MIN
+                ? "Free shipping · Delivery 2–5 business days"
+                : `Add $${(FREE_SHIPPING_MIN - totalPrice).toFixed(2)} more for free shipping · Otherwise $${FLAT_SHIPPING.toFixed(2)}`}
             </p>
             <Link
               href="/checkout"

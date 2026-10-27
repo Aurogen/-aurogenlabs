@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useRef, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import { CheckCircle, Package, ArrowRight, LayoutDashboard, ShoppingBag } from "lucide-react";
 import Link from "next/link";
+import { useCart } from "@/context/CartContext";
 
 interface OrderItem {
   name: string;
@@ -18,6 +19,7 @@ interface SavedOrder {
   date?: string;
   items: OrderItem[];
   total: number;
+  shipping?: number;
   email: string;
   name: string;
 }
@@ -26,6 +28,17 @@ function OrderSuccessContent() {
   const [order, setOrder] = useState<SavedOrder | null>(null);
   const searchParams = useSearchParams();
   const reduceMotion = useReducedMotion();
+  const { clearCart } = useCart();
+  // Stripe sends the customer back here with paid=1 after a successful card payment.
+  const paid = searchParams.get("paid") === "1";
+
+  const clearedRef = useRef(false);
+  useEffect(() => {
+    if (paid && !clearedRef.current) {
+      clearedRef.current = true;
+      clearCart();
+    }
+  }, [paid, clearCart]);
 
   useEffect(() => {
     // Try localStorage first (set by checkout on success)
@@ -83,10 +96,12 @@ function OrderSuccessContent() {
             className="text-4xl font-bold mb-2"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
-            Order Received
+            {paid ? "Order Confirmed" : "Order Received"}
           </h1>
           <p style={{ color: "#6E6E73" }}>
-            Our team will contact you by email to complete payment. Your order ships as soon as payment is confirmed.
+            {paid
+              ? "Payment received. We're preparing your order and will email you the tracking number when it ships."
+              : "Our team will contact you by email to complete payment. Your order ships as soon as payment is confirmed."}
           </p>
         </motion.div>
 
@@ -138,7 +153,7 @@ function OrderSuccessContent() {
           <div className="px-6 py-4 space-y-2">
             {order && order.items.length > 0 && (() => {
               const subtotal = order.items.reduce((s, i) => s + i.price * i.quantity, 0);
-              const saved = Math.round((subtotal - order.total) * 100) / 100;
+              const saved = Math.round((subtotal + (order.shipping ?? 0) - order.total) * 100) / 100;
               return saved > 0 ? (
                 <div className="flex justify-between text-sm">
                   <span style={{ color: "#6E6E73" }}>Discount</span>
@@ -148,7 +163,9 @@ function OrderSuccessContent() {
             })()}
             <div className="flex justify-between text-sm">
               <span style={{ color: "#6E6E73" }}>Shipping</span>
-              <span className="font-medium" style={{ color: "#1B7A45" }}>FREE</span>
+              <span className="font-medium" style={{ color: order?.shipping ? "#1D1D1F" : "#1B7A45" }}>
+                {order?.shipping ? `$${order.shipping.toFixed(2)}` : "FREE"}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="font-bold" style={{ color: "#1D1D1F" }}>Total</span>

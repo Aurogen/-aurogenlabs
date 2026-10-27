@@ -5,6 +5,10 @@ import { Lock, ArrowRight, Loader2, CreditCard, Tag, CheckCircle, XCircle } from
 import { useCart } from "@/context/CartContext";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
+import { shippingFor, FREE_SHIPPING_MIN } from "@/lib/shipping";
+
+// Set when Stripe is connected; without it orders are taken for manual payment.
+const CARD_PAYMENTS = Boolean(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
 
 const INPUT_STYLE = {
   background: "#FFFFFF",
@@ -48,7 +52,9 @@ export default function CheckoutPage() {
     form.firstName && form.lastName && form.email &&
     form.address && form.city && form.stateField && form.zip;
 
-  const finalTotal = Math.max(0, totalPrice - (discountData?.discount_amount ?? 0));
+  const goodsTotal = Math.max(0, totalPrice - (discountData?.discount_amount ?? 0));
+  const shipping = shippingFor(goodsTotal);
+  const finalTotal = goodsTotal + shipping;
 
   async function applyDiscount() {
     if (!discountInput.trim()) return;
@@ -114,12 +120,17 @@ export default function CheckoutPage() {
         date: data.date,
         items: data.items,
         total: data.total,
+        shipping: data.shipping,
         email: form.email,
         name,
       }));
-      clearCart();
 
-      // TODO: redirect to payment processor once configured (Authorize.net / PaymentCloud)
+      // Card payments: keep the cart until Stripe confirms, so a cancelled payment can be retried.
+      if (data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
+        return;
+      }
+      clearCart();
       window.location.href = `/order-success?id=${data.id}`;
     } catch {
       setOrderError("Connection error. Please check your internet and try again.");
@@ -343,7 +354,9 @@ export default function CheckoutPage() {
               <div>
                 <p className="text-sm font-semibold" style={{ color: "#1D1D1F" }}>Secure Payment</p>
                 <p className="text-xs mt-0.5" style={{ color: "#9E9EA8" }}>
-                  All transactions are encrypted and processed securely.
+                  {CARD_PAYMENTS
+                    ? "You'll pay on Stripe's secure page: card, Apple Pay or Google Pay."
+                    : "All transactions are encrypted and processed securely."}
                 </p>
               </div>
             </div>
@@ -372,7 +385,7 @@ export default function CheckoutPage() {
               ) : (
                 <Lock className="w-4 h-4" />
               )}
-              {loading ? "Placing order..." : "Place Order"}
+              {loading ? (CARD_PAYMENTS ? "Opening payment..." : "Placing order...") : CARD_PAYMENTS ? "Continue to Payment" : "Place Order"}
               {!loading && <ArrowRight className="w-4 h-4" />}
             </button>
 
@@ -434,8 +447,15 @@ export default function CheckoutPage() {
                 )}
                 <div className="flex justify-between text-sm">
                   <span style={{ color: "#6E6E73" }}>Shipping</span>
-                  <span className="font-medium" style={{ color: "#1B7A45" }}>FREE</span>
+                  <span className="font-medium" style={{ color: shipping ? "#1D1D1F" : "#1B7A45" }}>
+                    {shipping ? `$${shipping.toFixed(2)}` : "FREE"}
+                  </span>
                 </div>
+                {shipping > 0 && (
+                  <p className="text-xs" style={{ color: "#6E6E73" }}>
+                    Add ${(FREE_SHIPPING_MIN - goodsTotal).toFixed(2)} more for free shipping.
+                  </p>
+                )}
                 <div className="flex justify-between pt-2" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
                   <span className="font-bold" style={{ color: "#1D1D1F" }}>Total</span>
                   <span className="font-bold text-2xl" style={{ color: "#1D1D1F" }}>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Truck, Package, RotateCcw, Clock } from "lucide-react";
+import { DELIVERY_DAYS, FLAT_SHIPPING, FREE_SHIPPING_MIN } from "@/lib/shipping";
 
 export const metadata: Metadata = {
   title: "Shipping & Returns",
@@ -7,9 +8,12 @@ export const metadata: Metadata = {
 };
 
 const SHIPPING_OPTIONS = [
-  { name: "Standard Shipping", time: "3–5 Business Days", price: "Free on orders $150+", carrier: "USPS / UPS" },
-  { name: "Expedited Shipping", time: "2–3 Business Days", price: "$12.99", carrier: "UPS / FedEx" },
-  { name: "Overnight Shipping", time: "Next Business Day", price: "$24.99", carrier: "FedEx Priority" },
+  {
+    name: "Standard Shipping",
+    time: `${DELIVERY_DAYS.min}–${DELIVERY_DAYS.max} Business Days`,
+    price: `$${FLAT_SHIPPING.toFixed(2)} · Free on orders $${FREE_SHIPPING_MIN}+`,
+    carrier: "USPS / UPS",
+  },
 ];
 
 const FAQ = [

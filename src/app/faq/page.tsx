@@ -26,7 +26,7 @@ const CATEGORIES = [
   {
     category: "Shipping",
     items: [
-      { q: "How long does shipping take?", a: "Standard shipping takes 3–5 business days. Expedited (2–3 days) and overnight options are available. Orders placed before 2:00 PM EST typically ship same day." },
+      { q: "How long does shipping take?", a: "Delivery takes 2–5 business days within the US. Shipping is $7.99, and free on orders of $99 or more. Orders placed before 2:00 PM EST typically ship the same day." },
       { q: "Do you ship outside the United States?", a: "We currently ship within the United States only. International shipping is planned for a future update." },
       { q: "How are orders packaged for shipping?", a: "Products ship in their sealed containers with padding to prevent damage in transit. All packaging is discreet and does not reference the contents on the exterior." },
     ],

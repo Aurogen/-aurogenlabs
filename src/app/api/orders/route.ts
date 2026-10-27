@@ -4,6 +4,8 @@ import { getServiceClient } from "@/lib/supabase-server";
 import { sendOrderConfirmation, sendAdminOrderNotification } from "@/lib/email";
 import { resolveAttribution, REF_COOKIE } from "@/lib/affiliates";
 import { priceOrder, recordDiscountUse } from "@/lib/pricing";
+import { getStripe, toCents } from "@/lib/stripe";
+import { DELIVERY_DAYS } from "@/lib/shipping";
 
 export async function POST(req: NextRequest) {
   try {
@@ -34,7 +36,7 @@ export async function POST(req: NextRequest) {
     if (!priced.ok) {
       return NextResponse.json({ error: priced.error }, { status: 400 });
     }
-    const { total, discount } = priced;
+    const { total, goodsTotal, shipping, discount } = priced;
     const items = priced.lines.map(({ name, concentration, quantity, price }) => ({ name, concentration, quantity, price }));
     const discount_amount = discount?.discount_amount ?? null;
 
@@ -53,8 +55,9 @@ export async function POST(req: NextRequest) {
       buyerUserId: userId,
       buyerEmails: (buyer?.emailAddresses ?? []).map((e) => e.emailAddress),
     });
+    // Commission is earned on merchandise, not on shipping.
     const commission_amount = attribution
-      ? Math.round(Number(total) * Number(attribution.affiliate.commission_rate) / 100 * 100) / 100
+      ? Math.round(goodsTotal * Number(attribution.affiliate.commission_rate) / 100 * 100) / 100
       : null;
 
     const row: Record<string, unknown> = {
@@ -77,12 +80,14 @@ export async function POST(req: NextRequest) {
           }
         : {}),
       ...(discount ? { discount_code: discount.code, discount_amount } : {}),
+      shipping_amount: shipping,
     };
     let { error } = await supabase.from("orders").insert(row);
-    // Orders must never fail because the affiliate migration hasn't been applied yet.
-    if (error && /attribution_source|commission_status/.test(error.message)) {
+    // Orders must never fail because a newer migration hasn't been applied yet.
+    if (error && /attribution_source|commission_status|shipping_amount/.test(error.message)) {
       delete row.attribution_source;
       delete row.commission_status;
+      delete row.shipping_amount;
       ({ error } = await supabase.from("orders").insert(row));
     }
 
@@ -91,9 +96,76 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
+    const stripe = getStripe();
+    if (stripe) {
+      // Card payment: send the customer to Stripe Checkout. Emails, discount usage and the
+      // paid status are handled by the Stripe webhook once the payment succeeds.
+      try {
+        let couponId: string | undefined;
+        if (discount && discount.discount_amount > 0) {
+          const coupon = await stripe.coupons.create({
+            amount_off: toCents(discount.discount_amount),
+            currency: "usd",
+            duration: "once",
+            max_redemptions: 1,
+            name: discount.code.slice(0, 40),
+          });
+          couponId = coupon.id;
+        }
+
+        const origin = req.nextUrl.origin;
+        const session = await stripe.checkout.sessions.create({
+          mode: "payment",
+          client_reference_id: id,
+          customer_email: customerEmail,
+          line_items: priced.lines.map((l) => ({
+            quantity: l.quantity,
+            price_data: {
+              currency: "usd",
+              unit_amount: toCents(l.price),
+              product_data: {
+                name: `${l.name} · ${l.concentration}`,
+                ...(l.image ? { images: [l.image] } : {}),
+              },
+            },
+          })),
+          ...(couponId ? { discounts: [{ coupon: couponId }] } : {}),
+          shipping_options: [
+            {
+              shipping_rate_data: {
+                type: "fixed_amount",
+                display_name: shipping > 0 ? "Standard shipping" : "Free shipping",
+                fixed_amount: { amount: toCents(shipping), currency: "usd" },
+                delivery_estimate: {
+                  minimum: { unit: "business_day", value: DELIVERY_DAYS.min },
+                  maximum: { unit: "business_day", value: DELIVERY_DAYS.max },
+                },
+              },
+            },
+          ],
+          metadata: { order_id: id, discount_code_id: discount?.code_id ?? "" },
+          payment_intent_data: { metadata: { order_id: id } },
+          success_url: `${origin}/order-success?id=${encodeURIComponent(id)}&paid=1`,
+          cancel_url: `${origin}/checkout?canceled=1`,
+        });
+
+        const { error: sessionErr } = await supabase.from("orders").update({ stripe_session_id: session.id }).eq("id", id);
+        if (sessionErr) console.error("Order session id save error:", sessionErr.message);
+
+        return NextResponse.json({ success: true, id, total, shipping, items, date, checkoutUrl: session.url });
+      } catch (err) {
+        console.error("Stripe checkout error:", err);
+        await supabase.from("orders").update({ status: "cancelled", payment_status: "failed" }).eq("id", id);
+        return NextResponse.json(
+          { error: "We couldn't start the card payment. Please try again in a moment." },
+          { status: 502 },
+        );
+      }
+    }
+
     await recordDiscountUse(discount?.code_id ?? null);
 
-    // Until a card processor is connected every order is paid manually, so emails go out now.
+    // No card processor configured: the order is paid manually, so emails go out now.
     {
       const accountEmail = buyer?.primaryEmailAddress?.emailAddress ?? customerEmail;
       const results = await Promise.allSettled([
@@ -101,6 +173,7 @@ export async function POST(req: NextRequest) {
           id, name: customerName, items, total, address: shippingAddress, date, email: customerEmail,
           discountCode: discount?.code ?? null,
           discountAmount: discount_amount,
+          shipping,
           paymentPending: true,
         }),
         sendAdminOrderNotification({ id, name: customerName, email: customerEmail, address: shippingAddress, items, total }),
@@ -110,7 +183,7 @@ export async function POST(req: NextRequest) {
       });
     }
 
-    return NextResponse.json({ success: true, id, total, items, date });
+    return NextResponse.json({ success: true, id, total, shipping, items, date });
   } catch (err) {
     console.error("Order POST error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

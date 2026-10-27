@@ -42,6 +42,7 @@ export async function sendOrderConfirmation(to: string, order: {
   email?: string;
   discountCode?: string | null;
   discountAmount?: number | null;
+  shipping?: number | null;
   paymentPending?: boolean;
 }) {
   const subtotal = order.items.reduce((sum, i) => sum + i.price * i.quantity, 0);
@@ -99,7 +100,7 @@ export async function sendOrderConfirmation(to: string, order: {
           </tr>` : ""}
           <tr>
             <td colspan="2" style="padding:4px 0;color:#6E6E73;font-size:13px;">Shipping</td>
-            <td style="padding:4px 0;color:#1B7A45;font-size:13px;text-align:right;font-weight:600;">FREE</td>
+            <td style="padding:4px 0;color:${order.shipping ? "#1D1D1F" : "#1B7A45"};font-size:13px;text-align:right;font-weight:600;">${order.shipping ? `$${order.shipping.toFixed(2)}` : "FREE"}</td>
           </tr>
           <tr>
             <td colspan="2" style="padding:8px 0 4px;color:#1D1D1F;font-size:16px;font-weight:700;">Total${pending ? " due" : ""}</td>
