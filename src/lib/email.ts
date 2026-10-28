@@ -1,9 +1,22 @@
 import { Resend } from "resend";
 
-const FROM = process.env.EMAIL_FROM ?? "noreply@aurogenlabs.com";
+const FROM = process.env.EMAIL_FROM?.trim() || "noreply@aurogenlabs.com";
 
 function getResend() {
-  return new Resend(process.env.RESEND_API_KEY);
+  return new Resend(process.env.RESEND_API_KEY?.trim());
+}
+
+type SendPayload = Parameters<Resend["emails"]["send"]>[0];
+
+/** Resend reports failures in the result instead of throwing; turn them into errors so they get logged. */
+async function sendEmail(payload: SendPayload) {
+  const result = await getResend().emails.send(payload);
+  if (result.error) {
+    const to = Array.isArray(payload.to) ? payload.to.join(", ") : payload.to;
+    console.error(`Email to ${to} failed (from ${payload.from}):`, result.error.name, result.error.message);
+    throw new Error(`Email failed: ${result.error.message}`);
+  }
+  return result;
 }
 
 interface OrderItem {
@@ -133,7 +146,7 @@ export async function sendOrderConfirmation(to: string, order: {
   </div>
 </body></html>`;
 
-  return getResend().emails.send({
+  return sendEmail({
     from: FROM,
     to,
     subject: `${heading} #${order.id} — Aurogen Labs`,
@@ -156,7 +169,7 @@ export async function sendNewsletterWelcome(to: string) {
   </div>
 </body></html>`;
 
-  return getResend().emails.send({
+  return sendEmail({
     from: FROM,
     to,
     subject: "Welcome to Aurogen Labs — You're on the list",
@@ -182,7 +195,7 @@ export async function sendWaitlistConfirmation(to: string, productName: string) 
   </div>
 </body></html>`;
 
-  return getResend().emails.send({
+  return sendEmail({
     from: FROM,
     to,
     subject: `Back in stock alert set — ${productName}`,
@@ -220,7 +233,7 @@ export async function sendAdminOrderNotification(order: {
   </div>
 </body></html>`;
 
-  return getResend().emails.send({
+  return sendEmail({
     from: FROM,
     to: adminEmail,
     subject: `New order #${order.id} — $${order.total.toFixed(2)} — ${order.name}`,
@@ -256,7 +269,7 @@ export async function sendAdminPartnerApplication(app: {
   </div>
 </body></html>`;
 
-  return getResend().emails.send({
+  return sendEmail({
     from: FROM,
     to: adminEmail,
     subject: `New partner application — ${app.name}`,
@@ -282,7 +295,7 @@ export async function sendWaitlistRestock(to: string, productName: string) {
   </div>
 </body></html>`;
 
-  return getResend().emails.send({
+  return sendEmail({
     from: FROM,
     to,
     subject: `${productName} is back in stock — Aurogen Labs`,
@@ -331,7 +344,7 @@ export async function sendAffiliateApproved(
   </div>
 </body></html>`;
 
-  return getResend().emails.send({
+  return sendEmail({
     from: FROM,
     to,
     subject: "Affiliate application approved — Aurogen Labs",
@@ -358,7 +371,7 @@ export async function sendAffiliateRejected(to: string, name: string) {
   </div>
 </body></html>`;
 
-  return getResend().emails.send({
+  return sendEmail({
     from: FROM,
     to,
     subject: "Affiliate application update — Aurogen Labs",
@@ -399,7 +412,7 @@ export async function sendShippingConfirmation(to: string, order: {
   </div>
 </body></html>`;
 
-  return getResend().emails.send({
+  return sendEmail({
     from: FROM,
     to,
     subject: `Your order #${order.id} has shipped — Aurogen Labs`,
@@ -426,7 +439,7 @@ export async function sendAffiliateReceived(to: string, name: string) {
   </div>
 </body></html>`;
 
-  return getResend().emails.send({
+  return sendEmail({
     from: FROM,
     to,
     subject: "Partner application received — Aurogen Labs",
