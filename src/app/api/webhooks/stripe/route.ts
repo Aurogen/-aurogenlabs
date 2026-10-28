@@ -10,7 +10,7 @@ import { captureServerEvent } from "@/lib/posthog";
 
 export async function POST(req: Request) {
   const stripe = getStripe();
-  const secret = process.env.STRIPE_WEBHOOK_SECRET?.trim();
+  const secret = process.env.STRIPE_WEBHOOK_SECRET?.replace(/[^A-Za-z0-9_]/g, "");
   if (!stripe || !secret) {
     console.error("Stripe webhook rejected: STRIPE_SECRET_KEY or STRIPE_WEBHOOK_SECRET is not set");
     return NextResponse.json({ error: "Webhook not configured" }, { status: 500 });
