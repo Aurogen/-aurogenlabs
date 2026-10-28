@@ -4,7 +4,8 @@ let client: Stripe | null = null;
 
 /** Stripe client, or null while the store still takes payment manually (no key configured). */
 export function getStripe(): Stripe | null {
-  const key = process.env.STRIPE_SECRET_KEY;
+  // Trim: keys pasted into the hosting dashboard often carry a stray space or newline.
+  const key = process.env.STRIPE_SECRET_KEY?.trim();
   if (!key) return null;
   client ??= new Stripe(key);
   return client;

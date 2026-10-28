@@ -154,7 +154,8 @@ export async function POST(req: NextRequest) {
 
         return NextResponse.json({ success: true, id, total, shipping, items, date, checkoutUrl: session.url });
       } catch (err) {
-        console.error("Stripe checkout error:", err);
+        const e = err as { type?: string; code?: string; message?: string };
+        console.error("Stripe checkout error:", e.type, e.code, e.message);
         await supabase.from("orders").update({ status: "cancelled", payment_status: "failed" }).eq("id", id);
         return NextResponse.json(
           { error: "We couldn't start the card payment. Please try again in a moment." },
