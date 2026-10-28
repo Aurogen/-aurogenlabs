@@ -157,8 +157,13 @@ export async function POST(req: NextRequest) {
         const e = err as { type?: string; code?: string; message?: string };
         console.error("Stripe checkout error:", e.type, e.code, e.message);
         await supabase.from("orders").update({ status: "cancelled", payment_status: "failed" }).eq("id", id);
+        // In test mode, surface Stripe's reason so setup problems can be fixed from the checkout page.
+        const testMode = process.env.STRIPE_SECRET_KEY?.trim().startsWith("sk_test_");
         return NextResponse.json(
-          { error: "We couldn't start the card payment. Please try again in a moment." },
+          {
+            error: "We couldn't start the card payment. Please try again in a moment.",
+            ...(testMode ? { detail: [e.type, e.code, e.message].filter(Boolean).join(" · ") } : {}),
+          },
           { status: 502 },
         );
       }

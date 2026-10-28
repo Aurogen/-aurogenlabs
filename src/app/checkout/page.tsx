@@ -110,7 +110,10 @@ export default function CheckoutPage() {
       });
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.id) {
-        setOrderError(data.error ?? "We couldn't place your order. Please try again or contact us.");
+        setOrderError(
+          (data.error ?? "We couldn't place your order. Please try again or contact us.") +
+            (data.detail ? ` [${data.detail}]` : ""),
+        );
         setLoading(false);
         return;
       }
