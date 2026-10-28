@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -26,11 +26,6 @@ const dmSans = DM_Sans({
   weight: ["300", "400", "500", "600", "700"],
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains",
-  subsets: ["latin"],
-  weight: ["400", "500", "700"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://aurogenlabs.com"),
@@ -67,7 +62,7 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider signInUrl="/sign-in" signUpUrl="/sign-up">
-      <html lang="en" className={`${cormorant.variable} ${dmSans.variable} ${jetbrainsMono.variable} h-full`}>
+      <html lang="en" className={`${cormorant.variable} ${dmSans.variable} h-full`}>
         <body className="min-h-full flex flex-col" style={{ background: "#F5F4F0" }}>
           <PostHogProvider>
             <CartProvider>
