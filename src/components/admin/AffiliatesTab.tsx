@@ -323,7 +323,7 @@ function NewAffiliateForm({ onCreated }: { onCreated: () => Promise<void> }) {
         <Field label="Email *">
           <input required type="email" value={form.email} onChange={(e) => set("email", e.target.value)} className={INPUT} style={INPUT_STYLE} />
         </Field>
-        <Field label="Link code (optional)" hint="aurogenlabs.com/r/<code>">
+        <Field label="Link code (optional)" hint="aurogenbio.com/r/<code>">
           <input value={form.code} onChange={(e) => set("code", e.target.value)} placeholder="e.g. maria" className={INPUT} style={INPUT_STYLE} />
         </Field>
         <Field label="Coupon code (optional)" hint="Customers type it at checkout">

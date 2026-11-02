@@ -157,7 +157,7 @@ export default function FAQ() {
             </p>
           </div>
           <Link
-            href="mailto:support@aurogenlabs.com"
+            href="mailto:support@aurogenbio.com"
             className="shrink-0 flex items-center gap-2 px-5 py-2.5 rounded-full font-semibold text-sm transition-opacity hover:opacity-85"
             style={{ background: "#111111", color: "#FFFFFF", minHeight: 44 }}
           >

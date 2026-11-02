@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { fetchProducts } from "@/lib/products-db";
 import type { Product } from "@/data/products";
 
-const BASE = "https://aurogenlabs.com";
+const BASE = "https://www.aurogenbio.com";
 
 export const dynamic = "force-dynamic";
 

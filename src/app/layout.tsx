@@ -28,7 +28,7 @@ const dmSans = DM_Sans({
 
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://aurogenlabs.com"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.aurogenbio.com"),
   title: {
     default: "Aurogen Labs | Performance Nutrition",
     template: "%s | Aurogen Labs",

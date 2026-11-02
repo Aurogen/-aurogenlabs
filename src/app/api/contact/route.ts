@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
-const FROM = process.env.EMAIL_FROM ?? "noreply@aurogenlabs.com";
+const FROM = process.env.EMAIL_FROM ?? "noreply@aurogenbio.com";
 
 export async function POST(req: Request) {
   const { name, email, subject, message } = await req.json();

@@ -52,8 +52,8 @@ function OrderSuccessContent() {
       // ignore
     }
 
-    // Fallback: if Whop redirected with order_id, show minimal confirmation
-    const orderId = searchParams.get("order_id");
+    // Fallback: no saved order in this browser, show a minimal confirmation from the URL
+    const orderId = searchParams.get("id") ?? searchParams.get("order_id");
     if (orderId) {
       setOrder({ id: orderId, items: [], total: 0, email: "", name: "" });
     }

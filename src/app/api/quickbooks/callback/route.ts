@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createOAuthClient, saveTokens } from "@/lib/quickbooks";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://aurogenlabs.com";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.aurogenbio.com";
 
 export async function GET(req: NextRequest) {
   const url = req.url;

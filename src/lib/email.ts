@@ -1,6 +1,6 @@
 import { Resend } from "resend";
 
-const FROM = process.env.EMAIL_FROM?.trim() || "noreply@aurogenlabs.com";
+const FROM = process.env.EMAIL_FROM?.trim() || "noreply@aurogenbio.com";
 
 function getResend() {
   return new Resend(process.env.RESEND_API_KEY?.trim());
@@ -135,12 +135,12 @@ export async function sendOrderConfirmation(to: string, order: {
         ${pending ? "1. We contact you to complete payment.<br>" : ""}${pending ? "2" : "1"}. Your order ships within 2 business days with tracking.<br>
         ${pending ? "3" : "2"}. Delivery takes 2–5 business days.
       </p>
-      <p style="margin:14px 0 0;"><a href="https://aurogenlabs.com/account/orders" style="color:#0A84FF;font-size:13px;font-weight:600;text-decoration:none;">View your order →</a></p>
+      <p style="margin:14px 0 0;"><a href="https://www.aurogenbio.com/account/orders" style="color:#0A84FF;font-size:13px;font-weight:600;text-decoration:none;">View your order →</a></p>
     </div>
 
     <p style="color:#9E9EA8;font-size:11px;line-height:1.5;margin:0 0 24px;">*These statements have not been evaluated by the Food and Drug Administration. These products are not intended to diagnose, treat, cure, or prevent any disease. Use as directed.</p>
 
-    <p style="color:#9E9EA8;font-size:12px;text-align:center;margin:0 0 16px;">Questions? Reply to this email or write to support@aurogenlabs.com</p>
+    <p style="color:#9E9EA8;font-size:12px;text-align:center;margin:0 0 16px;">Questions? Reply to this email or write to support@aurogenbio.com</p>
 
     ${FOOTER}
   </div>
@@ -156,7 +156,7 @@ export async function sendOrderConfirmation(to: string, order: {
 
 /* ── Newsletter Welcome ── */
 export async function sendNewsletterWelcome(to: string) {
-  const unsubUrl = `https://aurogenlabs.com/api/newsletter/unsubscribe?email=${encodeURIComponent(to)}`;
+  const unsubUrl = `https://www.aurogenbio.com/api/newsletter/unsubscribe?email=${encodeURIComponent(to)}`;
   const html = `<!DOCTYPE html><html><body style="${BODY}">
   <div style="${WRAP}text-align:center;">
     ${LOGO}
@@ -164,7 +164,7 @@ export async function sendNewsletterWelcome(to: string) {
     <p style="color:#6E6E73;font-size:15px;line-height:1.6;margin:0 0 28px;">
       Expect new product launches, training tips and exclusive offers — no spam, ever.
     </p>
-    <a href="https://aurogenlabs.com/shop" style="display:inline-block;background:#0A84FF;color:#ffffff;font-weight:700;font-size:14px;letter-spacing:0.5px;padding:14px 32px;border-radius:100px;text-decoration:none;">Shop Now</a>
+    <a href="https://www.aurogenbio.com/shop" style="display:inline-block;background:#0A84FF;color:#ffffff;font-weight:700;font-size:14px;letter-spacing:0.5px;padding:14px 32px;border-radius:100px;text-decoration:none;">Shop Now</a>
     <p style="color:#9E9EA8;font-size:11px;margin:28px 0 0;">© 2026 Aurogen Labs · <a href="${unsubUrl}" style="color:#9E9EA8;">Unsubscribe</a></p>
   </div>
 </body></html>`;
@@ -190,7 +190,7 @@ export async function sendWaitlistConfirmation(to: string, productName: string) 
     <p style="color:#6E6E73;font-size:14px;line-height:1.6;margin:0 0 24px;">
       We&apos;ll email you the moment this product is back in stock.
     </p>
-    <a href="https://aurogenlabs.com/shop" style="display:inline-block;background:#0A84FF;color:#ffffff;font-weight:700;font-size:14px;padding:14px 32px;border-radius:100px;text-decoration:none;">Browse Similar Compounds</a>
+    <a href="https://www.aurogenbio.com/shop" style="display:inline-block;background:#0A84FF;color:#ffffff;font-weight:700;font-size:14px;padding:14px 32px;border-radius:100px;text-decoration:none;">Browse Products</a>
     ${FOOTER}
   </div>
 </body></html>`;
@@ -249,7 +249,7 @@ export async function sendAdminPartnerApplication(app: {
 }) {
   const adminEmail = process.env.ADMIN_EMAIL;
   if (!adminEmail) return;
-  const site = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://aurogenlabs.com").replace(/\/$/, "");
+  const site = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.aurogenbio.com").replace(/\/$/, "");
 
   const rows = app.answers
     .map(
@@ -290,7 +290,7 @@ export async function sendWaitlistRestock(to: string, productName: string) {
     <p style="color:#6E6E73;font-size:15px;line-height:1.6;margin:0 0 28px;">
       You&apos;re one of the first to know. Don&apos;t wait — stock goes fast.
     </p>
-    <a href="https://aurogenlabs.com/shop" style="display:inline-block;background:#0A84FF;color:#ffffff;font-weight:700;font-size:14px;padding:14px 32px;border-radius:100px;text-decoration:none;">Order Now</a>
+    <a href="https://www.aurogenbio.com/shop" style="display:inline-block;background:#0A84FF;color:#ffffff;font-weight:700;font-size:14px;padding:14px 32px;border-radius:100px;text-decoration:none;">Order Now</a>
     <p style="color:#9E9EA8;font-size:11px;margin:28px 0 0;">© 2026 Aurogen Labs · You received this because you joined the waitlist.</p>
   </div>
 </body></html>`;
@@ -309,7 +309,7 @@ export async function sendAffiliateApproved(
   name: string,
   opts: { code?: string; coupon?: string; commissionRate?: number; discountPct?: number } = {}
 ) {
-  const site = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://aurogenlabs.com").replace(/\/$/, "");
+  const site = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.aurogenbio.com").replace(/\/$/, "");
   const { code, coupon } = opts;
   const rate = opts.commissionRate ?? 20;
   const refLink = code ? `${site}/r/${encodeURIComponent(code)}` : null;
@@ -339,7 +339,7 @@ export async function sendAffiliateApproved(
       <p style="color:#6E6E73;font-size:13px;margin:0 0 8px;">✓ &nbsp;Create an account with this email to track clicks, sales and commissions</p>
       <p style="color:#6E6E73;font-size:13px;margin:0;">✓ &nbsp;Purchases are credited to you for 30 days after someone clicks your link</p>
     </div>
-    <a href="https://aurogenlabs.com/account/affiliate" style="display:inline-block;background:#1D1D1F;color:#ffffff;font-weight:700;font-size:14px;padding:14px 32px;border-radius:100px;text-decoration:none;">View My Dashboard</a>
+    <a href="https://www.aurogenbio.com/account/affiliate" style="display:inline-block;background:#1D1D1F;color:#ffffff;font-weight:700;font-size:14px;padding:14px 32px;border-radius:100px;text-decoration:none;">View My Dashboard</a>
     ${FOOTER}
   </div>
 </body></html>`;
@@ -366,7 +366,7 @@ export async function sendAffiliateRejected(to: string, name: string) {
         After reviewing your application, we&apos;re unable to move forward at this time. We appreciate your interest and encourage you to re-apply in the future.
       </p>
     </div>
-    <a href="https://aurogenlabs.com/shop" style="display:inline-block;background:#1D1D1F;color:#ffffff;font-weight:700;font-size:14px;padding:14px 32px;border-radius:100px;text-decoration:none;">Shop Now</a>
+    <a href="https://www.aurogenbio.com/shop" style="display:inline-block;background:#1D1D1F;color:#ffffff;font-weight:700;font-size:14px;padding:14px 32px;border-radius:100px;text-decoration:none;">Shop Now</a>
     ${FOOTER}
   </div>
 </body></html>`;

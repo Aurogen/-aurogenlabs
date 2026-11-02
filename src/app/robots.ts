@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/checkout", "/order-success", "/dashboard", "/api/"],
     },
-    sitemap: "https://aurogenlabs.com/sitemap.xml",
+    sitemap: "https://www.aurogenbio.com/sitemap.xml",
   };
 }

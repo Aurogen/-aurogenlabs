@@ -39,8 +39,6 @@ export interface DbProduct {
   coa_url: string | null;
   visible: boolean;
   sort_order: number;
-  whop_product_id: string | null;
-  whop_checkout_url: string | null;
   benefits?: string[] | null;
   directions?: string | null;
   facts?: [string, string][] | null;

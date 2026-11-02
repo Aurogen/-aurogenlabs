@@ -156,5 +156,5 @@ export async function generateUniqueCoupon(name: string, discountPct: number, pr
 }
 
 export function siteUrl() {
-  return (process.env.NEXT_PUBLIC_SITE_URL ?? "https://aurogenlabs.com").replace(/\/$/, "");
+  return (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.aurogenbio.com").replace(/\/$/, "");
 }

@@ -100,7 +100,7 @@ export default function RefundPage() {
           </h2>
           <div className="space-y-3">
             {[
-              { step: "1", text: "Email us at support@aurogenlabs.com with the subject line: Refund Request – Order #[your order number]" },
+              { step: "1", text: "Email us at support@aurogenbio.com with the subject line: Refund Request – Order #[your order number]" },
               { step: "2", text: "Attach clear photographs of the product, packaging, and any visible damage or discrepancy." },
               { step: "3", text: "Include a brief description of the issue." },
               { step: "4", text: "Our team will review your claim and respond within 2–3 business days." },
@@ -173,8 +173,8 @@ export default function RefundPage() {
             <p className="font-semibold text-sm mb-1" style={{ color: "#1D1D1F" }}>Questions?</p>
             <p className="text-sm" style={{ color: "#6E6E73" }}>
               Contact our support team at{" "}
-              <a href="mailto:support@aurogenlabs.com" className="underline" style={{ color: "#0A84FF" }}>
-                support@aurogenlabs.com
+              <a href="mailto:support@aurogenbio.com" className="underline" style={{ color: "#0A84FF" }}>
+                support@aurogenbio.com
               </a>{" "}
               or visit our{" "}
               <Link href="/shipping" className="underline" style={{ color: "#0A84FF" }}>

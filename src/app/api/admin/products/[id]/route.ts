@@ -19,7 +19,7 @@ export async function PATCH(
     "price", "original_price", "goals", "description", "long_description",
     "in_stock", "stock_count", "featured", "purity", "sequence",
     "molecular_weight", "storage", "badge", "image", "coa_url",
-    "visible", "sort_order", "whop_checkout_url",
+    "visible", "sort_order",
     "benefits", "directions", "facts",
   ];
 

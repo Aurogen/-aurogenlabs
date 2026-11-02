@@ -5,7 +5,7 @@ import { getServiceClient } from "./supabase-server";
 const CLIENT_ID = process.env.QUICKBOOKS_CLIENT_ID!;
 const CLIENT_SECRET = process.env.QUICKBOOKS_CLIENT_SECRET!;
 const REDIRECT_URI =
-  (process.env.NEXT_PUBLIC_SITE_URL ?? "https://aurogenlabs.com") +
+  (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.aurogenbio.com") +
   "/api/quickbooks/callback";
 const SANDBOX = process.env.QUICKBOOKS_SANDBOX === "true";
 

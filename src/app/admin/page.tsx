@@ -1002,7 +1002,7 @@ function QuickBooksTab() {
               <p className="font-semibold mb-2" style={{ color: "#1D1D1F" }}>Antes de conectar:</p>
               <ol className="space-y-1.5 list-decimal list-inside" style={{ color: "#6E6E73" }}>
                 <li>Ve a <strong>developer.intuit.com</strong> y crea una app</li>
-                <li>Agrega <code className="text-xs bg-black/05 px-1 rounded">https://aurogenlabs.com/api/quickbooks/callback</code> como Redirect URI</li>
+                <li>Agrega <code className="text-xs bg-black/05 px-1 rounded">https://www.aurogenbio.com/api/quickbooks/callback</code> como Redirect URI</li>
                 <li>Copia el <strong>Client ID</strong> y <strong>Client Secret</strong></li>
                 <li>Agrégalos como <code className="text-xs bg-black/05 px-1 rounded">QUICKBOOKS_CLIENT_ID</code> y <code className="text-xs bg-black/05 px-1 rounded">QUICKBOOKS_CLIENT_SECRET</code> en Vercel</li>
                 <li>Vuelve aquí y haz clic en &quot;Conectar&quot;</li>

@@ -15,7 +15,7 @@ const EMPTY_FORM = {
   price: "", original_price: "", goals: [] as string[], description: "",
   long_description: "", in_stock: true, stock_count: "0", featured: false,
   purity: "", sequence: "", molecular_weight: "", storage: "", badge: "",
-  image: "", coa_url: "", whop_checkout_url: "", visible: true, sort_order: "0",
+  image: "", coa_url: "", visible: true, sort_order: "0",
   benefits: "", directions: "", facts: "",
 };
 
@@ -35,8 +35,6 @@ export default function ProductsTab() {
   const [search, setSearch] = useState("");
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [confirmDeleteId, setConfirmDeleteId] = useState<number | null>(null);
-  const [syncingId, setSyncingId] = useState<number | null>(null);
-  const [syncError, setSyncError] = useState<string>("");
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -76,7 +74,6 @@ export default function ProductsTab() {
       badge: p.badge ?? "",
       image: p.image ?? "",
       coa_url: p.coa_url ?? "",
-      whop_checkout_url: p.whop_checkout_url ?? "",
       visible: p.visible,
       sort_order: String(p.sort_order ?? 0),
       benefits: (p.benefits ?? []).join("\n"),
@@ -116,27 +113,6 @@ export default function ProductsTab() {
     setProducts((prev) => prev.map((p) => p.id === id ? { ...p, stock_count: stock } : p));
   }
 
-  async function syncToWhop(id: number) {
-    setSyncingId(id);
-    setSyncError("");
-    try {
-      const res = await fetch(`/api/admin/whop-sync/${id}`, { method: "POST" });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? "Sync failed");
-      setProducts((prev) =>
-        prev.map((p) =>
-          p.id === id
-            ? { ...p, whop_product_id: data.whop_product_id, whop_checkout_url: data.whop_checkout_url }
-            : p
-        )
-      );
-    } catch (err) {
-      setSyncError(err instanceof Error ? err.message : "Sync failed");
-    } finally {
-      setSyncingId(null);
-    }
-  }
-
   async function deleteProduct(id: number) {
     setDeletingId(id);
     try {
@@ -163,7 +139,6 @@ export default function ProductsTab() {
         badge: form.badge || null,
         image: form.image || null,
         coa_url: form.coa_url || null,
-        whop_checkout_url: form.whop_checkout_url || null,
         // One benefit per line; facts as "Label: value" per line.
         benefits: form.benefits.split("\n").map((l) => l.trim()).filter(Boolean),
         directions: form.directions.trim() || null,
@@ -229,13 +204,6 @@ export default function ProductsTab() {
           Add Product
         </button>
       </div>
-
-      {syncError && (
-        <div className="px-4 py-3 rounded-xl text-sm" style={{ background: "rgba(192,57,43,0.08)", color: "#C0392B", border: "1px solid rgba(192,57,43,0.20)" }}>
-          Whop sync error: {syncError}
-          <button onClick={() => setSyncError("")} className="ml-3 underline text-xs">Dismiss</button>
-        </div>
-      )}
 
       {/* Add new form */}
       {addingNew && (
@@ -352,19 +320,6 @@ export default function ProductsTab() {
                       {editingId === p.id ? <ChevronUp className="w-3.5 h-3.5" /> : <Pencil className="w-3.5 h-3.5" />}
                       {editingId === p.id ? "Close" : "Edit"}
                     </button>
-
-                    {/* Whop status */}
-                    <span
-                      title={p.whop_checkout_url ?? "No Whop URL — edit product to add it"}
-                      className="text-xs px-2 py-1 rounded-lg font-medium"
-                      style={{
-                        background: p.whop_checkout_url ? "rgba(27,122,69,0.08)" : "rgba(0,0,0,0.04)",
-                        border: `1px solid ${p.whop_checkout_url ? "rgba(27,122,69,0.20)" : "rgba(0,0,0,0.10)"}`,
-                        color: p.whop_checkout_url ? "#1B7A45" : "#9E9EA8",
-                      }}
-                    >
-                      {p.whop_checkout_url ? "Whop ✓" : "No Whop"}
-                    </span>
 
                     {/* Delete */}
                     {confirmDeleteId === p.id ? (
@@ -728,21 +683,6 @@ function ProductForm({
             className={`${inp} mt-2`}
             style={{ ...inpStyle, fontSize: "11px" }}
             placeholder="Or paste the PDF URL manually"
-          />
-        </div>
-
-        {/* Whop Checkout URL */}
-        <div className="sm:col-span-2 lg:col-span-3">
-          <label className={lbl} style={lblStyle}>
-            Whop Checkout URL
-            <span style={{ fontWeight: 400, marginLeft: 6 }}>— pega la URL del producto en Whop (whop.com/checkout/…)</span>
-          </label>
-          <input
-            value={form.whop_checkout_url}
-            onChange={(e) => set("whop_checkout_url", e.target.value)}
-            className={inp}
-            style={inpStyle}
-            placeholder="https://whop.com/checkout/prod_xxxxxxx/"
           />
         </div>
 
