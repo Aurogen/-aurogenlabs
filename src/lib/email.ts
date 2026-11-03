@@ -243,6 +243,40 @@ export async function sendAdminOrderNotification(order: {
   });
 }
 
+/* ── Admin: products sold out or running low after a sale ── */
+export async function sendAdminStockAlert(products: { name: string; concentration: string; stock_count: number }[]) {
+  const adminEmail = process.env.ADMIN_EMAIL;
+  if (!adminEmail || products.length === 0) return;
+
+  const soldOut = products.filter((p) => p.stock_count <= 0);
+  const rows = products
+    .map((p) => `<tr>
+      <td style="padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.06);color:#1D1D1F;">${esc(p.name)} ${esc(p.concentration)}</td>
+      <td style="padding:8px 0;border-bottom:1px solid rgba(0,0,0,0.06);text-align:right;font-weight:700;color:${p.stock_count <= 0 ? "#C0392B" : "#B26A00"};">
+        ${p.stock_count <= 0 ? "Sold out" : `${p.stock_count} left`}
+      </td></tr>`)
+    .join("");
+
+  const html = `<!DOCTYPE html><html>
+<body style="font-family:sans-serif;background:#F6F6F8;padding:20px;">
+  <div style="max-width:500px;margin:0 auto;background:#fff;border-radius:12px;padding:24px;border:1px solid rgba(0,0,0,0.08);">
+    <h2 style="margin:0 0 8px;color:#1D1D1F;">${soldOut.length ? "Product sold out" : "Low stock"}</h2>
+    <p style="color:#6E6E73;margin:0 0 16px;">${soldOut.length ? "Sold-out products are now shown as out of stock on the store." : "These products are running low."} Update the units in Admin &gt; Products when you restock.</p>
+    <table style="width:100%;border-collapse:collapse;font-size:14px;">${rows}</table>
+    <p style="color:#9E9EA8;font-size:12px;margin-top:16px;">Aurogen Labs — Internal notification</p>
+  </div>
+</body></html>`;
+
+  return sendEmail({
+    from: FROM,
+    to: adminEmail,
+    subject: soldOut.length
+      ? `Sold out: ${soldOut.map((p) => `${p.name} ${p.concentration}`).join(", ")}`
+      : `Low stock: ${products.map((p) => `${p.name} ${p.concentration} (${p.stock_count})`).join(", ")}`,
+    html,
+  });
+}
+
 /* ── Admin: new partner application ── */
 export async function sendAdminPartnerApplication(app: {
   name: string;

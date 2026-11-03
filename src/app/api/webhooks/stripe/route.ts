@@ -3,6 +3,7 @@ import type Stripe from "stripe";
 import { getServiceClient } from "@/lib/supabase-server";
 import { getStripe } from "@/lib/stripe";
 import { recordDiscountUse } from "@/lib/pricing";
+import { takeStock } from "@/lib/stock";
 import { sendOrderConfirmation, sendAdminOrderNotification } from "@/lib/email";
 import { syncOrderToQuickBooks } from "@/lib/quickbooks";
 import { trackOrderPlaced } from "@/lib/klaviyo";
@@ -79,6 +80,7 @@ async function markPaid(session: Stripe.Checkout.Session) {
 
   const { id, name, email, address, items, total } = order;
   await recordDiscountUse(session.metadata?.discount_code_id || null);
+  await takeStock(Array.isArray(items) ? items : []);
 
   const results = await Promise.allSettled([
     sendOrderConfirmation(email, {

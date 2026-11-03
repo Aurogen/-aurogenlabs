@@ -6,6 +6,7 @@ import { resolveAttribution, REF_COOKIE } from "@/lib/affiliates";
 import { priceOrder, recordDiscountUse } from "@/lib/pricing";
 import { getStripe, stripeSecretKey, toCents } from "@/lib/stripe";
 import { DELIVERY_DAYS } from "@/lib/shipping";
+import { takeStock } from "@/lib/stock";
 
 export async function POST(req: NextRequest) {
   try {
@@ -37,7 +38,8 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: priced.error }, { status: 400 });
     }
     const { total, goodsTotal, shipping, discount } = priced;
-    const items = priced.lines.map(({ name, concentration, quantity, price }) => ({ name, concentration, quantity, price }));
+    // slug is kept so the paid order can take the units out of stock.
+    const items = priced.lines.map(({ slug, name, concentration, quantity, price }) => ({ slug, name, concentration, quantity, price }));
     const discount_amount = discount?.discount_amount ?? null;
 
     const id = `ORD-${Date.now().toString(36).toUpperCase()}${Math.random().toString(36).slice(2, 4).toUpperCase()}`;
@@ -174,6 +176,7 @@ export async function POST(req: NextRequest) {
     }
 
     await recordDiscountUse(discount?.code_id ?? null);
+    await takeStock(items);
 
     // No card processor configured: the order is paid manually, so emails go out now.
     {

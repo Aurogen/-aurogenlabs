@@ -28,10 +28,26 @@ export async function PATCH(
   }
   if ("price" in update) update.price = Number(update.price);
   if ("original_price" in update) update.original_price = update.original_price ? Number(update.original_price) : null;
-  if ("stock_count" in update) update.stock_count = Number(update.stock_count);
+  if ("stock_count" in update) {
+    update.stock_count = Math.max(0, Math.floor(Number(update.stock_count) || 0));
+    // Entering units decides availability unless the admin set it explicitly in the same save.
+    if (!("in_stock" in body)) update.in_stock = (update.stock_count as number) > 0;
+  }
   if ("sort_order" in update) update.sort_order = Number(update.sort_order);
 
   const supabase = getServiceClient();
+
+  // A product cannot be on sale with 0 units: checkout would refuse it.
+  if (update.in_stock === true) {
+    let units = update.stock_count as number | undefined;
+    if (units === undefined) {
+      const { data: current } = await supabase.from("products").select("stock_count").eq("id", id).maybeSingle();
+      units = Number(current?.stock_count ?? 0);
+    }
+    if (units <= 0) {
+      return NextResponse.json({ error: "Set the units in stock (more than 0) before marking it In Stock." }, { status: 400 });
+    }
+  }
 
   let wasOutOfStock = false;
   if (update.in_stock === true) {

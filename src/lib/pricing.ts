@@ -91,6 +91,8 @@ interface CatalogRow {
   concentration: string;
   price: number;
   in_stock: boolean;
+  /** Units on hand; null when the catalog has no stock count (static fallback). */
+  stock_count: number | null;
   visible: boolean;
   image: string | null;
 }
@@ -100,16 +102,16 @@ async function loadCatalog(slugs: string[]): Promise<Map<string, CatalogRow>> {
     return new Map(
       PRODUCTS.filter((p) => slugs.includes(p.slug)).map((p) => [
         p.slug,
-        { slug: p.slug, name: p.name, concentration: p.concentration, price: p.price, in_stock: p.inStock, visible: true, image: p.image ?? null },
+        { slug: p.slug, name: p.name, concentration: p.concentration, price: p.price, in_stock: p.inStock, stock_count: null, visible: true, image: p.image ?? null },
       ])
     );
   }
   const { data, error } = await getServiceClient()
     .from("products")
-    .select("slug, name, concentration, price, in_stock, visible, image")
+    .select("slug, name, concentration, price, in_stock, stock_count, visible, image")
     .in("slug", slugs);
   if (error) throw new Error(`Catalog lookup failed: ${error.message}`);
-  return new Map((data ?? []).map((r) => [r.slug, { ...r, price: Number(r.price) } as CatalogRow]));
+  return new Map((data ?? []).map((r) => [r.slug, { ...r, price: Number(r.price), stock_count: r.stock_count == null ? null : Number(r.stock_count) } as CatalogRow]));
 }
 
 /**
@@ -150,6 +152,11 @@ export async function priceOrder(
     if (!p || !p.visible) return { ok: false, error: "A product in your cart is no longer available. Please remove it and try again." };
     if (!p.in_stock) return { ok: false, error: `${p.name} ${p.concentration} is out of stock. Please remove it to continue.` };
     if (quantity > MAX_QTY_PER_LINE) return { ok: false, error: `Maximum ${MAX_QTY_PER_LINE} units per product` };
+    if (p.stock_count != null && quantity > p.stock_count) {
+      return p.stock_count > 0
+        ? { ok: false, error: `Only ${p.stock_count} left of ${p.name} ${p.concentration}. Please lower the quantity.` }
+        : { ok: false, error: `${p.name} ${p.concentration} is out of stock. Please remove it to continue.` };
+    }
     lines.push({ slug, name: p.name, concentration: p.concentration, quantity, price: p.price, image: p.image });
   }
 

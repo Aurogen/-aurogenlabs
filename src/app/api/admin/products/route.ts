@@ -39,8 +39,9 @@ export async function POST(req: Request) {
       goals: body.goals ?? [],
       description: body.description ?? "",
       long_description: body.long_description ?? "",
-      in_stock: body.in_stock ?? true,
-      stock_count: Number(body.stock_count ?? 0),
+      // On sale only with units on hand: checkout refuses products with 0 units.
+      in_stock: (body.in_stock ?? true) && Math.floor(Number(body.stock_count ?? 0)) > 0,
+      stock_count: Math.max(0, Math.floor(Number(body.stock_count ?? 0) || 0)),
       featured: body.featured ?? false,
       purity: body.purity ?? "",
       sequence: body.sequence ?? null,

@@ -92,21 +92,30 @@ export default function ProductsTab() {
   }
 
   async function quickToggle(id: number, field: "in_stock" | "visible", value: boolean) {
-    await fetch(`/api/admin/products/${id}`, {
+    const res = await fetch(`/api/admin/products/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ [field]: value }),
     });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      alert(data.error ?? "Could not update the product");
+      return;
+    }
     setProducts((prev) => prev.map((p) => p.id === id ? { ...p, [field]: value } : p));
   }
 
   async function quickStockUpdate(id: number, stock: number) {
-    await fetch(`/api/admin/products/${id}`, {
+    const res = await fetch(`/api/admin/products/${id}`, {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ stock_count: stock }),
     });
-    setProducts((prev) => prev.map((p) => p.id === id ? { ...p, stock_count: stock } : p));
+    const data = await res.json().catch(() => ({}));
+    // The server switches In Stock / Out from the units, so take its answer.
+    setProducts((prev) => prev.map((p) => p.id === id
+      ? { ...p, stock_count: stock, in_stock: data?.product?.in_stock ?? stock > 0 }
+      : p));
   }
 
   async function deleteProduct(id: number) {
@@ -144,6 +153,7 @@ export default function ProductsTab() {
           body: JSON.stringify(payload),
         });
         if (res.ok) { await load(); closeForm(); }
+        else alert((await res.json().catch(() => ({}))).error ?? "Could not save the product");
       } else if (editingId) {
         const res = await fetch(`/api/admin/products/${editingId}`, {
           method: "PATCH",
@@ -151,6 +161,7 @@ export default function ProductsTab() {
           body: JSON.stringify(payload),
         });
         if (res.ok) { await load(); closeForm(); }
+        else alert((await res.json().catch(() => ({}))).error ?? "Could not save the product");
       }
     } finally {
       setSaving(false);
