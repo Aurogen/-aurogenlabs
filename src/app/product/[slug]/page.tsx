@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { fetchProductBySlug, fetchProducts } from "@/lib/products-db";
 import ProductDetail from "@/components/ProductDetail";
+import { variantsOf } from "@/lib/variants";
 import type { Metadata } from "next";
 
 interface Props {
@@ -26,8 +27,18 @@ export default async function ProductPage({ params }: Props) {
 
   if (!product) notFound();
 
+  const variants = variantsOf(product, allProducts);
+
+  // Related: other compounds in the same category, one entry per compound.
+  const seenNames = new Set([product.name.trim().toLowerCase()]);
   const related = allProducts
-    .filter((p) => p.id !== product.id && p.goals.some((g) => product.goals.includes(g)))
+    .filter((p) => p.goals.some((g) => product.goals.includes(g)))
+    .filter((p) => {
+      const key = p.name.trim().toLowerCase();
+      if (seenNames.has(key)) return false;
+      seenNames.add(key);
+      return true;
+    })
     .slice(0, 4);
 
   const jsonLd = {
@@ -55,7 +66,7 @@ export default async function ProductPage({ params }: Props) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ProductDetail product={product} related={related} />
+      <ProductDetail product={product} variants={variants} related={related} />
     </>
   );
 }

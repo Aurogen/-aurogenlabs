@@ -8,14 +8,26 @@ import type { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 import NotifyModal from "./NotifyModal";
 
-export default function ProductCard({ product, index = 0 }: { product: Product; index?: number }) {
+export default function ProductCard({
+  product,
+  variants,
+  index = 0,
+}: {
+  product: Product;
+  /** Other doses of the same compound (smallest first). With more than one, the card shows a dose selector. */
+  variants?: Product[];
+  index?: number;
+}) {
   const { addItem } = useCart();
+  const options = variants && variants.length > 1 ? variants : [product];
+  const [selectedSlug, setSelectedSlug] = useState(product.slug);
+  const current = options.find((v) => v.slug === selectedSlug) ?? product;
   const [showNotify, setShowNotify] = useState(false);
   const [added, setAdded] = useState(false);
   const reduceMotion = useReducedMotion();
 
   function handleAddToCart() {
-    addItem(product);
+    addItem(current);
     setAdded(true);
     setTimeout(() => setAdded(false), 1400);
   }
@@ -31,14 +43,14 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
         style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.07)" }}
       >
         <Link
-          href={`/product/${product.slug}`}
+          href={`/product/${current.slug}`}
           className="relative block aspect-square overflow-hidden"
           style={{ background: "#F2F1ED" }}
         >
-          {product.image ? (
+          {current.image ? (
             <Image
-              src={product.image}
-              alt={product.name}
+              src={current.image}
+              alt={current.name}
               fill
               sizes="(max-width: 1023px) 50vw, (max-width: 1279px) 33vw, 300px"
               loading={index < 4 ? "eager" : "lazy"}
@@ -49,15 +61,15 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
               <ProductVialDetailed index={index} />
             </div>
           )}
-          {product.badge && (
+          {current.badge && (
             <span
               className="absolute top-3 left-3 px-2 py-1 rounded text-[10px] font-semibold tracking-wide"
               style={{ background: "#111111", color: "#FFFFFF" }}
             >
-              {product.badge}
+              {current.badge}
             </span>
           )}
-          {!product.inStock && (
+          {!current.inStock && (
             <span
               className="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-semibold"
               style={{ background: "#FFFFFF", color: "#B42318", border: "1px solid rgba(180,35,24,0.2)" }}
@@ -68,24 +80,52 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
         </Link>
 
         <div className="flex flex-col flex-1 p-3 sm:p-4 text-center sm:text-left">
-          <Link href={`/product/${product.slug}`} className="block">
+          <Link href={`/product/${current.slug}`} className="block">
             <h3 className="font-semibold text-[14px] sm:text-[15px] leading-snug" style={{ color: "#111111", fontFamily: "var(--font-body, sans-serif)" }}>
-              {product.name}
-              <span className="font-normal" style={{ color: "#6B6B6B" }}> · {product.concentration}</span>
+              {current.name}
+              {options.length === 1 && (
+                <span className="font-normal" style={{ color: "#6B6B6B" }}> · {current.concentration}</span>
+              )}
             </h3>
             <p className="text-[12px] sm:text-[13px] mt-1 line-clamp-1" style={{ color: "#6B6B6B" }}>
-              {product.goals[0] ?? product.compound}
+              {current.goals[0] ?? current.compound}
             </p>
           </Link>
 
+          {options.length > 1 && (
+            <div className="mt-3 flex flex-wrap justify-center sm:justify-start gap-1.5" role="radiogroup" aria-label={`${current.name} dose`}>
+              {options.map((v) => {
+                const active = v.slug === current.slug;
+                return (
+                  <button
+                    key={v.slug}
+                    type="button"
+                    role="radio"
+                    aria-checked={active}
+                    onClick={() => setSelectedSlug(v.slug)}
+                    className="h-8 min-w-[52px] px-2.5 rounded-full text-[12px] font-medium transition-colors"
+                    style={{
+                      background: active ? "#111111" : "#FFFFFF",
+                      color: active ? "#FFFFFF" : v.inStock ? "#111111" : "#9A9AA0",
+                      border: `1px solid ${active ? "#111111" : "rgba(0,0,0,0.15)"}`,
+                      textDecoration: v.inStock ? "none" : "line-through",
+                    }}
+                  >
+                    {v.concentration}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
           <div className="mt-auto pt-3 sm:pt-4 flex flex-col sm:flex-row items-center sm:justify-between gap-2">
             <div className="flex items-baseline gap-2">
-              <span className="font-semibold text-[16px] sm:text-[17px]" style={{ color: "#111111" }}>${product.price}</span>
-              {product.originalPrice && (
-                <span className="text-[13px] line-through" style={{ color: "#9A9AA0" }}>${product.originalPrice}</span>
+              <span className="font-semibold text-[16px] sm:text-[17px]" style={{ color: "#111111" }}>${current.price}</span>
+              {current.originalPrice && (
+                <span className="text-[13px] line-through" style={{ color: "#9A9AA0" }}>${current.originalPrice}</span>
               )}
             </div>
-            {product.inStock ? (
+            {current.inStock ? (
               <button
                 onClick={handleAddToCart}
                 className="w-full sm:w-auto h-10 sm:h-9 px-4 rounded-full text-[13px] font-medium transition-colors"
@@ -108,7 +148,7 @@ export default function ProductCard({ product, index = 0 }: { product: Product; 
 
       {showNotify && (
         <NotifyModal
-          productName={`${product.name} ${product.concentration}`}
+          productName={`${current.name} ${current.concentration}`}
           onClose={() => setShowNotify(false)}
         />
       )}

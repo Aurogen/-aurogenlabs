@@ -28,9 +28,11 @@ const FAQ_ITEMS = [
 interface Props {
   product: Product;
   related: Product[];
+  /** All doses of this compound, smallest first (just this product when there is one dose). */
+  variants?: Product[];
 }
 
-export default function ProductDetail({ product, related }: Props) {
+export default function ProductDetail({ product, related, variants = [] }: Props) {
   const { addItem } = useCart();
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
@@ -170,6 +172,37 @@ export default function ProductDetail({ product, related }: Props) {
               {product.name}
             </h1>
             <p className="text-base mb-4" style={{ color: "#6E6E73" }}>{product.compound}</p>
+
+            {/* Dose selector: each dose is its own product page (price, stock and COA per dose) */}
+            {variants.length > 1 && (
+              <div className="mb-5">
+                <p className="text-[11px] tracking-wide font-medium mb-2" style={{ color: "#9E9EA8" }}>DOSE</p>
+                <div className="flex flex-wrap justify-center lg:justify-start gap-2" role="radiogroup" aria-label="Dose">
+                  {variants.map((v) => {
+                    const active = v.slug === product.slug;
+                    return (
+                      <Link
+                        key={v.slug}
+                        href={`/product/${v.slug}`}
+                        scroll={false}
+                        replace
+                        role="radio"
+                        aria-checked={active}
+                        className="h-10 min-w-[72px] px-4 rounded-xl text-sm font-medium flex items-center justify-center transition-colors"
+                        style={{
+                          background: active ? "#1D1D1F" : "#FFFFFF",
+                          color: active ? "#FFFFFF" : v.inStock ? "#1D1D1F" : "#9E9EA8",
+                          border: `1px solid ${active ? "#1D1D1F" : "rgba(0,0,0,0.12)"}`,
+                          textDecoration: v.inStock ? "none" : "line-through",
+                        }}
+                      >
+                        {v.concentration}
+                      </Link>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
 
             {/* Price */}
             <div className="flex items-baseline justify-center lg:justify-start gap-3 mb-5">

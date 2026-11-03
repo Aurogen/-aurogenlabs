@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { Search, ChevronDown } from "lucide-react";
 import { CATEGORIES, type Category, type Product } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
+import { groupByName, defaultVariant } from "@/lib/variants";
 
 const CDN = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/";
 const ALL_PEPTIDES_VIDEO = `${CDN}hf_20260811_193152_9c04b585-b216-4708-a3b0-36372b2881f7.mp4`;
@@ -59,6 +60,21 @@ export default function ShopContent({ initialProducts }: Props) {
     }
     return result;
   }, [search, selectedCategory, sortBy, inStockOnly, initialProducts]);
+
+  // One card per compound: every dose stays selectable on the card, in the order the filters gave.
+  const families = useMemo(() => {
+    const groups = groupByName(initialProducts);
+    const seen = new Set<string>();
+    const out: { key: string; product: Product; variants: Product[] }[] = [];
+    for (const p of filtered) {
+      const key = p.name.trim().toLowerCase();
+      if (seen.has(key)) continue;
+      seen.add(key);
+      const variants = groups.get(key) ?? [p];
+      out.push({ key, product: variants.length > 1 ? defaultVariant(variants) : p, variants });
+    }
+    return out;
+  }, [filtered, initialProducts]);
 
   const chip = (active: boolean) => ({
     background: active ? "#111111" : "#FFFFFF",
@@ -146,13 +162,13 @@ export default function ShopContent({ initialProducts }: Props) {
             <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500 pointer-events-none" />
           </div>
         </div>
-        <p className="text-[13px] mb-4 text-center sm:text-left" style={{ color: "#6E6E73" }}>{filtered.length} products</p>
+        <p className="text-[13px] mb-4 text-center sm:text-left" style={{ color: "#6E6E73" }}>{families.length} products</p>
 
         {/* Products grid */}
-        {filtered.length > 0 ? (
+        {families.length > 0 ? (
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
-            {filtered.map((p, i) => (
-              <ProductCard key={p.id} product={p} index={i} />
+            {families.map((f, i) => (
+              <ProductCard key={f.key} product={f.product} variants={f.variants} index={i} />
             ))}
           </div>
         ) : (
