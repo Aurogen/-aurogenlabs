@@ -7,6 +7,7 @@ import { CartProvider } from "@/context/CartContext";
 import { LanguageProvider } from "@/context/LanguageContext";
 import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
+import AgeGate from "@/components/AgeGate";
 import Footer from "@/components/Footer";
 import RefTracker from "@/components/RefTracker";
 import { PostHogProvider } from "@/components/PostHogProvider";
@@ -30,12 +31,12 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.aurogenbio.com"),
   title: {
-    default: "Aurogen Labs | Performance Nutrition",
+    default: "Aurogen Labs | Premium Peptides for Research",
     template: "%s | Aurogen Labs",
   },
   description:
-    "Aurogen performance nutrition: whey protein isolate, creatine monohydrate, pre-workout, electrolytes, collagen and magnesium. Full-dose, clean-label formulas, every batch third-party tested.",
-  keywords: ["whey protein isolate", "creatine monohydrate", "pre-workout", "electrolytes", "collagen", "magnesium glycinate", "sports nutrition", "supplements", "Aurogen Labs"],
+    "Premium quality research peptides — ≥98% purity, third-party tested, US manufactured. For laboratory and scientific research use only.",
+  keywords: ["research peptides", "peptide reagents", "BPC-157", "TB-500", "retatrutide", "tirzepatide", "HPLC-verified", "certificate of analysis", "Aurogen Labs"],
   openGraph: {
     siteName: "Aurogen Labs",
     type: "website",
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
         url: `${process.env.NEXT_PUBLIC_SITE_URL ?? ""}/og.png`,
         width: 1200,
         height: 630,
-        alt: "Aurogen Labs — Performance Nutrition",
+        alt: "Aurogen Labs — Premium Research Peptides",
       },
     ],
   },
@@ -67,6 +68,7 @@ export default function RootLayout({
           <PostHogProvider>
             <CartProvider>
               <LanguageProvider>
+                <AgeGate />
                 <Suspense fallback={null}>
                   <RefTracker />
                 </Suspense>

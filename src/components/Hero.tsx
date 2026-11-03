@@ -6,14 +6,14 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const FACTS = {
   en: [
-    { value: "25g", label: "protein per scoop" },
-    { value: "5g", label: "pure creatine per serving" },
-    { value: "0", label: "proprietary blends" },
+    { value: "≥98%", label: "purity by HPLC" },
+    { value: "COA", label: "with every batch" },
+    { value: "48h", label: "dispatch on US orders" },
   ],
   es: [
-    { value: "25g", label: "de proteína por scoop" },
-    { value: "5g", label: "de creatina pura por porción" },
-    { value: "0", label: "mezclas propietarias" },
+    { value: "≥98%", label: "pureza por HPLC" },
+    { value: "COA", label: "en cada lote" },
+    { value: "48h", label: "despacho en pedidos de EE.UU." },
   ],
 };
 
@@ -42,17 +42,17 @@ export default function Hero() {
               lineHeight: 1,
             }}
           >
-            {t("Clean formulas,", "Fórmulas limpias,")}
+            {t("Research peptides,", "Péptidos de investigación,")}
             <br />
-            {t("real results.", "resultados reales.")}
+            {t("verified batch by batch.", "verificados lote a lote.")}
           </motion.h2>
         </div>
 
         <div className="lg:col-span-5">
           <motion.p {...fade(0.08)} className="text-[16px] leading-relaxed mb-7" style={{ color: "#4A4A4F" }}>
             {t(
-              "Aurogen builds sports nutrition around full, transparent doses. Every batch is tested by an independent lab for label accuracy, so what's on the tub is what's inside.",
-              "Aurogen crea nutrición deportiva con dosis completas y transparentes. Cada lote se analiza en un laboratorio independiente para verificar la etiqueta: lo que dice el bote es lo que lleva dentro.",
+              "Lyophilized peptides and reagents for in-vitro laboratory work. Each lot is tested by an independent lab before it ships, and the certificate travels with your order.",
+              "Péptidos liofilizados y reactivos para trabajo de laboratorio in vitro. Cada lote se analiza en un laboratorio independiente antes del envío, y el certificado viaja con tu pedido.",
             )}
           </motion.p>
           <motion.div {...fade(0.14)} className="flex items-center gap-5 flex-wrap">
@@ -61,14 +61,14 @@ export default function Hero() {
               className="inline-flex items-center h-12 px-7 rounded-full text-[15px] font-medium text-white transition-opacity hover:opacity-90"
               style={{ background: "#111111" }}
             >
-              {t("Shop all products", "Ver todos los productos")}
+              {t("Browse the catalog", "Ver el catálogo")}
             </Link>
             <Link
-              href="/shop?category=Protein"
+              href="/research"
               className="text-[15px] underline underline-offset-4 decoration-black/25 transition-colors hover:decoration-black"
               style={{ color: "#111111" }}
             >
-              {t("Start with protein", "Empieza por la proteína")}
+              {t("See sample COAs", "Ver COAs de ejemplo")}
             </Link>
           </motion.div>
         </div>

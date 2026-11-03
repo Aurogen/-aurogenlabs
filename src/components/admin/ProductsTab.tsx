@@ -11,12 +11,11 @@ import { CATEGORIES } from "@/data/products";
 const ALL_GOALS: string[] = CATEGORIES.map((c) => c.label);
 
 const EMPTY_FORM = {
-  name: "", slug: "", compound: "", concentration: "", size: "",
+  name: "", slug: "", compound: "", concentration: "", size: "1 Vial",
   price: "", original_price: "", goals: [] as string[], description: "",
   long_description: "", in_stock: true, stock_count: "0", featured: false,
   purity: "", sequence: "", molecular_weight: "", storage: "", badge: "",
   image: "", coa_url: "", visible: true, sort_order: "0",
-  benefits: "", directions: "", facts: "",
 };
 
 type FormState = typeof EMPTY_FORM;
@@ -76,9 +75,6 @@ export default function ProductsTab() {
       coa_url: p.coa_url ?? "",
       visible: p.visible,
       sort_order: String(p.sort_order ?? 0),
-      benefits: (p.benefits ?? []).join("\n"),
-      directions: p.directions ?? "",
-      facts: (p.facts ?? []).map(([k, v]) => `${k}: ${v}`).join("\n"),
     });
   }
 
@@ -139,17 +135,6 @@ export default function ProductsTab() {
         badge: form.badge || null,
         image: form.image || null,
         coa_url: form.coa_url || null,
-        // One benefit per line; facts as "Label: value" per line.
-        benefits: form.benefits.split("\n").map((l) => l.trim()).filter(Boolean),
-        directions: form.directions.trim() || null,
-        facts: form.facts
-          .split("\n")
-          .map((l) => l.trim())
-          .filter(Boolean)
-          .map((l) => {
-            const i = l.indexOf(":");
-            return i > 0 ? [l.slice(0, i).trim(), l.slice(i + 1).trim()] : [l, ""];
-          }),
       };
 
       if (addingNew) {
@@ -519,28 +504,28 @@ function ProductForm({
             }}
             className={inp}
             style={inpStyle}
-            placeholder="e.g. Whey Protein Isolate"
+            placeholder="e.g. Retatrutide"
           />
         </div>
         <div>
           <label className={lbl} style={lblStyle}>Slug *</label>
-          <input value={form.slug} onChange={(e) => set("slug", e.target.value)} className={inp} style={inpStyle} placeholder="e.g. whey-protein-isolate" />
+          <input value={form.slug} onChange={(e) => set("slug", e.target.value)} className={inp} style={inpStyle} placeholder="e.g. retatrutide-10mg" />
         </div>
         <div>
-          <label className={lbl} style={lblStyle}>Flavor / variant</label>
-          <input value={form.compound} onChange={(e) => set("compound", e.target.value)} className={inp} style={inpStyle} placeholder="e.g. French Vanilla" />
+          <label className={lbl} style={lblStyle}>Compound</label>
+          <input value={form.compound} onChange={(e) => set("compound", e.target.value)} className={inp} style={inpStyle} placeholder="e.g. LY3437943" />
         </div>
         <div>
-          <label className={lbl} style={lblStyle}>Net size</label>
-          <input value={form.concentration} onChange={(e) => set("concentration", e.target.value)} className={inp} style={inpStyle} placeholder="e.g. 5 lb" />
+          <label className={lbl} style={lblStyle}>Concentration</label>
+          <input value={form.concentration} onChange={(e) => set("concentration", e.target.value)} className={inp} style={inpStyle} placeholder="e.g. 10mg" />
         </div>
         <div>
-          <label className={lbl} style={lblStyle}>Servings / format</label>
-          <input value={form.size} onChange={(e) => set("size", e.target.value)} className={inp} style={inpStyle} placeholder="e.g. 68 servings" />
+          <label className={lbl} style={lblStyle}>Size</label>
+          <input value={form.size} onChange={(e) => set("size", e.target.value)} className={inp} style={inpStyle} placeholder="e.g. 1 Vial" />
         </div>
         <div>
-          <label className={lbl} style={lblStyle}>Formula highlight</label>
-          <input value={form.purity} onChange={(e) => set("purity", e.target.value)} className={inp} style={inpStyle} placeholder="e.g. 90% protein" />
+          <label className={lbl} style={lblStyle}>Purity</label>
+          <input value={form.purity} onChange={(e) => set("purity", e.target.value)} className={inp} style={inpStyle} placeholder="e.g. 99.2%" />
         </div>
 
         {/* Pricing */}
@@ -562,7 +547,11 @@ function ProductForm({
         {/* Storage */}
         <div>
           <label className={lbl} style={lblStyle}>Storage</label>
-          <input value={form.storage} onChange={(e) => set("storage", e.target.value)} className={inp} style={inpStyle} placeholder="e.g. Cool, dry place" />
+          <input value={form.storage} onChange={(e) => set("storage", e.target.value)} className={inp} style={inpStyle} placeholder="e.g. 2-8°C · Protect from light" />
+        </div>
+        <div>
+          <label className={lbl} style={lblStyle}>Molecular Weight</label>
+          <input value={form.molecular_weight} onChange={(e) => set("molecular_weight", e.target.value)} className={inp} style={inpStyle} placeholder="e.g. 4731.4 g/mol" />
         </div>
         <div>
           <label className={lbl} style={lblStyle}>Badge</label>
@@ -624,7 +613,7 @@ function ProductForm({
 
         {/* COA Upload */}
         <div className="sm:col-span-2 lg:col-span-3">
-          <label className={lbl} style={lblStyle}>Lab test results (PDF)</label>
+          <label className={lbl} style={lblStyle}>Certificate of Analysis (COA)</label>
           <input
             ref={coaInputRef}
             type="file"
@@ -651,7 +640,7 @@ function ProductForm({
                   style={{ background: "rgba(27,122,69,0.06)", border: "1px solid rgba(27,122,69,0.2)" }}
                 >
                   <FileText className="w-3.5 h-3.5 shrink-0" style={{ color: "#1B7A45" }} />
-                  <span className="truncate text-xs" style={{ color: "#1B7A45" }}>Test results uploaded</span>
+                  <span className="truncate text-xs" style={{ color: "#1B7A45" }}>COA uploaded</span>
                   <a
                     href={form.coa_url}
                     target="_blank"
@@ -673,7 +662,7 @@ function ProductForm({
                 </button>
               </div>
             ) : (
-              <span className="text-xs" style={{ color: "#9E9EA8" }}>No test results attached · Max 10MB PDF</span>
+              <span className="text-xs" style={{ color: "#9E9EA8" }}>No COA attached · Max 10MB PDF</span>
             )}
           </div>
           {coaError && <p className="text-xs mt-1" style={{ color: "#C0392B" }}>{coaError}</p>}
@@ -682,7 +671,7 @@ function ProductForm({
             onChange={(e) => set("coa_url", e.target.value)}
             className={`${inp} mt-2`}
             style={{ ...inpStyle, fontSize: "11px" }}
-            placeholder="Or paste the PDF URL manually"
+            placeholder="Or paste COA URL manually"
           />
         </div>
 
@@ -693,21 +682,7 @@ function ProductForm({
         </div>
         <div className="sm:col-span-2 lg:col-span-3">
           <label className={lbl} style={lblStyle}>Long Description</label>
-          <textarea rows={3} value={form.long_description} onChange={(e) => set("long_description", e.target.value)} className={inp} style={inpStyle} placeholder="Full product description" />
-        </div>
-
-        {/* Supplement details */}
-        <div className="sm:col-span-2 lg:col-span-3">
-          <label className={lbl} style={lblStyle}>Benefits <span style={{ fontWeight: 400 }}>— one per line</span></label>
-          <textarea rows={4} value={form.benefits} onChange={(e) => set("benefits", e.target.value)} className={inp} style={inpStyle} placeholder={"25 g protein per serving\nSupports muscle recovery*"} />
-        </div>
-        <div className="sm:col-span-2 lg:col-span-3">
-          <label className={lbl} style={lblStyle}>How to use</label>
-          <textarea rows={2} value={form.directions} onChange={(e) => set("directions", e.target.value)} className={inp} style={inpStyle} placeholder="Mix 1 scoop with 8–10 oz of water or milk." />
-        </div>
-        <div className="sm:col-span-2 lg:col-span-3">
-          <label className={lbl} style={lblStyle}>Supplement Facts <span style={{ fontWeight: 400 }}>— one per line, as Label: value</span></label>
-          <textarea rows={5} value={form.facts} onChange={(e) => set("facts", e.target.value)} className={inp} style={inpStyle} placeholder={"Serving size: 1 scoop (32 g)\nProtein: 25 g"} />
+          <textarea rows={3} value={form.long_description} onChange={(e) => set("long_description", e.target.value)} className={inp} style={inpStyle} placeholder="Full research description" />
         </div>
 
         {/* Goals */}

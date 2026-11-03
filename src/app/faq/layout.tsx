@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "FAQ",
-  description: "Frequently asked questions about Aurogen Labs supplements — creatine, whey isolate, stacking, third-party testing, ordering, shipping, and returns.",
+  description: "Frequently asked questions about Aurogen Labs peptides — quality, ordering, shipping, research use, and more.",
 };
 
 export default function FaqLayout({ children }: { children: React.ReactNode }) {

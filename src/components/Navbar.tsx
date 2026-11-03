@@ -34,8 +34,8 @@ export default function Navbar() {
   }, [isSignedIn]);
 
   const links = [
-    { href: "/shop?category=Protein", label: t("Protein", "Proteína") },
-    { href: "/shop?category=Performance", label: t("Performance", "Rendimiento") },
+    { href: "/protocols", label: t("Protocols", "Protocolos") },
+    { href: "/research", label: t("Research Center", "Centro de Investigación") },
     { href: "/quality", label: t("Quality", "Calidad") },
     { href: "/affiliates", label: t("Partners", "Partners") },
   ];
@@ -96,7 +96,7 @@ export default function Navbar() {
                     style={{ background: "#FFFFFF", border: `1px solid ${LINE}`, borderTop: "none", boxShadow: "0 18px 40px -18px rgba(0,0,0,0.18)" }}
                   >
                     <p className="text-xs mb-3" style={{ color: MUTED }}>
-                      {t("Browse by category", "Explorar por categoría")}
+                      {t("Browse by compound class", "Explorar por clase de compuesto")}
                     </p>
                     <div className="grid grid-cols-2 gap-x-6">
                       {CATEGORIES.map((c) => (
@@ -259,7 +259,7 @@ export default function Navbar() {
               ))}
 
               <p className="pt-5 pb-2 text-xs" style={{ color: MUTED }}>
-                {t("Categories", "Categorías")}
+                {t("Compound classes", "Clases de compuesto")}
               </p>
               <div className="grid grid-cols-2 gap-x-4">
                 {CATEGORIES.map((c) => (

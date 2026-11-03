@@ -72,7 +72,7 @@ export const DEFAULT_PARTNER_FORM: PartnerFormConfig = {
       id: "audience",
       type: "textarea",
       label: "Who is your audience?",
-      placeholder: "e.g. lifters, runners, CrossFit athletes, busy professionals",
+      placeholder: "e.g. researchers, lab professionals, science educators",
       required: true,
     },
     {
@@ -83,10 +83,10 @@ export const DEFAULT_PARTNER_FORM: PartnerFormConfig = {
       required: true,
     },
     {
-      id: "promotion_terms",
+      id: "research_only",
       type: "consent",
       label:
-        "I will promote Aurogen products honestly: no claims that they diagnose, treat, cure or prevent any disease, and I will clearly disclose my partnership in my content.",
+        "I understand all products are for laboratory research use only, and I will not make health, dosing or human-use claims when promoting them.",
       required: true,
     },
   ],
