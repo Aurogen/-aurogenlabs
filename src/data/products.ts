@@ -62,6 +62,7 @@ export const PRODUCTS: Product[] = [
     storage: "Store cold · Protect from light · Do not freeze",
     badge: "BEST SELLER",
     image: "/products/vials/retatrutide-10mg-v3.webp",
+    coaUrl: "/coa/retatrutide-10mg.pdf",
   },
   {
     id: "3",
@@ -80,6 +81,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "4731.4 g/mol",
     storage: "Store cold · Protect from light · Do not freeze",
     image: "/products/vials/retatrutide-20mg-v3.webp",
+    coaUrl: "/coa/retatrutide-20mg.pdf",
   },
   {
     id: "4",
@@ -98,6 +100,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "4731.4 g/mol",
     storage: "Store cold · Protect from light · Do not freeze",
     image: "/products/vials/retatrutide-30mg-v3.webp",
+    coaUrl: "/coa/retatrutide-30mg.pdf",
   },
   {
     id: "5",
@@ -117,6 +120,7 @@ export const PRODUCTS: Product[] = [
     storage: "Store cold · Protect from light · Do not freeze",
     badge: "BULK",
     image: "/products/vials/retatrutide-60mg-v3.webp",
+    coaUrl: "/coa/retatrutide-60mg.pdf",
   },
   // ── Tirzepatide ───────────────────────────────────────────────
   {
@@ -137,6 +141,7 @@ export const PRODUCTS: Product[] = [
     storage: "Store cold · Protect from light · Do not freeze",
     badge: "POPULAR",
     image: "/products/vials/tirzepatide-10mg-v3.webp",
+    coaUrl: "/coa/tirzepatide-10mg.pdf",
   },
   {
     id: "7",
@@ -155,6 +160,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "4813.47 g/mol",
     storage: "Store cold · Protect from light · Do not freeze",
     image: "/products/vials/tirzepatide-15mg-v3.webp",
+    coaUrl: "/coa/tirzepatide-15mg.pdf",
   },
   {
     id: "8",
@@ -173,6 +179,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "4813.47 g/mol",
     storage: "Store cold · Protect from light · Do not freeze",
     image: "/products/vials/tirzepatide-20mg-v3.webp",
+    coaUrl: "/coa/tirzepatide-20mg.pdf",
   },
   {
     id: "9",
@@ -191,6 +198,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "4813.47 g/mol",
     storage: "Store cold · Protect from light · Do not freeze",
     image: "/products/vials/tirzepatide-30mg-v3.webp",
+    coaUrl: "/coa/tirzepatide-30mg.pdf",
   },
   {
     id: "10",
@@ -210,6 +218,7 @@ export const PRODUCTS: Product[] = [
     storage: "Store cold · Protect from light · Do not freeze",
     badge: "BULK",
     image: "/products/vials/tirzepatide-60mg-v3.webp",
+    coaUrl: "/coa/tirzepatide-60mg.pdf",
   },
   // ── GHK-Cu ────────────────────────────────────────────────────
   {
@@ -230,6 +239,7 @@ export const PRODUCTS: Product[] = [
     storage: "Store cold · Protect from light · Do not freeze",
     badge: "PREMIUM",
     image: "/products/vials/ghk-cu-100mg-v3.webp",
+    coaUrl: "/coa/ghk-cu-100mg.pdf",
   },
   // ── Tesamorelin ───────────────────────────────────────────────
   {
@@ -249,6 +259,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "5135.5 g/mol",
     storage: "Store cold · Protect from light · Do not freeze",
     image: "/products/vials/tesamorelin-10mg-v3.webp",
+    coaUrl: "/coa/tesamorelin-10mg.pdf",
   },
   // ── TB-500 ────────────────────────────────────────────────────
   // ── BPC-157 ───────────────────────────────────────────────────
@@ -309,6 +320,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "2174.5 g/mol",
     storage: "Store cold · Protect from light · Do not freeze",
     image: "/products/vials/mots-c-40mg-v3.webp",
+    coaUrl: "/coa/mots-c-40mg.pdf",
   },
   {
     id: "18",
@@ -328,6 +340,7 @@ export const PRODUCTS: Product[] = [
     storage: "Store cold · Protect from light · Do not freeze",
     badge: "NEW",
     image: "/products/vials/mots-c-10mg-v3.webp",
+    coaUrl: "/coa/mots-c-10mg.pdf",
   },
   // ── Ipamorelin ────────────────────────────────────────────────
   // ── Ipamorelin + CJC-1295 Combo ──────────────────────────────
@@ -348,6 +361,7 @@ export const PRODUCTS: Product[] = [
     storage: "Store cold · Protect from light · Do not freeze",
     badge: "COMBO",
     image: "/products/vials/ipamorelin-cjc-1295-combo-v3.webp",
+    coaUrl: "/coa/ipamorelin-cjc-1295-combo.pdf",
   },
   // ── Sermorelin ────────────────────────────────────────────────
   // ── KLOW Blend ────────────────────────────────────────────────
@@ -368,6 +382,7 @@ export const PRODUCTS: Product[] = [
     storage: "Store cold · Protect from light · Do not freeze",
     badge: "EXCLUSIVE",
     image: "/products/vials/klow-blend-80mg-v3.webp",
+    coaUrl: "/coa/klow-blend-80mg.pdf",
   },
   // ── Bacteriostatic Water ──────────────────────────────────────
   {
@@ -386,6 +401,7 @@ export const PRODUCTS: Product[] = [
     purity: "USP Grade",
     storage: "2–8 °C (36–46 °F) · Protect from light · Do not freeze",
     image: "/products/vials/bacteriostatic-water-10ml-v3.webp",
+    coaUrl: "/coa/bacteriostatic-water-10ml.pdf",
   },
 ];
 
