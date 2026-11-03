@@ -13,7 +13,7 @@ UPDATE products AS p
    SET visible    = true,
        featured   = v.featured,
        sort_order = v.sort_order,
-       image      = '/products/vials/' || v.slug || '-v2.webp',
+       image      = '/products/vials/' || v.slug || '-v3.webp',
        purity     = CASE WHEN v.slug LIKE 'bacteriostatic-water-%' THEN p.purity ELSE '> 99%' END,
        storage    = CASE WHEN v.slug LIKE 'bacteriostatic-water-%'
                          THEN '2–8 °C (36–46 °F) · Protect from light · Do not freeze'
@@ -47,7 +47,7 @@ INSERT INTO products (
   in_stock, stock_count, featured, purity, storage, image, visible, sort_order
 )
 SELECT 'bacteriostatic-water-3ml', name, compound, '3mL', size, 0, goals, description, long_description,
-       false, 0, false, purity, storage, '/products/vials/bacteriostatic-water-3ml-v2.webp', false, 175
+       false, 0, false, purity, storage, '/products/vials/bacteriostatic-water-3ml-v3.webp', false, 175
   FROM products
  WHERE slug = 'bacteriostatic-water-10ml'
 ON CONFLICT (slug) DO NOTHING;
