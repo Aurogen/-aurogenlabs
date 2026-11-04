@@ -1,21 +1,36 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ShieldCheck, X } from "lucide-react";
+import { ShieldCheck, X, AlertTriangle } from "lucide-react";
 import Link from "next/link";
 
+const AGE_KEY = "aurogen_age_verified";
+const RESEARCH_KEY = "aurogen_research_agreed";
+
+/** Two separate steps on entry: age confirmation, then the research-use-only agreement. */
 export default function AgeGate() {
-  const [show, setShow] = useState(false);
+  const [step, setStep] = useState<"age" | "research" | null>(null);
   const [declined, setDeclined] = useState(false);
 
   useEffect(() => {
-    const verified = sessionStorage.getItem("aurogen_age_verified");
-    if (!verified) setShow(true);
+    let next: "age" | "research" | null = null;
+    try {
+      if (!sessionStorage.getItem(AGE_KEY)) next = "age";
+      else if (!sessionStorage.getItem(RESEARCH_KEY)) next = "research";
+    } catch {
+      next = "age";
+    }
+    if (next) setStep(next);
   }, []);
 
   function confirm() {
-    sessionStorage.setItem("aurogen_age_verified", "1");
-    setShow(false);
+    try { sessionStorage.setItem(AGE_KEY, "1"); } catch {}
+    setStep("research");
+  }
+
+  function agree() {
+    try { sessionStorage.setItem(RESEARCH_KEY, "1"); } catch {}
+    setStep(null);
   }
 
   function decline() {
@@ -25,7 +40,7 @@ export default function AgeGate() {
     }, 2000);
   }
 
-  if (!show) return null;
+  if (!step) return null;
 
   return (
     <div
@@ -54,7 +69,62 @@ export default function AgeGate() {
             </div>
           </div>
 
-          {!declined ? (
+          {step === "research" ? (
+            <>
+              <div className="flex justify-center mb-5">
+                <div
+                  className="w-16 h-16 rounded-full flex items-center justify-center"
+                  style={{ background: "rgba(178,106,0,0.08)", border: "1px solid rgba(178,106,0,0.22)" }}
+                >
+                  <AlertTriangle className="w-8 h-8" style={{ color: "#B26A00" }} />
+                </div>
+              </div>
+
+              <h2
+                className="text-2xl font-bold mb-1"
+                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
+              >
+                Important Notice
+              </h2>
+              <p className="text-sm mb-6" style={{ color: "#9E9EA8" }}>
+                Please read before continuing
+              </p>
+
+              <div
+                className="mb-6 p-4 rounded-xl"
+                style={{ background: "rgba(178,106,0,0.06)", border: "1px solid rgba(178,106,0,0.22)" }}
+              >
+                <p className="text-base font-semibold leading-snug" style={{ color: "#1D1D1F" }}>
+                  ⚠️ For Research Use Only · Not for Human Consumption
+                </p>
+              </div>
+
+              <p className="text-sm mb-6 leading-relaxed" style={{ color: "#6E6E73" }}>
+                All products are sold strictly for laboratory and in-vitro research. They are not drugs,
+                supplements or food, and must not be used on humans or animals.
+              </p>
+
+              <button
+                onClick={agree}
+                className="w-full py-3 px-6 rounded-full font-semibold text-white transition-opacity hover:opacity-85"
+                style={{ background: "#1D1D1F" }}
+              >
+                I Agree
+              </button>
+
+              <p className="text-xs mt-5" style={{ color: "#9E9EA8" }}>
+                By clicking I Agree you accept our{" "}
+                <Link href="/terms" className="transition-opacity hover:opacity-70" style={{ color: "#6B7A8D" }}>
+                  Terms of Service
+                </Link>{" "}
+                and{" "}
+                <Link href="/disclaimer" className="transition-opacity hover:opacity-70" style={{ color: "#6B7A8D" }}>
+                  Research Disclaimer
+                </Link>
+                .
+              </p>
+            </>
+          ) : !declined ? (
             <>
               {/* Shield icon */}
               <div className="flex justify-center mb-5">

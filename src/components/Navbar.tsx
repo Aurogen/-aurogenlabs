@@ -12,7 +12,7 @@ import { CATEGORIES } from "@/data/products";
 import { useUser, UserButton, SignInButton } from "@clerk/nextjs";
 
 const INK = "#111111";
-const MUTED = "#55555A";
+const MUTED = "#3A3A3F";
 const LINE = "rgba(0,0,0,0.09)";
 
 export default function Navbar() {
@@ -63,18 +63,18 @@ export default function Navbar() {
           borderBottom: `1px solid ${LINE}`,
         }}
       >
-        <div className="max-w-7xl mx-auto h-16 px-5 sm:px-8 md:px-12 lg:px-16 flex items-center gap-8">
+        <div className="max-w-[1440px] mx-auto h-16 lg:h-20 px-5 sm:px-8 md:px-10 flex items-center gap-8 lg:gap-12">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 shrink-0" aria-label="Aurogen Labs home">
-            <Logo size={28} variant="light" />
+            <Logo size={36} variant="light" />
             <span className="leading-none" style={{ color: INK }}>
-              <span className="block font-semibold text-[15px] tracking-[0.14em]">AUROGEN</span>
-              <span className="block text-[9px] tracking-[0.3em] mt-0.5" style={{ color: MUTED }}>LABS</span>
+              <span className="block font-semibold text-[17px] lg:text-[20px] tracking-[0.14em]">AUROGEN</span>
+              <span className="block text-[10px] lg:text-[11px] tracking-[0.3em] mt-1" style={{ color: MUTED }}>LABS</span>
             </span>
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-7 h-full text-[14px]">
+          <nav className="hidden lg:flex items-center gap-9 h-full text-[16px] font-medium">
             <div
               className="relative h-full flex items-center"
               onMouseEnter={() => setMenu("shop")}
@@ -86,7 +86,7 @@ export default function Navbar() {
                 style={navLinkStyle("/shop")}
               >
                 {t("Shop", "Tienda")}
-                <ChevronDown className="w-3.5 h-3.5 opacity-60" />
+                <ChevronDown className="w-4 h-4 opacity-60" />
               </Link>
 
               {menu === "shop" && (
@@ -144,10 +144,10 @@ export default function Navbar() {
               style={{ color: INK }}
               aria-label={t("Search", "Buscar")}
             >
-              <Search className="w-[18px] h-[18px]" />
+              <Search className="w-5 h-5" />
             </button>
 
-            <div className="hidden md:flex items-center text-[13px] px-1" aria-label="Language">
+            <div className="hidden md:flex items-center text-[15px] px-1" aria-label="Language">
               {(["en", "es"] as const).map((l, i) => (
                 <span key={l} className="flex items-center">
                   {i > 0 && <span className="mx-1.5" style={{ color: "rgba(0,0,0,0.2)" }}>/</span>}
@@ -165,11 +165,11 @@ export default function Navbar() {
 
             {isSignedIn ? (
               <div
-                className="relative hidden md:flex items-center h-16"
+                className="relative hidden md:flex items-center h-16 lg:h-20"
                 onMouseEnter={() => setMenu("account")}
                 onMouseLeave={() => setMenu(null)}
               >
-                <button className="flex items-center gap-1 px-2 text-[14px]" style={{ color: INK }}>
+                <button className="flex items-center gap-1 px-2 text-[16px] font-medium" style={{ color: INK }}>
                   {t("Account", "Cuenta")}
                   <ChevronDown className="w-3.5 h-3.5 opacity-60" />
                 </button>
@@ -199,7 +199,7 @@ export default function Navbar() {
               </div>
             ) : (
               <SignInButton mode="redirect">
-                <button className="hidden md:block px-2 text-[14px] transition-colors hover:text-[#111111]" style={{ color: MUTED }}>
+                <button className="hidden md:block px-2 text-[16px] font-medium transition-colors hover:text-[#111111]" style={{ color: MUTED }}>
                   {t("Sign in", "Iniciar sesión")}
                 </button>
               </SignInButton>
@@ -211,7 +211,7 @@ export default function Navbar() {
               style={{ color: INK }}
               aria-label={t("Cart", "Carrito")}
             >
-              <ShoppingBag className="w-[18px] h-[18px]" />
+              <ShoppingBag className="w-5 h-5" />
               {totalItems > 0 && (
                 <span
                   className="absolute top-1 right-1 min-w-[16px] h-4 px-1 rounded-full text-[10px] font-semibold flex items-center justify-center"
@@ -224,7 +224,7 @@ export default function Navbar() {
 
             <Link
               href="/shop"
-              className="hidden lg:flex items-center h-10 px-5 ml-1 rounded-full text-[14px] font-medium transition-opacity hover:opacity-90"
+              className="hidden lg:flex items-center h-11 px-6 ml-1 rounded-full text-[16px] font-semibold transition-opacity hover:opacity-90"
               style={{ background: INK, color: "#FFFFFF" }}
             >
               {t("Shop now", "Comprar")}

@@ -8,14 +8,13 @@ import {
   ShoppingCart, Bell, FlaskConical, ChevronRight,
   Thermometer, Scale, Package, FileText, CheckCircle,
   ChevronDown, ChevronUp,
-  BookOpen,
 } from "lucide-react";
 import type { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 import NotifyModal from "./NotifyModal";
 import ProductCard from "./ProductCard";
 
-type Tab = "desc" | "specs" | "protocols" | "faq";
+type Tab = "desc" | "specs" | "faq";
 
 const FAQ_ITEMS = [
   { q: "What solvent should I use for reconstitution?", a: "Use sterile bacteriostatic water (BAC water) for reconstitution. Add the solvent slowly along the vial wall to minimize foaming. Do not use regular sterile water as it does not preserve the peptide as long." },
@@ -76,7 +75,6 @@ export default function ProductDetail({ product, related, variants = [] }: Props
   const TABS: { id: Tab; label: string; icon: React.ElementType }[] = [
     { id: "desc", label: "Description", icon: FileText },
     { id: "specs", label: "Specifications", icon: Scale },
-    { id: "protocols", label: "Protocols", icon: BookOpen },
     { id: "faq", label: "FAQ", icon: ChevronDown },
   ];
 
@@ -171,7 +169,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
             >
               {product.name}
             </h1>
-            <p className="text-base mb-4" style={{ color: "#6E6E73" }}>{product.compound}</p>
+            <div className="mb-4" />
 
             {/* Dose selector: each dose is its own product page (price, stock and COA per dose) */}
             {variants.length > 1 && (
@@ -387,8 +385,8 @@ export default function ProductDetail({ product, related, variants = [] }: Props
                     className="p-4 rounded-xl"
                     style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)" }}
                   >
-                    <p className="text-sm font-semibold mb-1" style={{ color: "#0A84FF" }}>Research Disclaimer</p>
-                    <p className="text-xs leading-relaxed" style={{ color: "#0A84FF" }}>
+                    <p className="text-base font-bold mb-1.5" style={{ color: "#0A84FF" }}>Research Disclaimer</p>
+                    <p className="text-sm font-bold leading-relaxed" style={{ color: "#0A84FF" }}>
                       All research peptides sold by Aurogen Labs are intended for laboratory and scientific research purposes only.
                       These compounds are not intended for human consumption and have not been evaluated by the FDA.
                     </p>
@@ -399,7 +397,6 @@ export default function ProductDetail({ product, related, variants = [] }: Props
               {activeTab === "specs" && (
                 <div className="grid sm:grid-cols-2 gap-x-8">
                   {[
-                    ["Compound", product.compound],
                     ["Concentration", product.concentration],
                     ["Purity", product.purity],
                     ["Molecular Weight", product.molecularWeight || "N/A"],
@@ -417,62 +414,6 @@ export default function ProductDetail({ product, related, variants = [] }: Props
                       <span className="text-sm font-medium text-right max-w-[55%]" style={{ color: "#1D1D1F" }}>{v}</span>
                     </div>
                   ))}
-                </div>
-              )}
-
-              {activeTab === "protocols" && (
-                <div className="space-y-4">
-                  <p className="text-sm mb-5" style={{ color: "#6E6E73" }}>
-                    Research protocols commonly used with <strong style={{ color: "#1D1D1F" }}>{product.name}</strong>.
-                  </p>
-                  {[
-                    {
-                      title: `${product.name} Reconstitution Protocol`,
-                      duration: "Day 1",
-                      desc: "Step-by-step guide for reconstituting this compound, including recommended BAC water volumes, vial handling, and initial concentration verification.",
-                      tags: ["Reconstitution", "Lab Setup"],
-                    },
-                    {
-                      title: "Storage & Stability Handling",
-                      duration: "Ongoing",
-                      desc: "Recommended storage temperatures for lyophilized and reconstituted material, light protection, and freeze-thaw guidance to preserve sample integrity.",
-                      tags: ["Storage", "Stability"],
-                    },
-                    {
-                      title: "Analytical Verification (HPLC / MS)",
-                      duration: "Per batch",
-                      desc: "How to read the batch Certificate of Analysis and reproduce identity and purity verification with HPLC and mass spectrometry in your own lab.",
-                      tags: ["QC", "Analytical"],
-                    },
-                  ].map((p) => (
-                    <div
-                      key={p.title}
-                      className="p-5 rounded-xl"
-                      style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.08)" }}
-                    >
-                      <div className="flex items-start justify-between gap-3 mb-2">
-                        <h4 className="font-bold" style={{ color: "#1D1D1F" }}>{p.title}</h4>
-                        <span className="text-xs shrink-0" style={{ color: "#9E9EA8" }}>{p.duration}</span>
-                      </div>
-                      <p className="text-sm mb-3" style={{ color: "#6E6E73" }}>{p.desc}</p>
-                      <div className="flex flex-wrap gap-2">
-                        {p.tags.map((t) => (
-                          <span
-                            key={t}
-                            className="text-xs px-2.5 py-1 rounded font-medium"
-                            style={{ background: "rgba(10,132,255,0.06)", color: "#0A84FF", border: "1px solid rgba(10,132,255,0.15)" }}
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                  <div className="text-center pt-2">
-                    <Link href="/protocols" className="text-sm font-medium transition-opacity hover:opacity-70" style={{ color: "#6B7A8D" }}>
-                      View full Protocol Library →
-                    </Link>
-                  </div>
                 </div>
               )}
 
