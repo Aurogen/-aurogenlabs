@@ -96,7 +96,7 @@ export function MerchComingSoon({ standalone = false }: { standalone?: boolean }
         <SectionHeader
           eyebrow="Coming soon"
           title="Aurogen Merch"
-          text="Heavyweight tees and fleece hoodies with the Aurogen mark. The first drop is in the works — get on the list to hear first."
+          text="A tee, a polo and a half-zip hoodie with the Aurogen mark. The first drop is in the works — get on the list to hear first."
           href="/merch"
           standalone={standalone}
         />
@@ -104,13 +104,13 @@ export function MerchComingSoon({ standalone = false }: { standalone?: boolean }
         {standalone && (
           <div className="relative overflow-hidden rounded-2xl mb-8 aspect-[16/9] md:aspect-[21/9]" style={{ background: "#16264A" }}>
             <Image
-              src="/merch/signature-hoodie-lifestyle.webp"
-              alt="Aurogen Signature Hoodie, worn"
+              src="/merch/polo-lifestyle.webp"
+              alt="Aurogen Polo, worn"
               fill
               priority
               sizes="(max-width: 1279px) 100vw, 1200px"
               className="object-cover merch-kenburns"
-              style={{ objectPosition: "50% 18%" }}
+              style={{ objectPosition: "50% 30%" }}
             />
             <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(10,16,32,0.72) 0%, rgba(10,16,32,0.25) 55%, rgba(10,16,32,0) 100%)" }} />
             <div className="absolute inset-0 flex flex-col justify-end md:justify-center p-6 md:p-12 max-w-lg">
@@ -118,7 +118,7 @@ export function MerchComingSoon({ standalone = false }: { standalone?: boolean }
               <p className="text-3xl md:text-5xl text-white" style={{ fontFamily: "var(--font-heading, serif)", lineHeight: 1.05 }}>
                 Wear the lab.
               </p>
-              <p className="mt-3 text-sm md:text-base" style={{ color: "rgba(255,255,255,0.8)" }}>Tees and hoodies — coming soon.</p>
+              <p className="mt-3 text-sm md:text-base" style={{ color: "rgba(255,255,255,0.8)" }}>Tee, polo and hoodie — coming soon.</p>
             </div>
           </div>
         )}
