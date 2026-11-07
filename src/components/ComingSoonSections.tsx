@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { MERCH_PREVIEW, SUPPLEMENTS_PREVIEW } from "@/data/coming-soon";
-import MerchArt from "./MerchArt";
 import LaunchNotifyForm from "./LaunchNotifyForm";
 
 /**
@@ -97,20 +96,51 @@ export function MerchComingSoon({ standalone = false }: { standalone?: boolean }
         <SectionHeader
           eyebrow="Coming soon"
           title="Aurogen Merch"
-          text="Tees and hoodies with the Aurogen mark. First drop is in the works — get on the list to hear first."
+          text="Heavyweight tees and fleece hoodies with the Aurogen mark. The first drop is in the works — get on the list to hear first."
           href="/merch"
           standalone={standalone}
         />
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
-          {MERCH_PREVIEW.map((m) => (
-            <div key={m.design} className="rounded-xl overflow-hidden" style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.07)" }}>
-              <div className="relative aspect-square p-4" style={{ background: "linear-gradient(180deg, #F7F7F5 0%, #ECECE8 100%)" }}>
-                <MerchArt design={m.design} />
+
+        {standalone && (
+          <div className="relative overflow-hidden rounded-2xl mb-8 aspect-[16/9] md:aspect-[21/9]" style={{ background: "#16264A" }}>
+            <Image
+              src="/merch/signature-hoodie-lifestyle.webp"
+              alt="Aurogen Signature Hoodie, worn"
+              fill
+              priority
+              sizes="(max-width: 1279px) 100vw, 1200px"
+              className="object-cover merch-kenburns"
+              style={{ objectPosition: "50% 18%" }}
+            />
+            <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(10,16,32,0.72) 0%, rgba(10,16,32,0.25) 55%, rgba(10,16,32,0) 100%)" }} />
+            <div className="absolute inset-0 flex flex-col justify-end md:justify-center p-6 md:p-12 max-w-lg">
+              <p className="text-[12px] tracking-[0.25em] mb-2" style={{ color: "#9DB8FF" }}>FIRST DROP</p>
+              <p className="text-3xl md:text-5xl text-white" style={{ fontFamily: "var(--font-heading, serif)", lineHeight: 1.05 }}>
+                Wear the lab.
+              </p>
+              <p className="mt-3 text-sm md:text-base" style={{ color: "rgba(255,255,255,0.8)" }}>Tees and hoodies — coming soon.</p>
+            </div>
+          </div>
+        )}
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
+          {MERCH_PREVIEW.map((m, i) => (
+            <div key={m.slug} className="group rounded-xl overflow-hidden" style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.07)" }}>
+              <div className="merch-flip relative aspect-square overflow-hidden" style={{ background: "#ECEAE6" }}>
+                <Image src={m.lifestyle} alt={`${m.name}, worn`} fill sizes="(max-width: 639px) 100vw, 400px" className="merch-back object-cover" />
+                <Image
+                  src={m.image}
+                  alt={m.name}
+                  fill
+                  sizes="(max-width: 639px) 100vw, 400px"
+                  className="merch-front object-cover"
+                  style={{ animationDelay: `${i * 1.5}s` }}
+                />
                 <SoonBadge />
               </div>
-              <div className="p-3 sm:p-4 text-center sm:text-left">
-                <h3 className="font-semibold text-[14px] sm:text-[15px] leading-snug" style={{ color: "#111111" }}>{m.name}</h3>
-                <p className="text-[12px] sm:text-[13px] mt-1" style={{ color: "#6B6B6B" }}>{m.detail}</p>
+              <div className="p-4 text-center sm:text-left">
+                <h3 className="font-semibold text-[15px] leading-snug" style={{ color: "#111111" }}>{m.name}</h3>
+                <p className="text-[13px] mt-1" style={{ color: "#6B6B6B" }}>{m.detail}</p>
               </div>
             </div>
           ))}
