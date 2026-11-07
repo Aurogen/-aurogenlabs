@@ -37,6 +37,8 @@ export default function Navbar() {
     { href: "/research", label: t("Research Center", "Centro de Investigación") },
     { href: "/quality", label: t("Quality", "Calidad") },
     { href: "/affiliates", label: t("Partners", "Partners") },
+    { href: "/supplements", label: t("Supplements", "Suplementos") },
+    { href: "/merch", label: "Merch" },
   ];
 
   const accountLinks = [

@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import TrustSection from "@/components/TrustSection";
 import HowItWorks from "@/components/HowItWorks";
 import FAQ from "@/components/FAQ";
+import { MerchComingSoon, SupplementsComingSoon } from "@/components/ComingSoonSections";
 import { fetchProducts } from "@/lib/products-db";
 
 export const metadata: Metadata = {
@@ -31,6 +32,10 @@ export default async function HomePage() {
       <TrustSection />
 
       <HowItWorks />
+
+      <SupplementsComingSoon />
+
+      <MerchComingSoon />
 
       <FAQ />
     </>

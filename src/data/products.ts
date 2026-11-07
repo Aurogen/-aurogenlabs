@@ -238,7 +238,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "340.38 g/mol",
     storage: "Store cold · Protect from light · Do not freeze",
     badge: "PREMIUM",
-    image: "/products/vials/ghk-cu-100mg-v3.webp",
+    image: "/products/vials/ghk-cu-100mg-v4.webp",
     coaUrl: "/coa/ghk-cu-100mg.pdf",
   },
   // ── Tesamorelin ───────────────────────────────────────────────
@@ -381,7 +381,7 @@ export const PRODUCTS: Product[] = [
     purity: "> 99%",
     storage: "Store cold · Protect from light · Do not freeze",
     badge: "EXCLUSIVE",
-    image: "/products/vials/klow-blend-80mg-v3.webp",
+    image: "/products/vials/klow-blend-80mg-v4.webp",
     coaUrl: "/coa/klow-blend-80mg.pdf",
   },
   // ── Bacteriostatic Water ──────────────────────────────────────
