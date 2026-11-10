@@ -6,6 +6,8 @@ import { Search, ChevronDown } from "lucide-react";
 import { CATEGORIES, type Category, type Product } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
 import { groupByName, defaultVariant } from "@/lib/variants";
+import { useLanguage } from "@/context/LanguageContext";
+import { categoryLabel } from "@/data/products-es";
 
 const CDN = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/";
 const ALL_PEPTIDES_VIDEO = `${CDN}hf_20260811_193152_9c04b585-b216-4708-a3b0-36372b2881f7.mp4`;
@@ -14,7 +16,15 @@ interface Props {
   initialProducts: Product[];
 }
 
-export default function ShopContent({ initialProducts }: Props) {
+// The filters start from the URL. Keying on the query string re-applies them when the URL changes
+// while this page is already open (e.g. choosing a class from the header's Shop menu on /shop).
+export default function ShopContent(props: Props) {
+  const searchParams = useSearchParams();
+  return <ShopInner key={searchParams.toString()} {...props} />;
+}
+
+function ShopInner({ initialProducts }: Props) {
+  const { lang, t } = useLanguage();
   const searchParams = useSearchParams();
   const urlCategory = searchParams.get("category");
   const initialCategory = CATEGORIES.some((c) => c.label === urlCategory) ? (urlCategory as Category) : null;
@@ -90,10 +100,10 @@ export default function ShopContent({ initialProducts }: Props) {
         <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%)" }} />
         <div className="relative z-10">
           <h1 className="font-bold" style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(32px, 6vw, 64px)", letterSpacing: "-0.01em", color: "#FFFFFF", lineHeight: 1.05 }}>
-            {selectedCategory ?? "All Peptides"}
+            {selectedCategory ? categoryLabel(selectedCategory, lang) : t("All Peptides", "Todos los péptidos")}
           </h1>
           <p className="mt-3 text-[12px] sm:text-[13px]" style={{ color: "rgba(255,255,255,0.7)" }}>
-            For laboratory research use only · Not for human consumption
+            {t("For laboratory research use only · Not for human consumption", "Solo para investigación de laboratorio · No apto para consumo humano")}
           </p>
         </div>
       </div>
@@ -108,7 +118,7 @@ export default function ShopContent({ initialProducts }: Props) {
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
           <button onClick={() => setSelectedCategory(null)} className="shrink-0 h-9 px-4 rounded-full text-[13px] font-medium" style={chip(!selectedCategory)}>
-            All
+            {t("All", "Todos")}
           </button>
           {CATEGORIES.filter((c) => initialProducts.some((p) => p.goals.includes(c.label))).map((c) => (
             <button
@@ -117,7 +127,7 @@ export default function ShopContent({ initialProducts }: Props) {
               className="shrink-0 h-9 px-4 rounded-full text-[13px] font-medium whitespace-nowrap"
               style={chip(selectedCategory === c.label)}
             >
-              {c.label}
+              {lang === "es" ? c.label_es : c.label}
             </button>
           ))}
           <button
@@ -126,7 +136,7 @@ export default function ShopContent({ initialProducts }: Props) {
             style={chip(inStockOnly)}
             aria-pressed={inStockOnly}
           >
-            In stock
+            {t("In stock", "En stock")}
           </button>
         </div>
       </div>
@@ -140,7 +150,7 @@ export default function ShopContent({ initialProducts }: Props) {
               type="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search compounds"
+              placeholder={t("Search compounds", "Buscar compuestos")}
               enterKeyHint="search"
               className="w-full pl-10 pr-3 rounded-xl text-base sm:text-sm focus:outline-none"
               style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F", height: 44 }}
@@ -150,19 +160,19 @@ export default function ShopContent({ initialProducts }: Props) {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as typeof sortBy)}
-              aria-label="Sort products"
+              aria-label={t("Sort products", "Ordenar productos")}
               className="appearance-none pl-3 pr-8 rounded-xl text-base sm:text-sm focus:outline-none cursor-pointer"
               style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F", height: 44 }}
             >
-              <option value="popular">Popular</option>
-              <option value="price-asc">Price ↑</option>
-              <option value="price-desc">Price ↓</option>
+              <option value="popular">{t("Popular", "Populares")}</option>
+              <option value="price-asc">{t("Price ↑", "Precio ↑")}</option>
+              <option value="price-desc">{t("Price ↓", "Precio ↓")}</option>
               <option value="name">A–Z</option>
             </select>
             <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500 pointer-events-none" />
           </div>
         </div>
-        <p className="text-[13px] mb-4 text-center sm:text-left" style={{ color: "#6E6E73" }}>{families.length} products</p>
+        <p className="text-[13px] mb-4 text-center sm:text-left" style={{ color: "#6E6E73" }}>{families.length} {t("products", "productos")}</p>
 
         {/* Products grid */}
         {families.length > 0 ? (
@@ -173,13 +183,13 @@ export default function ShopContent({ initialProducts }: Props) {
           </div>
         ) : (
           <div className="text-center py-20">
-            <p className="text-lg mb-2" style={{ color: "#111111" }}>No products found</p>
+            <p className="text-lg mb-2" style={{ color: "#111111" }}>{t("No products found", "No se encontraron productos")}</p>
             <button
               onClick={() => { setSearch(""); setSelectedCategory(null); setInStockOnly(false); }}
               className="text-sm underline underline-offset-4"
               style={{ color: "#6E6E73" }}
             >
-              Clear search and filters
+              {t("Clear search and filters", "Borrar búsqueda y filtros")}
             </button>
           </div>
         )}

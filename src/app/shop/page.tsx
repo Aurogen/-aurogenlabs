@@ -6,7 +6,7 @@ import type { Metadata } from "next";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-  title: "Shop — Aurogen Labs",
+  title: "Shop",
   description: "Research-grade peptides and compounds. Third-party tested, COA verified.",
 };
 

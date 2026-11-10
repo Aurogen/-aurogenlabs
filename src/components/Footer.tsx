@@ -1,35 +1,52 @@
 import Link from "next/link";
 import Logo from "./Logo";
 import NewsletterForm from "./NewsletterForm";
+import T from "./T";
 
-const LINKS = {
-  Shop: [
-    { label: "All Products", href: "/shop" },
-    { label: "Incretin Analogs", href: "/shop?category=Incretin%20Analogs" },
-    { label: "GH Secretagogues", href: "/shop?category=GH%20Secretagogues" },
-    { label: "Reagents", href: "/shop?category=Reagents" },
-  ],
-  Research: [
-    { label: "Protocols", href: "/protocols" },
-    { label: "Research Center", href: "/research" },
-    { label: "Reconstitution Guide", href: "/research#reconstitution" },
-    { label: "Quality Standards", href: "/quality" },
-  ],
-  Company: [
-    { label: "About Us", href: "/about" },
-    { label: "Quality & Testing", href: "/quality" },
-    { label: "Become a Partner", href: "/affiliates" },
-    { label: "Contact", href: "/contact" },
-  ],
-  Support: [
-    { label: "FAQ", href: "/faq" },
-    { label: "Shipping & Returns", href: "/shipping" },
-    { label: "Refund Policy", href: "/refund" },
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Terms of Service", href: "/terms" },
-    { label: "Disclaimer", href: "/disclaimer" },
-  ],
-};
+const LINKS = [
+  {
+    title: "Shop",
+    title_es: "Tienda",
+    links: [
+      { label: "All Products", label_es: "Todos los productos", href: "/shop" },
+      { label: "Incretin Analogs", label_es: "Análogos de incretinas", href: "/shop?category=Incretin%20Analogs" },
+      { label: "GH Secretagogues", label_es: "Secretagogos de GH", href: "/shop?category=GH%20Secretagogues" },
+      { label: "Reagents", label_es: "Reactivos", href: "/shop?category=Reagents" },
+    ],
+  },
+  {
+    title: "Research",
+    title_es: "Investigación",
+    links: [
+      { label: "Protocols", label_es: "Protocolos", href: "/protocols" },
+      { label: "Research Center", label_es: "Centro de investigación", href: "/research" },
+      { label: "Reconstitution Guide", label_es: "Guía de reconstitución", href: "/research#reconstitution" },
+      { label: "Quality Standards", label_es: "Estándares de calidad", href: "/quality" },
+    ],
+  },
+  {
+    title: "Company",
+    title_es: "Empresa",
+    links: [
+      { label: "About Us", label_es: "Quiénes somos", href: "/about" },
+      { label: "Quality & Testing", label_es: "Calidad y análisis", href: "/quality" },
+      { label: "Become a Partner", label_es: "Hazte socio", href: "/affiliates" },
+      { label: "Contact", label_es: "Contacto", href: "/contact" },
+    ],
+  },
+  {
+    title: "Support",
+    title_es: "Soporte",
+    links: [
+      { label: "FAQ", label_es: "Preguntas frecuentes", href: "/faq" },
+      { label: "Shipping & Returns", label_es: "Envíos y devoluciones", href: "/shipping" },
+      { label: "Refund Policy", label_es: "Política de reembolso", href: "/refund" },
+      { label: "Privacy Policy", label_es: "Política de privacidad", href: "/privacy" },
+      { label: "Terms of Service", label_es: "Términos del servicio", href: "/terms" },
+      { label: "Disclaimer", label_es: "Aviso legal", href: "/disclaimer" },
+    ],
+  },
+];
 
 export default function Footer() {
   return (
@@ -39,9 +56,14 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-center md:text-left">
             <h3 className="text-white font-bold text-2xl mb-1" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
-              Stay in the loop
+              <T en="Stay in the loop" es="Mantente al día" />
             </h3>
-            <p className="text-gray-500 text-sm">New compounds, lab guides and restock notices. No spam.</p>
+            <p className="text-gray-500 text-sm">
+              <T
+                en="New compounds, lab guides and restock notices. No spam."
+                es="Nuevos compuestos, guías de laboratorio y avisos de reposición. Sin spam."
+              />
+            </p>
           </div>
           <NewsletterForm />
         </div>
@@ -56,19 +78,24 @@ export default function Footer() {
               <Logo height={38} variant="dark" />
             </Link>
             <p className="text-gray-500 text-xs leading-relaxed mb-4 max-w-xs mx-auto lg:mx-0">
-              Research peptides and reagents with a third-party Certificate of Analysis for every lot.
+              <T
+                en="Research peptides and reagents with a third-party Certificate of Analysis for every lot."
+                es="Péptidos y reactivos de investigación con un Certificado de Análisis externo para cada lote."
+              />
             </p>
           </div>
 
           {/* Nav columns */}
-          {Object.entries(LINKS).map(([category, links]) => (
-            <div key={category}>
-              <h4 className="text-white font-bold text-xs tracking-widest mb-4 uppercase">{category}</h4>
+          {LINKS.map(({ title, title_es, links }) => (
+            <div key={title}>
+              <h4 className="text-white font-bold text-xs tracking-widest mb-4 uppercase">
+                <T en={title} es={title_es} />
+              </h4>
               <ul className="space-y-2.5">
                 {links.map((link) => (
                   <li key={link.label}>
                     <Link href={link.href} className="text-gray-500 hover:text-gray-200 text-sm transition-colors">
-                      {link.label}
+                      <T en={link.label} es={link.label_es} />
                     </Link>
                   </li>
                 ))}
@@ -81,21 +108,26 @@ export default function Footer() {
       {/* Bottom bar */}
       <div className="py-6 px-4" style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-gray-600 text-center">
-          <p>© 2026 Aurogen Labs · All rights reserved.</p>
+          <p>
+            <T en="© 2026 Aurogen Labs · All rights reserved." es="© 2026 Aurogen Labs · Todos los derechos reservados." />
+          </p>
           <div className="flex items-center gap-4">
             <span
               className="px-2.5 py-1 rounded text-[10px] tracking-[0.12em] uppercase font-medium"
               style={{ border: "1px solid rgba(10,132,255,0.25)", color: "rgba(10,132,255,0.7)" }}
             >
-              For Research Use Only · Not for Human Consumption
+              <T
+                en="For Research Use Only · Not for Human Consumption"
+                es="Solo para investigación · No apto para consumo humano"
+              />
             </span>
           </div>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link href="/shipping" className="hover:text-gray-300 transition-colors">Shipping</Link>
-            <Link href="/refund" className="hover:text-gray-300 transition-colors">Refund</Link>
-            <Link href="/privacy" className="hover:text-gray-300 transition-colors">Privacy</Link>
-            <Link href="/terms" className="hover:text-gray-300 transition-colors">Terms</Link>
-            <Link href="/disclaimer" className="hover:text-gray-300 transition-colors">Disclaimer</Link>
+            <Link href="/shipping" className="hover:text-gray-300 transition-colors"><T en="Shipping" es="Envíos" /></Link>
+            <Link href="/refund" className="hover:text-gray-300 transition-colors"><T en="Refund" es="Reembolsos" /></Link>
+            <Link href="/privacy" className="hover:text-gray-300 transition-colors"><T en="Privacy" es="Privacidad" /></Link>
+            <Link href="/terms" className="hover:text-gray-300 transition-colors"><T en="Terms" es="Términos" /></Link>
+            <Link href="/disclaimer" className="hover:text-gray-300 transition-colors"><T en="Disclaimer" es="Aviso legal" /></Link>
           </div>
         </div>
       </div>

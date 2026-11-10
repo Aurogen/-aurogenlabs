@@ -4,21 +4,29 @@ import { getServiceClient } from "@/lib/supabase-server";
 import Link from "next/link";
 import { Package, ChevronRight, Clock, Truck, CheckCircle2, AlertCircle } from "lucide-react";
 import type { Metadata } from "next";
+import T from "@/components/T";
 
 export const metadata: Metadata = {
-  title: "My Orders — Aurogen Labs",
+  title: "My Orders",
 };
 
-const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; icon: React.ElementType }> = {
-  delivered: { label: "Delivered",  color: "#1B7A45", bg: "rgba(27,122,69,0.08)",    icon: CheckCircle2 },
-  shipped:   { label: "Shipped",    color: "#0A84FF", bg: "rgba(10,132,255,0.08)",   icon: Truck },
-  processing:{ label: "Processing", color: "#9A6400", bg: "rgba(234,179,8,0.08)",    icon: Clock },
-  pending:   { label: "Pending",    color: "#6E6E73", bg: "rgba(110,110,115,0.10)",  icon: AlertCircle },
+const STATUS_CONFIG: Record<string, { label: React.ReactNode; color: string; bg: string; icon: React.ElementType }> = {
+  delivered: { label: <T en="Delivered" es="Entregado" />,  color: "#1B7A45", bg: "rgba(27,122,69,0.08)",    icon: CheckCircle2 },
+  shipped:   { label: <T en="Shipped" es="Enviado" />,    color: "#0A84FF", bg: "rgba(10,132,255,0.08)",   icon: Truck },
+  processing:{ label: <T en="Processing" es="En proceso" />, color: "#9A6400", bg: "rgba(234,179,8,0.08)",    icon: Clock },
+  pending:   { label: <T en="Pending" es="Pendiente" />,    color: "#6E6E73", bg: "rgba(110,110,115,0.10)",  icon: AlertCircle },
+  paid:      { label: <T en="Paid" es="Pagado" />,       color: "#0A84FF", bg: "rgba(10,132,255,0.08)",   icon: CheckCircle2 },
+  cancelled: { label: <T en="Cancelled" es="Cancelado" />, color: "#C0392B", bg: "rgba(192,57,43,0.08)",    icon: AlertCircle },
+  failed:    { label: <T en="Payment failed" es="Pago fallido" />, color: "#C0392B", bg: "rgba(192,57,43,0.08)", icon: AlertCircle },
 };
+
+function fmtIn(d: string | undefined, locale: string) {
+  if (!d) return "—";
+  return new Date(d).toLocaleDateString(locale, { month: "short", day: "numeric", year: "numeric" });
+}
 
 function fmt(d?: string) {
-  if (!d) return "—";
-  return new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+  return <T en={fmtIn(d, "en-US")} es={fmtIn(d, "es-MX")} />;
 }
 
 interface OrderItem { name: string; concentration?: string; quantity: number; price: number }
@@ -48,7 +56,7 @@ export default async function OrdersPage() {
   return (
     <div className="min-h-screen" style={{ background: "#F6F6F8" }}>
       <div className="max-w-3xl mx-auto px-4 py-12">
-        <h1 className="text-2xl font-bold mb-8" style={{ color: "#1D1D1F" }}>My Orders</h1>
+        <h1 className="text-2xl font-bold mb-8" style={{ color: "#1D1D1F" }}><T en="My Orders" es="Mis pedidos" /></h1>
 
         {orders.length === 0 ? (
           <div
@@ -56,14 +64,14 @@ export default async function OrdersPage() {
             style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
           >
             <Package className="w-10 h-10 mx-auto mb-4" style={{ color: "#D1D1D6" }} />
-            <p className="font-medium mb-1" style={{ color: "#1D1D1F" }}>No orders yet</p>
-            <p className="text-sm mb-6" style={{ color: "#6E6E73" }}>Your research compound orders will appear here.</p>
+            <p className="font-medium mb-1" style={{ color: "#1D1D1F" }}><T en="No orders yet" es="Aún no tienes pedidos" /></p>
+            <p className="text-sm mb-6" style={{ color: "#6E6E73" }}><T en="Your research compound orders will appear here." es="Tus pedidos de compuestos de investigación aparecerán aquí." /></p>
             <Link
               href="/shop"
               className="inline-block px-6 py-3 rounded-xl text-sm font-semibold transition-opacity hover:opacity-75"
               style={{ background: "#1D1D1F", color: "#FFFFFF" }}
             >
-              Browse peptides
+              <T en="Browse peptides" es="Ver péptidos" />
             </Link>
           </div>
         ) : (

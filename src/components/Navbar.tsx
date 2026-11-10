@@ -34,7 +34,7 @@ export default function Navbar() {
   }, [isSignedIn]);
 
   const links = [
-    { href: "/research", label: t("Research Center", "Centro de Investigación") },
+    { href: "/research", label: t("Research Center", "Investigación") },
     { href: "/quality", label: t("Quality", "Calidad") },
     { href: "/affiliates", label: t("Partners", "Partners") },
     { href: "/supplements", label: t("Supplements", "Suplementos") },
@@ -64,7 +64,7 @@ export default function Navbar() {
           borderBottom: `1px solid ${LINE}`,
         }}
       >
-        <div className="max-w-[1440px] mx-auto h-16 lg:h-20 px-5 sm:px-8 md:px-10 flex items-center gap-8 lg:gap-12">
+        <div className="max-w-[1440px] mx-auto h-16 lg:h-20 px-5 sm:px-8 md:px-10 flex items-center gap-8 xl:gap-10 min-[1400px]:gap-12">
           {/* Logo */}
           <Link href="/" className="flex items-center shrink-0" aria-label="Aurogen Labs home">
             <span className="lg:hidden"><Logo height={36} /></span>
@@ -72,7 +72,7 @@ export default function Navbar() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-9 h-full text-[16px] font-medium">
+          <nav className="hidden xl:flex items-center gap-6 min-[1400px]:gap-9 h-full text-[15px] min-[1400px]:text-[16px] font-medium whitespace-nowrap">
             <div
               className="relative h-full flex items-center"
               onMouseEnter={() => setMenu("shop")}
@@ -167,7 +167,7 @@ export default function Navbar() {
                 onMouseEnter={() => setMenu("account")}
                 onMouseLeave={() => setMenu(null)}
               >
-                <button className="flex items-center gap-1 px-2 text-[16px] font-medium" style={{ color: INK }}>
+                <button className="flex items-center gap-1 px-2 text-[16px] font-medium whitespace-nowrap" style={{ color: INK }}>
                   {t("Account", "Cuenta")}
                   <ChevronDown className="w-3.5 h-3.5 opacity-60" />
                 </button>
@@ -197,7 +197,7 @@ export default function Navbar() {
               </div>
             ) : (
               <SignInButton mode="redirect">
-                <button className="hidden md:block px-2 text-[16px] font-medium transition-colors hover:text-[#111111]" style={{ color: MUTED }}>
+                <button className="hidden md:block px-2 text-[16px] font-medium whitespace-nowrap transition-colors hover:text-[#111111]" style={{ color: MUTED }}>
                   {t("Sign in", "Iniciar sesión")}
                 </button>
               </SignInButton>
@@ -222,14 +222,14 @@ export default function Navbar() {
 
             <Link
               href="/shop"
-              className="hidden lg:flex items-center h-11 px-6 ml-1 rounded-full text-[16px] font-semibold transition-opacity hover:opacity-90"
+              className="hidden min-[1400px]:flex items-center h-11 px-6 ml-1 rounded-full text-[16px] font-semibold whitespace-nowrap transition-opacity hover:opacity-90"
               style={{ background: INK, color: "#FFFFFF" }}
             >
               {t("Shop now", "Comprar")}
             </Link>
 
             <button
-              className="lg:hidden w-10 h-10 flex items-center justify-center rounded-full transition-colors hover:bg-black/5"
+              className="xl:hidden w-10 h-10 flex items-center justify-center rounded-full transition-colors hover:bg-black/5"
               style={{ color: INK }}
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Menu"
@@ -242,7 +242,7 @@ export default function Navbar() {
 
         {/* Mobile menu */}
         {mobileOpen && (
-          <div className="lg:hidden" style={{ background: "#F5F4F0", borderTop: `1px solid ${LINE}` }}>
+          <div className="xl:hidden" style={{ background: "#F5F4F0", borderTop: `1px solid ${LINE}` }}>
             <div className="px-5 sm:px-8 py-2">
               {[{ href: "/shop", label: t("Shop all", "Toda la tienda") }, ...links].map((l) => (
                 <Link

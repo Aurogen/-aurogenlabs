@@ -13,16 +13,27 @@ import type { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 import NotifyModal from "./NotifyModal";
 import ProductCard from "./ProductCard";
+import { useLanguage } from "@/context/LanguageContext";
+import { categoryLabel, productLongDescription, purityLabel, sizeLabel, storageLabel } from "@/data/products-es";
 
 type Tab = "desc" | "specs" | "faq";
 
-const FAQ_ITEMS = [
-  { q: "What solvent should I use for reconstitution?", a: "Use sterile bacteriostatic water (BAC water) for reconstitution. Add the solvent slowly along the vial wall to minimize foaming. Do not use regular sterile water as it does not preserve the peptide as long." },
-  { q: "How should I store the reconstituted peptide?", a: "Follow the label: store vials cold (2–8 °C), protected from light, and do not freeze. Once reconstituted, keep refrigerated at 2–8 °C." },
-  { q: "What does 'research use only' mean?", a: "Our peptides are sold exclusively for in-vitro laboratory and scientific research purposes. They are not intended for human consumption, are not drugs or supplements, and have not been evaluated by the FDA." },
-  { q: "How do I calculate the concentration after reconstitution?", a: "Divide the peptide mass by the solvent volume. For example, 10 mg reconstituted in 2 mL of solvent yields a 5 mg/mL solution. Follow the handling procedures defined in your laboratory's own protocol." },
-  { q: "Do you provide a Certificate of Analysis (COA)?", a: "Yes. Every batch has a third-party COA verifiable via batch number. Access it from the Research Center or contact our team with your order number." },
-];
+const FAQ_ITEMS = {
+  en: [
+    { q: "What solvent should I use for reconstitution?", a: "Use sterile bacteriostatic water (BAC water) for reconstitution. Add the solvent slowly along the vial wall to minimize foaming. Do not use regular sterile water as it does not preserve the peptide as long." },
+    { q: "How should I store the reconstituted peptide?", a: "Follow the label: store vials cold (2–8 °C), protected from light, and do not freeze. Once reconstituted, keep refrigerated at 2–8 °C." },
+    { q: "What does 'research use only' mean?", a: "Our peptides are sold exclusively for in-vitro laboratory and scientific research purposes. They are not intended for human consumption, are not drugs or supplements, and have not been evaluated by the FDA." },
+    { q: "How do I calculate the concentration after reconstitution?", a: "Divide the peptide mass by the solvent volume. For example, 10 mg reconstituted in 2 mL of solvent yields a 5 mg/mL solution. Follow the handling procedures defined in your laboratory's own protocol." },
+    { q: "Do you provide a Certificate of Analysis (COA)?", a: "Yes. Every batch has a third-party COA verifiable via batch number. Access it from the Research Center or contact our team with your order number." },
+  ],
+  es: [
+    { q: "¿Qué solvente debo usar para la reconstitución?", a: "Usa agua bacteriostática estéril (agua BAC) para la reconstitución. Agrega el solvente lentamente por la pared del vial para minimizar la espuma. No uses agua estéril común, ya que no conserva el péptido por tanto tiempo." },
+    { q: "¿Cómo debo guardar el péptido reconstituido?", a: "Sigue la etiqueta: guarda los viales en frío (2–8 °C), protegidos de la luz, y no los congeles. Una vez reconstituido, mantenlo refrigerado a 2–8 °C." },
+    { q: "¿Qué significa «solo para uso en investigación»?", a: "Nuestros péptidos se venden exclusivamente para fines de investigación científica y de laboratorio in vitro. No están destinados al consumo humano, no son medicamentos ni suplementos y no han sido evaluados por la FDA." },
+    { q: "¿Cómo calculo la concentración después de la reconstitución?", a: "Divide la masa del péptido entre el volumen de solvente. Por ejemplo, 10 mg reconstituidos en 2 mL de solvente dan una solución de 5 mg/mL. Sigue los procedimientos de manejo definidos en el protocolo de tu propio laboratorio." },
+    { q: "¿Ofrecen un Certificado de Análisis (COA)?", a: "Sí. Cada lote tiene un COA de un laboratorio externo, verificable con el número de lote. Consúltalo en el Centro de Investigación o contacta a nuestro equipo con tu número de pedido." },
+  ],
+};
 
 interface Props {
   product: Product;
@@ -33,6 +44,7 @@ interface Props {
 
 export default function ProductDetail({ product, related, variants = [] }: Props) {
   const { addItem } = useCart();
+  const { lang, t } = useLanguage();
   const [qty, setQty] = useState(1);
   const [added, setAdded] = useState(false);
   const [showNotify, setShowNotify] = useState(false);
@@ -73,9 +85,9 @@ export default function ProductDetail({ product, related, variants = [] }: Props
   }
 
   const TABS: { id: Tab; label: string; icon: React.ElementType }[] = [
-    { id: "desc", label: "Description", icon: FileText },
-    { id: "specs", label: "Specifications", icon: Scale },
-    { id: "faq", label: "FAQ", icon: ChevronDown },
+    { id: "desc", label: t("Description", "Descripción"), icon: FileText },
+    { id: "specs", label: t("Specifications", "Especificaciones"), icon: Scale },
+    { id: "faq", label: t("FAQ", "Preguntas frecuentes"), icon: ChevronDown },
   ];
 
   return (
@@ -83,9 +95,9 @@ export default function ProductDetail({ product, related, variants = [] }: Props
       <div className="max-w-7xl mx-auto px-4 pt-6 pb-28 lg:py-10">
         {/* Breadcrumb */}
         <nav className="flex items-center justify-center lg:justify-start gap-2 text-sm mb-6 lg:mb-8" style={{ color: "#9E9EA8" }}>
-          <Link href="/" className="transition-opacity hover:opacity-70" style={{ color: "#6E6E73" }}>Home</Link>
+          <Link href="/" className="transition-opacity hover:opacity-70" style={{ color: "#6E6E73" }}>{t("Home", "Inicio")}</Link>
           <ChevronRight className="w-3 h-3" />
-          <Link href="/shop" className="transition-opacity hover:opacity-70" style={{ color: "#6E6E73" }}>Shop</Link>
+          <Link href="/shop" className="transition-opacity hover:opacity-70" style={{ color: "#6E6E73" }}>{t("Shop", "Tienda")}</Link>
           <ChevronRight className="w-3 h-3" />
           <span style={{ color: "#1D1D1F" }}>{product.name}</span>
         </nav>
@@ -118,7 +130,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
                   className="absolute top-4 right-4 px-3 py-1.5 rounded-full text-xs font-bold"
                   style={{ background: "rgba(220,38,38,0.08)", color: "#DC2626", border: "1px solid rgba(220,38,38,0.18)" }}
                 >
-                  Out of Stock
+                  {t("Out of Stock", "Agotado")}
                 </div>
               )}
             </motion.div>
@@ -126,9 +138,9 @@ export default function ProductDetail({ product, related, variants = [] }: Props
             {/* Trust badges */}
             <div className="grid grid-cols-3 gap-3 mt-4">
               {[
-                { label: "Third-Party Tested", icon: CheckCircle },
-                { label: product.purity + " Purity", icon: FlaskConical },
-                { label: "COA Verified", icon: FileText },
+                { label: t("Third-Party Tested", "Analizado por terceros"), icon: CheckCircle },
+                { label: t(product.purity + " Purity", "Pureza " + purityLabel(product.purity, lang)), icon: FlaskConical },
+                { label: t("COA Verified", "COA verificado"), icon: FileText },
               ].map(({ label, icon: Icon }) => (
                 <div
                   key={label}
@@ -158,7 +170,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
                   className="px-3 py-1 rounded text-xs font-medium tracking-wide transition-opacity hover:opacity-80"
                   style={{ background: "rgba(10,132,255,0.06)", color: "#0A84FF", border: "1px solid rgba(10,132,255,0.15)" }}
                 >
-                  {g}
+                  {categoryLabel(g, lang)}
                 </Link>
               ))}
             </div>
@@ -174,8 +186,8 @@ export default function ProductDetail({ product, related, variants = [] }: Props
             {/* Dose selector: each dose is its own product page (price, stock and COA per dose) */}
             {variants.length > 1 && (
               <div className="mb-5">
-                <p className="text-[11px] tracking-wide font-medium mb-2" style={{ color: "#9E9EA8" }}>DOSE</p>
-                <div className="flex flex-wrap justify-center lg:justify-start gap-2" role="radiogroup" aria-label="Dose">
+                <p className="text-[11px] tracking-wide font-medium mb-2" style={{ color: "#9E9EA8" }}>{t("DOSE", "DOSIS")}</p>
+                <div className="flex flex-wrap justify-center lg:justify-start gap-2" role="radiogroup" aria-label={t("Dose", "Dosis")}>
                   {variants.map((v) => {
                     const active = v.slug === product.slug;
                     return (
@@ -219,7 +231,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
                     className="px-2 py-0.5 rounded text-xs font-bold"
                     style={{ background: "rgba(27,122,69,0.08)", color: "#1B7A45", border: "1px solid rgba(27,122,69,0.18)" }}
                   >
-                    Save ${(product.originalPrice - product.price).toFixed(2)}
+                    {t("Save", "Ahorra")} ${(product.originalPrice - product.price).toFixed(2)}
                   </span>
                 </>
               )}
@@ -228,10 +240,10 @@ export default function ProductDetail({ product, related, variants = [] }: Props
             {/* Quick specs */}
             <div className="grid grid-cols-2 gap-3 mb-5">
               {[
-                { icon: Package, label: "Size", value: `${product.concentration} · ${product.size}` },
-                { icon: FlaskConical, label: "Purity", value: product.purity },
-                { icon: Thermometer, label: "Storage", value: product.storage },
-                { icon: Scale, label: "Mol. Weight", value: product.molecularWeight || "N/A" },
+                { icon: Package, label: t("Size", "Tamaño"), value: `${product.concentration} · ${sizeLabel(product.size, lang)}` },
+                { icon: FlaskConical, label: t("Purity", "Pureza"), value: purityLabel(product.purity, lang) },
+                { icon: Thermometer, label: t("Storage", "Almacenamiento"), value: storageLabel(product.storage, lang) },
+                { icon: Scale, label: t("Mol. Weight", "Peso mol."), value: product.molecularWeight || t("N/A", "N/D") },
               ].map(({ icon: Icon, label, value }) => (
                 <div
                   key={label}
@@ -256,7 +268,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
             >
               <p className="text-xs flex items-center gap-2" style={{ color: "#0A84FF" }}>
                 <span>⚠️</span>
-                <span>For Research Use Only · Not for Human Consumption · Not a drug or supplement</span>
+                <span>{t("For Research Use Only · Not for Human Consumption · Not a drug or supplement", "Solo para uso en investigación · No apto para consumo humano · No es un medicamento ni un suplemento")}</span>
               </p>
             </div>
 
@@ -269,7 +281,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
                 >
                   <button
                     onClick={() => setQty(Math.max(1, qty - 1))}
-                    aria-label="Decrease quantity"
+                    aria-label={t("Decrease quantity", "Disminuir cantidad")}
                     className="w-11 h-12 transition-opacity hover:opacity-70"
                     style={{ color: "#6E6E73" }}
                   >
@@ -278,7 +290,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
                   <span className="px-3 font-medium min-w-8 text-center" style={{ color: "#1D1D1F" }}>{qty}</span>
                   <button
                     onClick={() => setQty(qty + 1)}
-                    aria-label="Increase quantity"
+                    aria-label={t("Increase quantity", "Aumentar cantidad")}
                     className="w-11 h-12 transition-opacity hover:opacity-70"
                     style={{ color: "#6E6E73" }}
                   >
@@ -295,7 +307,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
                   }}
                 >
                   <ShoppingCart className="w-5 h-5" />
-                  {added ? "Added!" : "Add to Cart"}
+                  {added ? t("Added!", "¡Añadido!") : t("Add to Cart", "Añadir al carrito")}
                 </motion.button>
               </div>
             ) : (
@@ -305,7 +317,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
                 style={{ border: "1px solid rgba(0,0,0,0.15)", color: "#1D1D1F", background: "#FFFFFF" }}
               >
                 <Bell className="w-5 h-5" />
-                Notify Me When In Stock
+                {t("Notify Me When In Stock", "Avísame cuando vuelva a haber stock")}
               </button>
             )}
 
@@ -318,7 +330,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
                 style={{ border: "1px solid rgba(0,0,0,0.10)", color: "#6E6E73", background: "#FFFFFF" }}
               >
                 <FileText className="w-4 h-4" />
-                View Certificate of Analysis (COA)
+                {t("View Certificate of Analysis (COA)", "Ver Certificado de Análisis (COA)")}
               </a>
             ) : (
               <button
@@ -327,7 +339,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
                 style={{ border: "1px solid rgba(0,0,0,0.10)", color: "#6E6E73", background: "#FFFFFF" }}
               >
                 <FileText className="w-4 h-4" />
-                COA Coming Soon
+                {t("COA Coming Soon", "COA disponible pronto")}
               </button>
             )}
           </motion.div>
@@ -367,13 +379,13 @@ export default function ProductDetail({ product, related, variants = [] }: Props
             >
               {activeTab === "desc" && (
                 <div>
-                  <p className="leading-relaxed mb-4" style={{ color: "#1D1D1F" }}>{product.longDescription}</p>
+                  <p className="leading-relaxed mb-4" style={{ color: "#1D1D1F" }}>{productLongDescription(product, lang)}</p>
                   <ul className="space-y-2 mb-5">
                     {[
-                      "Lyophilized for maximum stability",
-                      "Verified via HPLC and mass spectrometry",
-                      "Batch-specific COA available",
-                      "Ships with cold pack for temperature-sensitive compounds",
+                      t("Lyophilized for maximum stability", "Liofilizado para máxima estabilidad"),
+                      t("Verified via HPLC and mass spectrometry", "Verificado mediante HPLC y espectrometría de masas"),
+                      t("Batch-specific COA available", "COA específico del lote disponible"),
+                      t("Ships with cold pack for temperature-sensitive compounds", "Se envía con gel refrigerante para compuestos sensibles a la temperatura"),
                     ].map((item) => (
                       <li key={item} className="flex items-center gap-2 text-sm" style={{ color: "#6E6E73" }}>
                         <CheckCircle className="w-4 h-4 shrink-0" style={{ color: "#1B7A45" }} />
@@ -385,10 +397,12 @@ export default function ProductDetail({ product, related, variants = [] }: Props
                     className="p-4 rounded-xl"
                     style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)" }}
                   >
-                    <p className="text-base font-bold mb-1.5" style={{ color: "#0A84FF" }}>Research Disclaimer</p>
+                    <p className="text-base font-bold mb-1.5" style={{ color: "#0A84FF" }}>{t("Research Disclaimer", "Aviso de investigación")}</p>
                     <p className="text-sm font-bold leading-relaxed" style={{ color: "#0A84FF" }}>
-                      All research peptides sold by Aurogen Labs are intended for laboratory and scientific research purposes only.
-                      These compounds are not intended for human consumption and have not been evaluated by the FDA.
+                      {t(
+                        "All research peptides sold by Aurogen Labs are intended for laboratory and scientific research purposes only. These compounds are not intended for human consumption and have not been evaluated by the FDA.",
+                        "Todos los péptidos de investigación que vende Aurogen Labs están destinados únicamente a fines de investigación científica y de laboratorio. Estos compuestos no son para consumo humano y no han sido evaluados por la FDA.",
+                      )}
                     </p>
                   </div>
                 </div>
@@ -397,13 +411,13 @@ export default function ProductDetail({ product, related, variants = [] }: Props
               {activeTab === "specs" && (
                 <div className="grid sm:grid-cols-2 gap-x-8">
                   {[
-                    ["Concentration", product.concentration],
-                    ["Purity", product.purity],
-                    ["Molecular Weight", product.molecularWeight || "N/A"],
-                    ["Form", "Lyophilized Powder"],
-                    ["Solvent", "Bacteriostatic Water (BAC)"],
-                    ["Appearance", "White to off-white powder"],
-                    ["Storage", product.storage],
+                    [t("Concentration", "Concentración"), product.concentration],
+                    [t("Purity", "Pureza"), purityLabel(product.purity, lang)],
+                    [t("Molecular Weight", "Peso molecular"), product.molecularWeight || t("N/A", "N/D")],
+                    [t("Form", "Forma"), t("Lyophilized Powder", "Polvo liofilizado")],
+                    [t("Solvent", "Solvente"), t("Bacteriostatic Water (BAC)", "Agua bacteriostática (BAC)")],
+                    [t("Appearance", "Apariencia"), t("White to off-white powder", "Polvo de blanco a blanquecino")],
+                    [t("Storage", "Almacenamiento"), storageLabel(product.storage, lang)],
                   ].map(([k, v]) => (
                     <div
                       key={k}
@@ -419,7 +433,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
 
               {activeTab === "faq" && (
                 <div className="space-y-2">
-                  {FAQ_ITEMS.map((item, i) => (
+                  {FAQ_ITEMS[lang].map((item, i) => (
                     <div
                       key={i}
                       className="rounded-xl overflow-hidden"
@@ -466,7 +480,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
               className="text-3xl font-bold mb-6 text-center lg:text-left"
               style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
             >
-              You may also need
+              {t("You may also need", "También podrías necesitar")}
             </h2>
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
               {related.map((p, i) => <ProductCard key={p.id} product={p} index={i} />)}
@@ -499,7 +513,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
               className="h-12 px-6 rounded-full text-[15px] font-semibold text-white shrink-0 transition-colors"
               style={{ background: added ? "#1B7A45" : "#111111" }}
             >
-              {added ? "Added" : "Add to cart"}
+              {added ? t("Added", "Añadido") : t("Add to cart", "Añadir al carrito")}
             </button>
           </div>
         </div>

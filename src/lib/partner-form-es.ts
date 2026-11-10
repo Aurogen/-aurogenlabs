@@ -1,0 +1,29 @@
+// Spanish for the default partner-form texts (src/lib/partner-form.ts). Used for display only:
+// answers are still sent with the English option values. Text an admin writes in the panel has
+// no entry here, so it is shown as written.
+const ES: Record<string, string> = {
+  "Apply to become a partner": "Solicita ser partner",
+  "Tell us about you and your audience. Our team reviews every application and replies by email within a few business days.":
+    "Cuéntanos sobre ti y tu audiencia. Nuestro equipo revisa cada solicitud y responde por correo en unos pocos días hábiles.",
+  "Thanks for applying! Our team will review your application and reply by email within a few business days.":
+    "¡Gracias por tu solicitud! Nuestro equipo la revisará y te responderá por correo en unos pocos días hábiles.",
+  "Main social profile or website": "Perfil social principal o sitio web",
+  "https://instagram.com/yourhandle": "https://instagram.com/tuusuario",
+  "Main platform": "Plataforma principal",
+  "Blog / Website": "Blog / Sitio web",
+  Other: "Otra",
+  "Audience size": "Tamaño de la audiencia",
+  "Under 1,000": "Menos de 1,000",
+  Country: "País",
+  "Who is your audience?": "¿Quién es tu audiencia?",
+  "e.g. researchers, lab professionals, science educators": "p. ej. investigadores, profesionales de laboratorio, divulgadores científicos",
+  "How would you promote Aurogen Labs?": "¿Cómo promocionarías Aurogen Labs?",
+  "Content formats, frequency, channels…": "Formatos de contenido, frecuencia, canales…",
+  "I understand all products are for laboratory research use only, and I will not make health, dosing or human-use claims when promoting them.":
+    "Entiendo que todos los productos son solo para uso de investigación en laboratorio, y no haré afirmaciones de salud, dosificación ni uso en humanos al promocionarlos.",
+};
+
+export function partnerFormText(text: string | undefined, lang: string) {
+  if (!text || lang !== "es") return text ?? "";
+  return ES[text.trim()] ?? text;
+}

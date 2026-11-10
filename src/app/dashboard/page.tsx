@@ -21,6 +21,7 @@ import {
   BarChart2,
 } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface OrderItem {
   name: string;
@@ -34,34 +35,40 @@ interface Order {
   date: string;
   items: OrderItem[];
   total: number;
-  status: "delivered" | "shipped" | "processing" | "pending";
+  status: string;
 }
 
 const QUICK_ACTIONS = [
-  { icon: ShoppingBag, label: "Shop Now", desc: "Browse all peptides", href: "/shop" },
-  { icon: BookOpen, label: "Research Center", desc: "Guides & resources", href: "/research" },
-  { icon: FileText, label: "Protocols", desc: "Research protocols", href: "/protocols" },
-  { icon: Users, label: "Affiliates", desc: "Earn commissions", href: "/affiliates" },
+  { icon: ShoppingBag, label: "Shop Now", labelEs: "Comprar ahora", desc: "Browse all peptides", descEs: "Ver todos los péptidos", href: "/shop" },
+  { icon: BookOpen, label: "Research Center", labelEs: "Centro de investigación", desc: "Guides & resources", descEs: "Guías y recursos", href: "/research" },
+  { icon: FileText, label: "Protocols", labelEs: "Protocolos", desc: "Research protocols", descEs: "Protocolos de investigación", href: "/protocols" },
+  { icon: Users, label: "Affiliates", labelEs: "Afiliados", desc: "Earn commissions", descEs: "Gana comisiones", href: "/affiliates" },
 ];
 
 const STATUS_CONFIG = {
-  delivered: { label: "Delivered", color: "#1B7A45", bg: "rgba(27,122,69,0.08)", icon: CheckCircle2 },
-  shipped: { label: "Shipped", color: "#6B7A8D", bg: "rgba(10,132,255,0.08)", icon: Truck },
-  processing: { label: "Processing", color: "#0A84FF", bg: "rgba(10,132,255,0.08)", icon: Clock },
-  pending: { label: "Pending", color: "#9E9EA8", bg: "rgba(158,158,168,0.10)", icon: AlertCircle },
+  delivered: { label: "Delivered", es: "Entregado", color: "#1B7A45", bg: "rgba(27,122,69,0.08)", icon: CheckCircle2 },
+  shipped: { label: "Shipped", es: "Enviado", color: "#6B7A8D", bg: "rgba(10,132,255,0.08)", icon: Truck },
+  processing: { label: "Processing", es: "En proceso", color: "#0A84FF", bg: "rgba(10,132,255,0.08)", icon: Clock },
+  paid: { label: "Paid", es: "Pagado", color: "#0A84FF", bg: "rgba(10,132,255,0.08)", icon: CheckCircle2 },
+  pending: { label: "Pending", es: "Pendiente", color: "#9E9EA8", bg: "rgba(158,158,168,0.10)", icon: AlertCircle },
+  cancelled: { label: "Cancelled", es: "Cancelado", color: "#C0392B", bg: "rgba(192,57,43,0.08)", icon: AlertCircle },
+  failed: { label: "Payment failed", es: "Pago fallido", color: "#C0392B", bg: "rgba(192,57,43,0.08)", icon: AlertCircle },
 };
+// Any status not listed above shows as pending instead of breaking the page.
+const statusOf = (s: string) => STATUS_CONFIG[s as keyof typeof STATUS_CONFIG] ?? STATUS_CONFIG.pending;
 
-function formatDate(d: string) {
-  return new Date(d).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+function formatDate(d: string, locale = "en-US") {
+  return new Date(d).toLocaleDateString(locale, { month: "short", day: "numeric", year: "numeric" });
 }
 
 export default function DashboardPage() {
   const { state: cartState, totalPrice, totalItems } = useCart();
   const { user, isLoaded } = useUser();
+  const { t } = useLanguage();
   const [orders, setOrders] = useState<Order[]>([]);
   const [activeTab, setActiveTab] = useState<"overview" | "orders" | "profile">("overview");
 
-  const userName = user?.firstName ?? user?.username ?? "Researcher";
+  const userName = user?.firstName ?? user?.username ?? t("Researcher", "Investigador");
   const userEmail = user?.primaryEmailAddress?.emailAddress ?? "";
 
   useEffect(() => {
@@ -87,10 +94,10 @@ export default function DashboardPage() {
   const loyaltyPoints = Math.round(totalSpent * 3.7);
 
   const STATS = [
-    { icon: Package, label: "Total Orders", value: orders.length.toString(), accent: "#6B7A8D" },
-    { icon: DollarSign, label: "Total Spent", value: `$${totalSpent.toFixed(0)}`, accent: "#1B7A45" },
-    { icon: FlaskConical, label: "Compounds", value: uniqueCompounds.toString(), accent: "#6B7A8D" },
-    { icon: Star, label: "Loyalty Points", value: loyaltyPoints.toLocaleString(), accent: "#6B7A8D" },
+    { icon: Package, label: t("Total Orders", "Pedidos totales"), value: orders.length.toString(), accent: "#6B7A8D" },
+    { icon: DollarSign, label: t("Total Spent", "Total gastado"), value: `$${totalSpent.toFixed(0)}`, accent: "#1B7A45" },
+    { icon: FlaskConical, label: t("Compounds", "Compuestos"), value: uniqueCompounds.toString(), accent: "#6B7A8D" },
+    { icon: Star, label: t("Loyalty Points", "Puntos de lealtad"), value: loyaltyPoints.toLocaleString(), accent: "#6B7A8D" },
   ];
 
   return (
@@ -107,13 +114,13 @@ export default function DashboardPage() {
             </div>
             <div>
               <p className="text-xs font-bold tracking-[0.25em] mb-1" style={{ color: "#6E6E73" }}>
-                Researcher Account
+                {t("Researcher Account", "Cuenta de investigador")}
               </p>
               <h1
                 className="text-2xl font-bold"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
-                Welcome back, {userName}
+                {t("Welcome back", "Hola de nuevo")}, {userName}
               </h1>
               <p className="text-sm mt-0.5" style={{ color: "#9E9EA8" }}>
                 {userEmail}
@@ -144,7 +151,7 @@ export default function DashboardPage() {
                   : { color: "#6E6E73", background: "transparent" }
               }
             >
-              {tab === "overview" ? "Overview" : tab === "orders" ? "My Orders" : "Profile"}
+              {tab === "overview" ? t("Overview", "Resumen") : tab === "orders" ? t("My Orders", "Mis pedidos") : t("Profile", "Perfil")}
             </button>
           ))}
         </div>
@@ -181,6 +188,8 @@ function OverviewTab({
   totalPrice: number;
 }) {
   const recentOrders = orders.slice(0, 3);
+  const { lang, t } = useLanguage();
+  const locale = lang === "es" ? "es-MX" : "en-US";
 
   return (
     <div className="space-y-8">
@@ -223,15 +232,15 @@ function OverviewTab({
               className="font-bold text-lg"
               style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
             >
-              Recent Orders
+              {t("Recent Orders", "Pedidos recientes")}
             </h2>
             <button className="text-sm font-medium transition-opacity hover:opacity-70" style={{ color: "#6B7A8D" }}>
-              View all →
+              {t("View all", "Ver todos")} →
             </button>
           </div>
           <div>
             {recentOrders.map((order, i) => {
-              const sc = STATUS_CONFIG[order.status];
+              const sc = statusOf(order.status);
               const StatusIcon = sc.icon;
               return (
                 <div
@@ -247,13 +256,13 @@ function OverviewTab({
                         style={{ background: sc.bg, color: sc.color }}
                       >
                         <StatusIcon className="w-2.5 h-2.5" />
-                        {sc.label}
+                        {t(sc.label, sc.es)}
                       </span>
                     </div>
                     <p className="text-xs truncate" style={{ color: "#6E6E73" }}>
                       {order.items.map((i) => `${i.name} ×${i.quantity}`).join(" · ")}
                     </p>
-                    <p className="text-xs mt-0.5" style={{ color: "#9E9EA8" }}>{formatDate(order.date)}</p>
+                    <p className="text-xs mt-0.5" style={{ color: "#9E9EA8" }}>{formatDate(order.date, locale)}</p>
                   </div>
                   <div className="text-right shrink-0">
                     <p className="font-bold" style={{ color: "#1B7A45" }}>${order.total.toFixed(2)}</p>
@@ -276,7 +285,7 @@ function OverviewTab({
                 className="font-bold mb-3 text-sm"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
-                Cart in Progress
+                {t("Cart in Progress", "Carrito en curso")}
               </h3>
               <div className="space-y-2 mb-4">
                 {cartItems.slice(0, 3).map((item) => (
@@ -288,11 +297,11 @@ function OverviewTab({
                   </div>
                 ))}
                 {cartItems.length > 3 && (
-                  <p className="text-xs" style={{ color: "#9E9EA8" }}>+{cartItems.length - 3} more items</p>
+                  <p className="text-xs" style={{ color: "#9E9EA8" }}>{t(`+${cartItems.length - 3} more items`, `+${cartItems.length - 3} productos más`)}</p>
                 )}
               </div>
               <div className="flex justify-between mb-3">
-                <span className="text-sm" style={{ color: "#6E6E73" }}>Total</span>
+                <span className="text-sm" style={{ color: "#6E6E73" }}>{t("Total", "Total")}</span>
                 <span className="font-bold" style={{ color: "#1B7A45" }}>${totalPrice.toFixed(2)}</span>
               </div>
               <Link
@@ -300,7 +309,7 @@ function OverviewTab({
                 className="w-full flex items-center justify-center gap-2 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-85"
                 style={{ background: "#1D1D1F" }}
               >
-                Proceed to Checkout
+                {t("Proceed to Checkout", "Ir a pagar")}
                 <ChevronRight className="w-4 h-4" />
               </Link>
             </div>
@@ -313,7 +322,7 @@ function OverviewTab({
           >
             <div className="flex items-center justify-between mb-3">
               <h3 className="font-bold text-sm" style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}>
-                Loyalty Status
+                {t("Loyalty Status", "Nivel de lealtad")}
               </h3>
               <Star className="w-4 h-4 fill-current" style={{ color: "#6B7A8D" }} />
             </div>
@@ -321,7 +330,7 @@ function OverviewTab({
             <div className="w-full rounded-full h-1.5 mb-2" style={{ background: "rgba(10,132,255,0.15)" }}>
               <div className="h-1.5 rounded-full" style={{ width: "68%", background: "#6B7A8D" }} />
             </div>
-            <p className="text-xs" style={{ color: "#0A84FF" }}>680 pts to Elite tier · Earn 3.7 pts per $1</p>
+            <p className="text-xs" style={{ color: "#0A84FF" }}>{t("680 pts to Elite tier · Earn 3.7 pts per $1", "680 pts para el nivel Elite · Gana 3.7 pts por cada $1")}</p>
           </div>
         </div>
       </div>
@@ -332,7 +341,7 @@ function OverviewTab({
           className="font-bold text-lg mb-4"
           style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
         >
-          Quick Actions
+          {t("Quick Actions", "Accesos rápidos")}
         </h2>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {QUICK_ACTIONS.map((a) => (
@@ -349,8 +358,8 @@ function OverviewTab({
                 <a.icon className="w-5 h-5" style={{ color: "#6B7A8D" }} />
               </div>
               <div>
-                <p className="font-bold text-sm" style={{ color: "#1D1D1F" }}>{a.label}</p>
-                <p className="text-xs mt-0.5" style={{ color: "#6E6E73" }}>{a.desc}</p>
+                <p className="font-bold text-sm" style={{ color: "#1D1D1F" }}>{t(a.label, a.labelEs)}</p>
+                <p className="text-xs mt-0.5" style={{ color: "#6E6E73" }}>{t(a.desc, a.descEs)}</p>
               </div>
             </Link>
           ))}
@@ -367,11 +376,11 @@ function OverviewTab({
             className="font-bold text-lg"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
-            Spending Activity
+            {t("Spending Activity", "Actividad de compras")}
           </h2>
           <div className="flex items-center gap-1" style={{ color: "#9E9EA8" }}>
             <BarChart2 className="w-3.5 h-3.5" />
-            <span className="text-xs">Last 6 months</span>
+            <span className="text-xs">{t("Last 6 months", "Últimos 6 meses")}</span>
           </div>
         </div>
         <SpendingChart orders={orders} />
@@ -381,10 +390,11 @@ function OverviewTab({
 }
 
 function SpendingChart({ orders }: { orders: Order[] }) {
+  const { lang } = useLanguage();
   const now = new Date();
   const months = Array.from({ length: 6 }, (_, i) => {
     const d = new Date(now.getFullYear(), now.getMonth() - 5 + i, 1);
-    return { label: d.toLocaleString("en-US", { month: "short" }), key: `${d.getFullYear()}-${d.getMonth()}` };
+    return { label: d.toLocaleString(lang === "es" ? "es-MX" : "en-US", { month: "short" }), key: `${d.getFullYear()}-${d.getMonth()}` };
   });
 
   const values = months.map(({ key }) =>
@@ -423,6 +433,8 @@ function SpendingChart({ orders }: { orders: Order[] }) {
 }
 
 function OrdersTab({ orders }: { orders: Order[] }) {
+  const { lang, t } = useLanguage();
+  const locale = lang === "es" ? "es-MX" : "en-US";
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
@@ -430,13 +442,13 @@ function OrdersTab({ orders }: { orders: Order[] }) {
           className="font-bold text-xl"
           style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
         >
-          Order History
+          {t("Order History", "Historial de pedidos")}
         </h2>
-        <span className="text-sm" style={{ color: "#6E6E73" }}>{orders.length} orders total</span>
+        <span className="text-sm" style={{ color: "#6E6E73" }}>{t(`${orders.length} orders total`, `${orders.length} pedidos en total`)}</span>
       </div>
 
       {orders.map((order) => {
-        const sc = STATUS_CONFIG[order.status];
+        const sc = statusOf(order.status);
         const StatusIcon = sc.icon;
         return (
           <div
@@ -458,10 +470,10 @@ function OrdersTab({ orders }: { orders: Order[] }) {
                     style={{ background: sc.bg, color: sc.color }}
                   >
                     <StatusIcon className="w-3 h-3" />
-                    {sc.label}
+                    {t(sc.label, sc.es)}
                   </span>
                 </div>
-                <p className="text-sm mb-3" style={{ color: "#9E9EA8" }}>{formatDate(order.date)}</p>
+                <p className="text-sm mb-3" style={{ color: "#9E9EA8" }}>{formatDate(order.date, locale)}</p>
                 <div className="space-y-1.5">
                   {order.items.map((item, j) => (
                     <div key={j} className="flex items-center gap-2 text-sm">
@@ -474,7 +486,7 @@ function OrdersTab({ orders }: { orders: Order[] }) {
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-xs mb-1" style={{ color: "#6E6E73" }}>Order Total</p>
+                <p className="text-xs mb-1" style={{ color: "#6E6E73" }}>{t("Order Total", "Total del pedido")}</p>
                 <p
                   className="font-bold text-2xl"
                   style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1B7A45" }}
@@ -486,7 +498,7 @@ function OrdersTab({ orders }: { orders: Order[] }) {
                   className="inline-flex items-center gap-1 mt-3 text-sm font-medium transition-opacity hover:opacity-70"
                   style={{ color: "#6B7A8D" }}
                 >
-                  Reorder
+                  {t("Reorder", "Volver a pedir")}
                   <ChevronRight className="w-3.5 h-3.5" />
                 </Link>
               </div>
@@ -500,13 +512,14 @@ function OrdersTab({ orders }: { orders: Order[] }) {
 
 function ProfileTab() {
   const { user } = useUser();
+  const { t } = useLanguage();
   return (
     <div className="max-w-2xl space-y-6">
       <h2
         className="font-bold text-xl"
         style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
       >
-        Profile Settings
+        {t("Profile Settings", "Configuración del perfil")}
       </h2>
 
       {/* Personal info */}
@@ -516,13 +529,13 @@ function ProfileTab() {
       >
         <div className="flex items-center gap-2 mb-5">
           <Settings className="w-4 h-4" style={{ color: "#6B7A8D" }} />
-          <h3 className="font-bold" style={{ color: "#1D1D1F" }}>Personal Information</h3>
+          <h3 className="font-bold" style={{ color: "#1D1D1F" }}>{t("Personal Information", "Información personal")}</h3>
         </div>
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-xs mb-1.5 tracking-[0.12em] font-medium" style={{ color: "#9E9EA8" }}>
-                FIRST NAME
+                {t("FIRST NAME", "NOMBRE")}
               </label>
               <input
                 defaultValue={user?.firstName ?? ""}
@@ -533,7 +546,7 @@ function ProfileTab() {
             </div>
             <div>
               <label className="block text-xs mb-1.5 tracking-[0.12em] font-medium" style={{ color: "#9E9EA8" }}>
-                LAST NAME
+                {t("LAST NAME", "APELLIDO")}
               </label>
               <input
                 defaultValue={user?.lastName ?? ""}
@@ -545,7 +558,7 @@ function ProfileTab() {
           </div>
           <div>
             <label className="block text-xs mb-1.5 tracking-[0.12em] font-medium" style={{ color: "#9E9EA8" }}>
-              EMAIL
+              {t("EMAIL", "CORREO ELECTRÓNICO")}
             </label>
             <input
               defaultValue={user?.primaryEmailAddress?.emailAddress ?? ""}
@@ -556,7 +569,10 @@ function ProfileTab() {
             />
           </div>
           <p className="text-xs" style={{ color: "#9E9EA8" }}>
-            To update your profile, use the account menu in the top navigation bar.
+            {t(
+              "To update your profile, use the account menu in the top navigation bar.",
+              "Para actualizar tu perfil, usa el menú de cuenta en la barra de navegación superior.",
+            )}
           </p>
         </div>
       </div>
@@ -568,17 +584,17 @@ function ProfileTab() {
       >
         <div className="flex items-center gap-2 mb-5">
           <Settings className="w-4 h-4" style={{ color: "#6B7A8D" }} />
-          <h3 className="font-bold" style={{ color: "#1D1D1F" }}>Preferences</h3>
+          <h3 className="font-bold" style={{ color: "#1D1D1F" }}>{t("Preferences", "Preferencias")}</h3>
         </div>
         <div className="space-y-4">
           {[
-            { label: "Order updates via email", checked: true },
-            { label: "Restock notifications", checked: true },
-            { label: "New product announcements", checked: false },
-            { label: "Research protocol updates", checked: true },
+            { label: "Order updates via email", es: "Novedades de pedidos por email", checked: true },
+            { label: "Restock notifications", es: "Avisos de reposición", checked: true },
+            { label: "New product announcements", es: "Anuncios de nuevos productos", checked: false },
+            { label: "Research protocol updates", es: "Novedades de protocolos de investigación", checked: true },
           ].map((pref) => (
             <label key={pref.label} className="flex items-center justify-between cursor-pointer group">
-              <span className="text-sm" style={{ color: "#1D1D1F" }}>{pref.label}</span>
+              <span className="text-sm" style={{ color: "#1D1D1F" }}>{t(pref.label, pref.es)}</span>
               <div
                 className="w-10 h-5 rounded-full relative transition-colors"
                 style={{ background: pref.checked ? "#6B7A8D" : "rgba(0,0,0,0.12)" }}

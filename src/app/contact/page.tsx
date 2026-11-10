@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Mail, MessageSquare, Clock, CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/context/LanguageContext";
 
 const INPUT_STYLE = {
   background: "#FFFFFF",
@@ -14,6 +15,7 @@ const LABEL_CLASS = "block text-xs font-semibold tracking-[0.08em] uppercase mb-
 const LABEL_STYLE = { color: "#9E9EA8" };
 
 export default function ContactPage() {
+  const { t } = useLanguage();
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [sent, setSent] = useState(false);
   const [sending, setSending] = useState(false);
@@ -35,7 +37,7 @@ export default function ContactPage() {
       if (!res.ok) throw new Error("Failed");
       setSent(true);
     } catch {
-      alert("Error sending message. Please try again.");
+      alert(t("Error sending message. Please try again.", "Error al enviar el mensaje. Inténtalo de nuevo."));
     } finally {
       setSending(false);
     }
@@ -59,10 +61,13 @@ export default function ContactPage() {
             className="text-4xl font-bold mb-3"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
-            Contact Us
+            {t("Contact Us", "Contáctanos")}
           </h1>
           <p className="text-sm max-w-md mx-auto" style={{ color: "#6E6E73" }}>
-            Have a question about our compounds, an order, or a research inquiry? We&apos;re here to help.
+            {t(
+              "Have a question about our compounds, an order, or a research inquiry? We're here to help.",
+              "¿Tienes una pregunta sobre nuestros compuestos, un pedido o una consulta de investigación? Estamos para ayudarte.",
+            )}
           </p>
         </div>
 
@@ -71,9 +76,9 @@ export default function ContactPage() {
           {/* Info cards */}
           <div className="space-y-4">
             {[
-              { icon: MessageSquare, label: "General Inquiries", value: "Use the form to reach our team" },
-              { icon: Clock, label: "Response Time", value: "Within 1–2 business days" },
-              { icon: Mail, label: "Order Support", value: "Reference your order number" },
+              { icon: MessageSquare, label: t("General Inquiries", "Consultas generales"), value: t("Use the form to reach our team", "Usa el formulario para contactar a nuestro equipo") },
+              { icon: Clock, label: t("Response Time", "Tiempo de respuesta"), value: t("Within 1–2 business days", "En 1–2 días hábiles") },
+              { icon: Mail, label: t("Order Support", "Soporte de pedidos"), value: t("Reference your order number", "Indica tu número de pedido") },
             ].map(({ icon: Icon, label, value }) => (
               <div
                 key={label}
@@ -99,7 +104,10 @@ export default function ContactPage() {
               className="p-4 rounded-xl text-xs leading-relaxed"
               style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)", color: "#0A84FF" }}
             >
-              For research use inquiries only. We do not provide medical advice or therapeutic guidance.
+              {t(
+                "For research use inquiries only. We do not provide medical advice or therapeutic guidance.",
+                "Solo para consultas sobre uso en investigación. No brindamos consejo médico ni orientación terapéutica.",
+              )}
             </div>
           </div>
 
@@ -127,10 +135,10 @@ export default function ContactPage() {
                       className="font-bold text-xl mb-2"
                       style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
                     >
-                      Message Sent
+                      {t("Message Sent", "Mensaje enviado")}
                     </h3>
                     <p className="text-sm" style={{ color: "#6E6E73" }}>
-                      We&apos;ll get back to you within 1–2 business days.
+                      {t("We'll get back to you within 1–2 business days.", "Te responderemos en 1–2 días hábiles.")}
                     </p>
                   </motion.div>
                 ) : (
@@ -143,35 +151,35 @@ export default function ContactPage() {
                   >
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className={LABEL_CLASS} style={LABEL_STYLE}>Name</label>
-                        <input value={form.name} onChange={(e) => set("name", e.target.value)} required className={INPUT_CLASS} style={INPUT_STYLE} placeholder="Dr. Smith" />
+                        <label className={LABEL_CLASS} style={LABEL_STYLE}>{t("Name", "Nombre")}</label>
+                        <input value={form.name} onChange={(e) => set("name", e.target.value)} required className={INPUT_CLASS} style={INPUT_STYLE} placeholder={t("Dr. Smith", "Dra. Pérez")} />
                       </div>
                       <div>
-                        <label className={LABEL_CLASS} style={LABEL_STYLE}>Email</label>
-                        <input type="email" value={form.email} onChange={(e) => set("email", e.target.value)} required className={INPUT_CLASS} style={INPUT_STYLE} placeholder="you@research.com" />
+                        <label className={LABEL_CLASS} style={LABEL_STYLE}>{t("Email", "Correo electrónico")}</label>
+                        <input type="email" value={form.email} onChange={(e) => set("email", e.target.value)} required className={INPUT_CLASS} style={INPUT_STYLE} placeholder={t("you@research.com", "tu@research.com")} />
                       </div>
                     </div>
 
                     <div>
-                      <label className={LABEL_CLASS} style={LABEL_STYLE}>Subject</label>
+                      <label className={LABEL_CLASS} style={LABEL_STYLE}>{t("Subject", "Asunto")}</label>
                       <select
                         value={form.subject}
                         onChange={(e) => set("subject", e.target.value)}
                         className={INPUT_CLASS}
                         style={INPUT_STYLE}
                       >
-                        <option value="">Select a topic</option>
-                        <option>Order Inquiry</option>
-                        <option>Product Information</option>
-                        <option>Research Question</option>
-                        <option>Quality / COA</option>
-                        <option>Affiliate Program</option>
-                        <option>Other</option>
+                        <option value="">{t("Select a topic", "Elige un tema")}</option>
+                        <option value="Order Inquiry">{t("Order Inquiry", "Consulta sobre un pedido")}</option>
+                        <option value="Product Information">{t("Product Information", "Información de producto")}</option>
+                        <option value="Research Question">{t("Research Question", "Pregunta de investigación")}</option>
+                        <option value="Quality / COA">{t("Quality / COA", "Calidad / COA")}</option>
+                        <option value="Affiliate Program">{t("Affiliate Program", "Programa de afiliados")}</option>
+                        <option value="Other">{t("Other", "Otro")}</option>
                       </select>
                     </div>
 
                     <div>
-                      <label className={LABEL_CLASS} style={LABEL_STYLE}>Message</label>
+                      <label className={LABEL_CLASS} style={LABEL_STYLE}>{t("Message", "Mensaje")}</label>
                       <textarea
                         value={form.message}
                         onChange={(e) => set("message", e.target.value)}
@@ -179,7 +187,7 @@ export default function ContactPage() {
                         rows={5}
                         className={INPUT_CLASS + " resize-none"}
                         style={INPUT_STYLE}
-                        placeholder="Describe your question or inquiry..."
+                        placeholder={t("Describe your question or inquiry...", "Describe tu pregunta o consulta...")}
                       />
                     </div>
 
@@ -192,10 +200,10 @@ export default function ContactPage() {
                       {sending ? (
                         <>
                           <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                          Sending…
+                          {t("Sending…", "Enviando…")}
                         </>
                       ) : (
-                        "Send Message"
+                        t("Send Message", "Enviar mensaje")
                       )}
                     </button>
                   </motion.form>

@@ -261,7 +261,7 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
             <div className="hidden md:flex items-center gap-2">
               <button
                 onClick={() => scroll("left")}
-                aria-label="Previous"
+                aria-label={t("Previous", "Anterior")}
                 className="w-10 h-10 rounded-full flex items-center justify-center transition-colors hover:bg-white/15"
                 style={{ border: "1px solid rgba(255,255,255,0.3)", color: "#FFFFFF" }}
               >
@@ -269,7 +269,7 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
               </button>
               <button
                 onClick={() => scroll("right")}
-                aria-label="Next"
+                aria-label={t("Next", "Siguiente")}
                 className="w-10 h-10 rounded-full flex items-center justify-center transition-colors hover:bg-white/15"
                 style={{ border: "1px solid rgba(255,255,255,0.3)", color: "#FFFFFF" }}
               >

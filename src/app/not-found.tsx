@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { FlaskConical, ArrowRight } from "lucide-react";
 import type { Metadata } from "next";
+import T from "@/components/T";
 
 export const metadata: Metadata = {
   title: "Page Not Found",
@@ -24,10 +25,13 @@ export default function NotFound() {
         className="text-3xl font-bold mb-3"
         style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
       >
-        Page Not Found
+        <T en="Page Not Found" es="Página no encontrada" />
       </h1>
       <p className="text-sm mb-8 max-w-xs" style={{ color: "#6E6E73" }}>
-        The compound you&apos;re looking for doesn&apos;t exist or has been moved.
+        <T
+          en="The compound you're looking for doesn't exist or has been moved."
+          es="El compuesto que buscas no existe o se ha movido."
+        />
       </p>
 
       <div className="flex flex-col sm:flex-row gap-3">
@@ -36,7 +40,7 @@ export default function NotFound() {
           className="flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-85"
           style={{ background: "#0A84FF" }}
         >
-          Browse Products
+          <T en="Browse Products" es="Ver productos" />
           <ArrowRight className="w-3.5 h-3.5" />
         </Link>
         <Link
@@ -44,7 +48,7 @@ export default function NotFound() {
           className="flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold transition-colors hover:bg-black/5"
           style={{ border: "1px solid rgba(0,0,0,0.15)", color: "#1D1D1F" }}
         >
-          Go Home
+          <T en="Go Home" es="Ir al inicio" />
         </Link>
       </div>
     </div>

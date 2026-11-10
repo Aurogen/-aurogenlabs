@@ -3,9 +3,11 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { X } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function CookieConsent() {
   const [visible, setVisible] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     try {
@@ -43,10 +45,12 @@ export default function CookieConsent() {
         }}
       >
         <p className="text-xs leading-relaxed flex-1" style={{ color: "rgba(255,255,255,0.6)" }}>
-          We use cookies to improve your experience and analyze site traffic.
-          By continuing you agree to our{" "}
+          {t(
+            "We use cookies to improve your experience and analyze site traffic. By continuing you agree to our",
+            "Usamos cookies para mejorar tu experiencia y analizar el tráfico del sitio. Al continuar, aceptas nuestra",
+          )}{" "}
           <Link href="/privacy" className="underline hover:opacity-80 transition-opacity" style={{ color: "rgba(255,255,255,0.85)" }}>
-            Privacy Policy
+            {t("Privacy Policy", "Política de privacidad")}
           </Link>.
         </p>
 
@@ -56,20 +60,20 @@ export default function CookieConsent() {
             className="px-4 py-2 rounded-xl text-xs font-medium transition-colors"
             style={{ color: "rgba(255,255,255,0.45)", background: "transparent" }}
           >
-            Decline
+            {t("Decline", "Rechazar")}
           </button>
           <button
             onClick={accept}
             className="px-4 py-2 rounded-xl text-xs font-semibold transition-colors"
             style={{ background: "#FFFFFF", color: "#0A0A0C" }}
           >
-            Accept
+            {t("Accept", "Aceptar")}
           </button>
           <button
             onClick={decline}
             className="ml-1 p-1.5 rounded-lg transition-colors"
             style={{ color: "rgba(255,255,255,0.3)" }}
-            aria-label="Close"
+            aria-label={t("Close", "Cerrar")}
           >
             <X className="w-3.5 h-3.5" />
           </button>

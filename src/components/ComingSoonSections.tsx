@@ -1,8 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import { MERCH_PREVIEW, SUPPLEMENTS_PREVIEW } from "@/data/coming-soon";
 import LaunchNotifyForm from "./LaunchNotifyForm";
+import T from "./T";
 
 /**
  * Previews of lines that are not on sale yet. On the home page each section links to its own page;
@@ -15,7 +17,7 @@ function SoonBadge() {
       className="absolute top-3 left-3 px-2 py-1 rounded text-[10px] font-semibold tracking-wide"
       style={{ background: "#111111", color: "#FFFFFF" }}
     >
-      COMING SOON
+      <T en="COMING SOON" es="PRÓXIMAMENTE" />
     </span>
   );
 }
@@ -27,9 +29,9 @@ function SectionHeader({
   href,
   standalone,
 }: {
-  eyebrow: string;
-  title: string;
-  text: string;
+  eyebrow: ReactNode;
+  title: ReactNode;
+  text: ReactNode;
   href: string;
   standalone?: boolean;
 }) {
@@ -48,7 +50,7 @@ function SectionHeader({
       </div>
       {!standalone && (
         <Link href={href} className="inline-flex items-center justify-center gap-1.5 text-[14px] font-medium underline-offset-4 hover:underline" style={{ color: "#111111" }}>
-          See all <ArrowRight className="w-4 h-4" />
+          <T en="See all" es="Ver todo" /> <ArrowRight className="w-4 h-4" />
         </Link>
       )}
     </div>
@@ -61,9 +63,14 @@ export function SupplementsComingSoon({ standalone = false }: { standalone?: boo
     <section className="py-16 md:py-20" style={{ background: "#FFFFFF" }}>
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16">
         <SectionHeader
-          eyebrow="Coming soon"
-          title="Protein & Supplements"
-          text="A sports nutrition line from Aurogen is on the way. Leave your email and we'll let you know the day it launches."
+          eyebrow={<T en="Coming soon" es="Próximamente" />}
+          title={<T en="Protein & Supplements" es="Proteína y suplementos" />}
+          text={
+            <T
+              en="A sports nutrition line from Aurogen is on the way. Leave your email and we'll let you know the day it launches."
+              es="Una línea de nutrición deportiva de Aurogen viene en camino. Déjanos tu correo y te avisamos el día del lanzamiento."
+            />
+          }
           href="/supplements"
           standalone={standalone}
         />
@@ -76,13 +83,13 @@ export function SupplementsComingSoon({ standalone = false }: { standalone?: boo
               </div>
               <div className="p-3 sm:p-4 text-center sm:text-left">
                 <h3 className="font-semibold text-[14px] sm:text-[15px] leading-snug" style={{ color: "#111111" }}>{s.name}</h3>
-                <p className="text-[12px] sm:text-[13px] mt-1" style={{ color: "#6B6B6B" }}>{s.detail}</p>
+                <p className="text-[12px] sm:text-[13px] mt-1" style={{ color: "#6B6B6B" }}><T en={s.detail} es={s.detail_es} /></p>
               </div>
             </div>
           ))}
         </div>
         <div className="mt-8 flex justify-center md:justify-start">
-          <LaunchNotifyForm label="supplements" />
+          <LaunchNotifyForm label="supplements" label_es="los suplementos" />
         </div>
       </div>
     </section>
@@ -94,9 +101,14 @@ export function MerchComingSoon({ standalone = false }: { standalone?: boolean }
     <section className="py-16 md:py-20" style={{ background: "#F5F4F0" }}>
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16">
         <SectionHeader
-          eyebrow="Coming soon"
-          title="Aurogen Merch"
-          text="A tee, a polo and a half-zip hoodie with the Aurogen mark. The first drop is in the works — get on the list to hear first."
+          eyebrow={<T en="Coming soon" es="Próximamente" />}
+          title={<T en="Aurogen Merch" es="Merch Aurogen" />}
+          text={
+            <T
+              en="A tee, a polo and a half-zip hoodie with the Aurogen mark. The first drop is in the works — get on the list to hear first."
+              es="Una camiseta, un polo y una sudadera con medio cierre con el logo de Aurogen. El primer lanzamiento está en preparación: apúntate a la lista y entérate antes que nadie."
+            />
+          }
           href="/merch"
           standalone={standalone}
         />
@@ -114,11 +126,15 @@ export function MerchComingSoon({ standalone = false }: { standalone?: boolean }
             />
             <div className="absolute inset-0" style={{ background: "linear-gradient(90deg, rgba(10,16,32,0.72) 0%, rgba(10,16,32,0.25) 55%, rgba(10,16,32,0) 100%)" }} />
             <div className="absolute inset-0 flex flex-col justify-end md:justify-center p-6 md:p-12 max-w-lg">
-              <p className="text-[12px] tracking-[0.25em] mb-2" style={{ color: "#9DB8FF" }}>FIRST DROP</p>
-              <p className="text-3xl md:text-5xl text-white" style={{ fontFamily: "var(--font-heading, serif)", lineHeight: 1.05 }}>
-                Wear the lab.
+              <p className="text-[12px] tracking-[0.25em] mb-2" style={{ color: "#9DB8FF" }}>
+                <T en="FIRST DROP" es="PRIMER LANZAMIENTO" />
               </p>
-              <p className="mt-3 text-sm md:text-base" style={{ color: "rgba(255,255,255,0.8)" }}>Tee, polo and hoodie — coming soon.</p>
+              <p className="text-3xl md:text-5xl text-white" style={{ fontFamily: "var(--font-heading, serif)", lineHeight: 1.05 }}>
+                <T en="Wear the lab." es="Viste el laboratorio." />
+              </p>
+              <p className="mt-3 text-sm md:text-base" style={{ color: "rgba(255,255,255,0.8)" }}>
+                <T en="Tee, polo and hoodie — coming soon." es="Camiseta, polo y sudadera: muy pronto." />
+              </p>
             </div>
           </div>
         )}
@@ -140,13 +156,13 @@ export function MerchComingSoon({ standalone = false }: { standalone?: boolean }
               </div>
               <div className="p-4 text-center sm:text-left">
                 <h3 className="font-semibold text-[15px] leading-snug" style={{ color: "#111111" }}>{m.name}</h3>
-                <p className="text-[13px] mt-1" style={{ color: "#6B6B6B" }}>{m.detail}</p>
+                <p className="text-[13px] mt-1" style={{ color: "#6B6B6B" }}><T en={m.detail} es={m.detail_es} /></p>
               </div>
             </div>
           ))}
         </div>
         <div className="mt-8 flex justify-center md:justify-start">
-          <LaunchNotifyForm label="merch" />
+          <LaunchNotifyForm label="merch" label_es="la merch" />
         </div>
       </div>
     </section>

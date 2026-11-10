@@ -5,10 +5,12 @@ import Link from "next/link";
 import { FREE_SHIPPING_MIN, FLAT_SHIPPING } from "@/lib/shipping";
 import { useCart } from "@/context/CartContext";
 import { useUser } from "@clerk/nextjs";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function CartDrawer() {
   const { state, closeCart, removeItem, updateQty, totalPrice, totalItems } = useCart();
   const { isSignedIn } = useUser();
+  const { t } = useLanguage();
 
   return (
     <>
@@ -38,7 +40,7 @@ export default function CartDrawer() {
               className="font-bold text-lg tracking-wide"
               style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
             >
-              Cart
+              {t("Cart", "Carrito")}
             </h2>
             <span
               className="px-2 py-0.5 rounded-full text-xs font-bold text-white"
@@ -49,6 +51,7 @@ export default function CartDrawer() {
           </div>
           <button
             onClick={closeCart}
+            aria-label={t("Close cart", "Cerrar carrito")}
             className="w-8 h-8 rounded-lg flex items-center justify-center transition-all hover:bg-black/05"
             style={{ color: "#6E6E73" }}
           >
@@ -67,8 +70,8 @@ export default function CartDrawer() {
                 <ShoppingCart className="w-8 h-8" style={{ color: "#9E9EA8" }} />
               </div>
               <div>
-                <p className="font-medium mb-1" style={{ color: "#1D1D1F" }}>Your cart is empty</p>
-                <p className="text-sm" style={{ color: "#6E6E73" }}>Add research compounds to get started</p>
+                <p className="font-medium mb-1" style={{ color: "#1D1D1F" }}>{t("Your cart is empty", "Tu carrito está vacío")}</p>
+                <p className="text-sm" style={{ color: "#6E6E73" }}>{t("Add research compounds to get started", "Añade compuestos de investigación para empezar")}</p>
               </div>
               <Link
                 href="/shop"
@@ -76,7 +79,7 @@ export default function CartDrawer() {
                 className="px-6 py-2.5 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-85"
                 style={{ background: "#1D1D1F" }}
               >
-                Browse Products
+                {t("Browse Products", "Ver productos")}
               </Link>
             </div>
           ) : (
@@ -106,7 +109,7 @@ export default function CartDrawer() {
                         onClick={() => updateQty(item.product.id, item.quantity - 1)}
                         className="w-8 h-8 rounded-lg flex items-center justify-center transition-all"
                         style={{ border: "1px solid rgba(0,0,0,0.12)", color: "#6E6E73", background: "#FFFFFF" }}
-                        aria-label="Decrease quantity"
+                        aria-label={t("Decrease quantity", "Disminuir cantidad")}
                       >
                         <Minus className="w-3.5 h-3.5" />
                       </button>
@@ -117,7 +120,7 @@ export default function CartDrawer() {
                         onClick={() => updateQty(item.product.id, item.quantity + 1)}
                         className="w-8 h-8 rounded-lg flex items-center justify-center transition-all"
                         style={{ border: "1px solid rgba(0,0,0,0.12)", color: "#6E6E73", background: "#FFFFFF" }}
-                        aria-label="Increase quantity"
+                        aria-label={t("Increase quantity", "Aumentar cantidad")}
                       >
                         <Plus className="w-3.5 h-3.5" />
                       </button>
@@ -133,7 +136,7 @@ export default function CartDrawer() {
                         style={{ color: "#9E9EA8" }}
                         onMouseEnter={e => (e.currentTarget.style.color = "#DC2626")}
                         onMouseLeave={e => (e.currentTarget.style.color = "#9E9EA8")}
-                        aria-label="Remove item"
+                        aria-label={t("Remove item", "Eliminar producto")}
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -157,20 +160,23 @@ export default function CartDrawer() {
               style={{ background: "rgba(10,132,255,0.05)", border: "1px solid rgba(10,132,255,0.15)" }}
             >
               <p className="text-[11px] text-center" style={{ color: "#0A84FF" }}>
-                ⚠️ For Research Use Only · Not for Human Consumption
+                ⚠️ {t("For Research Use Only · Not for Human Consumption", "Solo para uso en investigación · No apto para consumo humano")}
               </p>
             </div>
 
             <div className="flex items-center justify-between mb-3">
-              <span style={{ color: "#6E6E73" }}>Subtotal</span>
+              <span style={{ color: "#6E6E73" }}>{t("Subtotal", "Subtotal")}</span>
               <span className="font-bold text-xl" style={{ color: "#1B7A45" }}>
                 ${totalPrice.toFixed(2)}
               </span>
             </div>
             <p className="text-xs mb-4 text-center" style={{ color: "#9E9EA8" }}>
               {totalPrice >= FREE_SHIPPING_MIN
-                ? "Free shipping · Delivery 2–5 business days"
-                : `Add $${(FREE_SHIPPING_MIN - totalPrice).toFixed(2)} more for free shipping · Otherwise $${FLAT_SHIPPING.toFixed(2)}`}
+                ? t("Free shipping · Delivery 2–5 business days", "Envío gratis · Entrega en 2–5 días hábiles")
+                : t(
+                    `Add $${(FREE_SHIPPING_MIN - totalPrice).toFixed(2)} more for free shipping · Otherwise $${FLAT_SHIPPING.toFixed(2)}`,
+                    `Añade $${(FREE_SHIPPING_MIN - totalPrice).toFixed(2)} más para envío gratis · Si no, $${FLAT_SHIPPING.toFixed(2)}`,
+                  )}
             </p>
             <Link
               href="/checkout"
@@ -178,16 +184,16 @@ export default function CartDrawer() {
               className="w-full flex items-center justify-center gap-2 py-3.5 rounded-full font-semibold text-white transition-opacity hover:opacity-85"
               style={{ background: "#1D1D1F" }}
             >
-              {isSignedIn ? "Proceed to Checkout" : "Sign in to Checkout"}
+              {isSignedIn ? t("Proceed to Checkout", "Ir a pagar") : t("Sign in to Checkout", "Inicia sesión para pagar")}
               <ArrowRight className="w-4 h-4" />
             </Link>
             {!isSignedIn && (
               <p className="text-center text-xs mt-2" style={{ color: "#6E6E73" }}>
-                An account is required to place orders. New here? You can create one in a minute.
+                {t("An account is required to place orders. New here? You can create one in a minute.", "Necesitas una cuenta para hacer pedidos. ¿Eres nuevo? Puedes crear una en un minuto.")}
               </p>
             )}
             <p className="text-center text-xs mt-3" style={{ color: "#9E9EA8" }}>
-              🔒 Secure payment · SSL Encrypted
+              🔒 {t("Secure payment · SSL Encrypted", "Pago seguro · Cifrado SSL")}
             </p>
           </div>
         )}

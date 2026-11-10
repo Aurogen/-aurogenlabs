@@ -8,7 +8,7 @@ import { MerchComingSoon, SupplementsComingSoon } from "@/components/ComingSoonS
 import { fetchProducts } from "@/lib/products-db";
 
 export const metadata: Metadata = {
-  title: "Aurogen Labs | Premium Peptides for Research",
+  title: { absolute: "Aurogen Labs | Premium Peptides for Research" },
   description: "Research-grade peptides and reagents, ≥98% purity by HPLC, with a third-party COA for every lot. Ships in 2–5 days. For laboratory research use only.",
   openGraph: {
     title: "Aurogen Labs | Premium Peptides for Research",

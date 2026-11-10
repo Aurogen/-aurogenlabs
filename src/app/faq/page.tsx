@@ -3,39 +3,44 @@
 import { useState } from "react";
 import { HelpCircle, ChevronDown } from "lucide-react";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 const CATEGORIES = [
   {
     category: "Products & Quality",
+    category_es: "Productos y calidad",
     items: [
-      { q: "What purity level are your peptides?", a: "All Aurogen Labs peptides are manufactured to a minimum of 98% purity, verified by third-party HPLC analysis. Each batch comes with a Certificate of Analysis (COA) available on the product page." },
-      { q: "How are the compounds stored?", a: "Lyophilized peptides should be stored at -20°C (freezer) in an airtight container away from light and moisture. Once reconstituted, store at 2–8°C (refrigerator) and use within 30 days. Always follow the storage guidelines on the product page." },
-      { q: "Do your products come with a Certificate of Analysis?", a: "Yes. Every product has a batch-specific COA available via the 'View COA' button on the product page. The COA includes HPLC purity data, molecular weight verification, and mass spectrometry results." },
-      { q: "Are your peptides synthesized in the US?", a: "Yes. All compounds are synthesized and quality-tested in our US-based facility, following strict GMP-adjacent protocols." },
+      { q: "What purity level are your peptides?", q_es: "¿Qué nivel de pureza tienen sus péptidos?", a_es: "Todos los péptidos de Aurogen Labs se fabrican con una pureza mínima del 98%, verificada mediante análisis HPLC de un laboratorio externo. Cada lote incluye un Certificado de Análisis (COA) disponible en la página del producto.", a: "All Aurogen Labs peptides are manufactured to a minimum of 98% purity, verified by third-party HPLC analysis. Each batch comes with a Certificate of Analysis (COA) available on the product page." },
+      { q: "How are the compounds stored?", q_es: "¿Cómo se almacenan los compuestos?", a_es: "Los péptidos liofilizados deben almacenarse a -20 °C (congelador) en un recipiente hermético, protegidos de la luz y la humedad. Una vez reconstituidos, guárdalos a 2–8 °C (refrigerador) y úsalos dentro de los 30 días. Sigue siempre las pautas de almacenamiento de la página del producto.", a: "Lyophilized peptides should be stored at -20°C (freezer) in an airtight container away from light and moisture. Once reconstituted, store at 2–8°C (refrigerator) and use within 30 days. Always follow the storage guidelines on the product page." },
+      { q: "Do your products come with a Certificate of Analysis?", q_es: "¿Sus productos incluyen un Certificado de Análisis?", a_es: "Sí. Cada producto tiene un COA específico del lote, disponible con el botón 'Ver COA' en la página del producto. El COA incluye datos de pureza por HPLC, verificación del peso molecular y resultados de espectrometría de masas.", a: "Yes. Every product has a batch-specific COA available via the 'View COA' button on the product page. The COA includes HPLC purity data, molecular weight verification, and mass spectrometry results." },
+      { q: "Are your peptides synthesized in the US?", q_es: "¿Sus péptidos se sintetizan en EE. UU.?", a_es: "Sí. Todos los compuestos se sintetizan y se someten a control de calidad en nuestras instalaciones en EE. UU., siguiendo estrictos protocolos cercanos a GMP.", a: "Yes. All compounds are synthesized and quality-tested in our US-based facility, following strict GMP-adjacent protocols." },
     ],
   },
   {
     category: "Orders & Payment",
+    category_es: "Pedidos y pagos",
     items: [
-      { q: "What payment methods do you accept?", a: "We accept all major credit and debit cards (Visa, Mastercard, American Express) processed securely through our payment partner. Transactions are encrypted end-to-end and your card details are never stored on our servers." },
-      { q: "Can I modify or cancel my order?", a: "Orders can be modified or cancelled within 1 hour of placement by contacting our support team. After that, orders enter our fulfillment queue and cannot be changed." },
-      { q: "Is my payment information secure?", a: "Yes. All payment processing is handled by industry-standard encrypted payment systems. We do not store your full credit card details on our servers." },
+      { q: "What payment methods do you accept?", q_es: "¿Qué métodos de pago aceptan?", a_es: "Aceptamos las principales tarjetas de crédito y débito (Visa, Mastercard, American Express), procesadas de forma segura por nuestro socio de pagos. Las transacciones están cifradas de extremo a extremo y los datos de tu tarjeta nunca se guardan en nuestros servidores.", a: "We accept all major credit and debit cards (Visa, Mastercard, American Express) processed securely through our payment partner. Transactions are encrypted end-to-end and your card details are never stored on our servers." },
+      { q: "Can I modify or cancel my order?", q_es: "¿Puedo modificar o cancelar mi pedido?", a_es: "Puedes modificar o cancelar tu pedido dentro de la primera hora después de realizarlo, contactando a nuestro equipo de soporte. Pasado ese tiempo, los pedidos entran en nuestra cola de preparación y ya no se pueden cambiar.", a: "Orders can be modified or cancelled within 1 hour of placement by contacting our support team. After that, orders enter our fulfillment queue and cannot be changed." },
+      { q: "Is my payment information secure?", q_es: "¿Mi información de pago está segura?", a_es: "Sí. Todo el procesamiento de pagos lo realizan sistemas de pago cifrados conforme a los estándares de la industria. No guardamos los datos completos de tu tarjeta de crédito en nuestros servidores.", a: "Yes. All payment processing is handled by industry-standard encrypted payment systems. We do not store your full credit card details on our servers." },
     ],
   },
   {
     category: "Shipping",
+    category_es: "Envíos",
     items: [
-      { q: "How long does shipping take?", a: "Delivery takes 2–5 business days within the US. Shipping is $7.99, and free on orders of $99 or more. Orders placed before 2:00 PM EST typically ship the same day." },
-      { q: "Do you ship outside the United States?", a: "We currently ship within the United States only. International shipping is planned for a future update." },
-      { q: "How are peptides packaged for shipping?", a: "Lyophilized peptides are shipped in sealed vials with desiccants and padding to prevent breakage. All packaging is discreet and does not reference the contents on the exterior." },
+      { q: "How long does shipping take?", q_es: "¿Cuánto tarda el envío?", a_es: "La entrega tarda de 2 a 5 días hábiles dentro de EE. UU. El envío cuesta $7.99 y es gratis en pedidos de $99 o más. Los pedidos realizados antes de las 2:00 PM (hora del Este, EST) normalmente se envían el mismo día.", a: "Delivery takes 2–5 business days within the US. Shipping is $7.99, and free on orders of $99 or more. Orders placed before 2:00 PM EST typically ship the same day." },
+      { q: "Do you ship outside the United States?", q_es: "¿Hacen envíos fuera de Estados Unidos?", a_es: "Por ahora solo enviamos dentro de Estados Unidos. Los envíos internacionales están previstos para una actualización futura.", a: "We currently ship within the United States only. International shipping is planned for a future update." },
+      { q: "How are peptides packaged for shipping?", q_es: "¿Cómo se empacan los péptidos para el envío?", a_es: "Los péptidos liofilizados se envían en viales sellados con desecantes y acolchado para evitar roturas. Todo el empaque es discreto y no hace referencia al contenido en el exterior.", a: "Lyophilized peptides are shipped in sealed vials with desiccants and padding to prevent breakage. All packaging is discreet and does not reference the contents on the exterior." },
     ],
   },
   {
     category: "Research & Usage",
+    category_es: "Investigación y uso",
     items: [
-      { q: "Are your products approved for human use?", a: "No. All products are sold strictly for in vitro and laboratory research purposes. They are not approved by the FDA for human consumption, therapeutic, or veterinary use." },
-      { q: "Do you offer research protocols?", a: "Yes. Our Protocols Library contains laboratory handling guides covering reconstitution, storage and stability, COA interpretation and analytical verification." },
-      { q: "Where can I find reconstitution instructions?", a:  "Reconstitution guides are available in our Research Center. Step-by-step instructions for every compound in our catalog are provided there, including recommended volumes and handling procedures." },
+      { q: "Are your products approved for human use?", q_es: "¿Sus productos están aprobados para uso humano?", a_es: "No. Todos los productos se venden estrictamente para investigación in vitro y de laboratorio. No están aprobados por la FDA para consumo humano, uso terapéutico ni uso veterinario.", a: "No. All products are sold strictly for in vitro and laboratory research purposes. They are not approved by the FDA for human consumption, therapeutic, or veterinary use." },
+      { q: "Do you offer research protocols?", q_es: "¿Ofrecen protocolos de investigación?", a_es: "Sí. Nuestra Biblioteca de Protocolos contiene guías de manejo en laboratorio sobre reconstitución, almacenamiento y estabilidad, interpretación del COA y verificación analítica.", a: "Yes. Our Protocols Library contains laboratory handling guides covering reconstitution, storage and stability, COA interpretation and analytical verification." },
+      { q: "Where can I find reconstitution instructions?", q_es: "¿Dónde encuentro las instrucciones de reconstitución?", a_es: "Las guías de reconstitución están disponibles en nuestro Centro de Investigación. Ahí encontrarás instrucciones paso a paso para cada compuesto de nuestro catálogo, incluidos los volúmenes recomendados y los procedimientos de manejo.", a:  "Reconstitution guides are available in our Research Center. Step-by-step instructions for every compound in our catalog are provided there, including recommended volumes and handling procedures." },
     ],
   },
 ];
@@ -74,6 +79,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 }
 
 export default function FaqPage() {
+  const { t } = useLanguage();
   return (
     <div className="min-h-screen py-16 px-4" style={{ background: "#F4F3EF" }}>
       <div className="max-w-3xl mx-auto">
@@ -87,19 +93,19 @@ export default function FaqPage() {
               <HelpCircle className="w-5 h-5" style={{ color: "#6B7A8D" }} />
             </div>
             <span className="text-xs font-semibold tracking-[0.3em] uppercase" style={{ color: "#6E6E73" }}>
-              Support
+              {t("Support", "Soporte")}
             </span>
           </div>
           <h1
             className="text-4xl font-bold mb-3"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
-            Frequently Asked Questions
+            {t("Frequently Asked Questions", "Preguntas frecuentes")}
           </h1>
           <p className="text-sm" style={{ color: "#6E6E73" }}>
-            Can&apos;t find what you&apos;re looking for?{" "}
+            {t("Can't find what you're looking for?", "¿No encuentras lo que buscas?")}{" "}
             <Link href="/contact" className="underline hover:opacity-70" style={{ color: "#1D1D1F" }}>
-              Contact our team
+              {t("Contact our team", "Contacta a nuestro equipo")}
             </Link>.
           </p>
         </div>
@@ -111,11 +117,11 @@ export default function FaqPage() {
                 className="font-bold text-lg mb-4 pb-2"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F", borderBottom: "1px solid rgba(0,0,0,0.08)" }}
               >
-                {cat.category}
+                {t(cat.category, cat.category_es)}
               </h2>
               <div className="space-y-2">
                 {cat.items.map((item) => (
-                  <FaqItem key={item.q} q={item.q} a={item.a} />
+                  <FaqItem key={item.q} q={t(item.q, item.q_es)} a={t(item.a, item.a_es)} />
                 ))}
               </div>
             </div>

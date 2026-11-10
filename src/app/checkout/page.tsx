@@ -6,6 +6,7 @@ import { useCart } from "@/context/CartContext";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { shippingFor, FREE_SHIPPING_MIN } from "@/lib/shipping";
+import { useLanguage } from "@/context/LanguageContext";
 
 // Set when Stripe is connected; without it orders are taken for manual payment.
 const CARD_PAYMENTS = Boolean(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
@@ -23,6 +24,7 @@ const INPUT_CLASS =
 export default function CheckoutPage() {
   const { state, totalPrice, clearCart } = useCart();
   const { user } = useUser();
+  const { t } = useLanguage();
   const [edited, setEdited] = useState({
     firstName: "", lastName: "", email: "",
     address: "", city: "", stateField: "", zip: "",
@@ -77,10 +79,10 @@ export default function CheckoutPage() {
           code_id: data.code_id,
         });
       } else {
-        setDiscountError(data.error ?? "Invalid code");
+        setDiscountError(data.error ?? t("Invalid code", "Código inválido"));
       }
     } catch {
-      setDiscountError("Could not validate code");
+      setDiscountError(t("Could not validate code", "No se pudo validar el código"));
     } finally {
       setDiscountLoading(false);
     }
@@ -111,7 +113,7 @@ export default function CheckoutPage() {
       const data = await res.json().catch(() => ({}));
       if (!res.ok || !data.id) {
         setOrderError(
-          (data.error ?? "We couldn't place your order. Please try again or contact us.") +
+          (data.error ?? t("We couldn't place your order. Please try again or contact us.", "No pudimos procesar tu pedido. Inténtalo de nuevo o contáctanos.")) +
             (data.detail ? ` [${data.detail}]` : ""),
         );
         setLoading(false);
@@ -136,7 +138,7 @@ export default function CheckoutPage() {
       clearCart();
       window.location.href = `/order-success?id=${data.id}`;
     } catch {
-      setOrderError("Connection error. Please check your internet and try again.");
+      setOrderError(t("Connection error. Please check your internet and try again.", "Error de conexión. Revisa tu internet e inténtalo de nuevo."));
       setLoading(false);
     }
   }
@@ -149,13 +151,13 @@ export default function CheckoutPage() {
         <div className="text-center mb-10">
           <div className="flex items-center justify-center gap-2 mb-3">
             <Lock className="w-4 h-4" style={{ color: "#1B7A45" }} />
-            <span className="text-sm font-medium" style={{ color: "#1B7A45" }}>Secure Checkout</span>
+            <span className="text-sm font-medium" style={{ color: "#1B7A45" }}>{t("Secure Checkout", "Pago seguro")}</span>
           </div>
           <h1
             className="text-4xl font-bold"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
-            Checkout
+            {t("Checkout", "Finalizar compra")}
           </h1>
         </div>
 
@@ -173,37 +175,37 @@ export default function CheckoutPage() {
                 className="font-bold text-lg mb-5"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
-                Contact Information
+                {t("Contact Information", "Información de contacto")}
               </h2>
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className={LABEL_CLASS} style={LABEL_STYLE}>First Name</label>
+                    <label className={LABEL_CLASS} style={LABEL_STYLE}>{t("First Name", "Nombre")}</label>
                     <input
                     name="firstName" autoComplete="given-name"
                       value={form.firstName}
                       onChange={(e) => set("firstName", e.target.value)}
-                      className={INPUT_CLASS} style={INPUT_STYLE} placeholder="John"
+                      className={INPUT_CLASS} style={INPUT_STYLE} placeholder={t("John", "Juan")}
                     />
                   </div>
                   <div>
-                    <label className={LABEL_CLASS} style={LABEL_STYLE}>Last Name</label>
+                    <label className={LABEL_CLASS} style={LABEL_STYLE}>{t("Last Name", "Apellido")}</label>
                     <input
                     name="lastName" autoComplete="family-name"
                       value={form.lastName}
                       onChange={(e) => set("lastName", e.target.value)}
-                      className={INPUT_CLASS} style={INPUT_STYLE} placeholder="Smith"
+                      className={INPUT_CLASS} style={INPUT_STYLE} placeholder={t("Smith", "Pérez")}
                     />
                   </div>
                 </div>
                 <div>
-                  <label className={LABEL_CLASS} style={LABEL_STYLE}>Email</label>
+                  <label className={LABEL_CLASS} style={LABEL_STYLE}>{t("Email", "Correo electrónico")}</label>
                   <input
                     name="email" autoComplete="email" inputMode="email" autoCapitalize="none" spellCheck={false}
                     type="email"
                     value={form.email}
                     onChange={(e) => set("email", e.target.value)}
-                    className={INPUT_CLASS} style={INPUT_STYLE} placeholder="john@research.com"
+                    className={INPUT_CLASS} style={INPUT_STYLE} placeholder={t("john@research.com", "juan@research.com")}
                   />
                 </div>
               </div>
@@ -218,11 +220,11 @@ export default function CheckoutPage() {
                 className="font-bold text-lg mb-5"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
-                Shipping Address
+                {t("Shipping Address", "Dirección de envío")}
               </h2>
               <div className="space-y-4">
                 <div>
-                  <label className={LABEL_CLASS} style={LABEL_STYLE}>Address</label>
+                  <label className={LABEL_CLASS} style={LABEL_STYLE}>{t("Address", "Dirección")}</label>
                   <input
                     name="address" autoComplete="address-line1"
                     value={form.address}
@@ -232,7 +234,7 @@ export default function CheckoutPage() {
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className={LABEL_CLASS} style={LABEL_STYLE}>City</label>
+                    <label className={LABEL_CLASS} style={LABEL_STYLE}>{t("City", "Ciudad")}</label>
                     <input
                     name="city" autoComplete="address-level2"
                       value={form.city}
@@ -241,7 +243,7 @@ export default function CheckoutPage() {
                     />
                   </div>
                   <div>
-                    <label className={LABEL_CLASS} style={LABEL_STYLE}>State</label>
+                    <label className={LABEL_CLASS} style={LABEL_STYLE}>{t("State", "Estado")}</label>
                     <input
                     name="state" autoComplete="address-level1" autoCapitalize="characters" maxLength={2}
                       value={form.stateField}
@@ -251,7 +253,7 @@ export default function CheckoutPage() {
                   </div>
                 </div>
                 <div>
-                  <label className={LABEL_CLASS} style={LABEL_STYLE}>ZIP Code</label>
+                  <label className={LABEL_CLASS} style={LABEL_STYLE}>{t("ZIP Code", "Código postal")}</label>
                   <input
                     name="zip" autoComplete="postal-code" inputMode="numeric" maxLength={10}
                     value={form.zip}
@@ -275,14 +277,16 @@ export default function CheckoutPage() {
                   className="mt-0.5 w-4 h-4 shrink-0 rounded accent-black"
                 />
                 <p className="text-xs leading-relaxed" style={{ color: "#6E6E73" }}>
-                  I confirm I am a qualified researcher, that products are for laboratory/research use only,
-                  that I am 18+ years old, and that I agree to the{" "}
+                  {t(
+                    "I confirm I am a qualified researcher, that products are for laboratory/research use only, that I am 18+ years old, and that I agree to the",
+                    "Confirmo que soy un investigador calificado, que los productos son solo para uso de laboratorio/investigación, que tengo 18 años o más y que acepto los",
+                  )}{" "}
                   <Link href="/terms" className="underline hover:opacity-70" style={{ color: "#1D1D1F" }}>
-                    Terms of Use
+                    {t("Terms of Use", "Términos de uso")}
                   </Link>{" "}
-                  and{" "}
+                  {t("and", "y la")}{" "}
                   <Link href="/privacy" className="underline hover:opacity-70" style={{ color: "#1D1D1F" }}>
-                    Privacy Policy
+                    {t("Privacy Policy", "Política de privacidad")}
                   </Link>.
                 </p>
               </label>
@@ -297,7 +301,7 @@ export default function CheckoutPage() {
                 className="font-bold text-lg mb-4"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
-                Discount Code
+                {t("Discount Code", "Código de descuento")}
               </h2>
               {discountData ? (
                 <div className="flex items-center justify-between px-4 py-3 rounded-xl" style={{ background: "rgba(27,122,69,0.06)", border: "1px solid rgba(27,122,69,0.2)" }}>
@@ -305,7 +309,9 @@ export default function CheckoutPage() {
                     <CheckCircle className="w-4 h-4" style={{ color: "#1B7A45" }} />
                     <span className="text-sm font-semibold" style={{ color: "#1B7A45" }}>{discountData.code}</span>
                     <span className="text-xs" style={{ color: "#6E6E73" }}>
-                      — {discountData.type === "percentage" ? `${discountData.value}% off` : `$${discountData.value} off`}
+                      — {discountData.type === "percentage"
+                        ? t(`${discountData.value}% off`, `${discountData.value}% de descuento`)
+                        : t(`$${discountData.value} off`, `$${discountData.value} de descuento`)}
                     </span>
                   </div>
                   <button
@@ -313,7 +319,7 @@ export default function CheckoutPage() {
                     className="text-xs underline"
                     style={{ color: "#9E9EA8" }}
                   >
-                    Remove
+                    {t("Remove", "Quitar")}
                   </button>
                 </div>
               ) : (
@@ -324,7 +330,7 @@ export default function CheckoutPage() {
                     onKeyDown={(e) => e.key === "Enter" && applyDiscount()}
                     className={INPUT_CLASS + " flex-1"}
                     style={INPUT_STYLE}
-                    placeholder="Enter discount code"
+                    placeholder={t("Enter discount code", "Ingresa tu código de descuento")}
                   />
                   <button
                     onClick={applyDiscount}
@@ -332,7 +338,7 @@ export default function CheckoutPage() {
                     className="px-4 py-3 rounded-xl text-sm font-semibold transition-opacity"
                     style={{ background: "#1D1D1F", color: "#FFFFFF", opacity: !discountInput.trim() || discountLoading ? 0.4 : 1 }}
                   >
-                    {discountLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : "Apply"}
+                    {discountLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : t("Apply", "Aplicar")}
                   </button>
                 </div>
               )}
@@ -356,11 +362,11 @@ export default function CheckoutPage() {
                 <CreditCard className="w-5 h-5" style={{ color: "#0A84FF" }} />
               </div>
               <div>
-                <p className="text-sm font-semibold" style={{ color: "#1D1D1F" }}>Secure Payment</p>
+                <p className="text-sm font-semibold" style={{ color: "#1D1D1F" }}>{t("Secure Payment", "Pago seguro")}</p>
                 <p className="text-xs mt-0.5" style={{ color: "#9E9EA8" }}>
                   {CARD_PAYMENTS
-                    ? "You'll pay on Stripe's secure page: card, Apple Pay or Google Pay."
-                    : "All transactions are encrypted and processed securely."}
+                    ? t("You'll pay on Stripe's secure page: card, Apple Pay or Google Pay.", "Pagarás en la página segura de Stripe: tarjeta, Apple Pay o Google Pay.")
+                    : t("All transactions are encrypted and processed securely.", "Todas las transacciones están cifradas y se procesan de forma segura.")}
                 </p>
               </div>
             </div>
@@ -389,12 +395,14 @@ export default function CheckoutPage() {
               ) : (
                 <Lock className="w-4 h-4" />
               )}
-              {loading ? (CARD_PAYMENTS ? "Opening payment..." : "Placing order...") : CARD_PAYMENTS ? "Continue to Payment" : "Place Order"}
+              {loading
+                ? (CARD_PAYMENTS ? t("Opening payment...", "Abriendo el pago...") : t("Placing order...", "Procesando pedido..."))
+                : CARD_PAYMENTS ? t("Continue to Payment", "Continuar al pago") : t("Place Order", "Realizar pedido")}
               {!loading && <ArrowRight className="w-4 h-4" />}
             </button>
 
             <p className="text-center text-xs" style={{ color: "#C0C0C5" }}>
-              🔒 SSL encrypted · Secure processing
+              🔒 {t("SSL encrypted · Secure processing", "Cifrado SSL · Procesamiento seguro")}
             </p>
           </div>
 
@@ -408,12 +416,12 @@ export default function CheckoutPage() {
                 className="font-bold text-lg mb-4"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
-                Order Summary
+                {t("Order Summary", "Resumen del pedido")}
               </h2>
 
               {state.items.length === 0 ? (
                 <p className="text-sm text-center py-6" style={{ color: "#9E9EA8" }}>
-                  Your cart is empty.
+                  {t("Your cart is empty.", "Tu carrito está vacío.")}
                 </p>
               ) : (
                 <div className="space-y-3 mb-5">
@@ -435,7 +443,7 @@ export default function CheckoutPage() {
 
               <div className="pt-4 space-y-2" style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }}>
                 <div className="flex justify-between text-sm">
-                  <span style={{ color: "#6E6E73" }}>Subtotal</span>
+                  <span style={{ color: "#6E6E73" }}>{t("Subtotal", "Subtotal")}</span>
                   <span className="font-medium" style={{ color: "#1D1D1F" }}>${totalPrice.toFixed(2)}</span>
                 </div>
                 {discountData && (
@@ -450,18 +458,21 @@ export default function CheckoutPage() {
                   </div>
                 )}
                 <div className="flex justify-between text-sm">
-                  <span style={{ color: "#6E6E73" }}>Shipping</span>
+                  <span style={{ color: "#6E6E73" }}>{t("Shipping", "Envío")}</span>
                   <span className="font-medium" style={{ color: shipping ? "#1D1D1F" : "#1B7A45" }}>
-                    {shipping ? `$${shipping.toFixed(2)}` : "FREE"}
+                    {shipping ? `$${shipping.toFixed(2)}` : t("FREE", "GRATIS")}
                   </span>
                 </div>
                 {shipping > 0 && (
                   <p className="text-xs" style={{ color: "#6E6E73" }}>
-                    Add ${(FREE_SHIPPING_MIN - goodsTotal).toFixed(2)} more for free shipping.
+                    {t(
+                      `Add $${(FREE_SHIPPING_MIN - goodsTotal).toFixed(2)} more for free shipping.`,
+                      `Agrega $${(FREE_SHIPPING_MIN - goodsTotal).toFixed(2)} más para envío gratis.`,
+                    )}
                   </p>
                 )}
                 <div className="flex justify-between pt-2" style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}>
-                  <span className="font-bold" style={{ color: "#1D1D1F" }}>Total</span>
+                  <span className="font-bold" style={{ color: "#1D1D1F" }}>{t("Total", "Total")}</span>
                   <span className="font-bold text-2xl" style={{ color: "#1D1D1F" }}>
                     ${finalTotal.toFixed(2)}
                   </span>
@@ -469,7 +480,7 @@ export default function CheckoutPage() {
               </div>
 
               <p className="text-center text-xs mt-5" style={{ color: "#C0C0C5" }}>
-                🔒 SSL encrypted · Secure processing
+                🔒 {t("SSL encrypted · Secure processing", "Cifrado SSL · Procesamiento seguro")}
               </p>
             </div>
           </div>

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { ShieldCheck, X, AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import Logo from "./Logo";
+import { useLanguage } from "@/context/LanguageContext";
 
 const AGE_KEY = "aurogen_age_verified";
 const RESEARCH_KEY = "aurogen_research_agreed";
@@ -12,6 +13,7 @@ const RESEARCH_KEY = "aurogen_research_agreed";
 export default function AgeGate() {
   const [step, setStep] = useState<"age" | "research" | null>(null);
   const [declined, setDeclined] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     let next: "age" | "research" | null = null;
@@ -76,10 +78,10 @@ export default function AgeGate() {
                 className="text-2xl font-bold mb-1"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
-                Important Notice
+                {t("Important Notice", "Aviso importante")}
               </h2>
               <p className="text-sm mb-6" style={{ color: "#9E9EA8" }}>
-                Please read before continuing
+                {t("Please read before continuing", "Léelo antes de continuar")}
               </p>
 
               <div
@@ -87,13 +89,15 @@ export default function AgeGate() {
                 style={{ background: "rgba(178,106,0,0.06)", border: "1px solid rgba(178,106,0,0.22)" }}
               >
                 <p className="text-base font-semibold leading-snug" style={{ color: "#1D1D1F" }}>
-                  ⚠️ For Research Use Only · Not for Human Consumption
+                  ⚠️ {t("For Research Use Only · Not for Human Consumption", "Solo para investigación · No apto para consumo humano")}
                 </p>
               </div>
 
               <p className="text-sm mb-6 leading-relaxed" style={{ color: "#6E6E73" }}>
-                All products are sold strictly for laboratory and in-vitro research. They are not drugs,
-                supplements or food, and must not be used on humans or animals.
+                {t(
+                  "All products are sold strictly for laboratory and in-vitro research. They are not drugs, supplements or food, and must not be used on humans or animals.",
+                  "Todos los productos se venden exclusivamente para investigación de laboratorio e in vitro. No son medicamentos, suplementos ni alimentos, y no deben usarse en personas ni en animales.",
+                )}
               </p>
 
               <button
@@ -101,17 +105,17 @@ export default function AgeGate() {
                 className="w-full py-3 px-6 rounded-full font-semibold text-white transition-opacity hover:opacity-85"
                 style={{ background: "#1D1D1F" }}
               >
-                I Agree
+                {t("I Agree", "Acepto")}
               </button>
 
               <p className="text-xs mt-5" style={{ color: "#9E9EA8" }}>
-                By clicking I Agree you accept our{" "}
+                {t("By clicking I Agree you accept our", "Al hacer clic en Acepto, aceptas nuestros")}{" "}
                 <Link href="/terms" className="transition-opacity hover:opacity-70" style={{ color: "#6B7A8D" }}>
-                  Terms of Service
+                  {t("Terms of Service", "Términos del servicio")}
                 </Link>{" "}
-                and{" "}
+                {t("and", "y el")}{" "}
                 <Link href="/disclaimer" className="transition-opacity hover:opacity-70" style={{ color: "#6B7A8D" }}>
-                  Research Disclaimer
+                  {t("Research Disclaimer", "Aviso legal de investigación")}
                 </Link>
                 .
               </p>
@@ -132,10 +136,10 @@ export default function AgeGate() {
                 className="text-2xl font-bold mb-1"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
-                Age Verification
+                {t("Age Verification", "Verificación de edad")}
               </h2>
               <p className="text-sm mb-6" style={{ color: "#9E9EA8" }}>
-                Research compounds — restricted access
+                {t("Research compounds — restricted access", "Compuestos de investigación — acceso restringido")}
               </p>
 
               {/* Info box */}
@@ -144,14 +148,17 @@ export default function AgeGate() {
                 style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.14)" }}
               >
                 <p className="text-sm leading-relaxed" style={{ color: "#6E6E73" }}>
-                  This site contains information about peptides intended for
-                  <strong style={{ color: "#1D1D1F" }}> research use only</strong>.
-                  Not intended for human consumption.
+                  {t(
+                    "This site contains information about peptides intended for",
+                    "Este sitio contiene información sobre péptidos destinados",
+                  )}
+                  <strong style={{ color: "#1D1D1F" }}>{t(" research use only", " solo a investigación")}</strong>.
+                  {t(" Not intended for human consumption.", " No aptos para consumo humano.")}
                 </p>
               </div>
 
               <p className="font-semibold mb-6" style={{ color: "#1D1D1F" }}>
-                Are you 18 years of age or older?
+                {t("Are you 18 years of age or older?", "¿Tienes 18 años o más?")}
               </p>
 
               <div className="flex gap-3">
@@ -160,7 +167,7 @@ export default function AgeGate() {
                   className="flex-1 py-3 px-6 rounded-full font-semibold text-white transition-opacity hover:opacity-85"
                   style={{ background: "#1D1D1F" }}
                 >
-                  Yes, I am 18+
+                  {t("Yes, I am 18+", "Sí, soy mayor de 18")}
                 </button>
                 <button
                   onClick={decline}
@@ -175,14 +182,17 @@ export default function AgeGate() {
                     e.currentTarget.style.color = "#1D1D1F";
                   }}
                 >
-                  No
+                  {t("No", "No")}
                 </button>
               </div>
 
               <p className="text-xs mt-5" style={{ color: "#9E9EA8" }}>
-                By continuing you confirm you are 18+ and agree to our{" "}
+                {t(
+                  "By continuing you confirm you are 18+ and agree to our",
+                  "Al continuar, confirmas que tienes 18 años o más y aceptas nuestros",
+                )}{" "}
                 <Link href="/terms" className="transition-opacity hover:opacity-70" style={{ color: "#6B7A8D" }}>
-                  Terms of Service
+                  {t("Terms of Service", "Términos del servicio")}
                 </Link>
                 .
               </p>
@@ -196,11 +206,11 @@ export default function AgeGate() {
                 <X className="w-7 h-7" style={{ color: "#DC2626" }} />
               </div>
               <h3 className="text-xl font-bold mb-2" style={{ color: "#1D1D1F", fontFamily: "var(--font-heading, sans-serif)" }}>
-                Access Denied
+                {t("Access Denied", "Acceso denegado")}
               </h3>
               <p className="text-sm" style={{ color: "#6E6E73" }}>
-                You must be 18 or older to access this site.
-                <br />Redirecting…
+                {t("You must be 18 or older to access this site.", "Debes tener 18 años o más para acceder a este sitio.")}
+                <br />{t("Redirecting…", "Redirigiendo…")}
               </p>
             </div>
           )}
@@ -212,7 +222,7 @@ export default function AgeGate() {
           style={{ borderTop: "1px solid rgba(0,0,0,0.06)" }}
         >
           <p className="text-center text-xs pt-4" style={{ color: "#9E9EA8" }}>
-            FOR RESEARCH USE ONLY · NOT FOR HUMAN USE · MADE IN USA
+            {t("FOR RESEARCH USE ONLY · NOT FOR HUMAN USE · MADE IN USA", "SOLO PARA INVESTIGACIÓN · NO APTO PARA USO HUMANO · HECHO EN EE.UU.")}
           </p>
         </div>
       </div>

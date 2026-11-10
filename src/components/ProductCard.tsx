@@ -7,6 +7,8 @@ import { motion, useReducedMotion } from "framer-motion";
 import type { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 import NotifyModal from "./NotifyModal";
+import { useLanguage } from "@/context/LanguageContext";
+import { badgeLabel, categoryLabel } from "@/data/products-es";
 
 export default function ProductCard({
   product,
@@ -19,6 +21,7 @@ export default function ProductCard({
   index?: number;
 }) {
   const { addItem } = useCart();
+  const { lang, t } = useLanguage();
   const options = variants && variants.length > 1 ? variants : [product];
   const [selectedSlug, setSelectedSlug] = useState(product.slug);
   const current = options.find((v) => v.slug === selectedSlug) ?? product;
@@ -66,7 +69,7 @@ export default function ProductCard({
               className="absolute top-3 left-3 px-2 py-1 rounded text-[10px] font-semibold tracking-wide"
               style={{ background: "#111111", color: "#FFFFFF" }}
             >
-              {current.badge}
+              {badgeLabel(current.badge, lang)}
             </span>
           )}
           {!current.inStock && (
@@ -74,7 +77,7 @@ export default function ProductCard({
               className="absolute top-3 right-3 px-2 py-1 rounded text-[10px] font-semibold"
               style={{ background: "#FFFFFF", color: "#B42318", border: "1px solid rgba(180,35,24,0.2)" }}
             >
-              Out of stock
+              {t("Out of stock", "Agotado")}
             </span>
           )}
         </Link>
@@ -88,12 +91,12 @@ export default function ProductCard({
               )}
             </h3>
             <p className="text-[12px] sm:text-[13px] mt-1 line-clamp-1" style={{ color: "#6B6B6B" }}>
-              {current.goals[0] ?? current.compound}
+              {current.goals[0] ? categoryLabel(current.goals[0], lang) : current.compound}
             </p>
           </Link>
 
           {options.length > 1 && (
-            <div className="mt-3 flex flex-wrap justify-center sm:justify-start gap-1.5" role="radiogroup" aria-label={`${current.name} dose`}>
+            <div className="mt-3 flex flex-wrap justify-center sm:justify-start gap-1.5" role="radiogroup" aria-label={t(`${current.name} dose`, `Dosis de ${current.name}`)}>
               {options.map((v) => {
                 const active = v.slug === current.slug;
                 return (
@@ -131,7 +134,7 @@ export default function ProductCard({
                 className="w-full sm:w-auto h-10 sm:h-9 px-4 rounded-full text-[13px] font-medium transition-colors"
                 style={{ background: added ? "#0A84FF" : "#111111", color: "#FFFFFF" }}
               >
-                {added ? "Added" : "Add to cart"}
+                {added ? t("Added", "Añadido") : t("Add to cart", "Añadir al carrito")}
               </button>
             ) : (
               <button
@@ -139,7 +142,7 @@ export default function ProductCard({
                 className="w-full sm:w-auto h-10 sm:h-9 px-4 rounded-full text-[13px] font-medium"
                 style={{ border: "1px solid rgba(0,0,0,0.15)", color: "#111111" }}
               >
-                Notify me
+                {t("Notify me", "Avísame")}
               </button>
             )}
           </div>

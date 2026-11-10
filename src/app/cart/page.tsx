@@ -4,9 +4,12 @@ import Link from "next/link";
 import { shippingFor, FREE_SHIPPING_MIN } from "@/lib/shipping";
 import { ShoppingCart, Minus, Plus, Trash2, ArrowRight, ArrowLeft } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { useLanguage } from "@/context/LanguageContext";
+import { purityLabel, sizeLabel } from "@/data/products-es";
 
 export default function CartPage() {
   const { state, removeItem, updateQty, totalPrice, totalItems } = useCart();
+  const { lang, t } = useLanguage();
   const shipping = shippingFor(totalPrice);
 
   if (state.items.length === 0) {
@@ -17,9 +20,9 @@ export default function CartPage() {
         </div>
         <div className="text-center">
           <h2 className="text-2xl font-bold mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}>
-            Your Cart Is Empty
+            {t("Your Cart Is Empty", "Tu carrito está vacío")}
           </h2>
-          <p style={{ color: "#6E6E73" }}>Add research compounds to get started.</p>
+          <p style={{ color: "#6E6E73" }}>{t("Add research compounds to get started.", "Añade compuestos de investigación para empezar.")}</p>
         </div>
         <Link
           href="/shop"
@@ -27,7 +30,7 @@ export default function CartPage() {
           style={{ background: "#1D1D1F" }}
         >
           <ArrowLeft className="w-4 h-4" />
-          Browse Catalog
+          {t("Browse Catalog", "Ver catálogo")}
         </Link>
       </div>
     );
@@ -40,9 +43,9 @@ export default function CartPage() {
           className="text-4xl font-bold mb-8"
           style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
         >
-          Cart{" "}
+          {t("Cart", "Carrito")}{" "}
           <span className="text-2xl font-normal" style={{ color: "#6E6E73" }}>
-            ({totalItems} {totalItems === 1 ? "item" : "items"})
+            ({totalItems} {totalItems === 1 ? t("item", "artículo") : t("items", "artículos")})
           </span>
         </h1>
 
@@ -87,12 +90,13 @@ export default function CartPage() {
                         {item.product.name}
                       </Link>
                       <p className="text-sm mt-0.5" style={{ color: "#6E6E73" }}>
-                        {item.product.concentration} · {item.product.size}
+                        {item.product.concentration} · {sizeLabel(item.product.size, lang)}
                       </p>
-                      <p className="text-xs" style={{ color: "#9E9EA8" }}>{item.product.purity} purity</p>
+                      <p className="text-xs" style={{ color: "#9E9EA8" }}>{t(`${item.product.purity} purity`, `Pureza ${purityLabel(item.product.purity, lang)}`)}</p>
                     </div>
                     <button
                       onClick={() => removeItem(item.product.id)}
+                      aria-label={t("Remove item", "Quitar producto")}
                       className="p-1.5 rounded-lg transition-colors hover:bg-red-50"
                       style={{ color: "#9E9EA8" }}
                     >
@@ -107,6 +111,7 @@ export default function CartPage() {
                     >
                       <button
                         onClick={() => updateQty(item.product.id, item.quantity - 1)}
+                        aria-label={t("Decrease quantity", "Restar uno")}
                         className="px-3 py-2 transition-colors hover:bg-black/5"
                         style={{ color: "#6E6E73" }}
                       >
@@ -120,6 +125,7 @@ export default function CartPage() {
                       </span>
                       <button
                         onClick={() => updateQty(item.product.id, item.quantity + 1)}
+                        aria-label={t("Increase quantity", "Sumar uno")}
                         className="px-3 py-2 transition-colors hover:bg-black/5"
                         style={{ color: "#6E6E73" }}
                       >
@@ -131,7 +137,7 @@ export default function CartPage() {
                         ${(item.product.price * item.quantity).toFixed(2)}
                       </p>
                       <p className="text-xs" style={{ color: "#9E9EA8" }}>
-                        ${item.product.price.toFixed(2)} / unit
+                        ${item.product.price.toFixed(2)} / {t("unit", "unidad")}
                       </p>
                     </div>
                   </div>
@@ -145,7 +151,7 @@ export default function CartPage() {
               style={{ color: "#6E6E73" }}
             >
               <ArrowLeft className="w-4 h-4" />
-              Continue shopping
+              {t("Continue shopping", "Seguir comprando")}
             </Link>
           </div>
 
@@ -159,30 +165,33 @@ export default function CartPage() {
                 className="font-bold text-lg mb-5"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
-                Order Summary
+                {t("Order Summary", "Resumen del pedido")}
               </h2>
 
               <div className="space-y-3 mb-5">
                 <div className="flex justify-between text-sm">
-                  <span style={{ color: "#6E6E73" }}>Subtotal ({totalItems} items)</span>
+                  <span style={{ color: "#6E6E73" }}>{t(`Subtotal (${totalItems} ${totalItems === 1 ? "item" : "items"})`, `Subtotal (${totalItems} ${totalItems === 1 ? "artículo" : "artículos"})`)}</span>
                   <span className="font-medium" style={{ color: "#1D1D1F" }}>${totalPrice.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span style={{ color: "#6E6E73" }}>Shipping</span>
+                  <span style={{ color: "#6E6E73" }}>{t("Shipping", "Envío")}</span>
                   <span className="font-medium" style={{ color: shipping ? "#1D1D1F" : "#1B7A45" }}>
-                    {shipping ? `$${shipping.toFixed(2)}` : "FREE"}
+                    {shipping ? `$${shipping.toFixed(2)}` : t("FREE", "GRATIS")}
                   </span>
                 </div>
                 {shipping > 0 && (
                   <p className="text-xs" style={{ color: "#6E6E73" }}>
-                    Add ${(FREE_SHIPPING_MIN - totalPrice).toFixed(2)} more for free shipping.
+                    {t(
+                      `Add $${(FREE_SHIPPING_MIN - totalPrice).toFixed(2)} more for free shipping.`,
+                      `Añade $${(FREE_SHIPPING_MIN - totalPrice).toFixed(2)} más para obtener envío gratis.`,
+                    )}
                   </p>
                 )}
               </div>
 
               <div className="pt-4 mb-5" style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }}>
                 <div className="flex justify-between">
-                  <span className="font-bold" style={{ color: "#1D1D1F" }}>Total</span>
+                  <span className="font-bold" style={{ color: "#1D1D1F" }}>{t("Total", "Total")}</span>
                   <span className="font-bold text-2xl" style={{ color: "#1D1D1F" }}>${(totalPrice + shipping).toFixed(2)}</span>
                 </div>
               </div>
@@ -191,7 +200,7 @@ export default function CartPage() {
                 className="mb-4 p-3 rounded-xl text-center text-xs"
                 style={{ background: "rgba(10,132,255,0.06)", border: "1px solid rgba(10,132,255,0.15)", color: "#0A84FF" }}
               >
-                For Research Use Only · Not for Human Consumption
+                {t("For Research Use Only · Not for Human Consumption", "Solo para uso en investigación · No apto para consumo humano")}
               </div>
 
               <Link
@@ -199,26 +208,17 @@ export default function CartPage() {
                 className="w-full flex items-center justify-center gap-2 py-4 rounded-full font-semibold text-white text-sm transition-opacity hover:opacity-85"
                 style={{ background: "#1D1D1F" }}
               >
-                Proceed to Checkout
+                {t("Proceed to Checkout", "Ir a pagar")}
                 <ArrowRight className="w-4 h-4" />
               </Link>
 
               <p className="text-center text-xs mt-3" style={{ color: "#9E9EA8" }}>
-                🔒 SSL encrypted checkout
+                🔒 {t("SSL encrypted checkout", "Pago con cifrado SSL")}
               </p>
 
-              <div className="mt-4">
-                <input
-                  type="text"
-                  placeholder="Discount or affiliate code"
-                  className="w-full px-4 py-2.5 rounded-xl text-sm focus:outline-none transition-colors"
-                  style={{
-                    background: "#F6F6F8",
-                    border: "1px solid rgba(0,0,0,0.10)",
-                    color: "#1D1D1F",
-                  }}
-                />
-              </div>
+              <p className="mt-4 text-xs text-center" style={{ color: "#6E6E73" }}>
+                {t("Have a discount or affiliate code? You can apply it at checkout.", "¿Tienes un código de descuento o de afiliado? Puedes aplicarlo al pagar.")}
+              </p>
             </div>
           </div>
         </div>

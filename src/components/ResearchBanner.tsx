@@ -1,8 +1,10 @@
 "use client";
 
 import { FlaskConical, AlertTriangle } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function ResearchBanner() {
+  const { t } = useLanguage();
   return (
     <div
       className="w-full z-50 text-center py-2 px-4"
@@ -14,11 +16,17 @@ export default function ResearchBanner() {
       <div className="max-w-7xl mx-auto flex items-center justify-center gap-3 flex-wrap">
         <FlaskConical className="w-3.5 h-3.5 shrink-0" style={{ color: "#6B7A8D" }} />
         <p className="text-xs tracking-widest uppercase font-medium" style={{ color: "#6B7A8D" }}>
-          For Research Use Only · Not for Human Consumption · 18+ Only
+          {t(
+            "For Research Use Only · Not for Human Consumption · 18+ Only",
+            "Solo para investigación · No apto para consumo humano · Solo mayores de 18",
+          )}
         </p>
         <AlertTriangle className="w-3.5 h-3.5 text-blue-400/70 shrink-0" />
         <p className="text-xs text-gray-500 tracking-wider hidden sm:block">
-          All products sold for laboratory research purposes only
+          {t(
+            "All products sold for laboratory research purposes only",
+            "Todos los productos se venden solo para investigación de laboratorio",
+          )}
         </p>
       </div>
     </div>

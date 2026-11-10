@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { MerchComingSoon } from "@/components/ComingSoonSections";
 
 export const metadata: Metadata = {
-  title: "Merch — Coming Soon | Aurogen Labs",
+  title: "Merch — Coming Soon",
   description: "Aurogen tees and hoodies are on the way. Join the list to hear when the first drop launches.",
 };
 

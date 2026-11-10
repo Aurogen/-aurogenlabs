@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import { useLanguage } from "@/context/LanguageContext";
 import type { FormField, PartnerFormConfig } from "@/lib/partner-form";
+import { partnerFormText } from "@/lib/partner-form-es";
 
 const INK = "#1D1D1F";
 const MUTED = "#6E6E73";
@@ -18,7 +19,7 @@ const LABEL_CLASS = "block text-sm font-semibold mb-1.5";
 type Answer = string | string[] | boolean;
 
 export default function PartnersPage() {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const { user } = useUser();
   const [form, setForm] = useState<PartnerFormConfig | null>(null);
   const [loadError, setLoadError] = useState(false);
@@ -85,7 +86,7 @@ export default function PartnersPage() {
             {t("Application received", "Solicitud recibida")}
           </h1>
           <p className="text-sm leading-relaxed mb-6 whitespace-pre-line" style={{ color: MUTED }}>
-            {form?.successMessage}
+            {partnerFormText(form?.successMessage, lang)}
           </p>
           <Link
             href="/shop"
@@ -175,10 +176,10 @@ export default function PartnersPage() {
           ) : (
             <>
               <h2 className="text-2xl font-bold mb-2 text-center sm:text-left" style={{ color: INK, fontFamily: "var(--font-heading, sans-serif)" }}>
-                {form.title}
+                {partnerFormText(form.title, lang)}
               </h2>
               {form.intro && (
-                <p className="text-sm leading-relaxed mb-6 whitespace-pre-line text-center sm:text-left" style={{ color: MUTED }}>{form.intro}</p>
+                <p className="text-sm leading-relaxed mb-6 whitespace-pre-line text-center sm:text-left" style={{ color: MUTED }}>{partnerFormText(form.intro, lang)}</p>
               )}
 
               <form onSubmit={handleSubmit} className="space-y-5">
@@ -191,7 +192,7 @@ export default function PartnersPage() {
                   </div>
                   <div>
                     <label htmlFor="pf-email" className={LABEL_CLASS} style={{ color: INK }}>
-                      Email <span style={{ color: "#C0392B" }}>*</span>
+                      {t("Email", "Correo electrónico")} <span style={{ color: "#C0392B" }}>*</span>
                     </label>
                     <input id="pf-email" required type="email" autoComplete="email" value={emailValue} onChange={(e) => setEmail(e.target.value)} className={INPUT_CLASS} style={INPUT_STYLE} />
                   </div>
@@ -244,16 +245,18 @@ export default function PartnersPage() {
 }
 
 function DynamicField({ field: f, value, onChange }: { field: FormField; value: Answer | undefined; onChange: (v: Answer) => void }) {
+  const { lang } = useLanguage();
+  const tr = (text?: string) => partnerFormText(text, lang);
   const id = `pf-${f.id}`;
   const required = <span style={{ color: "#C0392B" }}> *</span>;
-  const help = f.help ? <p className="text-xs mt-1.5" style={{ color: "#9E9EA8" }}>{f.help}</p> : null;
+  const help = f.help ? <p className="text-xs mt-1.5" style={{ color: "#9E9EA8" }}>{tr(f.help)}</p> : null;
 
   if (f.type === "consent") {
     return (
       <label className="flex items-start gap-3 text-sm leading-relaxed cursor-pointer" style={{ color: INK }}>
         <input type="checkbox" required={f.required} checked={value === true} onChange={(e) => onChange(e.target.checked)} className="mt-1 w-4 h-4 shrink-0" />
         <span>
-          {f.label}
+          {tr(f.label)}
           {f.required && required}
           {help}
         </span>
@@ -267,7 +270,7 @@ function DynamicField({ field: f, value, onChange }: { field: FormField; value: 
     return (
       <fieldset>
         <legend className={LABEL_CLASS} style={{ color: INK }}>
-          {f.label}
+          {tr(f.label)}
           {f.required && required}
         </legend>
         <div className="grid sm:grid-cols-2 gap-2">
@@ -290,7 +293,7 @@ function DynamicField({ field: f, value, onChange }: { field: FormField; value: 
                       : onChange(o)
                   }
                 />
-                {o}
+                {tr(o)}
               </label>
             );
           })}
@@ -303,7 +306,7 @@ function DynamicField({ field: f, value, onChange }: { field: FormField; value: 
   const common = {
     id,
     required: f.required,
-    placeholder: f.placeholder,
+    placeholder: tr(f.placeholder) || undefined,
     value: typeof value === "string" ? value : "",
     className: INPUT_CLASS,
     style: INPUT_STYLE,
@@ -312,7 +315,7 @@ function DynamicField({ field: f, value, onChange }: { field: FormField; value: 
   return (
     <div>
       <label htmlFor={id} className={LABEL_CLASS} style={{ color: INK }}>
-        {f.label}
+        {tr(f.label)}
         {f.required && required}
       </label>
       {f.type === "textarea" ? (
@@ -321,7 +324,7 @@ function DynamicField({ field: f, value, onChange }: { field: FormField; value: 
         <select {...common} onChange={(e) => onChange(e.target.value)}>
           <option value="">—</option>
           {f.options!.map((o) => (
-            <option key={o} value={o}>{o}</option>
+            <option key={o} value={o}>{tr(o)}</option>
           ))}
         </select>
       ) : (

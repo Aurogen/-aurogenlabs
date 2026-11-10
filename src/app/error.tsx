@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Error({
   error,
@@ -9,6 +10,8 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const { t } = useLanguage();
+
   useEffect(() => {
     console.error(error);
   }, [error]);
@@ -20,23 +23,26 @@ export default function Error({
           className="text-xs font-bold tracking-[0.25em] uppercase mb-3"
           style={{ color: "#9E9EA8" }}
         >
-          Something went wrong
+          {t("Something went wrong", "Algo salió mal")}
         </p>
         <h2
           className="text-2xl font-bold mb-3"
           style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
         >
-          Unexpected Error
+          {t("Unexpected Error", "Error inesperado")}
         </h2>
         <p className="text-sm mb-6" style={{ color: "#6E6E73" }}>
-          We ran into a problem loading this page. Please try again.
+          {t(
+            "We ran into a problem loading this page. Please try again.",
+            "Tuvimos un problema al cargar esta página. Inténtalo de nuevo.",
+          )}
         </p>
         <button
           onClick={reset}
           className="px-6 py-3 rounded-full text-sm font-semibold text-white"
           style={{ background: "#1D1D1F" }}
         >
-          Try Again
+          {t("Try Again", "Reintentar")}
         </button>
       </div>
     </div>

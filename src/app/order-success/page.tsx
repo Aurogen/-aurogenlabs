@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { CheckCircle, Package, ArrowRight, LayoutDashboard, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface OrderItem {
   name: string;
@@ -29,6 +30,7 @@ function OrderSuccessContent() {
   const searchParams = useSearchParams();
   const reduceMotion = useReducedMotion();
   const { clearCart } = useCart();
+  const { t } = useLanguage();
   // Stripe sends the customer back here with paid=1 after a successful card payment.
   const paid = searchParams.get("paid") === "1";
 
@@ -41,19 +43,24 @@ function OrderSuccessContent() {
   }, [paid, clearCart]);
 
   useEffect(() => {
-    // Try localStorage first (set by checkout on success)
+    const orderId = searchParams.get("id") ?? searchParams.get("order_id");
+
+    // Use the order checkout saved in this browser, but only if it is the order in the URL
+    // (an older saved order must not be shown for a different one).
     try {
       const saved = localStorage.getItem("aurogen_last_order");
       if (saved) {
-        setOrder(JSON.parse(saved));
-        return;
+        const parsed = JSON.parse(saved);
+        if (!orderId || String(parsed?.id) === orderId) {
+          setOrder(parsed);
+          return;
+        }
       }
     } catch {
       // ignore
     }
 
-    // Fallback: no saved order in this browser, show a minimal confirmation from the URL
-    const orderId = searchParams.get("id") ?? searchParams.get("order_id");
+    // Fallback: no matching saved order, show a minimal confirmation from the URL
     if (orderId) {
       setOrder({ id: orderId, items: [], total: 0, email: "", name: "" });
     }
@@ -96,12 +103,18 @@ function OrderSuccessContent() {
             className="text-4xl font-bold mb-2"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
-            {paid ? "Order Confirmed" : "Order Received"}
+            {paid ? t("Order Confirmed", "Pedido confirmado") : t("Order Received", "Pedido recibido")}
           </h1>
           <p style={{ color: "#6E6E73" }}>
             {paid
-              ? "Payment received. We're preparing your order and will email you the tracking number when it ships."
-              : "Our team will contact you by email to complete payment. Your order ships as soon as payment is confirmed."}
+              ? t(
+                  "Payment received. We're preparing your order and will email you the tracking number when it ships.",
+                  "Pago recibido. Estamos preparando tu pedido y te enviaremos el número de rastreo por correo cuando salga.",
+                )
+              : t(
+                  "Our team will contact you by email to complete payment. Your order ships as soon as payment is confirmed.",
+                  "Nuestro equipo te contactará por correo para completar el pago. Tu pedido se envía en cuanto se confirme el pago.",
+                )}
           </p>
         </motion.div>
 
@@ -120,7 +133,7 @@ function OrderSuccessContent() {
           >
             <div className="flex items-center gap-2">
               <Package className="w-4 h-4" style={{ color: "#6B7A8D" }} />
-              <span className="text-sm" style={{ color: "#6E6E73" }}>Order</span>
+              <span className="text-sm" style={{ color: "#6E6E73" }}>{t("Order", "Pedido")}</span>
             </div>
             <span className="font-mono font-bold text-sm" style={{ color: "#1D1D1F" }}>
               #{order?.id ?? "—"}
@@ -138,7 +151,7 @@ function OrderSuccessContent() {
                   <div>
                     <p className="text-sm font-medium" style={{ color: "#1D1D1F" }}>{item.name}</p>
                     <p className="text-xs" style={{ color: "#9E9EA8" }}>
-                      {item.concentration} · Qty {item.quantity}
+                      {item.concentration} · {t("Qty", "Cant.")} {item.quantity}
                     </p>
                   </div>
                   <span className="text-sm font-semibold" style={{ color: "#1D1D1F" }}>
@@ -156,23 +169,25 @@ function OrderSuccessContent() {
               const saved = Math.round((subtotal + (order.shipping ?? 0) - order.total) * 100) / 100;
               return saved > 0 ? (
                 <div className="flex justify-between text-sm">
-                  <span style={{ color: "#6E6E73" }}>Discount</span>
+                  <span style={{ color: "#6E6E73" }}>{t("Discount", "Descuento")}</span>
                   <span className="font-medium" style={{ color: "#1B7A45" }}>−${saved.toFixed(2)}</span>
                 </div>
               ) : null;
             })()}
+            {order && order.items.length > 0 && (<>
             <div className="flex justify-between text-sm">
-              <span style={{ color: "#6E6E73" }}>Shipping</span>
+              <span style={{ color: "#6E6E73" }}>{t("Shipping", "Envío")}</span>
               <span className="font-medium" style={{ color: order?.shipping ? "#1D1D1F" : "#1B7A45" }}>
-                {order?.shipping ? `$${order.shipping.toFixed(2)}` : "FREE"}
+                {order?.shipping ? `$${order.shipping.toFixed(2)}` : t("FREE", "GRATIS")}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="font-bold" style={{ color: "#1D1D1F" }}>Total</span>
+              <span className="font-bold" style={{ color: "#1D1D1F" }}>{t("Total", "Total")}</span>
               <span className="font-bold text-xl" style={{ color: "#1D1D1F" }}>
                 ${order?.total.toFixed(2) ?? "—"}
               </span>
             </div>
+            </>)}
           </div>
         </motion.div>
 
@@ -194,12 +209,12 @@ function OrderSuccessContent() {
             <Package className="w-5 h-5" style={{ color: "#6B7A8D" }} />
           </div>
           <div className="flex-1">
-            <p className="text-sm font-semibold" style={{ color: "#1D1D1F" }}>Estimated Delivery</p>
-            <p className="text-xs" style={{ color: "#6E6E73" }}>2–5 business days · Ships from US</p>
+            <p className="text-sm font-semibold" style={{ color: "#1D1D1F" }}>{t("Estimated Delivery", "Entrega estimada")}</p>
+            <p className="text-xs" style={{ color: "#6E6E73" }}>{t("2–5 business days · Ships from US", "2–5 días hábiles · Se envía desde EE.UU.")}</p>
           </div>
           {order?.email && (
             <div className="text-right">
-              <p className="text-xs" style={{ color: "#9E9EA8" }}>Confirmation sent to</p>
+              <p className="text-xs" style={{ color: "#9E9EA8" }}>{t("Confirmation sent to", "Confirmación enviada a")}</p>
               <p className="text-xs font-medium" style={{ color: "#1D1D1F" }}>{order.email}</p>
             </div>
           )}
@@ -218,7 +233,7 @@ function OrderSuccessContent() {
             style={{ background: "#1D1D1F" }}
           >
             <LayoutDashboard className="w-4 h-4" />
-            View My Orders
+            {t("View My Orders", "Ver mis pedidos")}
           </Link>
           <Link
             href="/shop"
@@ -226,7 +241,7 @@ function OrderSuccessContent() {
             style={{ border: "1px solid rgba(0,0,0,0.2)", color: "#1D1D1F" }}
           >
             <ShoppingBag className="w-4 h-4" />
-            Continue Shopping
+            {t("Continue Shopping", "Seguir comprando")}
             <ArrowRight className="w-3 h-3" />
           </Link>
         </motion.div>
@@ -238,7 +253,10 @@ function OrderSuccessContent() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8 }}
         >
-          All compounds are shipped for research use only. Not for human consumption.
+          {t(
+            "All compounds are shipped for research use only. Not for human consumption.",
+            "Todos los compuestos se envían solo para uso en investigación. No aptos para consumo humano.",
+          )}
         </motion.p>
       </div>
     </div>

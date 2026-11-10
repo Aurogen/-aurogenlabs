@@ -3,15 +3,29 @@
 import { useState, useEffect, useRef } from "react";
 import { Search, X, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { PRODUCTS } from "@/data/products";
+import { PRODUCTS, CATEGORIES, type Product } from "@/data/products";
+import { useLanguage } from "@/context/LanguageContext";
+import { categoryLabel } from "@/data/products-es";
 
 interface Props {
   onClose: () => void;
 }
 
 export default function SearchModal({ onClose }: Props) {
+  const { lang, t } = useLanguage();
   const [query, setQuery] = useState("");
+  // Start from the bundled catalog, then swap in the live one (current prices, stock and visibility).
+  const [catalog, setCatalog] = useState<Product[]>(PRODUCTS);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    let alive = true;
+    fetch("/api/products")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => { if (alive && Array.isArray(d?.products) && d.products.length) setCatalog(d.products); })
+      .catch(() => {});
+    return () => { alive = false; };
+  }, []);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -22,11 +36,13 @@ export default function SearchModal({ onClose }: Props) {
     return () => window.removeEventListener("keydown", onKey);
   }, [onClose]);
 
-  const results = query.trim().length < 2 ? [] : PRODUCTS.filter(
+  const q = query.trim().toLowerCase();
+  const esLabel = (g: string) => CATEGORIES.find((c) => c.label === g)?.label_es ?? g;
+  const results = q.length < 2 ? [] : catalog.filter(
     (p) =>
-      p.name.toLowerCase().includes(query.toLowerCase()) ||
-      p.compound.toLowerCase().includes(query.toLowerCase()) ||
-      p.goals.some((g) => g.toLowerCase().includes(query.toLowerCase()))
+      p.name.toLowerCase().includes(q) ||
+      p.compound.toLowerCase().includes(q) ||
+      p.goals.some((g) => g.toLowerCase().includes(q) || esLabel(g).toLowerCase().includes(q))
   ).slice(0, 6);
 
   return (
@@ -50,12 +66,13 @@ export default function SearchModal({ onClose }: Props) {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search peptides, compounds, categories..."
+            placeholder={t("Search peptides, compounds, categories...", "Buscar péptidos, compuestos, categorías...")}
             className="flex-1 bg-transparent text-base focus:outline-none"
             style={{ color: "#1D1D1F" }}
           />
           <button
             onClick={onClose}
+            aria-label={t("Close search", "Cerrar búsqueda")}
             className="transition-opacity hover:opacity-60"
             style={{ color: "#9E9EA8" }}
           >
@@ -67,7 +84,7 @@ export default function SearchModal({ onClose }: Props) {
         <div className="max-h-96 overflow-y-auto">
           {query.trim().length >= 2 && results.length === 0 && (
             <p className="px-5 py-8 text-center text-sm" style={{ color: "#6E6E73" }}>
-              No products found for &quot;{query}&quot;
+              {t("No products found for", "No se encontraron productos para")} &quot;{query}&quot;
             </p>
           )}
           {results.length > 0 && (
@@ -98,7 +115,7 @@ export default function SearchModal({ onClose }: Props) {
                       {p.name}
                     </p>
                     <p className="text-xs truncate" style={{ color: "#6E6E73" }}>
-                      {p.concentration} · {p.goals.slice(0, 2).join(", ")}
+                      {p.concentration} · {p.goals.slice(0, 2).map((g) => categoryLabel(g, lang)).join(", ")}
                     </p>
                   </div>
                   <div className="text-right shrink-0">
@@ -113,7 +130,7 @@ export default function SearchModal({ onClose }: Props) {
           {query.trim().length < 2 && (
             <div className="px-5 py-6">
               <p className="text-xs mb-3 tracking-[0.18em] font-medium" style={{ color: "#9E9EA8" }}>
-                POPULAR SEARCHES
+                {t("POPULAR SEARCHES", "BÚSQUEDAS POPULARES")}
               </p>
               <div className="flex flex-wrap gap-2">
                 {["GLP-3", "GLP-2", "BPC-157", "TB-500", "GHK-Cu"].map((term) => (
@@ -146,7 +163,7 @@ export default function SearchModal({ onClose }: Props) {
               className="text-xs font-medium transition-opacity hover:opacity-70 flex items-center gap-1"
               style={{ color: "#6B7A8D" }}
             >
-              View all results for &quot;{query}&quot;
+              {t("View all results for", "Ver todos los resultados para")} &quot;{query}&quot;
               <ArrowRight className="w-3 h-3" />
             </Link>
           </div>
