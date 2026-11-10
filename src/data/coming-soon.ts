@@ -13,37 +13,37 @@ export const SUPPLEMENTS_PREVIEW: SupplementPreview[] = [
     slug: "whey-protein-isolate",
     name: "Whey Protein Isolate",
     detail: "French Vanilla · 5 lb",
-    image: "/supplements/whey-protein-isolate.webp",
+    image: "/supplements/whey-protein-isolate-v2.webp",
   },
   {
     slug: "creatine-monohydrate",
     name: "Creatine Monohydrate",
     detail: "Unflavored · 500 g",
-    image: "/supplements/creatine-monohydrate.webp",
+    image: "/supplements/creatine-monohydrate-v2.webp",
   },
   {
     slug: "ignite-pre-workout",
     name: "Ignite Pre-Workout",
     detail: "Blue Raspberry · 30 servings",
-    image: "/supplements/ignite-pre-workout.webp",
+    image: "/supplements/ignite-pre-workout-v2.webp",
   },
   {
     slug: "hydrate-electrolyte-mix",
     name: "Hydrate Electrolyte Mix",
     detail: "Lemon Lime · 30 servings",
-    image: "/supplements/hydrate-electrolyte-mix.webp",
+    image: "/supplements/hydrate-electrolyte-mix-v2.webp",
   },
   {
     slug: "collagen-type-1-3",
     name: "Collagen Type I & III",
     detail: "Unflavored · 300 g",
-    image: "/supplements/collagen-type-1-3.webp",
+    image: "/supplements/collagen-type-1-3-v2.webp",
   },
   {
     slug: "magnesium-glycinate",
     name: "Magnesium Glycinate",
     detail: "120 capsules",
-    image: "/supplements/magnesium-glycinate.webp",
+    image: "/supplements/magnesium-glycinate-v2.webp",
   },
 ];
 
