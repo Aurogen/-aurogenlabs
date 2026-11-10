@@ -16,7 +16,7 @@ const SHIPPING_OPTIONS = [
     time_es: `${DELIVERY_DAYS.min}–${DELIVERY_DAYS.max} días hábiles`,
     price: `$${FLAT_SHIPPING.toFixed(2)} · Free on orders $${FREE_SHIPPING_MIN}+`,
     price_es: `$${FLAT_SHIPPING.toFixed(2)} · Gratis en pedidos de $${FREE_SHIPPING_MIN}+`,
-    carrier: "USPS / UPS",
+    carrier: "UPS",
   },
 ];
 

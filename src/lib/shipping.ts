@@ -1,6 +1,6 @@
 // Shipping rule shared by the cart, checkout, server pricing and Stripe.
 // Change these two numbers to change shipping site-wide.
-export const FREE_SHIPPING_MIN = 99;
+export const FREE_SHIPPING_MIN = 300;
 export const FLAT_SHIPPING = 7.99;
 export const DELIVERY_DAYS = { min: 2, max: 5 };
 

@@ -3,6 +3,7 @@ import { getServiceClient } from "@/lib/supabase-server";
 import { isAdmin } from "@/lib/admin";
 import { generateUniqueCode, generateUniqueCoupon, siteUrl } from "@/lib/affiliates";
 import { sendAffiliateApproved } from "@/lib/email";
+import { AFFILIATE_DEFAULT_PCT } from "@/lib/promos";
 
 function clampPct(v: unknown, fallback: number) {
   const n = Number(v);
@@ -114,7 +115,7 @@ export async function POST(req: NextRequest) {
   }
 
   const commission_rate = clampPct(body.commission_rate, 20);
-  const customer_discount_pct = clampPct(body.customer_discount_pct, 10);
+  const customer_discount_pct = clampPct(body.customer_discount_pct, AFFILIATE_DEFAULT_PCT);
 
   let code: string;
   let coupon_code: string;

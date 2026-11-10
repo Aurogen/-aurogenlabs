@@ -2,6 +2,9 @@ import { getServiceClient } from "@/lib/supabase-server";
 import { PRODUCTS } from "@/data/products";
 import { findAffiliateByCoupon } from "@/lib/affiliates";
 import { shippingFor } from "@/lib/shipping";
+import {
+  FIRST_ORDER_CODE, FIRST_ORDER_PCT, BUNDLE_CODE, BUNDLE_PCT, BUNDLE_MIN_UNITS, peptideUnits, peptideSubtotal,
+} from "@/lib/promos";
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
 const MAX_QTY_PER_LINE = 50;
@@ -16,16 +19,61 @@ export interface DiscountResult {
   referral: boolean;
 }
 
+/** Order statuses that mean the customer actually bought something. */
+const PAID_STATUSES = ["paid", "processing", "shipped", "delivered"];
+
+async function hasPaidOrder(email: string) {
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.SUPABASE_SERVICE_ROLE_KEY) return false;
+  const { count, error } = await getServiceClient()
+    .from("orders")
+    .select("id", { count: "exact", head: true })
+    .ilike("email", email.trim())
+    .in("status", PAID_STATUSES);
+  if (error) throw new Error(`Order history lookup failed: ${error.message}`);
+  return (count ?? 0) > 0;
+}
+
+export interface DiscountContext {
+  /** Buyer's email: needed for the first-order promo. */
+  email?: string | null;
+  /** Priced cart lines: needed for the 4-peptide promo. */
+  lines?: { slug: string; goals?: string[] | null; quantity: number; price: number }[];
+}
+
 /**
- * Checks a code against store promos first, then influencer coupons, and prices the discount
- * for the given subtotal. Shared by the checkout preview and order creation so they always agree.
+ * Checks a code against the built-in promos, then store promos, then influencer coupons, and
+ * prices the discount for the given subtotal. Shared by the checkout preview and order creation
+ * so they always agree. An order carries a single code, so discounts never stack.
  */
 export async function evaluateDiscount(
   rawCode: string,
-  subtotal: number
+  subtotal: number,
+  ctx: DiscountContext = {}
 ): Promise<DiscountResult | { valid: false; error: string }> {
   const code = rawCode.trim().toUpperCase();
   if (!code) return { valid: false, error: "No code provided" };
+
+  if (code === FIRST_ORDER_CODE) {
+    const email = ctx.email?.trim();
+    if (!email) return { valid: false, error: "Enter your email to use the first-order discount" };
+    if (await hasPaidOrder(email)) return { valid: false, error: "The first-order discount is only for your first purchase" };
+    return {
+      valid: true, code, type: "percentage", value: FIRST_ORDER_PCT,
+      discount_amount: round2((subtotal * FIRST_ORDER_PCT) / 100), code_id: null, referral: false,
+    };
+  }
+
+  if (code === BUNDLE_CODE) {
+    const lines = ctx.lines ?? [];
+    const units = peptideUnits(lines);
+    if (units < BUNDLE_MIN_UNITS) {
+      return { valid: false, error: `Add ${BUNDLE_MIN_UNITS - units} more peptide${BUNDLE_MIN_UNITS - units === 1 ? "" : "s"} to use this discount (bacteriostatic water doesn't count)` };
+    }
+    return {
+      valid: true, code, type: "percentage", value: BUNDLE_PCT,
+      discount_amount: round2((peptideSubtotal(lines) * BUNDLE_PCT) / 100), code_id: null, referral: false,
+    };
+  }
 
   const supabase = getServiceClient();
   const { data } = await supabase
@@ -78,6 +126,7 @@ export async function evaluateDiscount(
 
 export interface PricedLine {
   slug: string;
+  goals: string[] | null;
   name: string;
   concentration: string;
   quantity: number;
@@ -87,6 +136,7 @@ export interface PricedLine {
 
 interface CatalogRow {
   slug: string;
+  goals: string[] | null;
   name: string;
   concentration: string;
   price: number;
@@ -102,13 +152,13 @@ async function loadCatalog(slugs: string[]): Promise<Map<string, CatalogRow>> {
     return new Map(
       PRODUCTS.filter((p) => slugs.includes(p.slug)).map((p) => [
         p.slug,
-        { slug: p.slug, name: p.name, concentration: p.concentration, price: p.price, in_stock: p.inStock, stock_count: null, visible: true, image: p.image ?? null },
+        { slug: p.slug, goals: p.goals, name: p.name, concentration: p.concentration, price: p.price, in_stock: p.inStock, stock_count: null, visible: true, image: p.image ?? null },
       ])
     );
   }
   const { data, error } = await getServiceClient()
     .from("products")
-    .select("slug, name, concentration, price, in_stock, stock_count, visible, image")
+    .select("slug, goals, name, concentration, price, in_stock, stock_count, visible, image")
     .in("slug", slugs);
   if (error) throw new Error(`Catalog lookup failed: ${error.message}`);
   return new Map((data ?? []).map((r) => [r.slug, { ...r, price: Number(r.price), stock_count: r.stock_count == null ? null : Number(r.stock_count) } as CatalogRow]));
@@ -119,7 +169,8 @@ async function loadCatalog(slugs: string[]): Promise<Map<string, CatalogRow>> {
  */
 export async function priceOrder(
   rawItems: { slug?: unknown; quantity?: unknown }[],
-  discountCode?: string | null
+  discountCode?: string | null,
+  email?: string | null
 ): Promise<
   | {
       ok: true;
@@ -157,14 +208,14 @@ export async function priceOrder(
         ? { ok: false, error: `Only ${p.stock_count} left of ${p.name} ${p.concentration}. Please lower the quantity.` }
         : { ok: false, error: `${p.name} ${p.concentration} is out of stock. Please remove it to continue.` };
     }
-    lines.push({ slug, name: p.name, concentration: p.concentration, quantity, price: p.price, image: p.image });
+    lines.push({ slug, goals: p.goals ?? null, name: p.name, concentration: p.concentration, quantity, price: p.price, image: p.image });
   }
 
   const subtotal = round2(lines.reduce((s, l) => s + l.price * l.quantity, 0));
 
   let discount: DiscountResult | null = null;
   if (discountCode && discountCode.trim()) {
-    const result = await evaluateDiscount(discountCode, subtotal);
+    const result = await evaluateDiscount(discountCode, subtotal, { email, lines });
     if (!result.valid) return { ok: false, error: `Discount code: ${result.error}` };
     discount = result;
   }

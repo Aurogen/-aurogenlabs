@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Prices, stock and the discount are resolved from the database, never from the browser.
-    const priced = await priceOrder(cartItems ?? [], discount_code ?? null);
+    const priced = await priceOrder(cartItems ?? [], discount_code ?? null, customerEmail);
     if (!priced.ok) {
       return NextResponse.json({ error: priced.error }, { status: 400 });
     }

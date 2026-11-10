@@ -5,6 +5,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { CartProvider } from "@/context/CartContext";
 import { LanguageProvider } from "@/context/LanguageContext";
+import ShippingBar from "@/components/ShippingBar";
 import Navbar from "@/components/Navbar";
 import CartDrawer from "@/components/CartDrawer";
 import AgeGate from "@/components/AgeGate";
@@ -72,6 +73,7 @@ export default function RootLayout({
                 <Suspense fallback={null}>
                   <RefTracker />
                 </Suspense>
+                <ShippingBar />
                 <Navbar />
                 <main className="flex-1">{children}</main>
                 <Footer />

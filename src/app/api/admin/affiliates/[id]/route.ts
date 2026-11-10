@@ -3,9 +3,10 @@ import { getServiceClient } from "@/lib/supabase-server";
 import { isAdmin } from "@/lib/admin";
 import { sendAffiliateApproved, sendAffiliateRejected } from "@/lib/email";
 import { generateUniqueCode, generateUniqueCoupon } from "@/lib/affiliates";
+import { AFFILIATE_DEFAULT_PCT } from "@/lib/promos";
 
 const DEFAULT_COMMISSION = 20;
-const DEFAULT_DISCOUNT = 10;
+const DEFAULT_DISCOUNT = AFFILIATE_DEFAULT_PCT;
 
 export async function PATCH(
   req: Request,

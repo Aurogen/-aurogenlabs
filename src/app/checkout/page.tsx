@@ -7,6 +7,9 @@ import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
 import { shippingFor, FREE_SHIPPING_MIN } from "@/lib/shipping";
 import { useLanguage } from "@/context/LanguageContext";
+import {
+  FIRST_ORDER_CODE, FIRST_ORDER_PCT, BUNDLE_CODE, BUNDLE_PCT, BUNDLE_MIN_UNITS, AFFILIATE_DEFAULT_PCT, peptideUnits,
+} from "@/lib/promos";
 
 // Set when Stripe is connected; without it orders are taken for manual payment.
 const CARD_PAYMENTS = Boolean(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
@@ -58,8 +61,22 @@ export default function CheckoutPage() {
   const shipping = shippingFor(goodsTotal);
   const finalTotal = goodsTotal + shipping;
 
-  async function applyDiscount() {
-    if (!discountInput.trim()) return;
+  const units = peptideUnits(
+    state.items.map((i) => ({ slug: i.product.slug, goals: i.product.goals, quantity: i.quantity })),
+  );
+
+  // Spanish for the promo messages the server can send back.
+  function promoError(msg: string) {
+    if (!msg.includes("first-order") && !msg.includes("first purchase") && !msg.includes("bacteriostatic")) return msg;
+    if (msg.includes("Enter your email")) return t(msg, "Escribe tu correo para usar el descuento de primera compra");
+    if (msg.includes("first purchase")) return t(msg, "El descuento de primera compra es solo para tu primer pedido");
+    const missing = Math.max(1, BUNDLE_MIN_UNITS - units);
+    return t(msg, `Agrega ${missing} péptido${missing === 1 ? "" : "s"} más para usar este descuento (el agua bacteriostática no cuenta)`);
+  }
+
+  async function applyDiscount(codeArg?: string) {
+    const code = (codeArg ?? discountInput).trim();
+    if (!code) return;
     setDiscountLoading(true);
     setDiscountError("");
     setDiscountData(null);
@@ -67,19 +84,24 @@ export default function CheckoutPage() {
       const res = await fetch("/api/discount-codes/validate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code: discountInput.trim(), order_total: totalPrice }),
+        body: JSON.stringify({
+          code,
+          order_total: totalPrice,
+          email: form.email,
+          items: state.items.map((item) => ({ slug: item.product.slug, quantity: item.quantity })),
+        }),
       });
       const data = await res.json();
       if (data.valid) {
         setDiscountData({
-          code: discountInput.trim().toUpperCase(),
+          code: code.toUpperCase(),
           discount_amount: data.discount_amount,
           type: data.type,
           value: data.value,
           code_id: data.code_id,
         });
       } else {
-        setDiscountError(data.error ?? t("Invalid code", "Código inválido"));
+        setDiscountError(data.error ? promoError(data.error) : t("Invalid code", "Código inválido"));
       }
     } catch {
       setDiscountError(t("Could not validate code", "No se pudo validar el código"));
@@ -301,8 +323,55 @@ export default function CheckoutPage() {
                 className="font-bold text-lg mb-4"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
-                {t("Discount Code", "Código de descuento")}
+                {t("Discount", "Descuento")}
               </h2>
+              <p className="text-xs mb-3" style={{ color: "#6E6E73" }}>
+                {t("One discount per order. Choose the one you want:", "Un solo descuento por compra. Elige el que quieras:")}
+              </p>
+              <div className="grid sm:grid-cols-2 gap-2 mb-4">
+                {[
+                  {
+                    code: FIRST_ORDER_CODE,
+                    title: t(`First order · ${FIRST_ORDER_PCT}% off`, `Primera compra · ${FIRST_ORDER_PCT}% de descuento`),
+                    note: t("For your first purchase", "Para tu primer pedido"),
+                    ok: true,
+                  },
+                  {
+                    code: BUNDLE_CODE,
+                    title: t(`${BUNDLE_MIN_UNITS}+ peptides · ${BUNDLE_PCT}% off`, `${BUNDLE_MIN_UNITS}+ péptidos · ${BUNDLE_PCT}% de descuento`),
+                    note: units >= BUNDLE_MIN_UNITS
+                      ? t("On the peptides in your order (BAC water doesn't count)", "Sobre los péptidos de tu pedido (el agua BAC no cuenta)")
+                      : t(`Add ${BUNDLE_MIN_UNITS - units} more peptide${BUNDLE_MIN_UNITS - units === 1 ? "" : "s"} (BAC water doesn't count)`, `Agrega ${BUNDLE_MIN_UNITS - units} péptido${BUNDLE_MIN_UNITS - units === 1 ? "" : "s"} más (el agua BAC no cuenta)`),
+                    ok: units >= BUNDLE_MIN_UNITS,
+                  },
+                ].map((o) => {
+                  const active = discountData?.code === o.code;
+                  return (
+                    <button
+                      key={o.code}
+                      type="button"
+                      onClick={() => (active ? (setDiscountData(null), setDiscountInput("")) : applyDiscount(o.code))}
+                      disabled={!o.ok || discountLoading}
+                      aria-pressed={active}
+                      className="text-left px-4 py-3 rounded-xl transition-colors disabled:cursor-not-allowed"
+                      style={{
+                        border: `1px solid ${active ? "#1B7A45" : "rgba(0,0,0,0.12)"}`,
+                        background: active ? "rgba(27,122,69,0.06)" : o.ok ? "#FFFFFF" : "#F6F6F8",
+                        opacity: o.ok ? 1 : 0.7,
+                      }}
+                    >
+                      <span className="block text-sm font-semibold" style={{ color: active ? "#1B7A45" : "#1D1D1F" }}>{o.title}</span>
+                      <span className="block text-xs mt-0.5" style={{ color: "#6E6E73" }}>{o.note}</span>
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="text-xs mb-2" style={{ color: "#6E6E73" }}>
+                {t(
+                  `Or enter a discount or affiliate code (affiliate codes give ${AFFILIATE_DEFAULT_PCT}% off):`,
+                  `O escribe un código de descuento o de afiliado (los códigos de afiliado dan ${AFFILIATE_DEFAULT_PCT}% de descuento):`,
+                )}
+              </p>
               {discountData ? (
                 <div className="flex items-center justify-between px-4 py-3 rounded-xl" style={{ background: "rgba(27,122,69,0.06)", border: "1px solid rgba(27,122,69,0.2)" }}>
                   <div className="flex items-center gap-2">
@@ -333,7 +402,7 @@ export default function CheckoutPage() {
                     placeholder={t("Enter discount code", "Ingresa tu código de descuento")}
                   />
                   <button
-                    onClick={applyDiscount}
+                    onClick={() => applyDiscount()}
                     disabled={!discountInput.trim() || discountLoading}
                     className="px-4 py-3 rounded-xl text-sm font-semibold transition-opacity"
                     style={{ background: "#1D1D1F", color: "#FFFFFF", opacity: !discountInput.trim() || discountLoading ? 0.4 : 1 }}

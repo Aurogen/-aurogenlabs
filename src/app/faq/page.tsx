@@ -4,6 +4,7 @@ import { useState } from "react";
 import { HelpCircle, ChevronDown } from "lucide-react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
+import { FLAT_SHIPPING, FREE_SHIPPING_MIN } from "@/lib/shipping";
 
 const CATEGORIES = [
   {
@@ -29,7 +30,7 @@ const CATEGORIES = [
     category: "Shipping",
     category_es: "Envíos",
     items: [
-      { q: "How long does shipping take?", q_es: "¿Cuánto tarda el envío?", a_es: "La entrega tarda de 2 a 5 días hábiles dentro de EE. UU. El envío cuesta $7.99 y es gratis en pedidos de $99 o más. Los pedidos realizados antes de las 2:00 PM (hora del Este, EST) normalmente se envían el mismo día.", a: "Delivery takes 2–5 business days within the US. Shipping is $7.99, and free on orders of $99 or more. Orders placed before 2:00 PM EST typically ship the same day." },
+      { q: "How long does shipping take?", q_es: "¿Cuánto tarda el envío?", a_es: `La entrega tarda de 2 a 5 días hábiles dentro de EE. UU. por UPS. El envío cuesta $${FLAT_SHIPPING.toFixed(2)} y es gratis en compras de $${FREE_SHIPPING_MIN} o más. Los pedidos realizados antes de las 2:00 PM (hora del Este, EST) normalmente se envían el mismo día.`, a: `Delivery takes 2–5 business days within the US via UPS. Shipping is $${FLAT_SHIPPING.toFixed(2)}, and free on orders of $${FREE_SHIPPING_MIN} or more. Orders placed before 2:00 PM EST typically ship the same day.` },
       { q: "Do you ship outside the United States?", q_es: "¿Hacen envíos fuera de Estados Unidos?", a_es: "Por ahora solo enviamos dentro de Estados Unidos. Los envíos internacionales están previstos para una actualización futura.", a: "We currently ship within the United States only. International shipping is planned for a future update." },
       { q: "How are peptides packaged for shipping?", q_es: "¿Cómo se empacan los péptidos para el envío?", a_es: "Los péptidos liofilizados se envían en viales sellados con desecantes y acolchado para evitar roturas. Todo el empaque es discreto y no hace referencia al contenido en el exterior.", a: "Lyophilized peptides are shipped in sealed vials with desiccants and padding to prevent breakage. All packaging is discreet and does not reference the contents on the exterior." },
     ],

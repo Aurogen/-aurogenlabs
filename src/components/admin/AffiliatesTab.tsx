@@ -284,7 +284,7 @@ export default function AffiliatesTab() {
 /* ─── New affiliate form ────────────────────────────────── */
 function NewAffiliateForm({ onCreated }: { onCreated: () => Promise<void> }) {
   const [form, setForm] = useState({
-    name: "", email: "", code: "", coupon_code: "", commission_rate: "20", customer_discount_pct: "10", notes: "", send_email: true,
+    name: "", email: "", code: "", coupon_code: "", commission_rate: "20", customer_discount_pct: "15", notes: "", send_email: true,
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
