@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { ShieldCheck, X, AlertTriangle } from "lucide-react";
 import Link from "next/link";
+import Logo from "./Logo";
 
 const AGE_KEY = "aurogen_age_verified";
 const RESEARCH_KEY = "aurogen_research_agreed";
@@ -57,16 +58,7 @@ export default function AgeGate() {
         <div className="p-8 text-center">
           {/* Logo wordmark */}
           <div className="flex items-center justify-center gap-2 mb-8">
-            <LogoMark />
-            <div className="text-left">
-              <p
-                className="font-bold text-xl tracking-widest leading-none"
-                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
-              >
-                AUROGEN
-              </p>
-              <p className="text-xs tracking-[0.3em]" style={{ color: "#6B7A8D" }}>LABS</p>
-            </div>
+            <Logo height={44} />
           </div>
 
           {step === "research" ? (
@@ -228,12 +220,3 @@ export default function AgeGate() {
   );
 }
 
-function LogoMark() {
-  return (
-    <svg width="32" height="32" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="20" cy="20" r="19" stroke="#6B7A8D" strokeWidth="1.5" opacity="0.6" />
-      <path d="M20 8 L28 28 H24 L22 23 H18 L16 28 H12 L20 8Z" fill="#1D1D1F" opacity="0.85" />
-      <path d="M19 20 H21 L20 17Z" fill="#6B7A8D" />
-    </svg>
-  );
-}

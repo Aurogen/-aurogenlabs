@@ -53,11 +53,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="col-span-2 lg:col-span-1">
             <Link href="/" className="flex items-center justify-center lg:justify-start gap-2.5 mb-4">
-              <Logo size={32} />
-              <div>
-                <p className="text-white font-bold text-base tracking-widest" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>AUROGEN</p>
-                <p className="text-[9px] tracking-[0.4em] -mt-0.5" style={{ color: "#0A84FF" }}>LABS</p>
-              </div>
+              <Logo height={38} variant="dark" />
             </Link>
             <p className="text-gray-500 text-xs leading-relaxed mb-4 max-w-xs mx-auto lg:mx-0">
               Research peptides and reagents with a third-party Certificate of Analysis for every lot.

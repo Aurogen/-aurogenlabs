@@ -66,12 +66,9 @@ export default function Navbar() {
       >
         <div className="max-w-[1440px] mx-auto h-16 lg:h-20 px-5 sm:px-8 md:px-10 flex items-center gap-8 lg:gap-12">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 shrink-0" aria-label="Aurogen Labs home">
-            <Logo size={36} variant="light" />
-            <span className="leading-none" style={{ color: INK }}>
-              <span className="block font-semibold text-[17px] lg:text-[20px] tracking-[0.14em]">AUROGEN</span>
-              <span className="block text-[10px] lg:text-[11px] tracking-[0.3em] mt-1" style={{ color: MUTED }}>LABS</span>
-            </span>
+          <Link href="/" className="flex items-center shrink-0" aria-label="Aurogen Labs home">
+            <span className="lg:hidden"><Logo height={36} /></span>
+            <span className="hidden lg:inline-flex"><Logo height={46} /></span>
           </Link>
 
           {/* Desktop nav */}
