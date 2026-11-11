@@ -105,8 +105,8 @@ export function MerchComingSoon({ standalone = false }: { standalone?: boolean }
           title={<T en="Aurogen Merch" es="Merch Aurogen" />}
           text={
             <T
-              en="A tee, a polo and a half-zip hoodie with the Aurogen mark. The first drop is in the works — get on the list to hear first."
-              es="Una camiseta, un polo y una sudadera con medio cierre con el logo de Aurogen. El primer lanzamiento está en preparación: apúntate a la lista y entérate antes que nadie."
+              en="Tees, a polo, a half-zip hoodie, caps and a vial case with the Aurogen mark. The first drop is in the works — get on the list to hear first."
+              es="Camisetas, un polo, una sudadera con medio cierre, gorras y un estuche para viales con el logo de Aurogen. El primer lanzamiento está en preparación: apúntate a la lista y entérate antes que nadie."
             />
           }
           href="/merch"
@@ -133,27 +133,40 @@ export function MerchComingSoon({ standalone = false }: { standalone?: boolean }
                 <T en="Wear the lab." es="Viste el laboratorio." />
               </p>
               <p className="mt-3 text-sm md:text-base" style={{ color: "rgba(255,255,255,0.8)" }}>
-                <T en="Tee, polo and hoodie — coming soon." es="Camiseta, polo y sudadera: muy pronto." />
+                <T en="Apparel, caps and a vial case — coming soon." es="Ropa, gorras y estuche para viales: muy pronto." />
               </p>
             </div>
           </div>
         )}
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
-          {MERCH_PREVIEW.map((m, i) => (
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+          {(standalone ? MERCH_PREVIEW : MERCH_PREVIEW.slice(0, 4)).map((m, i) => (
             <div key={m.slug} className="group rounded-xl overflow-hidden" style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.07)" }}>
-              <div className="merch-flip relative aspect-square overflow-hidden" style={{ background: "#ECEAE6" }}>
-                <Image src={m.lifestyle} alt={`${m.name}, worn`} fill sizes="(max-width: 639px) 100vw, 400px" className="merch-back object-cover" />
-                <Image
-                  src={m.image}
-                  alt={m.name}
-                  fill
-                  sizes="(max-width: 639px) 100vw, 400px"
-                  className="merch-front object-cover"
-                  style={{ animationDelay: `${i * 1.5}s` }}
-                />
-                <SoonBadge />
-              </div>
+              {m.lifestyle ? (
+                <div className="merch-flip relative aspect-square overflow-hidden" style={{ background: "#ECEAE6" }}>
+                  <Image src={m.lifestyle} alt={`${m.name}, worn`} fill sizes="(max-width: 639px) 100vw, 400px" className="merch-back object-cover" />
+                  <Image
+                    src={m.image}
+                    alt={m.name}
+                    fill
+                    sizes="(max-width: 639px) 100vw, 400px"
+                    className="merch-front object-cover"
+                    style={{ animationDelay: `${i * 1.5}s` }}
+                  />
+                  <SoonBadge />
+                </div>
+              ) : (
+                <div className="relative aspect-square overflow-hidden" style={{ background: "#FEFEFE" }}>
+                  <Image
+                    src={m.image}
+                    alt={m.name}
+                    fill
+                    sizes="(max-width: 639px) 100vw, 400px"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
+                  />
+                  <SoonBadge />
+                </div>
+              )}
               <div className="p-4 text-center sm:text-left">
                 <h3 className="font-semibold text-[15px] leading-snug" style={{ color: "#111111" }}>{m.name}</h3>
                 <p className="text-[13px] mt-1" style={{ color: "#6B6B6B" }}><T en={m.detail} es={m.detail_es} /></p>

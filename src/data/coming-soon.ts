@@ -61,8 +61,8 @@ export interface MerchPreview {
   detail_es: string;
   /** Studio photo of the garment with the Aurogen print. */
   image: string;
-  /** The same piece worn, shown on hover / in rotation. */
-  lifestyle: string;
+  /** The same piece worn, shown on hover / in rotation. Optional: client product shots have one photo. */
+  lifestyle?: string;
 }
 
 export const MERCH_PREVIEW: MerchPreview[] = [
@@ -89,5 +89,40 @@ export const MERCH_PREVIEW: MerchPreview[] = [
     detail_es: "Blanco · Corte oversized",
     image: "/merch/half-zip-hoodie.webp",
     lifestyle: "/merch/half-zip-hoodie-lifestyle.webp",
+  },
+  {
+    slug: "vial-case",
+    name: "Vial Travel Case",
+    detail: "Black · Holds 9 vials",
+    detail_es: "Negro · Para 9 viales",
+    image: "/merch/vial-case.webp",
+  },
+  {
+    slug: "raglan-crop-tee",
+    name: "Move Your Way Crop Tee",
+    detail: "Off-white · Raglan, boxy fit",
+    detail_es: "Blanco hueso · Raglán, corte amplio",
+    image: "/merch/raglan-crop-tee.webp",
+  },
+  {
+    slug: "fitted-crop-tee",
+    name: "Own Your Power Crop Tee",
+    detail: "Sand · Fitted",
+    detail_es: "Arena · Ajustada",
+    image: "/merch/fitted-crop-tee.webp",
+  },
+  {
+    slug: "cap-brown",
+    name: "Own Your Progress Cap",
+    detail: "Brown · Embroidered",
+    detail_es: "Café · Bordada",
+    image: "/merch/cap-brown.webp",
+  },
+  {
+    slug: "cap-navy",
+    name: "Move Beyond Cap",
+    detail: "Navy · Embroidered",
+    detail_es: "Azul marino · Bordada",
+    image: "/merch/cap-navy.webp",
   },
 ];
