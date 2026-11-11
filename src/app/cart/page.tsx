@@ -6,6 +6,7 @@ import { ShoppingCart, Minus, Plus, Trash2, ArrowRight, ArrowLeft } from "lucide
 import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { purityLabel, sizeLabel } from "@/data/products-es";
+import PromoHint from "@/components/PromoHint";
 
 export default function CartPage() {
   const { state, removeItem, updateQty, totalPrice, totalItems } = useCart();
@@ -188,6 +189,8 @@ export default function CartPage() {
                   </p>
                 )}
               </div>
+
+              <div className="mb-4"><PromoHint compact /></div>
 
               <div className="pt-4 mb-5" style={{ borderTop: "1px solid rgba(0,0,0,0.08)" }}>
                 <div className="flex justify-between">

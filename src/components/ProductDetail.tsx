@@ -15,6 +15,7 @@ import NotifyModal from "./NotifyModal";
 import ProductCard from "./ProductCard";
 import { useLanguage } from "@/context/LanguageContext";
 import { categoryLabel, productLongDescription, purityLabel, sizeLabel, storageLabel } from "@/data/products-es";
+import PromoHint from "@/components/PromoHint";
 
 type Tab = "desc" | "specs" | "faq";
 
@@ -320,6 +321,8 @@ export default function ProductDetail({ product, related, variants = [] }: Props
                 {t("Notify Me When In Stock", "Avísame cuando vuelva a haber stock")}
               </button>
             )}
+
+            <div className="mb-3"><PromoHint compact /></div>
 
             {product.coaUrl ? (
               <a

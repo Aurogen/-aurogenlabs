@@ -6,6 +6,7 @@ import { FREE_SHIPPING_MIN, FLAT_SHIPPING } from "@/lib/shipping";
 import { useCart } from "@/context/CartContext";
 import { useUser } from "@clerk/nextjs";
 import { useLanguage } from "@/context/LanguageContext";
+import PromoHint from "./PromoHint";
 
 export default function CartDrawer() {
   const { state, closeCart, removeItem, updateQty, totalPrice, totalItems } = useCart();
@@ -163,6 +164,8 @@ export default function CartDrawer() {
                 ⚠️ {t("For Research Use Only · Not for Human Consumption", "Solo para uso en investigación · No apto para consumo humano")}
               </p>
             </div>
+
+            <div className="mb-3"><PromoHint compact /></div>
 
             <div className="flex items-center justify-between mb-3">
               <span style={{ color: "#6E6E73" }}>{t("Subtotal", "Subtotal")}</span>
