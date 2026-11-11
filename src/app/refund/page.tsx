@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function RefundPage() {
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#F6F6F8" }}>
+    <div className="min-h-screen py-16 px-4" style={{ background: "#F5F4F0" }}>
       <div className="max-w-3xl mx-auto">
 
         <T
@@ -21,7 +21,7 @@ export default function RefundPage() {
                   <div className="flex items-center gap-3 mb-4">
                     <div
                       className="w-10 h-10 rounded-xl flex items-center justify-center"
-                      style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
+                      style={{ background: "rgba(22,38,74,0.08)", border: "1px solid rgba(22,38,74,0.18)" }}
                     >
                       <RotateCcw className="w-5 h-5" style={{ color: "#6B7A8D" }} />
                     </div>
@@ -30,7 +30,7 @@ export default function RefundPage() {
                     </span>
                   </div>
                   <h1
-                    className="text-4xl font-bold mb-3"
+                    className="text-4xl font-medium mb-3"
                     style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
                   >
                     Refund Policy
@@ -60,7 +60,7 @@ export default function RefundPage() {
                   <div className="flex items-center gap-3 mb-5">
                     <CheckCircle className="w-5 h-5" style={{ color: "#6B7A8D" }} />
                     <h2
-                      className="font-bold text-xl"
+                      className="font-medium text-xl"
                       style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
                     >
                       Eligible Refund Claims
@@ -97,7 +97,7 @@ export default function RefundPage() {
                 {/* How to File */}
                 <div className="mb-10">
                   <h2
-                    className="font-bold text-xl mb-5"
+                    className="font-medium text-xl mb-5"
                     style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
                   >
                     How to File a Claim
@@ -116,7 +116,7 @@ export default function RefundPage() {
                       >
                         <div
                           className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
-                          style={{ background: "rgba(10,132,255,0.08)", color: "#0A84FF" }}
+                          style={{ background: "rgba(22,38,74,0.08)", color: "#16264A" }}
                         >
                           {step}
                         </div>
@@ -129,7 +129,7 @@ export default function RefundPage() {
                 {/* Resolution */}
                 <div className="mb-10">
                   <h2
-                    className="font-bold text-xl mb-5"
+                    className="font-medium text-xl mb-5"
                     style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
                   >
                     Resolution
@@ -156,7 +156,7 @@ export default function RefundPage() {
                 {/* Research Use Disclaimer */}
                 <div
                   className="p-5 rounded-2xl mb-10 text-sm leading-relaxed"
-                  style={{ background: "rgba(10,132,255,0.07)", border: "1px solid rgba(10,132,255,0.25)", color: "#6E6E73" }}
+                  style={{ background: "rgba(22,38,74,0.07)", border: "1px solid rgba(22,38,74,0.25)", color: "#6E6E73" }}
                 >
                   <p className="font-semibold mb-2" style={{ color: "#1D1D1F" }}>Research Use Only</p>
                   <p>
@@ -177,11 +177,11 @@ export default function RefundPage() {
                     <p className="font-semibold text-sm mb-1" style={{ color: "#1D1D1F" }}>Questions?</p>
                     <p className="text-sm" style={{ color: "#6E6E73" }}>
                       Contact our support team at{" "}
-                      <a href="mailto:support@aurogenbio.com" className="underline" style={{ color: "#0A84FF" }}>
+                      <a href="mailto:support@aurogenbio.com" className="underline" style={{ color: "#16264A" }}>
                         support@aurogenbio.com
                       </a>{" "}
                       or visit our{" "}
-                      <Link href="/shipping" className="underline" style={{ color: "#0A84FF" }}>
+                      <Link href="/shipping" className="underline" style={{ color: "#16264A" }}>
                         Shipping & Returns
                       </Link>{" "}
                       page for more information.
@@ -197,7 +197,7 @@ export default function RefundPage() {
                   <div className="flex items-center gap-3 mb-4">
                     <div
                       className="w-10 h-10 rounded-xl flex items-center justify-center"
-                      style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
+                      style={{ background: "rgba(22,38,74,0.08)", border: "1px solid rgba(22,38,74,0.18)" }}
                     >
                       <RotateCcw className="w-5 h-5" style={{ color: "#6B7A8D" }} />
                     </div>
@@ -206,7 +206,7 @@ export default function RefundPage() {
                     </span>
                   </div>
                   <h1
-                    className="text-4xl font-bold mb-3"
+                    className="text-4xl font-medium mb-3"
                     style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
                   >
                     Política de Reembolso
@@ -239,7 +239,7 @@ export default function RefundPage() {
                   <div className="flex items-center gap-3 mb-5">
                     <CheckCircle className="w-5 h-5" style={{ color: "#6B7A8D" }} />
                     <h2
-                      className="font-bold text-xl"
+                      className="font-medium text-xl"
                       style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
                     >
                       Reclamos de reembolso elegibles
@@ -276,7 +276,7 @@ export default function RefundPage() {
                 {/* How to File */}
                 <div className="mb-10">
                   <h2
-                    className="font-bold text-xl mb-5"
+                    className="font-medium text-xl mb-5"
                     style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
                   >
                     Cómo presentar un reclamo
@@ -295,7 +295,7 @@ export default function RefundPage() {
                       >
                         <div
                           className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0"
-                          style={{ background: "rgba(10,132,255,0.08)", color: "#0A84FF" }}
+                          style={{ background: "rgba(22,38,74,0.08)", color: "#16264A" }}
                         >
                           {step}
                         </div>
@@ -308,7 +308,7 @@ export default function RefundPage() {
                 {/* Resolution */}
                 <div className="mb-10">
                   <h2
-                    className="font-bold text-xl mb-5"
+                    className="font-medium text-xl mb-5"
                     style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
                   >
                     Resolución
@@ -335,7 +335,7 @@ export default function RefundPage() {
                 {/* Research Use Disclaimer */}
                 <div
                   className="p-5 rounded-2xl mb-10 text-sm leading-relaxed"
-                  style={{ background: "rgba(10,132,255,0.07)", border: "1px solid rgba(10,132,255,0.25)", color: "#6E6E73" }}
+                  style={{ background: "rgba(22,38,74,0.07)", border: "1px solid rgba(22,38,74,0.25)", color: "#6E6E73" }}
                 >
                   <p className="font-semibold mb-2" style={{ color: "#1D1D1F" }}>Solo para uso en investigación</p>
                   <p>
@@ -356,11 +356,11 @@ export default function RefundPage() {
                     <p className="font-semibold text-sm mb-1" style={{ color: "#1D1D1F" }}>¿Preguntas?</p>
                     <p className="text-sm" style={{ color: "#6E6E73" }}>
                       Comuníquese con nuestro equipo de soporte en{" "}
-                      <a href="mailto:support@aurogenbio.com" className="underline" style={{ color: "#0A84FF" }}>
+                      <a href="mailto:support@aurogenbio.com" className="underline" style={{ color: "#16264A" }}>
                         support@aurogenbio.com
                       </a>{" "}
                       o visite nuestra página de{" "}
-                      <Link href="/shipping" className="underline" style={{ color: "#0A84FF" }}>
+                      <Link href="/shipping" className="underline" style={{ color: "#16264A" }}>
                         Envíos y Devoluciones
                       </Link>{" "}
                       para obtener más información.

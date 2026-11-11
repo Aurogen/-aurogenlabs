@@ -10,7 +10,7 @@ export default function ResearchBanner() {
       className="w-full z-50 text-center py-2 px-4"
       style={{
         background: "linear-gradient(90deg, #0C0C0C 0%, #141410 50%, #0C0C0C 100%)",
-        borderBottom: "1px solid rgba(10, 132, 255, 0.2)",
+        borderBottom: "1px solid rgba(22,38,74, 0.2)",
       }}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-center gap-3 flex-wrap">

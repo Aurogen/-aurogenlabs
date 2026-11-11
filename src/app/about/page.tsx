@@ -47,7 +47,7 @@ const VALUES = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#F6F6F8" }}>
+    <div className="min-h-screen py-16 px-4" style={{ background: "#F5F4F0" }}>
       <div className="max-w-4xl mx-auto">
 
         {/* Header */}
@@ -56,7 +56,7 @@ export default function AboutPage() {
             <T en="About Aurogen Labs" es="Sobre Aurogen Labs" />
           </p>
           <h1
-            className="text-5xl font-bold mb-5"
+            className="text-5xl font-medium mb-5"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
             <T en="Built for Science" es="Hecho para la ciencia" />
@@ -78,7 +78,7 @@ export default function AboutPage() {
               style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
             >
               <p
-                className="text-3xl font-bold mb-1"
+                className="text-3xl font-medium mb-1"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#6B7A8D" }}
               >
                 {s.value_es ? <T en={s.value} es={s.value_es} /> : s.value}
@@ -94,7 +94,7 @@ export default function AboutPage() {
           style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
         >
           <h2
-            className="font-bold text-2xl mb-5"
+            className="font-medium text-2xl mb-5"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
             <T en="Our Story" es="Nuestra historia" />
@@ -130,7 +130,7 @@ export default function AboutPage() {
         {/* Values */}
         <div>
           <h2
-            className="font-bold text-2xl mb-6 text-center"
+            className="font-medium text-2xl mb-6 text-center"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
             <T en="Our Values" es="Nuestros valores" />
@@ -145,7 +145,7 @@ export default function AboutPage() {
                 <div className="flex items-center gap-3 mb-3">
                   <div
                     className="w-9 h-9 rounded-lg flex items-center justify-center"
-                    style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
+                    style={{ background: "rgba(22,38,74,0.08)", border: "1px solid rgba(22,38,74,0.18)" }}
                   >
                     <Icon className="w-5 h-5" style={{ color: "#6B7A8D" }} />
                   </div>

@@ -163,7 +163,7 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
             className="inline-flex items-center gap-2 h-8 px-4 rounded-full text-[11px] font-semibold tracking-[0.12em] uppercase"
             style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)", color: "#111111" }}
           >
-            <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#0A84FF" }} />
+            <span className="w-1.5 h-1.5 rounded-full" style={{ background: "#16264A" }} />
             {t("Third-party tested · every lot", "Análisis externo · cada lote")}
           </motion.p>
           <motion.h1
@@ -181,7 +181,7 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
           >
             {t("Research peptides.", "Péptidos de investigación.")}
             <br />
-            <span style={{ color: "#0A84FF" }}>{t("Verified batch by batch.", "Verificados lote a lote.")}</span>
+            <span style={{ color: "#16264A" }}>{t("Verified batch by batch.", "Verificados lote a lote.")}</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 8 }}
@@ -204,14 +204,14 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
             <Link
               href="/shop"
               className="inline-flex items-center gap-2 h-[52px] px-8 rounded-full text-[16px] font-semibold text-white active:scale-[0.98] transition-transform"
-              style={{ background: "#0A84FF", boxShadow: "0 10px 24px -10px rgba(10,132,255,0.6)" }}
+              style={{ background: "#111111", boxShadow: "0 10px 24px -12px rgba(0,0,0,0.45)" }}
             >
               {t("Browse catalog", "Ver catálogo")}
               <ArrowRight className="w-4 h-4" />
             </Link>
           </motion.div>
           <p className="mt-5 inline-flex items-center gap-1.5 text-[12px]" style={{ color: "#6B6B70" }}>
-            <ShieldCheck className="w-3.5 h-3.5" style={{ color: "#0A84FF" }} />
+            <ShieldCheck className="w-3.5 h-3.5" style={{ color: "#16264A" }} />
             {t("For laboratory research use only", "Solo para investigación de laboratorio")}
           </p>
         </div>
@@ -235,11 +235,11 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
             <p className="hidden md:block text-sm mb-2" style={{ color: "rgba(255,255,255,0.65)" }}>
               {t("Top sellers", "Más vendidos")}
             </p>
-            <h2 className="md:hidden font-bold text-[26px]" style={{ color: "#FFFFFF", fontFamily: "var(--font-heading, sans-serif)" }}>
+            <h2 className="md:hidden font-medium text-[26px]" style={{ color: "#FFFFFF", fontFamily: "var(--font-heading, sans-serif)" }}>
               {t("Top sellers", "Más vendidos")}
             </h2>
             <h2
-              className="hidden md:block font-bold leading-none"
+              className="hidden md:block font-medium leading-none"
               style={{
                 fontFamily: "var(--font-heading, sans-serif)",
                 fontSize: "clamp(34px, 4.5vw, 56px)",
@@ -421,7 +421,7 @@ function LineupCard({
             <button
               onClick={handleAdd}
               className="w-full md:w-auto h-11 md:h-9 px-4 rounded-full text-[14px] md:text-[13px] font-medium transition-colors"
-              style={{ background: added ? "#0A84FF" : "#111111", color: "#FFFFFF" }}
+              style={{ background: added ? "#16264A" : "#111111", color: "#FFFFFF" }}
             >
               {added ? t("Added", "Añadido") : t("Add to cart", "Añadir")}
             </button>

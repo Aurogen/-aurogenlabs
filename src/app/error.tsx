@@ -26,7 +26,7 @@ export default function Error({
           {t("Something went wrong", "Algo salió mal")}
         </p>
         <h2
-          className="text-2xl font-bold mb-3"
+          className="text-2xl font-medium mb-3"
           style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
         >
           {t("Unexpected Error", "Error inesperado")}

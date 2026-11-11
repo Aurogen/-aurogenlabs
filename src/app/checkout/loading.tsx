@@ -1,6 +1,6 @@
 export default function CheckoutLoading() {
   return (
-    <div className="min-h-screen py-12" style={{ background: "#F6F6F8" }}>
+    <div className="min-h-screen py-12" style={{ background: "#F5F4F0" }}>
       <div className="max-w-5xl mx-auto px-4 md:px-8">
         <div className="text-center mb-10">
           <div className="h-4 w-32 rounded-full mx-auto mb-3 animate-pulse" style={{ background: "rgba(0,0,0,0.08)" }} />

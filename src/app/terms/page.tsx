@@ -23,14 +23,14 @@ const SECTIONS = [
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#F6F6F8" }}>
+    <div className="min-h-screen py-16 px-4" style={{ background: "#F5F4F0" }}>
       <div className="max-w-3xl mx-auto">
 
         <div className="mb-12">
           <div className="flex items-center gap-3 mb-4">
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center"
-              style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
+              style={{ background: "rgba(22,38,74,0.08)", border: "1px solid rgba(22,38,74,0.18)" }}
             >
               <Scale className="w-5 h-5" style={{ color: "#6B7A8D" }} />
             </div>
@@ -39,7 +39,7 @@ export default function TermsPage() {
             </span>
           </div>
           <h1
-            className="text-4xl font-bold mb-3"
+            className="text-4xl font-medium mb-3"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
             <T en="Terms of Use" es="Términos de Uso" />
@@ -57,7 +57,7 @@ export default function TermsPage() {
           </p>
           <div
             className="mt-6 p-4 rounded-xl text-sm"
-            style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)", color: "#0A84FF" }}
+            style={{ background: "rgba(22,38,74,0.04)", border: "1px solid rgba(22,38,74,0.15)", color: "#16264A" }}
           >
             <T
               en={<><strong>Important:</strong> All products are sold for research purposes only. Not for human consumption.</>}
@@ -74,7 +74,7 @@ export default function TermsPage() {
               style={{ borderBottom: "1px solid rgba(0,0,0,0.08)" }}
             >
               <h2
-                className="font-bold text-lg mb-3"
+                className="font-medium text-lg mb-3"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
                 <T en={s.title} es={s.titleEs} />

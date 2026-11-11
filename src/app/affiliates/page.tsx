@@ -10,7 +10,7 @@ import { partnerFormText } from "@/lib/partner-form-es";
 
 const INK = "#1D1D1F";
 const MUTED = "#6E6E73";
-const BLUE = "#0A84FF";
+const BLUE = "#16264A";
 const INPUT_STYLE = { background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.12)", color: INK };
 const INPUT_CLASS =
   "w-full px-4 py-3 rounded-xl text-base sm:text-sm focus:outline-none transition-colors focus:border-black/30";
@@ -74,7 +74,7 @@ export default function PartnersPage() {
 
   if (status === "success") {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center px-4 py-16" style={{ background: "#F6F6F8" }}>
+      <div className="min-h-[70vh] flex items-center justify-center px-4 py-16" style={{ background: "#F5F4F0" }}>
         <div className="text-center max-w-md">
           <div
             className="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-5"
@@ -109,18 +109,18 @@ export default function PartnersPage() {
   ];
 
   return (
-    <div style={{ background: "#F6F6F8" }}>
+    <div style={{ background: "#F5F4F0" }}>
       {/* Hero */}
       <section className="px-4 pt-16 pb-12 md:pt-20 text-center" style={{ background: "#FFFFFF", borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
         <div className="max-w-2xl mx-auto">
           <div
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-5"
-            style={{ background: "rgba(10,132,255,0.08)", color: BLUE }}
+            style={{ background: "rgba(22,38,74,0.08)", color: BLUE }}
           >
             <BarChart3 className="w-3.5 h-3.5" />
             {t("Partner program", "Programa de partners")}
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: INK, fontFamily: "var(--font-heading, sans-serif)" }}>
+          <h1 className="text-4xl md:text-5xl font-medium mb-4" style={{ color: INK, fontFamily: "var(--font-heading, sans-serif)" }}>
             {t("Become an Aurogen Labs partner", "Conviértete en partner de Aurogen Labs")}
           </h1>
           <p className="text-base md:text-lg leading-relaxed mb-7" style={{ color: MUTED }}>
@@ -132,7 +132,7 @@ export default function PartnersPage() {
           <a
             href="#apply"
             className="inline-flex items-center gap-2 h-12 px-7 rounded-full text-[15px] font-semibold text-white"
-            style={{ background: BLUE }}
+            style={{ background: INK }}
           >
             {t("Apply now", "Aplicar ahora")}
             <ArrowRight className="w-4 h-4" />
@@ -146,7 +146,7 @@ export default function PartnersPage() {
           {steps.map((s, i) => (
             <div key={s.title} className="p-5 rounded-2xl text-center sm:text-left" style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}>
               <div className="flex items-center justify-center sm:justify-start gap-2 mb-2">
-                <span className="w-6 h-6 rounded-full text-[11px] font-bold flex items-center justify-center" style={{ background: "rgba(10,132,255,0.1)", color: BLUE }}>
+                <span className="w-6 h-6 rounded-full text-[11px] font-bold flex items-center justify-center" style={{ background: "rgba(22,38,74,0.1)", color: BLUE }}>
                   {i + 1}
                 </span>
                 <p className="font-semibold text-sm" style={{ color: INK }}>{s.title}</p>
@@ -175,7 +175,7 @@ export default function PartnersPage() {
             </div>
           ) : (
             <>
-              <h2 className="text-2xl font-bold mb-2 text-center sm:text-left" style={{ color: INK, fontFamily: "var(--font-heading, sans-serif)" }}>
+              <h2 className="text-2xl font-medium mb-2 text-center sm:text-left" style={{ color: INK, fontFamily: "var(--font-heading, sans-serif)" }}>
                 {partnerFormText(form.title, lang)}
               </h2>
               {form.intro && (
@@ -280,7 +280,7 @@ function DynamicField({ field: f, value, onChange }: { field: FormField; value: 
               <label
                 key={o}
                 className="flex items-center gap-2.5 px-3.5 py-2.5 rounded-xl text-sm cursor-pointer"
-                style={{ border: `1px solid ${checked ? BLUE : "rgba(0,0,0,0.12)"}`, background: checked ? "rgba(10,132,255,0.05)" : "#FFFFFF", color: INK }}
+                style={{ border: `1px solid ${checked ? BLUE : "rgba(0,0,0,0.12)"}`, background: checked ? "rgba(22,38,74,0.05)" : "#FFFFFF", color: INK }}
               >
                 <input
                   type={multi ? "checkbox" : "radio"}

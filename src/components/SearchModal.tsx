@@ -139,7 +139,7 @@ export default function SearchModal({ onClose }: Props) {
                     onClick={() => setQuery(term)}
                     className="px-3 py-1.5 rounded-lg text-xs transition-all"
                     style={{
-                      background: "#F6F6F8",
+                      background: "#F5F4F0",
                       color: "#1D1D1F",
                       border: "1px solid rgba(0,0,0,0.10)",
                     }}

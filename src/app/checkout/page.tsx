@@ -166,7 +166,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen py-12" style={{ background: "#F6F6F8" }}>
+    <div className="min-h-screen py-12" style={{ background: "#F5F4F0" }}>
       <div className="max-w-5xl mx-auto px-4 md:px-8">
 
         {/* Header */}
@@ -176,7 +176,7 @@ export default function CheckoutPage() {
             <span className="text-sm font-medium" style={{ color: "#1B7A45" }}>{t("Secure Checkout", "Pago seguro")}</span>
           </div>
           <h1
-            className="text-4xl font-bold"
+            className="text-4xl font-medium"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
             {t("Checkout", "Finalizar compra")}
@@ -194,7 +194,7 @@ export default function CheckoutPage() {
               style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
             >
               <h2
-                className="font-bold text-lg mb-5"
+                className="font-medium text-lg mb-5"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
                 {t("Contact Information", "Información de contacto")}
@@ -239,7 +239,7 @@ export default function CheckoutPage() {
               style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
             >
               <h2
-                className="font-bold text-lg mb-5"
+                className="font-medium text-lg mb-5"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
                 {t("Shipping Address", "Dirección de envío")}
@@ -289,7 +289,7 @@ export default function CheckoutPage() {
             {/* Research agreement */}
             <div
               className="p-4 rounded-xl"
-              style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)" }}
+              style={{ background: "rgba(22,38,74,0.04)", border: "1px solid rgba(22,38,74,0.15)" }}
             >
               <label className="flex items-start gap-3 cursor-pointer">
                 <input
@@ -320,7 +320,7 @@ export default function CheckoutPage() {
               style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
             >
               <h2
-                className="font-bold text-lg mb-4"
+                className="font-medium text-lg mb-4"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
                 {t("Discount", "Descuento")}
@@ -356,7 +356,7 @@ export default function CheckoutPage() {
                       className="text-left px-4 py-3 rounded-xl transition-colors disabled:cursor-not-allowed"
                       style={{
                         border: `1px solid ${active ? "#1B7A45" : "rgba(0,0,0,0.12)"}`,
-                        background: active ? "rgba(27,122,69,0.06)" : o.ok ? "#FFFFFF" : "#F6F6F8",
+                        background: active ? "rgba(27,122,69,0.06)" : o.ok ? "#FFFFFF" : "#F5F4F0",
                         opacity: o.ok ? 1 : 0.7,
                       }}
                     >
@@ -426,9 +426,9 @@ export default function CheckoutPage() {
             >
               <div
                 className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                style={{ background: "rgba(10,132,255,0.06)" }}
+                style={{ background: "rgba(22,38,74,0.06)" }}
               >
-                <CreditCard className="w-5 h-5" style={{ color: "#0A84FF" }} />
+                <CreditCard className="w-5 h-5" style={{ color: "#16264A" }} />
               </div>
               <div>
                 <p className="text-sm font-semibold" style={{ color: "#1D1D1F" }}>{t("Secure Payment", "Pago seguro")}</p>
@@ -482,7 +482,7 @@ export default function CheckoutPage() {
               style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
             >
               <h2
-                className="font-bold text-lg mb-4"
+                className="font-medium text-lg mb-4"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
                 {t("Order Summary", "Resumen del pedido")}

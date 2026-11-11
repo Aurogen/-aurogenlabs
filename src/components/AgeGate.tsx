@@ -75,7 +75,7 @@ export default function AgeGate() {
               </div>
 
               <h2
-                className="text-2xl font-bold mb-1"
+                className="text-2xl font-medium mb-1"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
                 {t("Important Notice", "Aviso importante")}
@@ -126,14 +126,14 @@ export default function AgeGate() {
               <div className="flex justify-center mb-5">
                 <div
                   className="w-16 h-16 rounded-full flex items-center justify-center"
-                  style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
+                  style={{ background: "rgba(22,38,74,0.08)", border: "1px solid rgba(22,38,74,0.18)" }}
                 >
                   <ShieldCheck className="w-8 h-8" style={{ color: "#6B7A8D" }} />
                 </div>
               </div>
 
               <h2
-                className="text-2xl font-bold mb-1"
+                className="text-2xl font-medium mb-1"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
                 {t("Age Verification", "Verificación de edad")}
@@ -145,7 +145,7 @@ export default function AgeGate() {
               {/* Info box */}
               <div
                 className="mb-6 p-4 rounded-xl text-left"
-                style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.14)" }}
+                style={{ background: "rgba(22,38,74,0.04)", border: "1px solid rgba(22,38,74,0.14)" }}
               >
                 <p className="text-sm leading-relaxed" style={{ color: "#6E6E73" }}>
                   {t(
@@ -205,7 +205,7 @@ export default function AgeGate() {
               >
                 <X className="w-7 h-7" style={{ color: "#DC2626" }} />
               </div>
-              <h3 className="text-xl font-bold mb-2" style={{ color: "#1D1D1F", fontFamily: "var(--font-heading, sans-serif)" }}>
+              <h3 className="text-xl font-medium mb-2" style={{ color: "#1D1D1F", fontFamily: "var(--font-heading, sans-serif)" }}>
                 {t("Access Denied", "Acceso denegado")}
               </h3>
               <p className="text-sm" style={{ color: "#6E6E73" }}>

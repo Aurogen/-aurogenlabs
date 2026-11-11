@@ -39,7 +39,7 @@ const CARD = { background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" };
 
 const COMMISSION_LABEL: Record<string, { label: string; es: string; color: string; bg: string }> = {
   pending: { label: "Pending", es: "Pendiente", color: "#9A6400", bg: "rgba(234,179,8,0.10)" },
-  approved: { label: "Approved", es: "Aprobada", color: "#0A6ED1", bg: "rgba(10,132,255,0.10)" },
+  approved: { label: "Approved", es: "Aprobada", color: "#0A6ED1", bg: "rgba(22,38,74,0.10)" },
   paid: { label: "Paid", es: "Pagada", color: "#1B7A45", bg: "rgba(27,122,69,0.10)" },
   void: { label: "Void", es: "Anulada", color: "#9A9AA0", bg: "rgba(0,0,0,0.05)" },
 };
@@ -163,7 +163,7 @@ export default function AffiliatePortal() {
       <div className="max-w-5xl mx-auto px-5 sm:px-8 py-10 sm:py-14">
         <div className="text-center sm:text-left mb-8">
           <p className="text-[13px] mb-1" style={{ color: MUTED }}>{t("Affiliate portal", "Portal de afiliados")}</p>
-          <h1 className="font-bold" style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(28px, 4vw, 40px)", color: INK, letterSpacing: "-0.02em" }}>
+          <h1 className="font-medium" style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(28px, 4vw, 40px)", color: INK, letterSpacing: "-0.02em" }}>
             {t("Welcome", "Hola")}, {affiliate.name.split(" ")[0]}
           </h1>
           {!affiliate.active && (

@@ -72,9 +72,9 @@ function FAQItem({ q, a, index }: { q: string; a: string; index: number }) {
         <span
           className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 transition-colors"
           style={{
-            background: open ? "#0A84FF" : "rgba(10,132,255,0.08)",
-            border: "1px solid rgba(10,132,255,0.2)",
-            color: open ? "#FFFFFF" : "#0A84FF",
+            background: open ? "#16264A" : "rgba(22,38,74,0.08)",
+            border: "1px solid rgba(22,38,74,0.2)",
+            color: open ? "#FFFFFF" : "#16264A",
           }}
         >
           {open ? <Minus className="w-3 h-3" /> : <Plus className="w-3 h-3" />}

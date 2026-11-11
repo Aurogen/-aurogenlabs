@@ -98,7 +98,7 @@ export default function FaqPage() {
             </span>
           </div>
           <h1
-            className="text-4xl font-bold mb-3"
+            className="text-4xl font-medium mb-3"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
             {t("Frequently Asked Questions", "Preguntas frecuentes")}
@@ -115,7 +115,7 @@ export default function FaqPage() {
           {CATEGORIES.map((cat) => (
             <div key={cat.category}>
               <h2
-                className="font-bold text-lg mb-4 pb-2"
+                className="font-medium text-lg mb-4 pb-2"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F", borderBottom: "1px solid rgba(0,0,0,0.08)" }}
               >
                 {t(cat.category, cat.category_es)}

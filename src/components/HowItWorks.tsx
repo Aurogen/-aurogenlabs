@@ -34,7 +34,7 @@ export default function HowItWorks() {
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16 py-20 md:py-24">
         <div className="flex flex-col md:flex-row items-center md:items-end md:justify-between gap-4 mb-12 text-center md:text-left">
           <h2
-            className="font-bold"
+            className="font-medium"
             style={{
               fontFamily: "var(--font-heading, sans-serif)",
               fontSize: "clamp(32px, 4vw, 52px)",

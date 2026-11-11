@@ -67,7 +67,7 @@ function OrderSuccessContent() {
   }, [searchParams]);
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center py-16 px-4" style={{ background: "#F6F6F8" }}>
+    <div className="min-h-screen flex flex-col items-center justify-center py-16 px-4" style={{ background: "#F5F4F0" }}>
       <div className="w-full max-w-lg">
 
         {/* Check icon */}
@@ -100,7 +100,7 @@ function OrderSuccessContent() {
           transition={{ delay: 0.35 }}
         >
           <h1
-            className="text-4xl font-bold mb-2"
+            className="text-4xl font-medium mb-2"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
             {paid ? t("Order Confirmed", "Pedido confirmado") : t("Order Received", "Pedido recibido")}
@@ -204,7 +204,7 @@ function OrderSuccessContent() {
         >
           <div
             className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-            style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
+            style={{ background: "rgba(22,38,74,0.08)", border: "1px solid rgba(22,38,74,0.18)" }}
           >
             <Package className="w-5 h-5" style={{ color: "#6B7A8D" }} />
           </div>
@@ -266,7 +266,7 @@ function OrderSuccessContent() {
 export default function OrderSuccessPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center" style={{ background: "#F6F6F8" }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "#F5F4F0" }}>
         <div className="w-8 h-8 border-2 border-black/20 border-t-black rounded-full animate-spin" />
       </div>
     }>

@@ -11,18 +11,18 @@ export default function NotFound() {
   return (
     <div
       className="min-h-[70vh] flex flex-col items-center justify-center px-4 text-center"
-      style={{ background: "#F6F6F8" }}
+      style={{ background: "#F5F4F0" }}
     >
       <div
         className="w-16 h-16 rounded-2xl flex items-center justify-center mb-6"
-        style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.15)" }}
+        style={{ background: "rgba(22,38,74,0.08)", border: "1px solid rgba(22,38,74,0.15)" }}
       >
         <FlaskConical className="w-8 h-8" style={{ color: "#6B7A8D" }} />
       </div>
 
       <p className="text-sm font-semibold tracking-[0.2em] mb-2" style={{ color: "#9E9EA8" }}>404</p>
       <h1
-        className="text-3xl font-bold mb-3"
+        className="text-3xl font-medium mb-3"
         style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
       >
         <T en="Page Not Found" es="Página no encontrada" />
@@ -38,7 +38,7 @@ export default function NotFound() {
         <Link
           href="/shop"
           className="flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold text-white transition-opacity hover:opacity-85"
-          style={{ background: "#0A84FF" }}
+          style={{ background: "#111111" }}
         >
           <T en="Browse Products" es="Ver productos" />
           <ArrowRight className="w-3.5 h-3.5" />

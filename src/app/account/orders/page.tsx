@@ -12,10 +12,10 @@ export const metadata: Metadata = {
 
 const STATUS_CONFIG: Record<string, { label: React.ReactNode; color: string; bg: string; icon: React.ElementType }> = {
   delivered: { label: <T en="Delivered" es="Entregado" />,  color: "#1B7A45", bg: "rgba(27,122,69,0.08)",    icon: CheckCircle2 },
-  shipped:   { label: <T en="Shipped" es="Enviado" />,    color: "#0A84FF", bg: "rgba(10,132,255,0.08)",   icon: Truck },
+  shipped:   { label: <T en="Shipped" es="Enviado" />,    color: "#16264A", bg: "rgba(22,38,74,0.08)",   icon: Truck },
   processing:{ label: <T en="Processing" es="En proceso" />, color: "#9A6400", bg: "rgba(234,179,8,0.08)",    icon: Clock },
   pending:   { label: <T en="Pending" es="Pendiente" />,    color: "#6E6E73", bg: "rgba(110,110,115,0.10)",  icon: AlertCircle },
-  paid:      { label: <T en="Paid" es="Pagado" />,       color: "#0A84FF", bg: "rgba(10,132,255,0.08)",   icon: CheckCircle2 },
+  paid:      { label: <T en="Paid" es="Pagado" />,       color: "#16264A", bg: "rgba(22,38,74,0.08)",   icon: CheckCircle2 },
   cancelled: { label: <T en="Cancelled" es="Cancelado" />, color: "#C0392B", bg: "rgba(192,57,43,0.08)",    icon: AlertCircle },
   failed:    { label: <T en="Payment failed" es="Pago fallido" />, color: "#C0392B", bg: "rgba(192,57,43,0.08)", icon: AlertCircle },
 };
@@ -54,7 +54,7 @@ export default async function OrdersPage() {
   const orders: Order[] = data ?? [];
 
   return (
-    <div className="min-h-screen" style={{ background: "#F6F6F8" }}>
+    <div className="min-h-screen" style={{ background: "#F5F4F0" }}>
       <div className="max-w-3xl mx-auto px-4 py-12">
         <h1 className="text-2xl font-bold mb-8" style={{ color: "#1D1D1F" }}><T en="My Orders" es="Mis pedidos" /></h1>
 

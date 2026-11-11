@@ -73,7 +73,7 @@ const PROTOCOLS = [
 
 export default function ProtocolsPage() {
   return (
-    <div className="min-h-screen" style={{ background: "#F6F6F8", color: "#1D1D1F" }}>
+    <div className="min-h-screen" style={{ background: "#F5F4F0", color: "#1D1D1F" }}>
       {/* Header */}
       <div
         className="py-16 px-4 text-center"
@@ -83,7 +83,7 @@ export default function ProtocolsPage() {
           <T en="Research Library" es="Biblioteca de investigación" />
         </p>
         <h1
-          className="text-4xl md:text-5xl font-bold mb-4 tracking-tight"
+          className="text-4xl md:text-5xl font-medium mb-4 tracking-tight"
           style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
         >
           <T en="Laboratory Protocols" es="Protocolos de laboratorio" />
@@ -107,7 +107,7 @@ export default function ProtocolsPage() {
               <div className="flex items-start justify-between gap-3 mb-4">
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110"
-                  style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
+                  style={{ background: "rgba(22,38,74,0.08)", border: "1px solid rgba(22,38,74,0.18)" }}
                 >
                   <FileText className="w-5 h-5" style={{ color: "#6B7A8D" }} />
                 </div>
@@ -115,7 +115,7 @@ export default function ProtocolsPage() {
               </div>
 
               <h3
-                className="font-bold text-lg mb-2"
+                className="font-medium text-lg mb-2"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
                 <T en={p.name} es={p.name_es} />
@@ -127,7 +127,7 @@ export default function ProtocolsPage() {
                   <span
                     key={tag}
                     className="px-2.5 py-1 rounded text-xs font-medium"
-                    style={{ background: "rgba(10,132,255,0.06)", color: "#0A84FF", border: "1px solid rgba(10,132,255,0.15)" }}
+                    style={{ background: "rgba(22,38,74,0.06)", color: "#16264A", border: "1px solid rgba(22,38,74,0.15)" }}
                   >
                     <T en={tag} es={p.tags_es[i]} />
                   </span>
@@ -144,7 +144,7 @@ export default function ProtocolsPage() {
           style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
         >
           <h3
-            className="text-2xl font-bold mb-2"
+            className="text-2xl font-medium mb-2"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
             <T en="Need Technical Documentation?" es="¿Necesitas documentación técnica?" />

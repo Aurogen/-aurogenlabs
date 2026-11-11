@@ -55,7 +55,7 @@ export default function Footer() {
       <div className="py-12 px-4" style={{ borderBottom: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-center md:text-left">
-            <h3 className="text-white font-bold text-2xl mb-1" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
+            <h3 className="text-white font-medium text-2xl mb-1" style={{ fontFamily: "var(--font-heading, sans-serif)" }}>
               <T en="Stay in the loop" es="Mantente al día" />
             </h3>
             <p className="text-gray-500 text-sm">
@@ -114,7 +114,7 @@ export default function Footer() {
           <div className="flex items-center gap-4">
             <span
               className="px-2.5 py-1 rounded text-[10px] tracking-[0.12em] uppercase font-medium"
-              style={{ border: "1px solid rgba(10,132,255,0.25)", color: "rgba(10,132,255,0.7)" }}
+              style={{ border: "1px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.6)" }}
             >
               <T
                 en="For Research Use Only · Not for Human Consumption"

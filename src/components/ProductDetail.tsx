@@ -91,7 +91,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
   ];
 
   return (
-    <div className="min-h-screen" style={{ background: "#F6F6F8", color: "#1D1D1F" }}>
+    <div className="min-h-screen" style={{ background: "#F5F4F0", color: "#1D1D1F" }}>
       <div className="max-w-7xl mx-auto px-4 pt-6 pb-28 lg:py-10">
         {/* Breadcrumb */}
         <nav className="flex items-center justify-center lg:justify-start gap-2 text-sm mb-6 lg:mb-8" style={{ color: "#9E9EA8" }}>
@@ -168,7 +168,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
                   key={g}
                   href={`/shop?category=${encodeURIComponent(g)}`}
                   className="px-3 py-1 rounded text-xs font-medium tracking-wide transition-opacity hover:opacity-80"
-                  style={{ background: "rgba(10,132,255,0.06)", color: "#0A84FF", border: "1px solid rgba(10,132,255,0.15)" }}
+                  style={{ background: "rgba(22,38,74,0.06)", color: "#16264A", border: "1px solid rgba(22,38,74,0.15)" }}
                 >
                   {categoryLabel(g, lang)}
                 </Link>
@@ -176,7 +176,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
             </div>
 
             <h1
-              className="text-4xl lg:text-5xl font-bold mb-1"
+              className="text-4xl lg:text-5xl font-medium mb-1"
               style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
             >
               {product.name}
@@ -217,7 +217,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
             {/* Price */}
             <div className="flex items-baseline justify-center lg:justify-start gap-3 mb-5">
               <span
-                className="font-bold text-4xl"
+                className="font-medium text-4xl"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1B7A45" }}
               >
                 ${product.price}
@@ -264,9 +264,9 @@ export default function ProductDetail({ product, related, variants = [] }: Props
             {/* Research banner */}
             <div
               className="mb-5 p-3 rounded-xl"
-              style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)" }}
+              style={{ background: "rgba(22,38,74,0.04)", border: "1px solid rgba(22,38,74,0.15)" }}
             >
-              <p className="text-xs flex items-center gap-2" style={{ color: "#0A84FF" }}>
+              <p className="text-xs flex items-center gap-2" style={{ color: "#16264A" }}>
                 <span>⚠️</span>
                 <span>{t("For Research Use Only · Not for Human Consumption · Not a drug or supplement", "Solo para uso en investigación · No apto para consumo humano · No es un medicamento ni un suplemento")}</span>
               </p>
@@ -395,10 +395,10 @@ export default function ProductDetail({ product, related, variants = [] }: Props
                   </ul>
                   <div
                     className="p-4 rounded-xl"
-                    style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)" }}
+                    style={{ background: "rgba(22,38,74,0.04)", border: "1px solid rgba(22,38,74,0.15)" }}
                   >
-                    <p className="text-base font-bold mb-1.5" style={{ color: "#0A84FF" }}>{t("Research Disclaimer", "Aviso de investigación")}</p>
-                    <p className="text-sm font-bold leading-relaxed" style={{ color: "#0A84FF" }}>
+                    <p className="text-base font-bold mb-1.5" style={{ color: "#16264A" }}>{t("Research Disclaimer", "Aviso de investigación")}</p>
+                    <p className="text-sm font-bold leading-relaxed" style={{ color: "#16264A" }}>
                       {t(
                         "All research peptides sold by Aurogen Labs are intended for laboratory and scientific research purposes only. These compounds are not intended for human consumption and have not been evaluated by the FDA.",
                         "Todos los péptidos de investigación que vende Aurogen Labs están destinados únicamente a fines de investigación científica y de laboratorio. Estos compuestos no son para consumo humano y no han sido evaluados por la FDA.",
@@ -437,12 +437,12 @@ export default function ProductDetail({ product, related, variants = [] }: Props
                     <div
                       key={i}
                       className="rounded-xl overflow-hidden"
-                      style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.08)" }}
+                      style={{ background: "#F5F4F0", border: "1px solid rgba(0,0,0,0.08)" }}
                     >
                       <button
                         onClick={() => setOpenFaq(openFaq === i ? null : i)}
                         className="w-full flex items-center justify-between px-5 py-4 text-left transition-colors"
-                        style={{ background: openFaq === i ? "rgba(10,132,255,0.04)" : "transparent" }}
+                        style={{ background: openFaq === i ? "rgba(22,38,74,0.04)" : "transparent" }}
                       >
                         <span className="text-sm font-medium pr-4" style={{ color: "#1D1D1F" }}>{item.q}</span>
                         {openFaq === i
@@ -477,7 +477,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
         {related.length > 0 && (
           <div>
             <h2
-              className="text-3xl font-bold mb-6 text-center lg:text-left"
+              className="text-3xl font-medium mb-6 text-center lg:text-left"
               style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
             >
               {t("You may also need", "También podrías necesitar")}
@@ -533,7 +533,7 @@ function ProductDetailVial() {
   return (
     <svg width="160" height="220" viewBox="0 0 160 220" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-[0_16px_40px_rgba(0,0,0,0.18)]">
       <rect x="48" y="0" width="64" height="26" rx="8" fill="url(#dcap)" />
-      <rect x="58" y="22" width="44" height="10" rx="4" fill="#0A84FF" opacity="0.8" />
+      <rect x="58" y="22" width="44" height="10" rx="4" fill="#16264A" opacity="0.8" />
       <rect x="36" y="30" width="88" height="170" rx="20" fill="url(#dbody)" />
       <rect x="40" y="32" width="14" height="166" rx="7" fill="white" opacity="0.04" />
       <rect x="44" y="55" width="72" height="90" rx="8" fill="url(#dlabel)" />

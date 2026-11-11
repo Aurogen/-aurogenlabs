@@ -22,7 +22,7 @@ const RECON_STEPS = [
 
 export default function ResearchPage() {
   return (
-    <div className="min-h-screen" style={{ background: "#F6F6F8" }}>
+    <div className="min-h-screen" style={{ background: "#F5F4F0" }}>
       {/* Header */}
       <div
         className="py-14 px-4 text-center"
@@ -32,7 +32,7 @@ export default function ResearchPage() {
           <T en="Knowledge Base" es="Base de conocimiento" />
         </p>
         <h1
-          className="font-bold mb-4"
+          className="font-medium mb-4"
           style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(36px, 6vw, 72px)", color: "#1D1D1F" }}
         >
           <T en="Research Center" es="Centro de Investigación" />
@@ -57,12 +57,12 @@ export default function ResearchPage() {
             >
               <div
                 className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110"
-                style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
+                style={{ background: "rgba(22,38,74,0.08)", border: "1px solid rgba(22,38,74,0.18)" }}
               >
                 <r.icon className="w-6 h-6" style={{ color: "#6B7A8D" }} />
               </div>
               <h3
-                className="font-bold text-lg mb-2"
+                className="font-medium text-lg mb-2"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
                 <T en={r.title} es={r.title_es} />
@@ -79,7 +79,7 @@ export default function ResearchPage() {
           style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
         >
           <h2
-            className="text-3xl font-bold mb-6"
+            className="text-3xl font-medium mb-6"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
             <T en="Reconstitution Guide" es="Guía de reconstitución" />
@@ -89,7 +89,7 @@ export default function ResearchPage() {
               <div key={s.step} className="flex gap-4">
                 <div
                   className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 font-bold text-sm"
-                  style={{ background: "rgba(10,132,255,0.1)", color: "#6B7A8D", border: "1px solid rgba(10,132,255,0.2)" }}
+                  style={{ background: "rgba(22,38,74,0.1)", color: "#6B7A8D", border: "1px solid rgba(22,38,74,0.2)" }}
                 >
                   {s.step}
                 </div>
@@ -105,9 +105,9 @@ export default function ResearchPage() {
         {/* Disclaimer */}
         <div
           className="p-6 rounded-2xl text-center"
-          style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)" }}
+          style={{ background: "rgba(22,38,74,0.04)", border: "1px solid rgba(22,38,74,0.15)" }}
         >
-          <p className="text-sm leading-relaxed max-w-3xl mx-auto" style={{ color: "#0A84FF" }}>
+          <p className="text-sm leading-relaxed max-w-3xl mx-auto" style={{ color: "#16264A" }}>
             <T
               en={<><strong>Disclaimer:</strong> All information in the Aurogen Labs Research Center is intended exclusively for qualified researchers in controlled laboratory environments. It does not constitute medical advice, diagnosis, or treatment. Peptides sold are not FDA-approved for human use.</>}
               es={<><strong>Aviso legal:</strong> Toda la información del Centro de Investigación de Aurogen Labs está dirigida exclusivamente a investigadores calificados en entornos de laboratorio controlados. No constituye consejo, diagnóstico ni tratamiento médico. Los péptidos que vendemos no están aprobados por la FDA para uso humano.</>}

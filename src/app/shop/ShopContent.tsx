@@ -9,8 +9,6 @@ import { groupByName, defaultVariant } from "@/lib/variants";
 import { useLanguage } from "@/context/LanguageContext";
 import { categoryLabel } from "@/data/products-es";
 
-const CDN = "https://d8j0ntlcm91z4.cloudfront.net/user_37vyPYiQEAbVkqfXE5Q1uQwgRqg/";
-const ALL_PEPTIDES_VIDEO = `${CDN}hf_20260811_193152_9c04b585-b216-4708-a3b0-36372b2881f7.mp4`;
 
 interface Props {
   initialProducts: Product[];
@@ -94,18 +92,15 @@ function ShopInner({ initialProducts }: Props) {
 
   return (
     <div className="min-h-screen" style={{ background: "#F5F4F0" }}>
-      {/* Page header */}
-      <div className="relative py-10 sm:py-16 px-4 text-center overflow-hidden" style={{ borderBottom: "1px solid rgba(0,0,0,0.12)" }}>
-        <video ref={(el) => { if (el) el.muted = true; }} autoPlay muted loop playsInline preload="metadata" className="absolute inset-0 w-full h-full object-cover" style={{ filter: "brightness(0.42)" }} src={ALL_PEPTIDES_VIDEO} />
-        <div className="absolute inset-0" style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%)" }} />
-        <div className="relative z-10">
-          <h1 className="font-bold" style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(32px, 6vw, 64px)", letterSpacing: "-0.01em", color: "#FFFFFF", lineHeight: 1.05 }}>
-            {selectedCategory ? categoryLabel(selectedCategory, lang) : t("All Peptides", "Todos los péptidos")}
-          </h1>
-          <p className="mt-3 text-[12px] sm:text-[13px]" style={{ color: "rgba(255,255,255,0.7)" }}>
-            {t("For laboratory research use only · Not for human consumption", "Solo para investigación de laboratorio · No apto para consumo humano")}
-          </p>
-        </div>
+      {/* Page header — same editorial style as the home page sections */}
+      <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-10 sm:pt-14 pb-6 sm:pb-8 text-center sm:text-left">
+        <p className="text-[13px] mb-2" style={{ color: "#6B6B6B" }}>{t("Shop", "Tienda")}</p>
+        <h1 style={{ fontFamily: "var(--font-heading, serif)", fontSize: "clamp(36px, 5.5vw, 60px)", color: "#111111", lineHeight: 1.05 }}>
+          {selectedCategory ? categoryLabel(selectedCategory, lang) : t("All Peptides", "Todos los péptidos")}
+        </h1>
+        <p className="mt-3 text-[13px] sm:text-[14px]" style={{ color: "#55555A" }}>
+          {t("For laboratory research use only · Not for human consumption", "Solo para investigación de laboratorio · No apto para consumo humano")}
+        </p>
       </div>
 
       {/* Category chips — sticky under the header on scroll */}

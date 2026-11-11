@@ -25,7 +25,7 @@ const SPECS = [
 
 export default function QualityPage() {
   return (
-    <div className="min-h-screen" style={{ background: "#F6F6F8", color: "#1D1D1F" }}>
+    <div className="min-h-screen" style={{ background: "#F5F4F0", color: "#1D1D1F" }}>
       {/* Header */}
       <section
         className="py-24 px-4 text-center"
@@ -36,7 +36,7 @@ export default function QualityPage() {
             <T en="Quality Assurance" es="Aseguramiento de calidad" />
           </p>
           <h1
-            className="text-4xl md:text-5xl font-bold tracking-tight mb-6"
+            className="text-4xl md:text-5xl font-medium tracking-tight mb-6"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
             <T
@@ -57,7 +57,7 @@ export default function QualityPage() {
       <section className="py-20 px-4">
         <div className="max-w-5xl mx-auto">
           <h2
-            className="text-2xl font-bold text-center mb-14"
+            className="text-2xl font-medium text-center mb-14"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
             <T en="Our QA Process" es="Nuestro proceso de control de calidad" />
@@ -70,8 +70,8 @@ export default function QualityPage() {
                 style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
               >
                 <span
-                  className="block text-5xl font-bold mb-4 leading-none"
-                  style={{ color: "rgba(10,132,255,0.25)", fontFamily: "var(--font-heading, sans-serif)" }}
+                  className="block text-5xl font-medium mb-4 leading-none"
+                  style={{ color: "rgba(22,38,74,0.25)", fontFamily: "var(--font-heading, sans-serif)" }}
                 >
                   {s.number}
                 </span>
@@ -90,7 +90,7 @@ export default function QualityPage() {
       >
         <div className="max-w-2xl mx-auto">
           <h2
-            className="text-2xl font-bold text-center mb-10"
+            className="text-2xl font-medium text-center mb-10"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
             <T en="Quality Specifications" es="Especificaciones de calidad" />
@@ -117,7 +117,7 @@ export default function QualityPage() {
       <section className="py-20 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h2
-            className="text-2xl font-bold mb-4"
+            className="text-2xl font-medium mb-4"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
             <T en="Certificates of Analysis" es="Certificados de análisis" />

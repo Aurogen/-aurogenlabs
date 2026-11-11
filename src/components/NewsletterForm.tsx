@@ -52,16 +52,16 @@ export default function NewsletterForm() {
         onChange={(e) => setEmail(e.target.value)}
         placeholder={t("you@email.com", "tu@email.com")}
         required
-        className="flex-1 md:w-72 px-4 py-3 rounded-xl text-sm text-white placeholder-gray-600 border border-blue-900/30 focus:border-blue-500 focus:outline-none"
-        style={{ background: "#0A1628" }}
+        className="flex-1 md:w-72 px-4 py-3 rounded-full text-sm text-white placeholder-gray-500 border border-white/15 focus:border-white/40 focus:outline-none"
+        style={{ background: "rgba(255,255,255,0.06)" }}
       />
       <button
         type="submit"
         disabled={loading}
-        className="px-6 py-3 rounded-xl font-bold text-white text-sm whitespace-nowrap transition-all hover:scale-105 disabled:opacity-60"
-        style={{ background: "linear-gradient(135deg, #1B6BDE, #2B7FEF)" }}
+        className="px-6 py-3 rounded-full font-semibold text-sm whitespace-nowrap transition-opacity hover:opacity-90 disabled:opacity-60"
+        style={{ background: "#FFFFFF", color: "#111111" }}
       >
-        {loading ? "..." : t("SUBSCRIBE", "SUSCRIBIRME")}
+        {loading ? "..." : t("Subscribe", "Suscribirme")}
       </button>
     </form>
     {failed && (

@@ -30,7 +30,7 @@ const FAQ = [
 
 export default function ShippingPage() {
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#F6F6F8" }}>
+    <div className="min-h-screen py-16 px-4" style={{ background: "#F5F4F0" }}>
       <div className="max-w-3xl mx-auto">
 
         {/* Header */}
@@ -38,7 +38,7 @@ export default function ShippingPage() {
           <div className="flex items-center gap-3 mb-4">
             <div
               className="w-10 h-10 rounded-xl flex items-center justify-center"
-              style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.18)" }}
+              style={{ background: "rgba(22,38,74,0.08)", border: "1px solid rgba(22,38,74,0.18)" }}
             >
               <Truck className="w-5 h-5" style={{ color: "#6B7A8D" }} />
             </div>
@@ -47,7 +47,7 @@ export default function ShippingPage() {
             </span>
           </div>
           <h1
-            className="text-4xl font-bold mb-3"
+            className="text-4xl font-medium mb-3"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
             <T en="Shipping & Returns" es="Envíos y devoluciones" />
@@ -63,7 +63,7 @@ export default function ShippingPage() {
         {/* Shipping options */}
         <div className="mb-12">
           <h2
-            className="font-bold text-xl mb-5"
+            className="font-medium text-xl mb-5"
             style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
           >
             <T en="Shipping Options" es="Opciones de envío" />
@@ -77,7 +77,7 @@ export default function ShippingPage() {
               >
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                  style={{ background: "rgba(10,132,255,0.08)", border: "1px solid rgba(10,132,255,0.15)" }}
+                  style={{ background: "rgba(22,38,74,0.08)", border: "1px solid rgba(22,38,74,0.15)" }}
                 >
                   <Clock className="w-5 h-5" style={{ color: "#6B7A8D" }} />
                 </div>
@@ -96,7 +96,7 @@ export default function ShippingPage() {
           <div className="flex items-center gap-3 mb-5">
             <RotateCcw className="w-5 h-5" style={{ color: "#6B7A8D" }} />
             <h2
-              className="font-bold text-xl"
+              className="font-medium text-xl"
               style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
             >
               <T en="Returns Policy" es="Política de devoluciones" />
@@ -144,7 +144,7 @@ export default function ShippingPage() {
           <div className="flex items-center gap-3 mb-5">
             <Package className="w-5 h-5" style={{ color: "#6B7A8D" }} />
             <h2
-              className="font-bold text-xl"
+              className="font-medium text-xl"
               style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
             >
               <T en="Frequently Asked Questions" es="Preguntas frecuentes" />

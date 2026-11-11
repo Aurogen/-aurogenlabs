@@ -101,7 +101,7 @@ export default function Navbar() {
                         <Link
                           key={c.label}
                           href={`/shop?category=${encodeURIComponent(c.label)}`}
-                          className="py-2 text-[14px] transition-colors hover:text-[#0A84FF]"
+                          className="py-2 text-[14px] transition-colors hover:text-[#16264A]"
                           style={{ color: INK, borderBottom: `1px solid ${LINE}` }}
                           onClick={() => setMenu(null)}
                         >
@@ -112,7 +112,7 @@ export default function Navbar() {
                     <Link
                       href="/shop"
                       className="inline-block mt-4 text-[13px] font-medium"
-                      style={{ color: "#0A84FF" }}
+                      style={{ color: "#16264A" }}
                       onClick={() => setMenu(null)}
                     >
                       {t("View all products →", "Ver todos los productos →")}
@@ -213,7 +213,7 @@ export default function Navbar() {
               {totalItems > 0 && (
                 <span
                   className="absolute top-1 right-1 min-w-[16px] h-4 px-1 rounded-full text-[10px] font-semibold flex items-center justify-center"
-                  style={{ background: "#0A84FF", color: "#FFFFFF" }}
+                  style={{ background: "#16264A", color: "#FFFFFF" }}
                 >
                   {totalItems}
                 </span>

@@ -14,12 +14,12 @@ export default function CartPage() {
 
   if (state.items.length === 0) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center gap-6" style={{ background: "#F6F6F8" }}>
+      <div className="min-h-screen flex flex-col items-center justify-center gap-6" style={{ background: "#F5F4F0" }}>
         <div className="w-24 h-24 rounded-3xl flex items-center justify-center" style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}>
           <ShoppingCart className="w-10 h-10" style={{ color: "#6B7A8D" }} />
         </div>
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}>
+          <h2 className="text-2xl font-medium mb-2" style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}>
             {t("Your Cart Is Empty", "Tu carrito está vacío")}
           </h2>
           <p style={{ color: "#6E6E73" }}>{t("Add research compounds to get started.", "Añade compuestos de investigación para empezar.")}</p>
@@ -37,10 +37,10 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen py-10" style={{ background: "#F6F6F8" }}>
+    <div className="min-h-screen py-10" style={{ background: "#F5F4F0" }}>
       <div className="max-w-6xl mx-auto px-4 md:px-8">
         <h1
-          className="text-4xl font-bold mb-8"
+          className="text-4xl font-medium mb-8"
           style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
         >
           {t("Cart", "Carrito")}{" "}
@@ -162,7 +162,7 @@ export default function CartPage() {
               style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
             >
               <h2
-                className="font-bold text-lg mb-5"
+                className="font-medium text-lg mb-5"
                 style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
               >
                 {t("Order Summary", "Resumen del pedido")}
@@ -198,7 +198,7 @@ export default function CartPage() {
 
               <div
                 className="mb-4 p-3 rounded-xl text-center text-xs"
-                style={{ background: "rgba(10,132,255,0.06)", border: "1px solid rgba(10,132,255,0.15)", color: "#0A84FF" }}
+                style={{ background: "rgba(22,38,74,0.06)", border: "1px solid rgba(22,38,74,0.15)", color: "#16264A" }}
               >
                 {t("For Research Use Only · Not for Human Consumption", "Solo para uso en investigación · No apto para consumo humano")}
               </div>

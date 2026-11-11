@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default async function ShopPage() {
   const products = await fetchProducts();
   return (
-    <Suspense fallback={<div className="min-h-screen" style={{ background: "#F6F6F8" }} />}>
+    <Suspense fallback={<div className="min-h-screen" style={{ background: "#F5F4F0" }} />}>
       <ShopContent initialProducts={products} />
     </Suspense>
   );

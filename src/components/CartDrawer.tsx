@@ -37,7 +37,7 @@ export default function CartDrawer() {
           <div className="flex items-center gap-3">
             <ShoppingCart className="w-5 h-5" style={{ color: "#6B7A8D" }} />
             <h2
-              className="font-bold text-lg tracking-wide"
+              className="font-medium text-lg tracking-wide"
               style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
             >
               {t("Cart", "Carrito")}
@@ -65,7 +65,7 @@ export default function CartDrawer() {
             <div className="flex flex-col items-center justify-center h-full gap-4 text-center">
               <div
                 className="w-20 h-20 rounded-2xl flex items-center justify-center"
-                style={{ background: "rgba(10,132,255,0.06)", border: "1px solid rgba(10,132,255,0.15)" }}
+                style={{ background: "rgba(22,38,74,0.06)", border: "1px solid rgba(22,38,74,0.15)" }}
               >
                 <ShoppingCart className="w-8 h-8" style={{ color: "#9E9EA8" }} />
               </div>
@@ -87,7 +87,7 @@ export default function CartDrawer() {
               <div
                 key={item.product.id}
                 className="flex gap-4 p-4 rounded-xl"
-                style={{ background: "#F6F6F8", border: "1px solid rgba(0,0,0,0.07)" }}
+                style={{ background: "#F5F4F0", border: "1px solid rgba(0,0,0,0.07)" }}
               >
                 {/* Product visual */}
                 <div
@@ -152,14 +152,14 @@ export default function CartDrawer() {
         {state.items.length > 0 && (
           <div
             className="p-5"
-            style={{ borderTop: "1px solid rgba(0,0,0,0.08)", background: "#F6F6F8" }}
+            style={{ borderTop: "1px solid rgba(0,0,0,0.08)", background: "#F5F4F0" }}
           >
             {/* Research disclaimer */}
             <div
               className="mb-4 p-3 rounded-lg"
-              style={{ background: "rgba(10,132,255,0.05)", border: "1px solid rgba(10,132,255,0.15)" }}
+              style={{ background: "rgba(22,38,74,0.05)", border: "1px solid rgba(22,38,74,0.15)" }}
             >
-              <p className="text-[11px] text-center" style={{ color: "#0A84FF" }}>
+              <p className="text-[11px] text-center" style={{ color: "#16264A" }}>
                 ⚠️ {t("For Research Use Only · Not for Human Consumption", "Solo para uso en investigación · No apto para consumo humano")}
               </p>
             </div>
@@ -206,7 +206,7 @@ function VialIcon() {
   return (
     <svg width="28" height="32" viewBox="0 0 28 32" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect x="9" y="0" width="10" height="4" rx="2" fill="#6B7A8D" opacity="0.9" />
-      <rect x="11" y="3" width="6" height="2" fill="#0A84FF" opacity="0.7" />
+      <rect x="11" y="3" width="6" height="2" fill="#16264A" opacity="0.7" />
       <rect x="8" y="5" width="12" height="22" rx="4" fill="url(#vialGrad)" />
       <rect x="10" y="5" width="3" height="22" rx="1.5" fill="white" opacity="0.06" />
       <rect x="10" y="20" width="8" height="7" rx="2" fill="#6B7A8D" opacity="0.15" />

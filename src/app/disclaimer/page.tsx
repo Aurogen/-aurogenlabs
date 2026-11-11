@@ -13,7 +13,7 @@ const P = "text-sm leading-relaxed mb-3";
 
 export default function DisclaimerPage() {
   return (
-    <div className="min-h-screen py-16" style={{ background: "#F6F6F8" }}>
+    <div className="min-h-screen py-16" style={{ background: "#F5F4F0" }}>
       <div className="max-w-3xl mx-auto px-4">
 
         <T
@@ -24,7 +24,7 @@ export default function DisclaimerPage() {
                     Legal
                   </p>
                   <h1
-                    className="text-4xl font-bold mb-3"
+                    className="text-4xl font-medium mb-3"
                     style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
                   >
                     Research Use Disclaimer
@@ -130,7 +130,7 @@ export default function DisclaimerPage() {
                     Legal
                   </p>
                   <h1
-                    className="text-4xl font-bold mb-3"
+                    className="text-4xl font-medium mb-3"
                     style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
                   >
                     Aviso legal sobre uso en investigación

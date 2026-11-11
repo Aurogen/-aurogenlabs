@@ -41,7 +41,7 @@ export default function TrustSection() {
         <div className="lg:col-span-5 text-center lg:text-left">
           <div className="lg:sticky lg:top-28">
             <h2
-              className="font-bold mb-5"
+              className="font-medium mb-5"
               style={{
                 fontFamily: "var(--font-heading, sans-serif)",
                 fontSize: "clamp(32px, 4vw, 52px)",

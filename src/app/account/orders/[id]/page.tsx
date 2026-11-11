@@ -14,10 +14,10 @@ const STATUS_STEPS = ["pending", "processing", "shipped", "delivered"] as const;
 
 const STATUS_CONFIG: Record<string, { label: React.ReactNode; color: string; bg: string; icon: React.ElementType }> = {
   delivered: { label: <T en="Delivered" es="Entregado" />,  color: "#1B7A45", bg: "rgba(27,122,69,0.08)",   icon: CheckCircle2 },
-  shipped:   { label: <T en="Shipped" es="Enviado" />,    color: "#0A84FF", bg: "rgba(10,132,255,0.08)",  icon: Truck },
+  shipped:   { label: <T en="Shipped" es="Enviado" />,    color: "#16264A", bg: "rgba(22,38,74,0.08)",  icon: Truck },
   processing:{ label: <T en="Processing" es="En proceso" />, color: "#9A6400", bg: "rgba(234,179,8,0.08)",   icon: Clock },
   pending:   { label: <T en="Pending" es="Pendiente" />,    color: "#6E6E73", bg: "rgba(110,110,115,0.10)", icon: AlertCircle },
-  paid:      { label: <T en="Paid" es="Pagado" />,       color: "#0A84FF", bg: "rgba(10,132,255,0.08)",   icon: CheckCircle2 },
+  paid:      { label: <T en="Paid" es="Pagado" />,       color: "#16264A", bg: "rgba(22,38,74,0.08)",   icon: CheckCircle2 },
   cancelled: { label: <T en="Cancelled" es="Cancelado" />, color: "#C0392B", bg: "rgba(192,57,43,0.08)",    icon: AlertCircle },
   failed:    { label: <T en="Payment failed" es="Pago fallido" />, color: "#C0392B", bg: "rgba(192,57,43,0.08)", icon: AlertCircle },
 };
@@ -54,7 +54,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
   const currentStep = data.status === "paid" ? 0 : STATUS_STEPS.indexOf(data.status as typeof STATUS_STEPS[number]);
 
   return (
-    <div className="min-h-screen" style={{ background: "#F6F6F8" }}>
+    <div className="min-h-screen" style={{ background: "#F5F4F0" }}>
       <div className="max-w-2xl mx-auto px-4 py-12">
         <Link
           href="/account/orders"
@@ -125,10 +125,10 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
         {data.tracking_number && (
           <div
             className="p-5 rounded-2xl mb-4 flex items-center justify-between gap-4"
-            style={{ background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)" }}
+            style={{ background: "rgba(22,38,74,0.04)", border: "1px solid rgba(22,38,74,0.15)" }}
           >
             <div>
-              <p className="text-xs font-semibold mb-1" style={{ color: "#0A84FF" }}><T en="TRACKING NUMBER" es="NÚMERO DE RASTREO" /></p>
+              <p className="text-xs font-semibold mb-1" style={{ color: "#16264A" }}><T en="TRACKING NUMBER" es="NÚMERO DE RASTREO" /></p>
               <p className="font-mono font-bold" style={{ color: "#1D1D1F" }}>{data.tracking_number}</p>
             </div>
             {data.tracking_url && (
@@ -137,7 +137,7 @@ export default async function OrderDetailPage({ params }: { params: Promise<{ id
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold shrink-0 transition-opacity hover:opacity-75"
-                style={{ background: "#0A84FF", color: "#FFFFFF" }}
+                style={{ background: "#111111", color: "#FFFFFF" }}
               >
                 <T en="Track" es="Rastrear" /> <ExternalLink className="w-3.5 h-3.5" />
               </a>

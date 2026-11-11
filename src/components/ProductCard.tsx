@@ -132,7 +132,7 @@ export default function ProductCard({
               <button
                 onClick={handleAddToCart}
                 className="w-full sm:w-auto h-10 sm:h-9 px-4 rounded-full text-[13px] font-medium transition-colors"
-                style={{ background: added ? "#0A84FF" : "#111111", color: "#FFFFFF" }}
+                style={{ background: added ? "#16264A" : "#111111", color: "#FFFFFF" }}
               >
                 {added ? t("Added", "Añadido") : t("Add to cart", "Añadir al carrito")}
               </button>
@@ -159,7 +159,7 @@ export default function ProductCard({
   );
 }
 
-const VIAL_ACCENTS = ["#6B7A8D", "#0A84FF", "#4D6080", "#6B7A8D", "#0A84FF", "#4D6080"];
+const VIAL_ACCENTS = ["#6B7A8D", "#16264A", "#4D6080", "#6B7A8D", "#16264A", "#4D6080"];
 
 function ProductVialDetailed({ index }: { index: number }) {
   const accent = VIAL_ACCENTS[index % VIAL_ACCENTS.length];
