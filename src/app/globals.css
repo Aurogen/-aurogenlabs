@@ -134,22 +134,6 @@ h1, h2, h3, h4, h5, h6 {
   transition: transform 0.3s ease-out;
 }
 
-/* ── Merch preview: studio photo crossfades to the worn photo ─────────────── */
-.merch-flip .merch-front { transition: opacity 0.7s ease; }
-.merch-flip .merch-back { transform: scale(1.02); transition: transform 6s cubic-bezier(0.2, 0.6, 0.2, 1); }
-@media (hover: hover) {
-  .merch-flip:hover .merch-front { opacity: 0; }
-  .merch-flip:hover .merch-back { transform: scale(1.1); }
-}
-/* Touch screens have no hover: the two photos alternate on their own. */
-@media (hover: none) {
-  .merch-flip .merch-front { animation: merch-cycle 9s ease-in-out infinite; }
-}
-@keyframes merch-cycle {
-  0%, 38% { opacity: 1; }
-  50%, 88% { opacity: 0; }
-  100% { opacity: 1; }
-}
 /* Slow push-in on the merch banner */
 .merch-kenburns { animation: merch-kenburns 18s ease-in-out infinite alternate; transform-origin: 50% 40%; }
 @keyframes merch-kenburns {
@@ -157,5 +141,5 @@ h1, h2, h3, h4, h5, h6 {
   to { transform: scale(1.14) translateY(-2%); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .merch-flip .merch-front, .merch-flip .merch-back, .merch-kenburns { animation: none; transition: none; transform: none; }
+  .merch-kenburns { animation: none; transform: none; }
 }

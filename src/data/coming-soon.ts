@@ -59,10 +59,8 @@ export interface MerchPreview {
   name: string;
   detail: string;
   detail_es: string;
-  /** Studio photo of the garment with the Aurogen print. */
+  /** Product cut out on the shared studio backdrop (same for every item). */
   image: string;
-  /** The same piece worn, shown on hover / in rotation. Optional: client product shots have one photo. */
-  lifestyle?: string;
 }
 
 export const MERCH_PREVIEW: MerchPreview[] = [
@@ -71,58 +69,55 @@ export const MERCH_PREVIEW: MerchPreview[] = [
     name: "Aurogen Logo Tee",
     detail: "White · Cotton",
     detail_es: "Blanca · Algodón",
-    image: "/merch/logo-tee.webp",
-    lifestyle: "/merch/logo-tee-lifestyle.webp",
+    image: "/merch/logo-tee-v2.webp",
   },
   {
     slug: "polo",
     name: "Aurogen Polo",
     detail: "White with navy collar · Piqué cotton",
     detail_es: "Blanca con cuello azul marino · Algodón piqué",
-    image: "/merch/polo.webp",
-    lifestyle: "/merch/polo-lifestyle.webp",
+    image: "/merch/polo-v2.webp",
   },
   {
     slug: "half-zip-hoodie",
     name: "Half-Zip Hoodie",
     detail: "White · Oversized fit",
     detail_es: "Blanco · Corte oversized",
-    image: "/merch/half-zip-hoodie.webp",
-    lifestyle: "/merch/half-zip-hoodie-lifestyle.webp",
+    image: "/merch/half-zip-hoodie-v2.webp",
   },
   {
     slug: "vial-case",
     name: "Vial Travel Case",
     detail: "Black · Holds 9 vials",
     detail_es: "Negro · Para 9 viales",
-    image: "/merch/vial-case.webp",
+    image: "/merch/vial-case-v2.webp",
   },
   {
     slug: "raglan-crop-tee",
     name: "Move Your Way Crop Tee",
     detail: "Off-white · Raglan, boxy fit",
     detail_es: "Blanco hueso · Raglán, corte amplio",
-    image: "/merch/raglan-crop-tee.webp",
+    image: "/merch/raglan-crop-tee-v2.webp",
   },
   {
     slug: "fitted-crop-tee",
     name: "Own Your Power Crop Tee",
     detail: "Sand · Fitted",
     detail_es: "Arena · Ajustada",
-    image: "/merch/fitted-crop-tee.webp",
+    image: "/merch/fitted-crop-tee-v2.webp",
   },
   {
     slug: "cap-brown",
     name: "Own Your Progress Cap",
     detail: "Brown · Embroidered",
     detail_es: "Café · Bordada",
-    image: "/merch/cap-brown.webp",
+    image: "/merch/cap-brown-v2.webp",
   },
   {
     slug: "cap-navy",
     name: "Move Beyond Cap",
     detail: "Navy · Embroidered",
     detail_es: "Azul marino · Bordada",
-    image: "/merch/cap-navy.webp",
+    image: "/merch/cap-navy-v2.webp",
   },
 ];

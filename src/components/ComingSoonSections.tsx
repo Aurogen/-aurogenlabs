@@ -22,6 +22,34 @@ function SoonBadge() {
   );
 }
 
+/** One product tile, identical in both sections: same frame, backdrop, badge, type and hover. */
+function PreviewCard({ name, detail, detail_es, image }: { name: string; detail: string; detail_es: string; image: string }) {
+  return (
+    <div className="group rounded-xl overflow-hidden" style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.07)" }}>
+      <div className="relative aspect-square overflow-hidden" style={{ background: "#ECE8E3" }}>
+        <Image
+          src={image}
+          alt={name}
+          fill
+          sizes="(max-width: 1023px) 50vw, 300px"
+          className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+        />
+        <SoonBadge />
+      </div>
+      <div className="p-3 sm:p-4 text-center sm:text-left">
+        <h3 className="font-semibold text-[14px] sm:text-[15px] leading-snug" style={{ color: "#111111" }}>{name}</h3>
+        <p className="text-[12px] sm:text-[13px] mt-1" style={{ color: "#6B6B6B" }}><T en={detail} es={detail_es} /></p>
+      </div>
+    </div>
+  );
+}
+
+/** Four across; a set of 6 goes three across so no row is left half empty. */
+function PreviewGrid({ children, count }: { children: ReactNode; count: number }) {
+  const cols = count % 4 !== 0 && count % 3 === 0 ? "lg:grid-cols-3" : "lg:grid-cols-4";
+  return <div className={`grid grid-cols-2 ${cols} gap-3 sm:gap-5`}>{children}</div>;
+}
+
 function SectionHeader({
   eyebrow,
   title,
@@ -74,20 +102,11 @@ export function SupplementsComingSoon({ standalone = false }: { standalone?: boo
           href="/supplements"
           standalone={standalone}
         />
-        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-5">
+        <PreviewGrid count={items.length}>
           {items.map((s) => (
-            <div key={s.slug} className="rounded-xl overflow-hidden" style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.07)" }}>
-              <div className="relative aspect-square" style={{ background: "#F2F1ED" }}>
-                <Image src={s.image} alt={s.name} fill sizes="(max-width: 1023px) 50vw, 300px" className="object-cover" />
-                <SoonBadge />
-              </div>
-              <div className="p-3 sm:p-4 text-center sm:text-left">
-                <h3 className="font-semibold text-[14px] sm:text-[15px] leading-snug" style={{ color: "#111111" }}>{s.name}</h3>
-                <p className="text-[12px] sm:text-[13px] mt-1" style={{ color: "#6B6B6B" }}><T en={s.detail} es={s.detail_es} /></p>
-              </div>
-            </div>
+            <PreviewCard key={s.slug} name={s.name} detail={s.detail} detail_es={s.detail_es} image={s.image} />
           ))}
-        </div>
+        </PreviewGrid>
         <div className="mt-8 flex justify-center md:justify-start">
           <LaunchNotifyForm label="supplements" label_es="los suplementos" />
         </div>
@@ -97,6 +116,7 @@ export function SupplementsComingSoon({ standalone = false }: { standalone?: boo
 }
 
 export function MerchComingSoon({ standalone = false }: { standalone?: boolean }) {
+  const merch = standalone ? MERCH_PREVIEW : MERCH_PREVIEW.slice(0, 4);
   return (
     <section className="py-16 md:py-20" style={{ background: "#F5F4F0" }}>
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16">
@@ -139,41 +159,11 @@ export function MerchComingSoon({ standalone = false }: { standalone?: boolean }
           </div>
         )}
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
-          {(standalone ? MERCH_PREVIEW : MERCH_PREVIEW.slice(0, 4)).map((m, i) => (
-            <div key={m.slug} className="group rounded-xl overflow-hidden" style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.07)" }}>
-              {m.lifestyle ? (
-                <div className="merch-flip relative aspect-square overflow-hidden" style={{ background: "#ECEAE6" }}>
-                  <Image src={m.lifestyle} alt={`${m.name}, worn`} fill sizes="(max-width: 639px) 100vw, 400px" className="merch-back object-cover" />
-                  <Image
-                    src={m.image}
-                    alt={m.name}
-                    fill
-                    sizes="(max-width: 639px) 100vw, 400px"
-                    className="merch-front object-cover"
-                    style={{ animationDelay: `${i * 1.5}s` }}
-                  />
-                  <SoonBadge />
-                </div>
-              ) : (
-                <div className="relative aspect-square overflow-hidden" style={{ background: "#FEFEFE" }}>
-                  <Image
-                    src={m.image}
-                    alt={m.name}
-                    fill
-                    sizes="(max-width: 639px) 100vw, 400px"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.04]"
-                  />
-                  <SoonBadge />
-                </div>
-              )}
-              <div className="p-4 text-center sm:text-left">
-                <h3 className="font-semibold text-[15px] leading-snug" style={{ color: "#111111" }}>{m.name}</h3>
-                <p className="text-[13px] mt-1" style={{ color: "#6B6B6B" }}><T en={m.detail} es={m.detail_es} /></p>
-              </div>
-            </div>
+        <PreviewGrid count={merch.length}>
+          {merch.map((m) => (
+            <PreviewCard key={m.slug} name={m.name} detail={m.detail} detail_es={m.detail_es} image={m.image} />
           ))}
-        </div>
+        </PreviewGrid>
         <div className="mt-8 flex justify-center md:justify-start">
           <LaunchNotifyForm label="merch" label_es="la merch" />
         </div>
