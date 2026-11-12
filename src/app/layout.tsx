@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: `${process.env.NEXT_PUBLIC_SITE_URL ?? ""}/og-v2.png`,
+        url: "/og-v2.png",
         width: 1200,
         height: 630,
         alt: "Aurogen Labs — Premium Research Peptides",

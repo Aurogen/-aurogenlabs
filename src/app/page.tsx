@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Aurogen Labs | Premium Peptides for Research",
     description: "Research-grade peptides, ≥98% purity by HPLC, third-party COA for every lot.",
+    images: [{ url: "/og-v2.png", width: 1200, height: 630, alt: "Aurogen Labs — Research Peptides" }],
   },
 };
 
