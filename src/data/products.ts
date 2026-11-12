@@ -1,10 +1,8 @@
 export type Category =
-  | "Incretin Analogs"
-  | "GH Secretagogues"
-  | "GHRH Analogs"
-  | "Peptide Fragments"
+  | "GLP-1 Receptor Agonists"
+  | "Growth Hormone Axis"
   | "Copper Peptides"
-  | "Mitochondrial & Coenzymes"
+  | "Mitochondrial Peptides"
   | "Peptide Blends"
   | "Reagents";
 
@@ -32,13 +30,11 @@ export interface Product {
 }
 
 export const CATEGORIES: { label: Category; label_es: string }[] = [
-  { label: "Incretin Analogs", label_es: "Análogos de Incretinas" },
-  { label: "GH Secretagogues", label_es: "Secretagogos de GH" },
-  { label: "GHRH Analogs", label_es: "Análogos de GHRH" },
-  { label: "Peptide Fragments", label_es: "Fragmentos Peptídicos" },
-  { label: "Copper Peptides", label_es: "Péptidos de Cobre" },
-  { label: "Mitochondrial & Coenzymes", label_es: "Mitocondriales y Coenzimas" },
-  { label: "Peptide Blends", label_es: "Mezclas de Péptidos" },
+  { label: "GLP-1 Receptor Agonists", label_es: "Agonistas de GLP-1" },
+  { label: "Growth Hormone Axis", label_es: "Eje de la GH" },
+  { label: "Copper Peptides", label_es: "Péptidos de cobre" },
+  { label: "Mitochondrial Peptides", label_es: "Péptidos mitocondriales" },
+  { label: "Peptide Blends", label_es: "Mezclas de péptidos" },
   { label: "Reagents", label_es: "Reactivos" },
 ];
 
@@ -52,7 +48,7 @@ export const PRODUCTS: Product[] = [
     concentration: "10mg",
     size: "1 Vial",
     price: 100,
-    goals: ["Incretin Analogs"],
+    goals: ["GLP-1 Receptor Agonists"],
     description: "Triple GIP/GLP-1/glucagon receptor agonist. Lyophilized research reagent.",
     longDescription: "GLP-3 is a synthetic peptide with agonist activity at the GIP, GLP-1 and glucagon receptors. Supplied as a lyophilized powder for in-vitro receptor binding, signaling pathway and analytical studies. For laboratory research use only.",
     inStock: true,
@@ -72,7 +68,7 @@ export const PRODUCTS: Product[] = [
     concentration: "20mg",
     size: "1 Vial",
     price: 150,
-    goals: ["Incretin Analogs"],
+    goals: ["GLP-1 Receptor Agonists"],
     description: "Triple GIP/GLP-1/glucagon receptor agonist. Lyophilized research reagent.",
     longDescription: "GLP-3 is a synthetic peptide with agonist activity at the GIP, GLP-1 and glucagon receptors. Supplied as a lyophilized powder for in-vitro receptor binding, signaling pathway and analytical studies. For laboratory research use only.",
     inStock: true,
@@ -91,7 +87,7 @@ export const PRODUCTS: Product[] = [
     concentration: "30mg",
     size: "1 Vial",
     price: 200,
-    goals: ["Incretin Analogs"],
+    goals: ["GLP-1 Receptor Agonists"],
     description: "Triple GIP/GLP-1/glucagon receptor agonist. Lyophilized research reagent.",
     longDescription: "GLP-3 is a synthetic peptide with agonist activity at the GIP, GLP-1 and glucagon receptors. Supplied as a lyophilized powder for in-vitro receptor binding, signaling pathway and analytical studies. For laboratory research use only.",
     inStock: true,
@@ -110,7 +106,7 @@ export const PRODUCTS: Product[] = [
     concentration: "60mg",
     size: "1 Vial",
     price: 280,
-    goals: ["Incretin Analogs"],
+    goals: ["GLP-1 Receptor Agonists"],
     description: "Triple GIP/GLP-1/glucagon receptor agonist. Lyophilized research reagent.",
     longDescription: "GLP-3 is a synthetic peptide with agonist activity at the GIP, GLP-1 and glucagon receptors. Supplied as a lyophilized powder for in-vitro receptor binding, signaling pathway and analytical studies. For laboratory research use only.",
     inStock: true,
@@ -131,7 +127,7 @@ export const PRODUCTS: Product[] = [
     concentration: "10mg",
     size: "1 Vial",
     price: 90,
-    goals: ["Incretin Analogs"],
+    goals: ["GLP-1 Receptor Agonists"],
     description: "Dual GIP/GLP-1 receptor agonist. Lyophilized research reagent.",
     longDescription: "GLP-2 is a 39-amino-acid synthetic peptide with agonist activity at the GIP and GLP-1 receptors, conjugated to a C20 fatty diacid moiety. Supplied as a lyophilized powder for in-vitro receptor pharmacology and analytical studies. For laboratory research use only.",
     inStock: true,
@@ -151,7 +147,7 @@ export const PRODUCTS: Product[] = [
     concentration: "15mg",
     size: "1 Vial",
     price: 105,
-    goals: ["Incretin Analogs"],
+    goals: ["GLP-1 Receptor Agonists"],
     description: "Dual GIP/GLP-1 receptor agonist. Lyophilized research reagent.",
     longDescription: "GLP-2 is a 39-amino-acid synthetic peptide with agonist activity at the GIP and GLP-1 receptors, conjugated to a C20 fatty diacid moiety. Supplied as a lyophilized powder for in-vitro receptor pharmacology and analytical studies. For laboratory research use only.",
     inStock: true,
@@ -170,7 +166,7 @@ export const PRODUCTS: Product[] = [
     concentration: "20mg",
     size: "1 Vial",
     price: 120,
-    goals: ["Incretin Analogs"],
+    goals: ["GLP-1 Receptor Agonists"],
     description: "Dual GIP/GLP-1 receptor agonist. Lyophilized research reagent.",
     longDescription: "GLP-2 is a 39-amino-acid synthetic peptide with agonist activity at the GIP and GLP-1 receptors, conjugated to a C20 fatty diacid moiety. Supplied as a lyophilized powder for in-vitro receptor pharmacology and analytical studies. For laboratory research use only.",
     inStock: true,
@@ -189,7 +185,7 @@ export const PRODUCTS: Product[] = [
     concentration: "30mg",
     size: "1 Vial",
     price: 145,
-    goals: ["Incretin Analogs"],
+    goals: ["GLP-1 Receptor Agonists"],
     description: "Dual GIP/GLP-1 receptor agonist. Lyophilized research reagent.",
     longDescription: "GLP-2 is a 39-amino-acid synthetic peptide with agonist activity at the GIP and GLP-1 receptors, conjugated to a C20 fatty diacid moiety. Supplied as a lyophilized powder for in-vitro receptor pharmacology and analytical studies. For laboratory research use only.",
     inStock: true,
@@ -208,7 +204,7 @@ export const PRODUCTS: Product[] = [
     concentration: "60mg",
     size: "1 Vial",
     price: 250,
-    goals: ["Incretin Analogs"],
+    goals: ["GLP-1 Receptor Agonists"],
     description: "Dual GIP/GLP-1 receptor agonist. Lyophilized research reagent.",
     longDescription: "GLP-2 is a 39-amino-acid synthetic peptide with agonist activity at the GIP and GLP-1 receptors, conjugated to a C20 fatty diacid moiety. Supplied as a lyophilized powder for in-vitro receptor pharmacology and analytical studies. For laboratory research use only.",
     inStock: true,
@@ -250,7 +246,7 @@ export const PRODUCTS: Product[] = [
     concentration: "10mg",
     size: "1 Vial",
     price: 80,
-    goals: ["GHRH Analogs"],
+    goals: ["Growth Hormone Axis"],
     description: "Synthetic GHRH(1-44) analog with an N-terminal trans-3-hexenoyl group.",
     longDescription: "Tesamorelin is a 44-amino-acid synthetic analog of growth hormone-releasing hormone (GHRH) carrying a trans-3-hexenoic acid group at the N-terminus. Supplied as a lyophilized powder for in-vitro GHRH receptor binding and peptide stability studies. For laboratory research use only.",
     inStock: true,
@@ -272,7 +268,7 @@ export const PRODUCTS: Product[] = [
     concentration: "5mg + 5mg",
     size: "2 Vials",
     price: 75,
-    goals: ["Peptide Fragments"],
+    goals: ["Peptide Blends"],
     description: "TB-500 and BPC-157 supplied as two separately lyophilized vials.",
     longDescription: "Kit containing one vial of TB-500 (5mg) and one vial of BPC-157 (5mg). Each vial is independently lyophilized for stability and ships with its own batch COA. Intended for in-vitro comparative studies. For laboratory research use only.",
     inStock: true,
@@ -291,7 +287,7 @@ export const PRODUCTS: Product[] = [
     concentration: "500mg",
     size: "1 Vial",
     price: 75,
-    goals: ["Mitochondrial & Coenzymes"],
+    goals: ["Mitochondrial Peptides"],
     description: "Nicotinamide adenine dinucleotide (oxidized form). Research-grade reagent.",
     longDescription: "NAD+ is a dinucleotide coenzyme that acts as an electron carrier in redox reactions and as a substrate for sirtuin and PARP enzymes. Supplied as a lyophilized powder for in-vitro enzymatic assays and biochemical research. For laboratory research use only.",
     inStock: true,
@@ -311,7 +307,7 @@ export const PRODUCTS: Product[] = [
     concentration: "40mg",
     size: "1 Vial",
     price: 120,
-    goals: ["Mitochondrial & Coenzymes"],
+    goals: ["Mitochondrial Peptides"],
     description: "16-amino-acid mitochondria-derived peptide. Lyophilized research reagent.",
     longDescription: "MOTS-c is a 16-amino-acid peptide encoded within the mitochondrial 12S rRNA gene. Supplied as a lyophilized powder for in-vitro studies of AMPK signaling and mitochondrial-nuclear communication. For laboratory research use only.",
     inStock: true,
@@ -330,7 +326,7 @@ export const PRODUCTS: Product[] = [
     concentration: "10mg",
     size: "1 Vial",
     price: 65,
-    goals: ["Mitochondrial & Coenzymes"],
+    goals: ["Mitochondrial Peptides"],
     description: "16-amino-acid mitochondria-derived peptide. Lyophilized research reagent.",
     longDescription: "MOTS-c is a 16-amino-acid peptide encoded within the mitochondrial 12S rRNA gene. Supplied as a lyophilized powder for in-vitro studies of AMPK signaling and mitochondrial-nuclear communication. For laboratory research use only.",
     inStock: true,
@@ -352,7 +348,7 @@ export const PRODUCTS: Product[] = [
     concentration: "5mg + 5mg",
     size: "2 Vials",
     price: 85,
-    goals: ["GH Secretagogues", "GHRH Analogs"],
+    goals: ["Growth Hormone Axis", "Peptide Blends"],
     description: "Ipamorelin and CJC-1295 supplied as two separately lyophilized vials.",
     longDescription: "Kit containing one vial of Ipamorelin (5mg), a GHS-R1a agonist, and one vial of CJC-1295 (5mg), a modified GRF(1-29) analog. Each vial is independently lyophilized and ships with its own batch COA. Intended for in-vitro comparative receptor studies. For laboratory research use only.",
     inStock: true,

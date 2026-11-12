@@ -9,8 +9,8 @@ const LINKS = [
     title_es: "Tienda",
     links: [
       { label: "All Products", label_es: "Todos los productos", href: "/shop" },
-      { label: "Incretin Analogs", label_es: "Análogos de incretinas", href: "/shop?category=Incretin%20Analogs" },
-      { label: "GH Secretagogues", label_es: "Secretagogos de GH", href: "/shop?category=GH%20Secretagogues" },
+      { label: "GLP-1 Receptor Agonists", label_es: "Agonistas de GLP-1", href: "/shop?category=GLP-1%20Receptor%20Agonists" },
+      { label: "Growth Hormone Axis", label_es: "Eje de la GH", href: "/shop?category=Growth%20Hormone%20Axis" },
       { label: "Reagents", label_es: "Reactivos", href: "/shop?category=Reagents" },
     ],
   },
