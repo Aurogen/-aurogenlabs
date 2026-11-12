@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { HelpCircle, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
 import { useLanguage } from "@/context/LanguageContext";
 import { FLAT_SHIPPING, FREE_SHIPPING_MIN } from "@/lib/shipping";
 
@@ -82,34 +83,20 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 export default function FaqPage() {
   const { t } = useLanguage();
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#F4F3EF" }}>
-      <div className="max-w-3xl mx-auto">
-
-        <div className="mb-12">
-          <div className="flex items-center gap-3 mb-4">
-            <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center"
-              style={{ background: "rgba(0,0,0,0.04)", border: "1px solid rgba(0,0,0,0.08)" }}
-            >
-              <HelpCircle className="w-5 h-5" style={{ color: "#6B7A8D" }} />
-            </div>
-            <span className="text-xs font-semibold tracking-[0.3em] uppercase" style={{ color: "#6E6E73" }}>
-              {t("Support", "Soporte")}
-            </span>
-          </div>
-          <h1
-            className="text-4xl font-medium mb-3"
-            style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
-          >
-            {t("Frequently Asked Questions", "Preguntas frecuentes")}
-          </h1>
-          <p className="text-sm" style={{ color: "#6E6E73" }}>
+    <div className="min-h-screen" style={{ background: "#F4F3EF" }}>
+      <PageHero
+        eyebrow={t("Support", "Soporte")}
+        title={t("Frequently Asked Questions", "Preguntas frecuentes")}
+        subtitle={
+          <>
             {t("Can't find what you're looking for?", "¿No encuentras lo que buscas?")}{" "}
-            <Link href="/contact" className="underline hover:opacity-70" style={{ color: "#1D1D1F" }}>
+            <Link href="/contact" className="underline hover:opacity-70" style={{ color: "#FFFFFF" }}>
               {t("Contact our team", "Contacta a nuestro equipo")}
             </Link>.
-          </p>
-        </div>
+          </>
+        }
+      />
+      <div className="max-w-3xl mx-auto px-4 pt-12 pb-16">
 
         <div className="space-y-10">
           {CATEGORIES.map((cat) => (

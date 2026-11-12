@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { CheckCircle, ArrowRight, Loader2, Link2, Ticket, Wallet, BarChart3 } from "lucide-react";
+import { CheckCircle, ArrowRight, Loader2, Link2, Ticket, Wallet } from "lucide-react";
 import Link from "next/link";
+import PageHero from "@/components/PageHero";
 import { useUser } from "@clerk/nextjs";
 import { useLanguage } from "@/context/LanguageContext";
 import type { FormField, PartnerFormConfig } from "@/lib/partner-form";
@@ -110,35 +111,23 @@ export default function PartnersPage() {
 
   return (
     <div style={{ background: "#F5F4F0" }}>
-      {/* Hero */}
-      <section className="px-4 pt-16 pb-12 md:pt-20 text-center" style={{ background: "#FFFFFF", borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
-        <div className="max-w-2xl mx-auto">
-          <div
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-5"
-            style={{ background: "rgba(22,38,74,0.08)", color: BLUE }}
-          >
-            <BarChart3 className="w-3.5 h-3.5" />
-            {t("Partner program", "Programa de partners")}
-          </div>
-          <h1 className="text-4xl md:text-5xl font-medium mb-4" style={{ color: INK, fontFamily: "var(--font-heading, sans-serif)" }}>
-            {t("Become an Aurogen Labs partner", "Conviértete en partner de Aurogen Labs")}
-          </h1>
-          <p className="text-base md:text-lg leading-relaxed mb-7" style={{ color: MUTED }}>
-            {t(
-              "For creators, educators and communities in the research space. Share Aurogen Labs with your audience and earn commission on every referred sale.",
-              "Para creadores, educadores y comunidades del mundo de la investigación. Comparte Aurogen Labs con tu audiencia y gana comisión por cada venta referida."
-            )}
-          </p>
-          <a
-            href="#apply"
-            className="inline-flex items-center gap-2 h-12 px-7 rounded-full text-[15px] font-semibold text-white"
-            style={{ background: INK }}
-          >
-            {t("Apply now", "Aplicar ahora")}
-            <ArrowRight className="w-4 h-4" />
-          </a>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={t("Partner program", "Programa de partners")}
+        title={t("Become an Aurogen Labs partner", "Conviértete en partner de Aurogen Labs")}
+        subtitle={t(
+          "For creators, educators and communities in the research space. Share Aurogen Labs with your audience and earn commission on every referred sale.",
+          "Para creadores, educadores y comunidades del mundo de la investigación. Comparte Aurogen Labs con tu audiencia y gana comisión por cada venta referida."
+        )}
+      >
+        <a
+          href="#apply"
+          className="inline-flex items-center gap-2 h-12 px-7 rounded-full text-[15px] font-semibold transition-opacity hover:opacity-90"
+          style={{ background: "#FFFFFF", color: INK }}
+        >
+          {t("Apply now", "Aplicar ahora")}
+          <ArrowRight className="w-4 h-4" />
+        </a>
+      </PageHero>
 
       {/* How it works */}
       <section className="max-w-5xl mx-auto px-4 py-12">

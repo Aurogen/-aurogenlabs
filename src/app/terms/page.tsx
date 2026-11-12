@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Scale } from "lucide-react";
 import T from "@/components/T";
+import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
   title: "Terms of Use",
@@ -23,40 +23,31 @@ const SECTIONS = [
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#F5F4F0" }}>
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen" style={{ background: "#F5F4F0" }}>
+      <PageHero
+        eyebrow="Legal"
+        title={<T en="Terms of Use" es="Términos de Uso" />}
+        subtitle={
+          <>
+            <T
+              en={null}
+              es={
+                <p className="text-sm mb-2 italic">
+                  Esta es una traducción de cortesía. En caso de discrepancia, prevalece la versión en inglés.
+                </p>
+              }
+            />
+            <p className="text-sm" style={{ color: "rgba(255,255,255,0.65)" }}>
+              <T en="Effective date: July 1, 2025" es="Fecha de vigencia: 1 de julio de 2025" />
+            </p>
+          </>
+        }
+      />
+      <div className="max-w-3xl mx-auto px-4 pt-12 pb-16">
 
         <div className="mb-12">
-          <div className="flex items-center gap-3 mb-4">
-            <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center"
-              style={{ background: "rgba(22,38,74,0.08)", border: "1px solid rgba(22,38,74,0.18)" }}
-            >
-              <Scale className="w-5 h-5" style={{ color: "#6B7A8D" }} />
-            </div>
-            <span className="text-xs font-semibold tracking-[0.3em] uppercase" style={{ color: "#6E6E73" }}>
-              Legal
-            </span>
-          </div>
-          <h1
-            className="text-4xl font-medium mb-3"
-            style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
-          >
-            <T en="Terms of Use" es="Términos de Uso" />
-          </h1>
-          <T
-            en={null}
-            es={
-              <p className="text-sm mb-2 italic" style={{ color: "#6E6E73" }}>
-                Esta es una traducción de cortesía. En caso de discrepancia, prevalece la versión en inglés.
-              </p>
-            }
-          />
-          <p className="text-sm" style={{ color: "#9E9EA8" }}>
-            <T en="Effective date: July 1, 2025" es="Fecha de vigencia: 1 de julio de 2025" />
-          </p>
           <div
-            className="mt-6 p-4 rounded-xl text-sm"
+            className="p-4 rounded-xl text-sm"
             style={{ background: "rgba(22,38,74,0.04)", border: "1px solid rgba(22,38,74,0.15)", color: "#16264A" }}
           >
             <T

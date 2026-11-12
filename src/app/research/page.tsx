@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { FlaskConical, FileCheck } from "lucide-react";
 import T from "@/components/T";
+import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
   title: "Research Center",
@@ -23,27 +24,16 @@ const RECON_STEPS = [
 export default function ResearchPage() {
   return (
     <div className="min-h-screen" style={{ background: "#F5F4F0" }}>
-      {/* Header */}
-      <div
-        className="py-14 px-4 text-center"
-        style={{ background: "#FFFFFF", borderBottom: "1px solid rgba(0,0,0,0.08)" }}
-      >
-        <p className="text-xs font-semibold tracking-[0.3em] uppercase mb-3" style={{ color: "#6E6E73" }}>
-          <T en="Knowledge Base" es="Base de conocimiento" />
-        </p>
-        <h1
-          className="font-medium mb-4"
-          style={{ fontFamily: "var(--font-heading, sans-serif)", fontSize: "clamp(36px, 6vw, 72px)", color: "#1D1D1F" }}
-        >
-          <T en="Research Center" es="Centro de Investigación" />
-        </h1>
-        <p className="max-w-xl mx-auto" style={{ color: "#6E6E73" }}>
+      <PageHero
+        eyebrow={<T en="Knowledge Base" es="Base de conocimiento" />}
+        title={<T en="Research Center" es="Centro de Investigación" />}
+        subtitle={
           <T
             en="Your scientific hub for peptide research — guides, CoAs, and protocols in one place."
             es="Tu centro científico para la investigación con péptidos: guías, CoA y protocolos en un solo lugar."
           />
-        </p>
-      </div>
+        }
+      />
 
       <div className="max-w-6xl mx-auto px-4 py-12 space-y-16">
         {/* Resources grid */}

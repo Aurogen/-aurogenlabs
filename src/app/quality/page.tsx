@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import T from "@/components/T";
+import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
   title: "Quality & Testing",
@@ -26,32 +27,21 @@ const SPECS = [
 export default function QualityPage() {
   return (
     <div className="min-h-screen" style={{ background: "#F5F4F0", color: "#1D1D1F" }}>
-      {/* Header */}
-      <section
-        className="py-24 px-4 text-center"
-        style={{ background: "#FFFFFF", borderBottom: "1px solid rgba(0,0,0,0.08)" }}
-      >
-        <div className="max-w-3xl mx-auto">
-          <p className="text-xs font-bold tracking-[0.25em] mb-4" style={{ color: "#6E6E73" }}>
-            <T en="Quality Assurance" es="Aseguramiento de calidad" />
-          </p>
-          <h1
-            className="text-4xl md:text-5xl font-medium tracking-tight mb-6"
-            style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
-          >
-            <T
-              en={<>Every Batch Tested.<br />Every Result Documented.</>}
-              es={<>Cada lote, analizado.<br />Cada resultado, documentado.</>}
-            />
-          </h1>
-          <p className="text-lg leading-relaxed" style={{ color: "#6E6E73" }}>
-            <T
-              en={<>We believe you should never have to take our word for it. That&apos;s why every vial ships with a third-party Certificate of Analysis from an ISO 17025-accredited lab.</>}
-              es="Creemos que nunca deberías tener que confiar solo en nuestra palabra. Por eso cada vial se envía con un Certificado de Análisis de un laboratorio externo acreditado bajo ISO 17025."
-            />
-          </p>
-        </div>
-      </section>
+      <PageHero
+        eyebrow={<T en="Quality Assurance" es="Aseguramiento de calidad" />}
+        title={
+          <T
+            en={<>Every Batch Tested.<br />Every Result Documented.</>}
+            es={<>Cada lote, analizado.<br />Cada resultado, documentado.</>}
+          />
+        }
+        subtitle={
+          <T
+            en={<>We believe you should never have to take our word for it. That&apos;s why every vial ships with a third-party Certificate of Analysis from an ISO 17025-accredited lab.</>}
+            es="Creemos que nunca deberías tener que confiar solo en nuestra palabra. Por eso cada vial se envía con un Certificado de Análisis de un laboratorio externo acreditado bajo ISO 17025."
+          />
+        }
+      />
 
       {/* Process steps */}
       <section className="py-20 px-4">

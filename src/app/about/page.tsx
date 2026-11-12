@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { FlaskConical, Award, Users, Globe } from "lucide-react";
 import T from "@/components/T";
+import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
   title: "About Us",
@@ -47,27 +48,18 @@ const VALUES = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#F5F4F0" }}>
-      <div className="max-w-4xl mx-auto">
-
-        {/* Header */}
-        <div className="text-center mb-16">
-          <p className="text-xs font-semibold tracking-[0.3em] uppercase mb-3" style={{ color: "#6E6E73" }}>
-            <T en="About Aurogen Labs" es="Sobre Aurogen Labs" />
-          </p>
-          <h1
-            className="text-5xl font-medium mb-5"
-            style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
-          >
-            <T en="Built for Science" es="Hecho para la ciencia" />
-          </h1>
-          <p className="leading-relaxed max-w-xl mx-auto" style={{ color: "#6E6E73" }}>
-            <T
-              en="Aurogen Labs was founded with a single mission: to provide the scientific research community with the highest-purity peptides and research compounds available in the United States, backed by full transparency and rigorous quality control."
-              es="Aurogen Labs nació con una sola misión: ofrecer a la comunidad de investigación científica los péptidos y compuestos de investigación de mayor pureza disponibles en Estados Unidos, respaldados por total transparencia y un riguroso control de calidad."
-            />
-          </p>
-        </div>
+    <div className="min-h-screen" style={{ background: "#F5F4F0" }}>
+      <PageHero
+        eyebrow={<T en="About Aurogen Labs" es="Sobre Aurogen Labs" />}
+        title={<T en="Built for Science" es="Hecho para la ciencia" />}
+        subtitle={
+          <T
+            en="Aurogen Labs was founded with a single mission: to provide the scientific research community with the highest-purity peptides and research compounds available in the United States, backed by full transparency and rigorous quality control."
+            es="Aurogen Labs nació con una sola misión: ofrecer a la comunidad de investigación científica los péptidos y compuestos de investigación de mayor pureza disponibles en Estados Unidos, respaldados por total transparencia y un riguroso control de calidad."
+          />
+        }
+      />
+      <div className="max-w-4xl mx-auto px-4 pt-12 pb-16">
 
         {/* Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">

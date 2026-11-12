@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import { MERCH_PREVIEW, SUPPLEMENTS_PREVIEW } from "@/data/coming-soon";
 import LaunchNotifyForm from "./LaunchNotifyForm";
+import PageHero from "./PageHero";
 import T from "./T";
 
 /**
@@ -55,53 +56,47 @@ function SectionHeader({
   title,
   text,
   href,
-  standalone,
 }: {
   eyebrow: ReactNode;
   title: ReactNode;
   text: ReactNode;
   href: string;
-  standalone?: boolean;
 }) {
-  const Heading = standalone ? "h1" : "h2";
   return (
     <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8 text-center md:text-left">
       <div>
         <p className="text-[13px] mb-2" style={{ color: "#6B6B6B" }}>{eyebrow}</p>
-        <Heading
-          className={standalone ? "text-5xl md:text-6xl" : "text-4xl md:text-5xl"}
+        <h2
+          className="text-4xl md:text-5xl"
           style={{ fontFamily: "var(--font-heading, serif)", color: "#111111", lineHeight: 1.05 }}
         >
           {title}
-        </Heading>
+        </h2>
         <p className="mt-3 text-[15px] max-w-xl mx-auto md:mx-0" style={{ color: "#55555A" }}>{text}</p>
       </div>
-      {!standalone && (
-        <Link href={href} className="inline-flex items-center justify-center gap-1.5 text-[14px] font-medium underline-offset-4 hover:underline" style={{ color: "#111111" }}>
-          <T en="See all" es="Ver todo" /> <ArrowRight className="w-4 h-4" />
-        </Link>
-      )}
+      <Link href={href} className="inline-flex items-center justify-center gap-1.5 text-[14px] font-medium underline-offset-4 hover:underline" style={{ color: "#111111" }}>
+        <T en="See all" es="Ver todo" /> <ArrowRight className="w-4 h-4" />
+      </Link>
     </div>
   );
 }
 
 export function SupplementsComingSoon({ standalone = false }: { standalone?: boolean }) {
   const items = standalone ? SUPPLEMENTS_PREVIEW : SUPPLEMENTS_PREVIEW.slice(0, 4);
+  const eyebrow = <T en="Coming soon" es="Próximamente" />;
+  const title = <T en="Protein & Supplements" es="Proteína y suplementos" />;
+  const text = (
+    <T
+      en="A sports nutrition line from Aurogen is on the way. Leave your email and we'll let you know the day it launches."
+      es="Una línea de nutrición deportiva de Aurogen viene en camino. Déjanos tu correo y te avisamos el día del lanzamiento."
+    />
+  );
   return (
+    <>
+    {standalone && <PageHero eyebrow={eyebrow} title={title} subtitle={text} />}
     <section className="py-16 md:py-20" style={{ background: "#FFFFFF" }}>
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16">
-        <SectionHeader
-          eyebrow={<T en="Coming soon" es="Próximamente" />}
-          title={<T en="Protein & Supplements" es="Proteína y suplementos" />}
-          text={
-            <T
-              en="A sports nutrition line from Aurogen is on the way. Leave your email and we'll let you know the day it launches."
-              es="Una línea de nutrición deportiva de Aurogen viene en camino. Déjanos tu correo y te avisamos el día del lanzamiento."
-            />
-          }
-          href="/supplements"
-          standalone={standalone}
-        />
+        {!standalone && <SectionHeader eyebrow={eyebrow} title={title} text={text} href="/supplements" />}
         <PreviewGrid count={items.length}>
           {items.map((s) => (
             <PreviewCard key={s.slug} name={s.name} detail={s.detail} detail_es={s.detail_es} image={s.image} />
@@ -112,26 +107,26 @@ export function SupplementsComingSoon({ standalone = false }: { standalone?: boo
         </div>
       </div>
     </section>
+    </>
   );
 }
 
 export function MerchComingSoon({ standalone = false }: { standalone?: boolean }) {
   const merch = standalone ? MERCH_PREVIEW : MERCH_PREVIEW.slice(0, 4);
+  const eyebrow = <T en="Coming soon" es="Próximamente" />;
+  const title = <T en="Aurogen Merch" es="Merch Aurogen" />;
+  const text = (
+    <T
+      en="Tees, a polo, a half-zip hoodie, caps and a vial case with the Aurogen mark. The first drop is in the works — get on the list to hear first."
+      es="Camisetas, un polo, una sudadera con medio cierre, gorras y un estuche para viales con el logo de Aurogen. El primer lanzamiento está en preparación: apúntate a la lista y entérate antes que nadie."
+    />
+  );
   return (
+    <>
+    {standalone && <PageHero eyebrow={eyebrow} title={title} subtitle={text} />}
     <section className="py-16 md:py-20" style={{ background: "#F5F4F0" }}>
       <div className="max-w-7xl mx-auto px-5 sm:px-8 md:px-12 lg:px-16">
-        <SectionHeader
-          eyebrow={<T en="Coming soon" es="Próximamente" />}
-          title={<T en="Aurogen Merch" es="Merch Aurogen" />}
-          text={
-            <T
-              en="Tees, a polo, a half-zip hoodie, caps and a vial case with the Aurogen mark. The first drop is in the works — get on the list to hear first."
-              es="Camisetas, un polo, una sudadera con medio cierre, gorras y un estuche para viales con el logo de Aurogen. El primer lanzamiento está en preparación: apúntate a la lista y entérate antes que nadie."
-            />
-          }
-          href="/merch"
-          standalone={standalone}
-        />
+        {!standalone && <SectionHeader eyebrow={eyebrow} title={title} text={text} href="/merch" />}
 
         {standalone && (
           <div className="relative overflow-hidden rounded-2xl mb-8 aspect-[16/9] md:aspect-[21/9]" style={{ background: "#16264A" }}>
@@ -169,5 +164,6 @@ export function MerchComingSoon({ standalone = false }: { standalone?: boolean }
         </div>
       </div>
     </section>
+    </>
   );
 }

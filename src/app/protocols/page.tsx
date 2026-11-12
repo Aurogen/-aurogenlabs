@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { FileText } from "lucide-react";
 import Link from "next/link";
 import T from "@/components/T";
+import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
   title: "Laboratory Protocols",
@@ -74,27 +75,16 @@ const PROTOCOLS = [
 export default function ProtocolsPage() {
   return (
     <div className="min-h-screen" style={{ background: "#F5F4F0", color: "#1D1D1F" }}>
-      {/* Header */}
-      <div
-        className="py-16 px-4 text-center"
-        style={{ background: "#FFFFFF", borderBottom: "1px solid rgba(0,0,0,0.08)" }}
-      >
-        <p className="text-xs font-bold tracking-[0.25em] mb-3" style={{ color: "#6E6E73" }}>
-          <T en="Research Library" es="Biblioteca de investigación" />
-        </p>
-        <h1
-          className="text-4xl md:text-5xl font-medium mb-4 tracking-tight"
-          style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
-        >
-          <T en="Laboratory Protocols" es="Protocolos de laboratorio" />
-        </h1>
-        <p className="max-w-xl mx-auto text-base leading-relaxed" style={{ color: "#6E6E73" }}>
+      <PageHero
+        eyebrow={<T en="Research Library" es="Biblioteca de investigación" />}
+        title={<T en="Laboratory Protocols" es="Protocolos de laboratorio" />}
+        subtitle={
           <T
             en="Handling, storage and analytical guides for in-vitro laboratory work. For research use only."
             es="Guías de manejo, almacenamiento y análisis para el trabajo de laboratorio in vitro. Solo para uso en investigación."
           />
-        </p>
-      </div>
+        }
+      />
 
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">

@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { Search, ChevronDown } from "lucide-react";
 import { CATEGORIES, type Category, type Product } from "@/data/products";
 import ProductCard from "@/components/ProductCard";
+import PageHero from "@/components/PageHero";
 import { groupByName, defaultVariant } from "@/lib/variants";
 import { useLanguage } from "@/context/LanguageContext";
 import { categoryLabel } from "@/data/products-es";
@@ -92,16 +93,11 @@ function ShopInner({ initialProducts }: Props) {
 
   return (
     <div className="min-h-screen" style={{ background: "#F5F4F0" }}>
-      {/* Page header — same editorial style as the home page sections */}
-      <div className="max-w-7xl mx-auto px-5 sm:px-8 pt-10 sm:pt-14 pb-6 sm:pb-8 text-center sm:text-left">
-        <p className="text-[13px] mb-2" style={{ color: "#6B6B6B" }}>{t("Shop", "Tienda")}</p>
-        <h1 style={{ fontFamily: "var(--font-heading, serif)", fontSize: "clamp(36px, 5.5vw, 60px)", color: "#111111", lineHeight: 1.05 }}>
-          {selectedCategory ? categoryLabel(selectedCategory, lang) : t("All Peptides", "Todos los péptidos")}
-        </h1>
-        <p className="mt-3 text-[13px] sm:text-[14px]" style={{ color: "#55555A" }}>
-          {t("For laboratory research use only · Not for human consumption", "Solo para investigación de laboratorio · No apto para consumo humano")}
-        </p>
-      </div>
+      <PageHero
+        eyebrow={t("Shop", "Tienda")}
+        title={selectedCategory ? categoryLabel(selectedCategory, lang) : t("All Peptides", "Todos los péptidos")}
+        subtitle={t("For laboratory research use only · Not for human consumption", "Solo para investigación de laboratorio · No apto para consumo humano")}
+      />
 
       {/* Category chips — sticky under the header on scroll */}
       <div

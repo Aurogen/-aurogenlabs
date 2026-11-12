@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { RotateCcw, AlertCircle, CheckCircle, Mail } from "lucide-react";
+import { AlertCircle, CheckCircle, Mail } from "lucide-react";
 import Link from "next/link";
 import T from "@/components/T";
+import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
   title: "Refund Policy",
@@ -10,36 +11,31 @@ export const metadata: Metadata = {
 
 export default function RefundPage() {
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#F5F4F0" }}>
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen" style={{ background: "#F5F4F0" }}>
+      <PageHero
+        eyebrow={<T en="Policies" es="Políticas" />}
+        title={<T en="Refund Policy" es="Política de Reembolso" />}
+        subtitle={
+          <>
+            <p className="text-sm">
+              <T en="Last updated: September 2026" es="Última actualización: septiembre de 2026" />
+            </p>
+            <T
+              en={null}
+              es={
+                <p className="text-sm mt-2 italic">
+                  Esta es una traducción de cortesía. En caso de discrepancia, prevalece la versión en inglés.
+                </p>
+              }
+            />
+          </>
+        }
+      />
+      <div className="max-w-3xl mx-auto px-4 pt-12 pb-16">
 
         <T
           en={
             <>
-                {/* Header */}
-                <div className="mb-12">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center"
-                      style={{ background: "rgba(22,38,74,0.08)", border: "1px solid rgba(22,38,74,0.18)" }}
-                    >
-                      <RotateCcw className="w-5 h-5" style={{ color: "#6B7A8D" }} />
-                    </div>
-                    <span className="text-xs font-semibold tracking-[0.3em] uppercase" style={{ color: "#6E6E73" }}>
-                      Policies
-                    </span>
-                  </div>
-                  <h1
-                    className="text-4xl font-medium mb-3"
-                    style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
-                  >
-                    Refund Policy
-                  </h1>
-                  <p className="text-sm leading-relaxed" style={{ color: "#6E6E73" }}>
-                    Last updated: September 2026
-                  </p>
-                </div>
-
                 {/* All Sales Final Notice */}
                 <div
                   className="p-5 rounded-2xl mb-8 flex gap-4"
@@ -192,33 +188,6 @@ export default function RefundPage() {
           }
           es={
             <>
-                {/* Header */}
-                <div className="mb-12">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center"
-                      style={{ background: "rgba(22,38,74,0.08)", border: "1px solid rgba(22,38,74,0.18)" }}
-                    >
-                      <RotateCcw className="w-5 h-5" style={{ color: "#6B7A8D" }} />
-                    </div>
-                    <span className="text-xs font-semibold tracking-[0.3em] uppercase" style={{ color: "#6E6E73" }}>
-                      Políticas
-                    </span>
-                  </div>
-                  <h1
-                    className="text-4xl font-medium mb-3"
-                    style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
-                  >
-                    Política de Reembolso
-                  </h1>
-                  <p className="text-sm leading-relaxed" style={{ color: "#6E6E73" }}>
-                    Última actualización: septiembre de 2026
-                  </p>
-                  <p className="text-sm mt-2 italic" style={{ color: "#6E6E73" }}>
-                    Esta es una traducción de cortesía. En caso de discrepancia, prevalece la versión en inglés.
-                  </p>
-                </div>
-
                 {/* All Sales Final Notice */}
                 <div
                   className="p-5 rounded-2xl mb-8 flex gap-4"

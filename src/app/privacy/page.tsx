@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Shield } from "lucide-react";
 import T from "@/components/T";
+import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -22,45 +22,34 @@ const SECTIONS = [
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#F5F4F0" }}>
-      <div className="max-w-3xl mx-auto">
-
-        <div className="mb-12">
-          <div className="flex items-center gap-3 mb-4">
-            <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center"
-              style={{ background: "rgba(22,38,74,0.08)", border: "1px solid rgba(22,38,74,0.18)" }}
-            >
-              <Shield className="w-5 h-5" style={{ color: "#6B7A8D" }} />
-            </div>
-            <span className="text-xs font-semibold tracking-[0.3em] uppercase" style={{ color: "#6E6E73" }}>
-              Legal
-            </span>
-          </div>
-          <h1
-            className="text-4xl font-medium mb-3"
-            style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
-          >
-            <T en="Privacy Policy" es="Política de Privacidad" />
-          </h1>
-          <T
-            en={null}
-            es={
-              <p className="text-sm mb-2 italic" style={{ color: "#6E6E73" }}>
-                Esta es una traducción de cortesía. En caso de discrepancia, prevalece la versión en inglés.
-              </p>
-            }
-          />
-          <p className="text-sm" style={{ color: "#9E9EA8" }}>
-            <T en="Effective date: July 1, 2025" es="Fecha de vigencia: 1 de julio de 2025" />
-          </p>
-          <p className="text-sm mt-4 leading-relaxed" style={{ color: "#6E6E73" }}>
+    <div className="min-h-screen" style={{ background: "#F5F4F0" }}>
+      <PageHero
+        eyebrow="Legal"
+        title={<T en="Privacy Policy" es="Política de Privacidad" />}
+        subtitle={
+          <>
             <T
-              en="At Aurogen Labs, we are committed to protecting your privacy. This policy explains how we collect, use, and safeguard your personal information."
-              es="En Aurogen Labs, nos comprometemos a proteger su privacidad. Esta política explica cómo recopilamos, usamos y protegemos su información personal."
+              en={null}
+              es={
+                <p className="text-sm mb-2 italic">
+                  Esta es una traducción de cortesía. En caso de discrepancia, prevalece la versión en inglés.
+                </p>
+              }
             />
-          </p>
-        </div>
+            <p className="text-sm" style={{ color: "rgba(255,255,255,0.65)" }}>
+              <T en="Effective date: July 1, 2025" es="Fecha de vigencia: 1 de julio de 2025" />
+            </p>
+          </>
+        }
+      />
+      <div className="max-w-3xl mx-auto px-4 pt-12 pb-16">
+
+        <p className="text-sm mb-12 leading-relaxed" style={{ color: "#6E6E73" }}>
+          <T
+            en="At Aurogen Labs, we are committed to protecting your privacy. This policy explains how we collect, use, and safeguard your personal information."
+            es="En Aurogen Labs, nos comprometemos a proteger su privacidad. Esta política explica cómo recopilamos, usamos y protegemos su información personal."
+          />
+        </p>
 
         <div className="space-y-8">
           {SECTIONS.map((s) => (

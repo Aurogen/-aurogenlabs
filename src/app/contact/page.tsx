@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Mail, MessageSquare, Clock, CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "@/context/LanguageContext";
+import PageHero from "@/components/PageHero";
 
 const INPUT_STYLE = {
   background: "#FFFFFF",
@@ -44,32 +45,15 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#F5F4F0" }}>
-      <div className="max-w-4xl mx-auto">
-
-        {/* Header */}
-        <div className="text-center mb-14">
-          <div className="flex items-center justify-center mb-4">
-            <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center"
-              style={{ background: "rgba(22,38,74,0.08)", border: "1px solid rgba(22,38,74,0.18)" }}
-            >
-              <Mail className="w-5 h-5" style={{ color: "#6B7A8D" }} />
-            </div>
-          </div>
-          <h1
-            className="text-4xl font-medium mb-3"
-            style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
-          >
-            {t("Contact Us", "Contáctanos")}
-          </h1>
-          <p className="text-sm max-w-md mx-auto" style={{ color: "#6E6E73" }}>
-            {t(
-              "Have a question about our compounds, an order, or a research inquiry? We're here to help.",
-              "¿Tienes una pregunta sobre nuestros compuestos, un pedido o una consulta de investigación? Estamos para ayudarte.",
-            )}
-          </p>
-        </div>
+    <div className="min-h-screen" style={{ background: "#F5F4F0" }}>
+      <PageHero
+        title={t("Contact Us", "Contáctanos")}
+        subtitle={t(
+          "Have a question about our compounds, an order, or a research inquiry? We're here to help.",
+          "¿Tienes una pregunta sobre nuestros compuestos, un pedido o una consulta de investigación? Estamos para ayudarte.",
+        )}
+      />
+      <div className="max-w-4xl mx-auto px-4 pt-12 pb-16">
 
         <div className="grid md:grid-cols-3 gap-8">
 

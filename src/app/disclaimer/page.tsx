@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import T from "@/components/T";
+import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
   title: "Disclaimer",
@@ -13,27 +14,31 @@ const P = "text-sm leading-relaxed mb-3";
 
 export default function DisclaimerPage() {
   return (
-    <div className="min-h-screen py-16" style={{ background: "#F5F4F0" }}>
-      <div className="max-w-3xl mx-auto px-4">
+    <div className="min-h-screen" style={{ background: "#F5F4F0" }}>
+      <PageHero
+        eyebrow="Legal"
+        title={<T en="Research Use Disclaimer" es="Aviso legal sobre uso en investigación" />}
+        subtitle={
+          <>
+            <p className="text-sm">
+              <T en="Last updated: January 2026" es="Última actualización: enero de 2026" />
+            </p>
+            <T
+              en={null}
+              es={
+                <p className="text-sm mt-2 italic">
+                  Esta es una traducción de cortesía. En caso de discrepancia, prevalece la versión en inglés.
+                </p>
+              }
+            />
+          </>
+        }
+      />
+      <div className="max-w-3xl mx-auto px-4 pt-12 pb-16">
 
         <T
           en={
             <>
-                <div className="mb-10">
-                  <p className="text-xs font-bold tracking-[0.25em] uppercase mb-3" style={{ color: "#9E9EA8" }}>
-                    Legal
-                  </p>
-                  <h1
-                    className="text-4xl font-medium mb-3"
-                    style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
-                  >
-                    Research Use Disclaimer
-                  </h1>
-                  <p className="text-sm" style={{ color: "#6E6E73" }}>
-                    Last updated: January 2026
-                  </p>
-                </div>
-
                 <div
                   className="p-8 rounded-2xl space-y-0"
                   style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
@@ -125,24 +130,6 @@ export default function DisclaimerPage() {
           }
           es={
             <>
-                <div className="mb-10">
-                  <p className="text-xs font-bold tracking-[0.25em] uppercase mb-3" style={{ color: "#9E9EA8" }}>
-                    Legal
-                  </p>
-                  <h1
-                    className="text-4xl font-medium mb-3"
-                    style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
-                  >
-                    Aviso legal sobre uso en investigación
-                  </h1>
-                  <p className="text-sm" style={{ color: "#6E6E73" }}>
-                    Última actualización: enero de 2026
-                  </p>
-                  <p className="text-sm mt-2 italic" style={{ color: "#6E6E73" }}>
-                    Esta es una traducción de cortesía. En caso de discrepancia, prevalece la versión en inglés.
-                  </p>
-                </div>
-
                 <div
                   className="p-8 rounded-2xl space-y-0"
                   style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}

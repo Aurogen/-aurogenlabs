@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
-import { Truck, Package, RotateCcw, Clock } from "lucide-react";
+import { Package, RotateCcw, Clock } from "lucide-react";
 import { DELIVERY_DAYS, FLAT_SHIPPING, FREE_SHIPPING_MIN } from "@/lib/shipping";
 import T from "@/components/T";
+import PageHero from "@/components/PageHero";
 
 export const metadata: Metadata = {
   title: "Shipping & Returns",
@@ -30,35 +31,18 @@ const FAQ = [
 
 export default function ShippingPage() {
   return (
-    <div className="min-h-screen py-16 px-4" style={{ background: "#F5F4F0" }}>
-      <div className="max-w-3xl mx-auto">
-
-        {/* Header */}
-        <div className="mb-12">
-          <div className="flex items-center gap-3 mb-4">
-            <div
-              className="w-10 h-10 rounded-xl flex items-center justify-center"
-              style={{ background: "rgba(22,38,74,0.08)", border: "1px solid rgba(22,38,74,0.18)" }}
-            >
-              <Truck className="w-5 h-5" style={{ color: "#6B7A8D" }} />
-            </div>
-            <span className="text-xs font-semibold tracking-[0.3em] uppercase" style={{ color: "#6E6E73" }}>
-              <T en="Shipping" es="Envíos" />
-            </span>
-          </div>
-          <h1
-            className="text-4xl font-medium mb-3"
-            style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
-          >
-            <T en="Shipping & Returns" es="Envíos y devoluciones" />
-          </h1>
-          <p className="text-sm leading-relaxed" style={{ color: "#6E6E73" }}>
-            <T
-              en="We ship all orders from our US facility. Research compounds are carefully packaged to ensure integrity during transit."
-              es="Enviamos todos los pedidos desde nuestras instalaciones en EE. UU. Los compuestos de investigación se empacan con cuidado para garantizar su integridad durante el transporte."
-            />
-          </p>
-        </div>
+    <div className="min-h-screen" style={{ background: "#F5F4F0" }}>
+      <PageHero
+        eyebrow={<T en="Shipping" es="Envíos" />}
+        title={<T en="Shipping & Returns" es="Envíos y devoluciones" />}
+        subtitle={
+          <T
+            en="We ship all orders from our US facility. Research compounds are carefully packaged to ensure integrity during transit."
+            es="Enviamos todos los pedidos desde nuestras instalaciones en EE. UU. Los compuestos de investigación se empacan con cuidado para garantizar su integridad durante el transporte."
+          />
+        }
+      />
+      <div className="max-w-3xl mx-auto px-4 pt-12 pb-16">
 
         {/* Shipping options */}
         <div className="mb-12">
