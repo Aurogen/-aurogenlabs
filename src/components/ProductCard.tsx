@@ -56,6 +56,7 @@ export default function ProductCard({
               alt={current.name}
               fill
               sizes="(max-width: 1023px) 50vw, (max-width: 1279px) 33vw, 300px"
+              quality={90}
               loading={index < 4 ? "eager" : "lazy"}
               className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
             />

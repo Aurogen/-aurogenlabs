@@ -120,6 +120,7 @@ export default function ProductDetail({ product, related, variants = [] }: Props
                   alt={product.name}
                   fill
                   sizes="(max-width: 1023px) 100vw, 600px"
+                  quality={90}
                   preload
                   className="object-cover"
                 />

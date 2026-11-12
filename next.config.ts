@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
+    // 90 is used for product photos so the small text on the vial labels stays sharp.
+    qualities: [75, 90],
     // Product image URLs are content-hashed and never change, so cache optimized variants for 30 days.
     minimumCacheTTL: 2592000,
     remotePatterns: [

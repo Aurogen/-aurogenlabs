@@ -316,6 +316,7 @@ function LineupCard({
             alt={product.name}
             fill
             sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 767px) 340px, 240px"
+            quality={90}
             loading={index < 2 ? "eager" : "lazy"}
             fetchPriority={index < 2 ? "high" : "auto"}
             className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
