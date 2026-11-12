@@ -48,6 +48,12 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.01em;
 }
 
+/* Cormorant draws old-style figures by default ("GLP3" looks like "GLP₃", "$100" drops below the
+   line). Product names and prices need full-height figures everywhere. */
+h1, h2, h3, h4, h5, h6, [style*="font-heading"] {
+  font-variant-numeric: lining-nums;
+}
+
 /* On phones the thin serif reads small and runs long; switch headings to the sans. */
 @media (max-width: 767px) {
   :root {

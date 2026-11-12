@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Package, RotateCcw, Clock } from "lucide-react";
-import { DELIVERY_DAYS, FLAT_SHIPPING, FREE_SHIPPING_MIN } from "@/lib/shipping";
+import { DELIVERY_DAYS, FLAT_SHIPPING, FREE_SHIPPING_MIN, OVERNIGHT_SHIPPING } from "@/lib/shipping";
 import T from "@/components/T";
 import PageHero from "@/components/PageHero";
 
@@ -19,10 +19,19 @@ const SHIPPING_OPTIONS = [
     price_es: `$${FLAT_SHIPPING.toFixed(2)} · Gratis en pedidos de $${FREE_SHIPPING_MIN}+`,
     carrier: "UPS",
   },
+  {
+    name: "Overnight Shipping",
+    name_es: "Envío overnight",
+    time: "Next Business Day",
+    time_es: "Siguiente día hábil",
+    price: `$${OVERNIGHT_SHIPPING.toFixed(2)}`,
+    price_es: `$${OVERNIGHT_SHIPPING.toFixed(2)}`,
+    carrier: "UPS",
+  },
 ];
 
 const FAQ = [
-  { q: "When will my order ship?", q_es: "¿Cuándo se enviará mi pedido?", a_es: "Los pedidos realizados antes de las 2:00 PM (hora del Este, EST) en días hábiles normalmente se procesan y envían el mismo día. Los pedidos realizados después de las 2:00 PM o en fin de semana se envían el siguiente día hábil.", a: "Orders placed before 2:00 PM EST on business days are typically processed and shipped the same day. Orders placed after 2:00 PM or on weekends ship the next business day." },
+  { q: "When will my order ship?", q_es: "¿Cuándo se enviará mi pedido?", a_es: "Los pedidos realizados antes de las 12:00 PM (hora del Este, ET) en días hábiles se envían el mismo día. Los pedidos realizados después de las 12:00 PM o en fin de semana se envían el siguiente día hábil.", a: "Orders placed before 12:00 PM ET on business days ship the same day. Orders placed after 12:00 PM or on weekends ship the next business day." },
   { q: "Do you ship internationally?", q_es: "¿Hacen envíos internacionales?", a_es: "Por ahora solo enviamos dentro de Estados Unidos. Los envíos internacionales no están disponibles en este momento.", a: "Currently we ship within the United States only. International shipping is not available at this time." },
   { q: "How are research compounds packaged?", q_es: "¿Cómo se empacan los compuestos de investigación?", a_es: "Todos los compuestos se envían en empaques adecuados a su temperatura, con desecantes cuando es necesario. Los péptidos liofilizados se envían a temperatura ambiente. Los viales se aseguran para evitar roturas durante el transporte.", a: "All compounds are shipped in temperature-appropriate packaging with desiccants as needed. Lyophilized peptides are shipped at ambient temperature. Vials are secured to prevent breakage during transit." },
   { q: "Can I track my order?", q_es: "¿Puedo rastrear mi pedido?", a_es: "Sí. Cuando tu pedido se envíe, recibirás un número de seguimiento por correo electrónico. También puedes ver el estado de tu pedido en el panel de tu cuenta.", a: "Yes. Once your order ships, you will receive a tracking number via email. You can also view your order status in your account dashboard." },

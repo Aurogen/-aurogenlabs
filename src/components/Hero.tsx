@@ -8,12 +8,12 @@ const FACTS = {
   en: [
     { value: "≥98%", label: "purity by HPLC" },
     { value: "COA", label: "with every batch" },
-    { value: "48h", label: "dispatch on US orders" },
+    { value: "Same day", label: "dispatch before 12 PM ET" },
   ],
   es: [
     { value: "≥98%", label: "pureza por HPLC" },
     { value: "COA", label: "en cada lote" },
-    { value: "48h", label: "despacho en pedidos de EE.UU." },
+    { value: "Mismo día", label: "despacho antes de las 12 PM (ET)" },
   ],
 };
 

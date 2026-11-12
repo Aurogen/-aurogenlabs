@@ -4,25 +4,25 @@ type Lang = "en" | "es";
 
 /** Spanish copy for each product, keyed by slug. Products without an entry fall back to English. */
 export const PRODUCTS_ES: Record<string, { description: string; longDescription: string }> = {
-  // GLP-3 (retatrutide)
+  // GLP3-RT (retatrutide)
   ...Object.fromEntries(
     ["retatrutide-10mg", "retatrutide-20mg", "retatrutide-30mg", "retatrutide-60mg"].map((slug) => [
       slug,
       {
         description: "Agonista triple de los receptores de GIP, GLP-1 y glucagón. Reactivo de investigación liofilizado.",
         longDescription:
-          "GLP-3 es un péptido sintético con actividad agonista sobre los receptores de GIP, GLP-1 y glucagón. Se suministra como polvo liofilizado para estudios in vitro de unión a receptores, vías de señalización y análisis. Solo para uso en investigación de laboratorio.",
+          "GLP3-RT es un péptido sintético con actividad agonista sobre los receptores de GIP, GLP-1 y glucagón. Se suministra como polvo liofilizado para estudios in vitro de unión a receptores, vías de señalización y análisis. Solo para uso en investigación de laboratorio.",
       },
     ]),
   ),
-  // GLP-2 (tirzepatide)
+  // GLP2-TZ (tirzepatide)
   ...Object.fromEntries(
     ["tirzepatide-10mg", "tirzepatide-15mg", "tirzepatide-20mg", "tirzepatide-30mg", "tirzepatide-60mg"].map((slug) => [
       slug,
       {
         description: "Agonista dual de los receptores de GIP y GLP-1. Reactivo de investigación liofilizado.",
         longDescription:
-          "GLP-2 es un péptido sintético de 39 aminoácidos con actividad agonista sobre los receptores de GIP y GLP-1, conjugado con un diácido graso C20. Se suministra como polvo liofilizado para estudios in vitro de farmacología de receptores y análisis. Solo para uso en investigación de laboratorio.",
+          "GLP2-TZ es un péptido sintético de 39 aminoácidos con actividad agonista sobre los receptores de GIP y GLP-1, conjugado con un diácido graso C20. Se suministra como polvo liofilizado para estudios in vitro de farmacología de receptores y análisis. Solo para uso en investigación de laboratorio.",
       },
     ]),
   ),

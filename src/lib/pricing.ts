@@ -1,7 +1,7 @@
 import { getServiceClient } from "@/lib/supabase-server";
 import { PRODUCTS } from "@/data/products";
 import { findAffiliateByCoupon } from "@/lib/affiliates";
-import { shippingFor } from "@/lib/shipping";
+import { shippingFor, type ShippingMethod } from "@/lib/shipping";
 import {
   FIRST_ORDER_CODE, FIRST_ORDER_PCT, BUNDLE_CODE, BUNDLE_PCT, BUNDLE_MIN_UNITS, peptideUnits, peptideSubtotal,
 } from "@/lib/promos";
@@ -170,7 +170,8 @@ async function loadCatalog(slugs: string[]): Promise<Map<string, CatalogRow>> {
 export async function priceOrder(
   rawItems: { slug?: unknown; quantity?: unknown }[],
   discountCode?: string | null,
-  email?: string | null
+  email?: string | null,
+  shippingMethod: ShippingMethod = "standard"
 ): Promise<
   | {
       ok: true;
@@ -222,7 +223,7 @@ export async function priceOrder(
 
   const goodsTotal = round2(Math.max(0, subtotal - (discount?.discount_amount ?? 0)));
   if (goodsTotal <= 0) return { ok: false, error: "Order total must be greater than zero" };
-  const shipping = shippingFor(goodsTotal);
+  const shipping = shippingFor(goodsTotal, shippingMethod);
 
   return { ok: true, lines, subtotal, discount, goodsTotal, shipping, total: round2(goodsTotal + shipping) };
 }

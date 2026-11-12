@@ -47,6 +47,7 @@ interface Order {
   tracking_number?: string;
   tracking_url?: string;
   shipped_at?: string;
+  shipping_method?: string | null;
 }
 interface Stats {
   totalOrders: number;
@@ -411,6 +412,11 @@ function OrdersTab({
                         <Icon className="w-3 h-3" />
                         {sc.label}
                       </span>
+                      {order.shipping_method === "overnight" && (
+                        <span className="px-2 py-0.5 rounded-full text-xs font-bold" style={{ background: "#FFF1E0", color: "#B45309" }}>
+                          UPS OVERNIGHT
+                        </span>
+                      )}
                     </div>
                     <p className="text-sm mb-0.5" style={{ color: "#1D1D1F" }}>{order.name}</p>
                     <p className="text-xs mb-0.5" style={{ color: "#6E6E73" }}>{order.email}</p>

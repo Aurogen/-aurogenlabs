@@ -133,7 +133,7 @@ export default function SearchModal({ onClose }: Props) {
                 {t("POPULAR SEARCHES", "BÚSQUEDAS POPULARES")}
               </p>
               <div className="flex flex-wrap gap-2">
-                {["GLP-3", "GLP-2", "BPC-157", "TB-500", "GHK-Cu"].map((term) => (
+                {["GLP3-RT", "GLP2-TZ", "BPC-157", "TB-500", "GHK-Cu"].map((term) => (
                   <button
                     key={term}
                     onClick={() => setQuery(term)}

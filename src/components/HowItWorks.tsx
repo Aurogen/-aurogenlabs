@@ -20,8 +20,8 @@ const STEPS = [
   {
     title_en: "Receive and verify",
     title_es: "Recibe y verifica",
-    desc_en: "US orders leave within 2 business days with tracking. Match the lot number on the vial to the COA in the box.",
-    desc_es: "Los pedidos en EE.UU. salen en 2 días hábiles con seguimiento. Compara el número de lote del vial con el COA de la caja.",
+    desc_en: "Orders placed before 12:00 PM ET ship the same business day, with tracking. Match the lot number on the vial to the COA in the box.",
+    desc_es: "Los pedidos hechos antes de las 12:00 PM (ET) salen el mismo día hábil, con seguimiento. Compara el número de lote del vial con el COA de la caja.",
   },
 ];
 

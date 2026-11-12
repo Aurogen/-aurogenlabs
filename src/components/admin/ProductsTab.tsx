@@ -515,7 +515,7 @@ function ProductForm({
             }}
             className={inp}
             style={inpStyle}
-            placeholder="e.g. GLP-3"
+            placeholder="e.g. GLP3-RT"
           />
         </div>
         <div>

@@ -5,7 +5,7 @@ import { Lock, ArrowRight, Loader2, CreditCard, Tag, CheckCircle, XCircle } from
 import { useCart } from "@/context/CartContext";
 import { useUser } from "@clerk/nextjs";
 import Link from "next/link";
-import { shippingFor, FREE_SHIPPING_MIN } from "@/lib/shipping";
+import { shippingFor, FREE_SHIPPING_MIN, FLAT_SHIPPING, OVERNIGHT_SHIPPING, DELIVERY_DAYS, type ShippingMethod } from "@/lib/shipping";
 import { useLanguage } from "@/context/LanguageContext";
 import {
   FIRST_ORDER_CODE, FIRST_ORDER_PCT, BUNDLE_CODE, BUNDLE_PCT, BUNDLE_MIN_UNITS, AFFILIATE_DEFAULT_PCT, peptideUnits,
@@ -58,7 +58,8 @@ export default function CheckoutPage() {
     form.address && form.city && form.stateField && form.zip;
 
   const goodsTotal = Math.max(0, totalPrice - (discountData?.discount_amount ?? 0));
-  const shipping = shippingFor(goodsTotal);
+  const [shippingMethod, setShippingMethod] = useState<ShippingMethod>("standard");
+  const shipping = shippingFor(goodsTotal, shippingMethod);
   const finalTotal = goodsTotal + shipping;
 
   const units = peptideUnits(
@@ -130,6 +131,7 @@ export default function CheckoutPage() {
           address: `${form.address}, ${form.city}, ${form.stateField} ${form.zip}`,
           items: state.items.map((item) => ({ slug: item.product.slug, quantity: item.quantity })),
           discount_code: discountData?.code ?? null,
+          shipping_method: shippingMethod,
         }),
       });
       const data = await res.json().catch(() => ({}));
@@ -312,6 +314,57 @@ export default function CheckoutPage() {
                   </Link>.
                 </p>
               </label>
+            </div>
+
+            {/* Shipping method */}
+            <div
+              className="p-6 rounded-2xl"
+              style={{ background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.08)" }}
+            >
+              <h2
+                className="font-medium text-lg mb-1"
+                style={{ fontFamily: "var(--font-heading, sans-serif)", color: "#1D1D1F" }}
+              >
+                {t("Shipping method", "Método de envío")}
+              </h2>
+              <p className="text-xs mb-4" style={{ color: "#6E6E73" }}>
+                {t("All orders ship by UPS. Orders placed before 12:00 PM ET ship the same business day.", "Todos los pedidos se envían por UPS. Los pedidos hechos antes de las 12:00 PM (ET) salen el mismo día hábil.")}
+              </p>
+              <div className="grid sm:grid-cols-2 gap-2" role="radiogroup" aria-label={t("Shipping method", "Método de envío")}>
+                {([
+                  {
+                    id: "standard" as const,
+                    title: t("UPS Standard", "UPS Estándar"),
+                    note: t(`${DELIVERY_DAYS.min}–${DELIVERY_DAYS.max} business days`, `${DELIVERY_DAYS.min}–${DELIVERY_DAYS.max} días hábiles`),
+                    price: goodsTotal >= FREE_SHIPPING_MIN ? t("FREE", "GRATIS") : `$${FLAT_SHIPPING.toFixed(2)}`,
+                  },
+                  {
+                    id: "overnight" as const,
+                    title: t("UPS Overnight", "UPS Overnight"),
+                    note: t("Next business day", "Siguiente día hábil"),
+                    price: `$${OVERNIGHT_SHIPPING.toFixed(2)}`,
+                  },
+                ]).map((o) => {
+                  const on = shippingMethod === o.id;
+                  return (
+                    <button
+                      key={o.id}
+                      type="button"
+                      role="radio"
+                      aria-checked={on}
+                      onClick={() => setShippingMethod(o.id)}
+                      className="flex items-center justify-between gap-3 text-left px-4 py-3 rounded-xl transition-colors"
+                      style={{ border: `1px solid ${on ? "#111111" : "rgba(0,0,0,0.12)"}`, background: on ? "#F5F4F0" : "#FFFFFF" }}
+                    >
+                      <span>
+                        <span className="block text-sm font-semibold" style={{ color: "#1D1D1F" }}>{o.title}</span>
+                        <span className="block text-xs mt-0.5" style={{ color: "#6E6E73" }}>{o.note}</span>
+                      </span>
+                      <span className="text-sm font-semibold shrink-0" style={{ color: "#1D1D1F" }}>{o.price}</span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Discount Code */}
@@ -527,12 +580,14 @@ export default function CheckoutPage() {
                   </div>
                 )}
                 <div className="flex justify-between text-sm">
-                  <span style={{ color: "#6E6E73" }}>{t("Shipping", "Envío")}</span>
+                  <span style={{ color: "#6E6E73" }}>
+                    {shippingMethod === "overnight" ? t("Shipping · UPS Overnight", "Envío · UPS Overnight") : t("Shipping · UPS Standard", "Envío · UPS Estándar")}
+                  </span>
                   <span className="font-medium" style={{ color: shipping ? "#1D1D1F" : "#1B7A45" }}>
                     {shipping ? `$${shipping.toFixed(2)}` : t("FREE", "GRATIS")}
                   </span>
                 </div>
-                {shipping > 0 && (
+                {shippingMethod === "standard" && shipping > 0 && (
                   <p className="text-xs" style={{ color: "#6E6E73" }}>
                     {t(
                       `Add $${(FREE_SHIPPING_MIN - goodsTotal).toFixed(2)} more for free shipping.`,

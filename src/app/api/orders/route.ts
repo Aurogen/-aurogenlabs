@@ -5,19 +5,21 @@ import { sendOrderConfirmation, sendAdminOrderNotification } from "@/lib/email";
 import { resolveAttribution, REF_COOKIE } from "@/lib/affiliates";
 import { priceOrder, recordDiscountUse } from "@/lib/pricing";
 import { getStripe, stripeSecretKey, toCents } from "@/lib/stripe";
-import { DELIVERY_DAYS } from "@/lib/shipping";
+import { DELIVERY_DAYS, isShippingMethod } from "@/lib/shipping";
 import { takeStock } from "@/lib/stock";
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, address, items: cartItems, discount_code } = body as {
+    const { name, email, address, items: cartItems, discount_code, shipping_method } = body as {
       name?: string;
       email?: string;
       address?: string;
       items?: { slug?: unknown; quantity?: unknown }[];
       discount_code?: string | null;
+      shipping_method?: string;
     };
+    const shippingMethod = isShippingMethod(shipping_method) ? shipping_method : "standard";
 
     const { userId } = await auth();
     if (!userId) {
@@ -33,7 +35,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Prices, stock and the discount are resolved from the database, never from the browser.
-    const priced = await priceOrder(cartItems ?? [], discount_code ?? null, customerEmail);
+    const priced = await priceOrder(cartItems ?? [], discount_code ?? null, customerEmail, shippingMethod);
     if (!priced.ok) {
       return NextResponse.json({ error: priced.error }, { status: 400 });
     }
@@ -83,13 +85,15 @@ export async function POST(req: NextRequest) {
         : {}),
       ...(discount ? { discount_code: discount.code, discount_amount } : {}),
       shipping_amount: shipping,
+      shipping_method: shippingMethod,
     };
     let { error } = await supabase.from("orders").insert(row);
     // Orders must never fail because a newer migration hasn't been applied yet.
-    if (error && /attribution_source|commission_status|shipping_amount/.test(error.message)) {
+    if (error && /attribution_source|commission_status|shipping_amount|shipping_method/.test(error.message)) {
       delete row.attribution_source;
       delete row.commission_status;
       delete row.shipping_amount;
+      delete row.shipping_method;
       ({ error } = await supabase.from("orders").insert(row));
     }
 
@@ -136,16 +140,20 @@ export async function POST(req: NextRequest) {
             {
               shipping_rate_data: {
                 type: "fixed_amount",
-                display_name: shipping > 0 ? "Standard shipping" : "Free shipping",
+                display_name:
+                  shippingMethod === "overnight" ? "UPS Next Day Air (overnight)" : shipping > 0 ? "UPS Standard" : "UPS Standard · Free",
                 fixed_amount: { amount: toCents(shipping), currency: "usd" },
-                delivery_estimate: {
-                  minimum: { unit: "business_day", value: DELIVERY_DAYS.min },
-                  maximum: { unit: "business_day", value: DELIVERY_DAYS.max },
-                },
+                delivery_estimate:
+                  shippingMethod === "overnight"
+                    ? { minimum: { unit: "business_day", value: 1 }, maximum: { unit: "business_day", value: 1 } }
+                    : {
+                        minimum: { unit: "business_day", value: DELIVERY_DAYS.min },
+                        maximum: { unit: "business_day", value: DELIVERY_DAYS.max },
+                      },
               },
             },
           ],
-          metadata: { order_id: id, discount_code_id: discount?.code_id ?? "" },
+          metadata: { order_id: id, discount_code_id: discount?.code_id ?? "", shipping_method: shippingMethod },
           payment_intent_data: { metadata: { order_id: id } },
           success_url: `${origin}/order-success?id=${encodeURIComponent(id)}&paid=1`,
           cancel_url: `${origin}/checkout?canceled=1`,
@@ -189,7 +197,7 @@ export async function POST(req: NextRequest) {
           shipping,
           paymentPending: true,
         }),
-        sendAdminOrderNotification({ id, name: customerName, email: customerEmail, address: shippingAddress, items, total }),
+        sendAdminOrderNotification({ id, name: customerName, email: customerEmail, address: shippingAddress, items, total, shippingMethod }),
       ]);
       results.forEach((r) => {
         if (r.status === "rejected") console.error("Order email error:", r.reason);

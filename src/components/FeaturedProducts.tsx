@@ -9,6 +9,7 @@ import type { Product } from "@/data/products";
 import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/context/LanguageContext";
 import LabVideo from "./LabVideo";
+import { categoryLabel, badgeLabel } from "@/data/products-es";
 
 const ACCENT_COLORS = [
   "#6B7A8D",
@@ -123,8 +124,8 @@ export default function FeaturedProducts({ products }: { products: Product[] }) 
             style={{ color: "#5A5A60" }}
           >
             {t(
-              "HPLC purity and mass-spec identity on every lot, with the certificate in the box. Ships within 48 hours.",
-              "Pureza por HPLC e identidad por espectrometría de masas en cada lote, con el certificado en la caja. Envío en 48 horas.",
+              "HPLC purity and mass-spec identity on every lot, with the certificate in the box. Orders before 12 PM ET ship the same day.",
+              "Pureza por HPLC e identidad por espectrometría de masas en cada lote, con el certificado en la caja. Pedidos antes de las 12 PM (ET) salen el mismo día.",
             )}
           </motion.p>
           <motion.div
@@ -286,7 +287,7 @@ function LineupCard({
   index: number;
 }) {
   const { addItem } = useCart();
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const [added, setAdded] = useState(false);
 
   function handleAdd() {
@@ -329,7 +330,7 @@ function LineupCard({
             className="absolute top-3 left-3 px-2 py-1 rounded text-[10px] font-semibold tracking-wide"
             style={{ background: "#111111", color: "#FFFFFF" }}
           >
-            {product.badge}
+            {badgeLabel(product.badge, lang)}
           </span>
         )}
       </Link>
@@ -341,7 +342,7 @@ function LineupCard({
             <span className="font-normal" style={{ color: "#6B6B6B" }}> · {product.concentration}</span>
           </h3>
           <p className="text-[13px] mt-1" style={{ color: "#6B6B6B" }}>
-            {product.goals[0] ?? product.compound}
+            {product.goals[0] ? categoryLabel(product.goals[0], lang) : product.compound}
           </p>
         </Link>
 

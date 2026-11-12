@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { shippingFor, FREE_SHIPPING_MIN } from "@/lib/shipping";
+import { shippingFor, FREE_SHIPPING_MIN, OVERNIGHT_SHIPPING } from "@/lib/shipping";
 import { ShoppingCart, Minus, Plus, Trash2, ArrowRight, ArrowLeft } from "lucide-react";
 import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/context/LanguageContext";
@@ -188,6 +188,9 @@ export default function CartPage() {
                     )}
                   </p>
                 )}
+                <p className="text-xs" style={{ color: "#6E6E73" }}>
+                  {t(`UPS standard shown · Overnight ($${OVERNIGHT_SHIPPING}) can be chosen at checkout.`, `Se muestra UPS estándar · Overnight ($${OVERNIGHT_SHIPPING}) se puede elegir al pagar.`)}
+                </p>
               </div>
 
               <div className="mb-4"><PromoHint compact /></div>

@@ -95,7 +95,7 @@ async function markPaid(session: Stripe.Checkout.Session) {
       discountAmount: order.discount_amount != null ? Number(order.discount_amount) : null,
       shipping: order.shipping_amount != null ? Number(order.shipping_amount) : null,
     }),
-    sendAdminOrderNotification({ id, name, email, address, items, total: Number(total) }),
+    sendAdminOrderNotification({ id, name, email, address, items, total: Number(total), shippingMethod: order.shipping_method ?? null }),
     syncOrderToQuickBooks({ id, name, email, items, total: Number(total) }),
     trackOrderPlaced({ id, name, email, items, total: Number(total) }),
   ]);

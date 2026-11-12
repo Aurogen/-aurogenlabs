@@ -2,7 +2,7 @@
 
 import { X, Minus, Plus, ShoppingCart, Trash2, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { FREE_SHIPPING_MIN, FLAT_SHIPPING } from "@/lib/shipping";
+import { FREE_SHIPPING_MIN, FLAT_SHIPPING, OVERNIGHT_SHIPPING } from "@/lib/shipping";
 import { useCart } from "@/context/CartContext";
 import { useUser } from "@clerk/nextjs";
 import { useLanguage } from "@/context/LanguageContext";
@@ -180,6 +180,9 @@ export default function CartDrawer() {
                     `Add $${(FREE_SHIPPING_MIN - totalPrice).toFixed(2)} more for free shipping · Otherwise $${FLAT_SHIPPING.toFixed(2)}`,
                     `Añade $${(FREE_SHIPPING_MIN - totalPrice).toFixed(2)} más para envío gratis · Si no, $${FLAT_SHIPPING.toFixed(2)}`,
                   )}
+            </p>
+            <p className="text-xs -mt-2 mb-4 text-center" style={{ color: "#9E9EA8" }}>
+              {t(`UPS overnight ($${OVERNIGHT_SHIPPING}) available at checkout`, `Envío UPS overnight ($${OVERNIGHT_SHIPPING}) disponible al pagar`)}
             </p>
             <Link
               href="/checkout"

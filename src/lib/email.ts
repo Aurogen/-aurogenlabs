@@ -132,7 +132,7 @@ export async function sendOrderConfirmation(to: string, order: {
     <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:16px 20px;margin-bottom:16px;">
       <p style="color:#1D1D1F;font-weight:600;font-size:13px;margin:0 0 6px;">What happens next</p>
       <p style="color:#6E6E73;font-size:13px;line-height:1.6;margin:0;">
-        ${pending ? "1. We contact you to complete payment.<br>" : ""}${pending ? "2" : "1"}. Your order ships within 2 business days with tracking.<br>
+        ${pending ? "1. We contact you to complete payment.<br>" : ""}${pending ? "2" : "1"}. Orders placed before 12:00 PM ET ship the same business day; you will get UPS tracking by email.<br>
         ${pending ? "3" : "2"}. Delivery takes 2–5 business days. A Certificate of Analysis for your lot is in the box.
       </p>
       <p style="margin:14px 0 0;"><a href="https://www.aurogenbio.com/account/orders" style="color:#0A84FF;font-size:13px;font-weight:600;text-decoration:none;">View your order →</a></p>
@@ -213,6 +213,7 @@ export async function sendAdminOrderNotification(order: {
   address: string;
   items: OrderItem[];
   total: number;
+  shippingMethod?: string | null;
 }) {
   const adminEmail = process.env.ADMIN_EMAIL;
   if (!adminEmail) return;
@@ -227,6 +228,7 @@ export async function sendAdminOrderNotification(order: {
     <h2 style="margin:0 0 16px;color:#1D1D1F;">New Order — #${esc(order.id)}</h2>
     <p style="color:#1D1D1F;"><strong>Customer:</strong> ${esc(order.name)} (${esc(order.email)})</p>
     <p style="color:#1D1D1F;"><strong>Ship to:</strong> ${esc(order.address)}</p>
+    <p style="color:#1D1D1F;"><strong>Shipping:</strong> ${order.shippingMethod === "overnight" ? '<span style="color:#B45309;font-weight:700;">UPS OVERNIGHT — ship today</span>' : "UPS Standard"}</p>
     <p style="color:#1D1D1F;"><strong>Items:</strong><br>${itemLines}</p>
     <p style="font-size:18px;font-weight:700;border-top:1px solid rgba(0,0,0,0.08);padding-top:12px;margin-top:12px;color:#1B7A45;">
       Total: $${order.total.toFixed(2)}
@@ -238,7 +240,7 @@ export async function sendAdminOrderNotification(order: {
   return sendEmail({
     from: FROM,
     to: adminEmail,
-    subject: `New order #${order.id} — $${order.total.toFixed(2)} — ${order.name}`,
+    subject: `${order.shippingMethod === "overnight" ? "[OVERNIGHT] " : ""}New order #${order.id} — $${order.total.toFixed(2)} — ${order.name}`,
     html,
   });
 }

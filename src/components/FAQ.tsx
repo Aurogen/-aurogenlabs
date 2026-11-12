@@ -22,8 +22,8 @@ const FAQS = [
   {
     q_en: "How fast will my order ship?",
     q_es: "¿Qué tan rápido se enviará mi pedido?",
-    a_en: "All US orders are processed and shipped within 48 hours of payment confirmation (business days). Delivery is 2–5 business days via UPS. You'll receive a tracking number by email as soon as your order leaves our facility.",
-    a_es: "Todos los pedidos en EE.UU. se procesan y envían dentro de las 48 horas de la confirmación del pago (días hábiles). La entrega es de 2 a 5 días hábiles por UPS. Recibirás un número de seguimiento por correo electrónico tan pronto como tu pedido salga de nuestras instalaciones.",
+    a_en: "Orders placed before 12:00 PM ET on business days ship the same day; later orders ship the next business day. Delivery is 2–5 business days via UPS. You'll receive a tracking number by email as soon as your order leaves our facility.",
+    a_es: "Los pedidos hechos antes de las 12:00 PM (ET) en días hábiles se envían el mismo día; los posteriores, el siguiente día hábil. La entrega es de 2 a 5 días hábiles por UPS. Recibirás un número de seguimiento por correo electrónico tan pronto como tu pedido salga de nuestras instalaciones.",
   },
   {
     q_en: "What if my order arrives damaged?",
