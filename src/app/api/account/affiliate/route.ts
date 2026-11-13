@@ -38,6 +38,8 @@ export async function GET() {
       .from("orders")
       .select("id, created_at, total, commission_amount, commission_status, attribution_source, status")
       .eq("affiliate_code", aff.code)
+      // Only paid orders count: abandoned checkouts never earn a commission.
+      .eq("payment_status", "paid")
       .order("created_at", { ascending: false }),
     supabase.from("affiliate_clicks").select("id", { count: "exact", head: true }).eq("code", aff.code),
     supabase.from("affiliate_clicks").select("id", { count: "exact", head: true }).eq("code", aff.code).gte("created_at", since30),

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Truck, Tag } from "lucide-react";
 import { useLanguage } from "@/context/LanguageContext";
 import { FREE_SHIPPING_MIN } from "@/lib/shipping";
-import { FIRST_ORDER_PCT, BUNDLE_PCT, BUNDLE_MIN_UNITS } from "@/lib/promos";
+import { FIRST_ORDER_PCT } from "@/lib/promos";
 
 /**
  * Thin bar above the header on every page: discounts and free shipping.
@@ -14,14 +14,13 @@ export default function ShippingBar() {
   const { t } = useLanguage();
   const messages = [
     { icon: Tag, text: t(`${FIRST_ORDER_PCT}% off your first order`, `${FIRST_ORDER_PCT}% de descuento en tu primera compra`) },
-    { icon: Tag, text: t(`${BUNDLE_PCT}% off ${BUNDLE_MIN_UNITS}+ peptides`, `${BUNDLE_PCT}% al comprar ${BUNDLE_MIN_UNITS}+ péptidos`) },
     { icon: Truck, text: t(`Free UPS shipping on $${FREE_SHIPPING_MIN}+`, `Envío gratis por UPS desde $${FREE_SHIPPING_MIN}`) },
   ];
   const [i, setI] = useState(0);
   useEffect(() => {
     const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
     if (reduce) return;
-    const id = setInterval(() => setI((n) => (n + 1) % 3), 4000);
+    const id = setInterval(() => setI((n) => (n + 1) % 2), 4000);
     return () => clearInterval(id);
   }, []);
   const Cur = messages[i].icon;

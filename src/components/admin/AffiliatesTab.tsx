@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import PartnerFormBuilder from "@/components/admin/PartnerFormBuilder";
 import { answerToText, type ApplicationAnswer } from "@/lib/partner-form";
+import { AFFILIATE_COMMISSION_PCT, AFFILIATE_DEFAULT_PCT } from "@/lib/promos";
 import {
   Plus, X, Check, Copy, Loader2, ChevronDown, ChevronUp, Pencil, Power, Wallet, Ban, RotateCcw, Users,
 } from "lucide-react";
@@ -284,7 +285,7 @@ export default function AffiliatesTab() {
 /* ─── New affiliate form ────────────────────────────────── */
 function NewAffiliateForm({ onCreated }: { onCreated: () => Promise<void> }) {
   const [form, setForm] = useState({
-    name: "", email: "", code: "", coupon_code: "", commission_rate: "20", customer_discount_pct: "15", notes: "", send_email: true,
+    name: "", email: "", code: "", coupon_code: "", commission_rate: String(AFFILIATE_COMMISSION_PCT), customer_discount_pct: String(AFFILIATE_DEFAULT_PCT), notes: "", send_email: true,
   });
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");

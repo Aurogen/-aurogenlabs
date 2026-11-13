@@ -8,7 +8,7 @@ import Link from "next/link";
 import { shippingFor, FREE_SHIPPING_MIN, FLAT_SHIPPING, OVERNIGHT_SHIPPING, DELIVERY_DAYS, type ShippingMethod } from "@/lib/shipping";
 import { useLanguage } from "@/context/LanguageContext";
 import {
-  FIRST_ORDER_CODE, FIRST_ORDER_PCT, BUNDLE_CODE, BUNDLE_PCT, BUNDLE_MIN_UNITS, AFFILIATE_DEFAULT_PCT, peptideUnits,
+  FIRST_ORDER_CODE, FIRST_ORDER_PCT, AFFILIATE_DEFAULT_PCT,
 } from "@/lib/promos";
 
 // Set when Stripe is connected; without it orders are taken for manual payment.
@@ -62,17 +62,11 @@ export default function CheckoutPage() {
   const shipping = shippingFor(goodsTotal, shippingMethod);
   const finalTotal = goodsTotal + shipping;
 
-  const units = peptideUnits(
-    state.items.map((i) => ({ slug: i.product.slug, goals: i.product.goals, quantity: i.quantity })),
-  );
-
   // Spanish for the promo messages the server can send back.
   function promoError(msg: string) {
-    if (!msg.includes("first-order") && !msg.includes("first purchase") && !msg.includes("bacteriostatic")) return msg;
     if (msg.includes("Enter your email")) return t(msg, "Escribe tu correo para usar el descuento de primera compra");
     if (msg.includes("first purchase")) return t(msg, "El descuento de primera compra es solo para tu primer pedido");
-    const missing = Math.max(1, BUNDLE_MIN_UNITS - units);
-    return t(msg, `Agrega ${missing} péptido${missing === 1 ? "" : "s"} más para usar este descuento (el agua bacteriostática no cuenta)`);
+    return msg;
   }
 
   async function applyDiscount(codeArg?: string) {
@@ -388,14 +382,6 @@ export default function CheckoutPage() {
                     title: t(`First order · ${FIRST_ORDER_PCT}% off`, `Primera compra · ${FIRST_ORDER_PCT}% de descuento`),
                     note: t("For your first purchase", "Para tu primer pedido"),
                     ok: true,
-                  },
-                  {
-                    code: BUNDLE_CODE,
-                    title: t(`${BUNDLE_MIN_UNITS}+ peptides · ${BUNDLE_PCT}% off`, `${BUNDLE_MIN_UNITS}+ péptidos · ${BUNDLE_PCT}% de descuento`),
-                    note: units >= BUNDLE_MIN_UNITS
-                      ? t("On the peptides in your order (BAC water doesn't count)", "Sobre los péptidos de tu pedido (el agua BAC no cuenta)")
-                      : t(`Add ${BUNDLE_MIN_UNITS - units} more peptide${BUNDLE_MIN_UNITS - units === 1 ? "" : "s"} (BAC water doesn't count)`, `Agrega ${BUNDLE_MIN_UNITS - units} péptido${BUNDLE_MIN_UNITS - units === 1 ? "" : "s"} más (el agua BAC no cuenta)`),
-                    ok: units >= BUNDLE_MIN_UNITS,
                   },
                 ].map((o) => {
                   const active = discountData?.code === o.code;

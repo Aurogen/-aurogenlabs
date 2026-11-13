@@ -105,7 +105,7 @@ export default function Navbar() {
                           style={{ color: INK, borderBottom: `1px solid ${LINE}` }}
                           onClick={() => setMenu(null)}
                         >
-                          {lang === "es" ? c.label_es : c.label}
+                          {lang === "es" ? c.label_es : c.name}
                         </Link>
                       ))}
                     </div>
@@ -268,7 +268,7 @@ export default function Navbar() {
                     className="py-2.5 text-[14px]"
                     style={{ color: MUTED }}
                   >
-                    {lang === "es" ? c.label_es : c.label}
+                    {lang === "es" ? c.label_es : c.name}
                   </Link>
                 ))}
               </div>

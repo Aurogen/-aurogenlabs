@@ -3,7 +3,7 @@ import { getServiceClient } from "@/lib/supabase-server";
 import { isAdmin } from "@/lib/admin";
 import { generateUniqueCode, generateUniqueCoupon, siteUrl } from "@/lib/affiliates";
 import { sendAffiliateApproved } from "@/lib/email";
-import { AFFILIATE_DEFAULT_PCT } from "@/lib/promos";
+import { AFFILIATE_DEFAULT_PCT, AFFILIATE_COMMISSION_PCT } from "@/lib/promos";
 
 function clampPct(v: unknown, fallback: number) {
   const n = Number(v);
@@ -25,7 +25,9 @@ export async function GET() {
     supabase
       .from("orders")
       .select("affiliate_code, total, commission_amount, commission_status")
-      .not("affiliate_code", "is", null),
+      .not("affiliate_code", "is", null)
+      // Abandoned or failed checkouts never earn a commission.
+      .eq("payment_status", "paid"),
   ]);
 
   if (error) {
@@ -114,7 +116,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "An affiliate with this email already exists" }, { status: 409 });
   }
 
-  const commission_rate = clampPct(body.commission_rate, 20);
+  const commission_rate = clampPct(body.commission_rate, AFFILIATE_COMMISSION_PCT);
   const customer_discount_pct = clampPct(body.customer_discount_pct, AFFILIATE_DEFAULT_PCT);
 
   let code: string;

@@ -3,7 +3,7 @@ import { PRODUCTS } from "@/data/products";
 import { findAffiliateByCoupon } from "@/lib/affiliates";
 import { shippingFor, type ShippingMethod } from "@/lib/shipping";
 import {
-  FIRST_ORDER_CODE, FIRST_ORDER_PCT, BUNDLE_CODE, BUNDLE_PCT, BUNDLE_MIN_UNITS, peptideUnits, peptideSubtotal,
+  FIRST_ORDER_CODE, FIRST_ORDER_PCT,
 } from "@/lib/promos";
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
@@ -36,7 +36,7 @@ async function hasPaidOrder(email: string) {
 export interface DiscountContext {
   /** Buyer's email: needed for the first-order promo. */
   email?: string | null;
-  /** Priced cart lines: needed for the 4-peptide promo. */
+  /** Priced cart lines. */
   lines?: { slug: string; goals?: string[] | null; quantity: number; price: number }[];
 }
 
@@ -60,18 +60,6 @@ export async function evaluateDiscount(
     return {
       valid: true, code, type: "percentage", value: FIRST_ORDER_PCT,
       discount_amount: round2((subtotal * FIRST_ORDER_PCT) / 100), code_id: null, referral: false,
-    };
-  }
-
-  if (code === BUNDLE_CODE) {
-    const lines = ctx.lines ?? [];
-    const units = peptideUnits(lines);
-    if (units < BUNDLE_MIN_UNITS) {
-      return { valid: false, error: `Add ${BUNDLE_MIN_UNITS - units} more peptide${BUNDLE_MIN_UNITS - units === 1 ? "" : "s"} to use this discount (bacteriostatic water doesn't count)` };
-    }
-    return {
-      valid: true, code, type: "percentage", value: BUNDLE_PCT,
-      discount_amount: round2((peptideSubtotal(lines) * BUNDLE_PCT) / 100), code_id: null, referral: false,
     };
   }
 

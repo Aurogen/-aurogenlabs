@@ -29,13 +29,14 @@ export interface Product {
   coaUrl?: string;
 }
 
-export const CATEGORIES: { label: Category; label_es: string }[] = [
-  { label: "GLP-1 Receptor Agonists", label_es: "Agonistas de GLP-1" },
-  { label: "Growth Hormone Axis", label_es: "Eje de la GH" },
-  { label: "Copper Peptides", label_es: "Péptidos de cobre" },
-  { label: "Mitochondrial Peptides", label_es: "Péptidos mitocondriales" },
-  { label: "Peptide Blends", label_es: "Mezclas de péptidos" },
-  { label: "Reagents", label_es: "Reactivos" },
+/** label is the stored value (database, URLs); name / label_es are what shoppers see. */
+export const CATEGORIES: { label: Category; name: string; label_es: string }[] = [
+  { label: "GLP-1 Receptor Agonists", name: "GLP-1 / GIP / Glucagon Agonists", label_es: "Agonistas GLP-1 / GIP / Glucagón" },
+  { label: "Growth Hormone Axis", name: "Growth Hormone Axis", label_es: "Eje de la GH" },
+  { label: "Copper Peptides", name: "Copper Peptides", label_es: "Péptidos de cobre" },
+  { label: "Mitochondrial Peptides", name: "Mitochondrial Peptides", label_es: "Péptidos mitocondriales" },
+  { label: "Peptide Blends", name: "Peptide Blends", label_es: "Mezclas de péptidos" },
+  { label: "Reagents", name: "Reagents", label_es: "Reactivos" },
 ];
 
 export const PRODUCTS: Product[] = [
@@ -234,7 +235,7 @@ export const PRODUCTS: Product[] = [
     molecularWeight: "340.38 g/mol",
     storage: "Store cold · Protect from light · Do not freeze",
     badge: "PREMIUM",
-    image: "/products/vials/ghk-cu-100mg-v7.webp",
+    image: "/products/vials/ghk-cu-100mg-v8.webp",
     coaUrl: "/coa/ghk-cu-100mg.pdf",
   },
   // ── Tesamorelin ───────────────────────────────────────────────
@@ -377,7 +378,7 @@ export const PRODUCTS: Product[] = [
     purity: "> 99%",
     storage: "Store cold · Protect from light · Do not freeze",
     badge: "EXCLUSIVE",
-    image: "/products/vials/klow-blend-80mg-v7.webp",
+    image: "/products/vials/klow-blend-80mg-v8.webp",
     coaUrl: "/coa/klow-blend-80mg.pdf",
   },
   // ── Bacteriostatic Water ──────────────────────────────────────

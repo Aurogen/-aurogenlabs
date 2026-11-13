@@ -9,7 +9,7 @@ const LINKS = [
     title_es: "Tienda",
     links: [
       { label: "All Products", label_es: "Todos los productos", href: "/shop" },
-      { label: "GLP-1 Receptor Agonists", label_es: "Agonistas de GLP-1", href: "/shop?category=GLP-1%20Receptor%20Agonists" },
+      { label: "GLP-1 / GIP / Glucagon Agonists", label_es: "Agonistas GLP-1 / GIP / Glucagón", href: "/shop?category=GLP-1%20Receptor%20Agonists" },
       { label: "Growth Hormone Axis", label_es: "Eje de la GH", href: "/shop?category=Growth%20Hormone%20Axis" },
       { label: "Reagents", label_es: "Reactivos", href: "/shop?category=Reagents" },
     ],

@@ -181,8 +181,8 @@ export default function AffiliatePortal() {
           <h2 className="font-semibold text-[17px] mb-1" style={{ color: INK }}>{t("Share and earn", "Comparte y gana")}</h2>
           <p className="text-[14px] mb-5" style={{ color: MUTED }}>
             {t(
-              `You earn ${affiliate.commission_rate}% of every order placed within 30 days of a click on your link, or whenever a customer uses your coupon.`,
-              `Ganas el ${affiliate.commission_rate}% de cada pedido realizado dentro de los 30 días posteriores a un clic en tu link, o cada vez que un cliente usa tu cupón.`,
+              `You earn ${affiliate.commission_rate}% of the products total (after the discount, shipping excluded) of every paid order placed within 30 days of a click on your link, or whenever a customer uses your coupon.`,
+              `Ganas el ${affiliate.commission_rate}% del total de productos (después del descuento, sin el envío) de cada pedido pagado realizado dentro de los 30 días posteriores a un clic en tu link, o cada vez que un cliente usa tu cupón.`,
             )}
           </p>
           <div className="grid gap-5 md:grid-cols-2">
@@ -344,8 +344,8 @@ export default function AffiliatePortal() {
 
         <p className="text-[12px] mt-8 text-center" style={{ color: MUTED }}>
           {t(
-            "Commissions become approved once an order is paid and past the return window. Purchases made with your own account don't earn commission.",
-            "Las comisiones se aprueban cuando el pedido está pagado y pasó el plazo de devolución. Las compras hechas con tu propia cuenta no generan comisión.",
+            "Only paid orders earn commission; we review and approve them before each payout. Purchases made with your own account don't earn commission.",
+            "Solo los pedidos pagados generan comisión; las revisamos y aprobamos antes de cada pago. Las compras hechas con tu propia cuenta no generan comisión.",
           )}
         </p>
       </div>

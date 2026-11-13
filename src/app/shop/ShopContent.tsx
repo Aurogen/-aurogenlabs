@@ -118,7 +118,7 @@ function ShopInner({ initialProducts }: Props) {
               className="shrink-0 h-9 px-4 rounded-full text-[13px] font-medium whitespace-nowrap"
               style={chip(selectedCategory === c.label)}
             >
-              {lang === "es" ? c.label_es : c.label}
+              {lang === "es" ? c.label_es : c.name}
             </button>
           ))}
           <button

@@ -8,6 +8,7 @@ import { useUser } from "@clerk/nextjs";
 import { useLanguage } from "@/context/LanguageContext";
 import type { FormField, PartnerFormConfig } from "@/lib/partner-form";
 import { partnerFormText } from "@/lib/partner-form-es";
+import { AFFILIATE_COMMISSION_PCT, AFFILIATE_DEFAULT_PCT } from "@/lib/promos";
 
 const INK = "#1D1D1F";
 const MUTED = "#6E6E73";
@@ -105,8 +106,8 @@ export default function PartnersPage() {
   const steps = [
     { icon: CheckCircle, title: t("Apply", "Aplica"), desc: t("Fill out the form. Our team reviews every application.", "Llena el formulario. Nuestro equipo revisa cada solicitud.") },
     { icon: Link2, title: t("Get your link", "Recibe tu link"), desc: t("Approved partners get a unique link to share anywhere.", "Los partners aprobados reciben un link único para compartir.") },
-    { icon: Ticket, title: t("And your coupon", "Y tu cupón"), desc: t("A personal code that gives your audience a discount.", "Un código personal que da descuento a tu audiencia.") },
-    { icon: Wallet, title: t("Earn commission", "Gana comisión"), desc: t("Every sale through your link or coupon is credited to you.", "Cada venta con tu link o cupón se te acredita.") },
+    { icon: Ticket, title: t("And your coupon", "Y tu cupón"), desc: t(`A personal code that gives your audience ${AFFILIATE_DEFAULT_PCT}% off.`, `Un código personal que da ${AFFILIATE_DEFAULT_PCT}% de descuento a tu audiencia.`) },
+    { icon: Wallet, title: t(`Earn ${AFFILIATE_COMMISSION_PCT}% commission`, `Gana ${AFFILIATE_COMMISSION_PCT}% de comisión`), desc: t("On every paid sale through your link or coupon.", "Por cada venta pagada con tu link o cupón.") },
   ];
 
   return (

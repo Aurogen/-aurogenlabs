@@ -3,9 +3,9 @@ import { getServiceClient } from "@/lib/supabase-server";
 import { isAdmin } from "@/lib/admin";
 import { sendAffiliateApproved, sendAffiliateRejected } from "@/lib/email";
 import { generateUniqueCode, generateUniqueCoupon } from "@/lib/affiliates";
-import { AFFILIATE_DEFAULT_PCT } from "@/lib/promos";
+import { AFFILIATE_DEFAULT_PCT, AFFILIATE_COMMISSION_PCT } from "@/lib/promos";
 
-const DEFAULT_COMMISSION = 20;
+const DEFAULT_COMMISSION = AFFILIATE_COMMISSION_PCT;
 const DEFAULT_DISCOUNT = AFFILIATE_DEFAULT_PCT;
 
 export async function PATCH(
@@ -59,17 +59,21 @@ export async function PATCH(
 
   let affiliateCode: string | undefined;
   let couponCode: string | undefined;
+  let commissionRate = DEFAULT_COMMISSION;
+  let discountPct = DEFAULT_DISCOUNT;
 
   if (status === "approved") {
     const { data: existing } = await supabase
       .from("affiliate_codes")
-      .select("code, coupon_code")
+      .select("code, coupon_code, commission_rate, customer_discount_pct")
       .eq("email", app.email)
       .maybeSingle();
 
     if (existing) {
       affiliateCode = existing.code;
       couponCode = existing.coupon_code ?? undefined;
+      commissionRate = Number(existing.commission_rate ?? DEFAULT_COMMISSION);
+      discountPct = Number(existing.customer_discount_pct ?? DEFAULT_DISCOUNT);
     } else {
       const code = await generateUniqueCode(app.name);
       const coupon = await generateUniqueCoupon(app.name, DEFAULT_DISCOUNT);
@@ -96,8 +100,8 @@ export async function PATCH(
       await sendAffiliateApproved(app.email, app.name, {
         code: affiliateCode,
         coupon: couponCode,
-        commissionRate: DEFAULT_COMMISSION,
-        discountPct: DEFAULT_DISCOUNT,
+        commissionRate,
+        discountPct,
       });
     } else {
       await sendAffiliateRejected(app.email, app.name);

@@ -29,6 +29,8 @@ export async function POST(req: NextRequest, { params }: Params) {
     .update({ commission_status: rule.to })
     .eq("affiliate_code", aff.code)
     .in("commission_status", rule.from);
+  // Only paid orders can have their commission approved.
+  if (action === "approve") query = query.eq("payment_status", "paid");
   if (Array.isArray(orderIds) && orderIds.length > 0) query = query.in("id", orderIds.slice(0, 500));
 
   const { data, error } = await query.select("id");

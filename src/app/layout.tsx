@@ -14,6 +14,7 @@ import RefTracker from "@/components/RefTracker";
 import { PostHogProvider } from "@/components/PostHogProvider";
 import { CrispChat } from "@/components/CrispChat";
 import CookieConsent from "@/components/CookieConsent";
+import BackgroundMusic from "@/components/BackgroundMusic";
 
 const cormorant = Cormorant_Garamond({
   variable: "--font-cormorant",
@@ -80,6 +81,7 @@ export default function RootLayout({
                 <CartDrawer />
                 <CrispChat />
                 <CookieConsent />
+                <BackgroundMusic />
               </LanguageProvider>
             </CartProvider>
           </PostHogProvider>

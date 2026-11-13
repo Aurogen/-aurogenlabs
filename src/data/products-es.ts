@@ -84,8 +84,9 @@ export function productLongDescription(p: Pick<Product, "slug" | "longDescriptio
 
 /** Display name of a category; the English label stays the filter / URL value. */
 export function categoryLabel(label: string, lang: Lang): string {
-  if (lang !== "es") return label;
-  return CATEGORIES.find((c) => c.label === label)?.label_es ?? label;
+  const c = CATEGORIES.find((x) => x.label === label);
+  if (!c) return label;
+  return lang === "es" ? c.label_es : c.name;
 }
 
 const BADGES_ES: Record<string, string> = {

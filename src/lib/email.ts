@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { AFFILIATE_COMMISSION_PCT } from "@/lib/promos";
 
 const FROM = process.env.EMAIL_FROM?.trim() || "noreply@aurogenbio.com";
 
@@ -349,7 +350,7 @@ export async function sendAffiliateApproved(
 ) {
   const site = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.aurogenbio.com").replace(/\/$/, "");
   const { code, coupon } = opts;
-  const rate = opts.commissionRate ?? 20;
+  const rate = opts.commissionRate ?? AFFILIATE_COMMISSION_PCT;
   const refLink = code ? `${site}/r/${encodeURIComponent(code)}` : null;
   const codeSection = code
     ? `<div style="background:#F6F6F8;border:1px solid rgba(0,0,0,0.08);border-radius:10px;padding:16px;margin:0 0 12px;text-align:center;">
@@ -373,7 +374,7 @@ export async function sendAffiliateApproved(
     <div style="background:#FFFFFF;border:1px solid rgba(0,0,0,0.08);border-radius:12px;padding:20px;margin:0 0 24px;text-align:left;">
       <p style="color:#1D1D1F;font-weight:600;font-size:14px;margin:0 0 12px;">Your affiliate details:</p>
       ${codeSection}
-      <p style="color:#6E6E73;font-size:13px;margin:0 0 8px;">✓ &nbsp;Earn ${rate}% commission on every sale made through your link or coupon</p>
+      <p style="color:#6E6E73;font-size:13px;margin:0 0 8px;">✓ &nbsp;Earn ${rate}% commission on the products of every paid order made through your link or coupon (after the discount, shipping excluded)</p>
       <p style="color:#6E6E73;font-size:13px;margin:0 0 8px;">✓ &nbsp;Create an account with this email to track clicks, sales and commissions</p>
       <p style="color:#6E6E73;font-size:13px;margin:0;">✓ &nbsp;Purchases are credited to you for 30 days after someone clicks your link</p>
     </div>
