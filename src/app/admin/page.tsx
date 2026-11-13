@@ -28,6 +28,7 @@ import {
   Link2Off,
   ArrowDownToLine,
   Loader2,
+  Printer,
 } from "lucide-react";
 import ProductsTab from "@/components/admin/ProductsTab";
 import AnalyticsTab from "@/components/admin/AnalyticsTab";
@@ -48,6 +49,8 @@ interface Order {
   tracking_url?: string;
   shipped_at?: string;
   shipping_method?: string | null;
+  payment_status?: string;
+  label_url?: string | null;
 }
 interface Stats {
   totalOrders: number;
@@ -138,6 +141,16 @@ export default function AdminPage() {
     });
     setOrders((prev) =>
       prev.map((o) => (o.id === id ? { ...o, status: "shipped", tracking_number, tracking_url } : o))
+    );
+  }
+
+  function onLabelCreated(id: string, label: { labelUrl: string; trackingNumber?: string; trackingUrl?: string }) {
+    setOrders((prev) =>
+      prev.map((o) =>
+        o.id === id
+          ? { ...o, status: "shipped", label_url: label.labelUrl, tracking_number: label.trackingNumber, tracking_url: label.trackingUrl }
+          : o,
+      ),
     );
   }
 
@@ -239,7 +252,7 @@ export default function AdminPage() {
 
       <div className="max-w-7xl mx-auto px-4 py-6">
         {tab === "orders" && (
-          <OrdersTab orders={orders} onStatusChange={updateOrderStatus} onSaveTracking={saveOrderTracking} />
+          <OrdersTab orders={orders} onStatusChange={updateOrderStatus} onSaveTracking={saveOrderTracking} onLabelCreated={onLabelCreated} />
         )}
         {tab === "newsletter" && <NewsletterTab subscribers={subscribers} />}
         {tab === "affiliates" && <AffiliatesTab />}
@@ -312,14 +325,121 @@ function TrackingForm({
   );
 }
 
+type ShipTo = { street1: string; street2?: string; city: string; state: string; zip: string };
+
+/** Buy the UPS label for a paid order (one click) and print the 4×6 PDF. */
+function LabelPanel({
+  order,
+  onCreated,
+}: {
+  order: Order;
+  onCreated: (id: string, label: { labelUrl: string; trackingNumber?: string; trackingUrl?: string }) => void;
+}) {
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const [fix, setFix] = useState<ShipTo | null>(null);
+  const service = order.shipping_method === "overnight" ? "UPS Next Day Air" : "UPS Ground";
+
+  async function create(address?: ShipTo) {
+    setBusy(true);
+    setError("");
+    try {
+      const res = await fetch("/api/shipping/label", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId: order.id, ...(address ? { address } : {}) }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setError(data.error ?? "Couldn't create the label.");
+        if (data.code === "address") setFix(data.parsed ?? address ?? { street1: "", city: "", state: "", zip: "" });
+        return;
+      }
+      setFix(null);
+      onCreated(order.id, data);
+      window.open(data.labelUrl, "_blank", "noopener");
+    } catch {
+      setError("Network error, try again.");
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  const box = { background: "rgba(10,132,255,0.04)", border: "1px solid rgba(10,132,255,0.15)" };
+  const input = "px-3 py-1.5 rounded-lg text-xs border focus:outline-none";
+  const inputStyle = { background: "#FFFFFF", border: "1px solid rgba(0,0,0,0.12)", color: "#1D1D1F" };
+
+  if (order.label_url) {
+    return (
+      <div className="mt-3 p-3 rounded-xl flex flex-wrap items-center gap-3" style={box}>
+        <a
+          href={order.label_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-opacity hover:opacity-75"
+          style={{ background: "#1D1D1F", color: "#FFFFFF" }}
+        >
+          <Printer className="w-3.5 h-3.5" /> Print label (4×6)
+        </a>
+        {order.tracking_number && (
+          <span className="text-xs" style={{ color: "#6E6E73" }}>
+            {service} ·{" "}
+            {order.tracking_url ? (
+              <a href={order.tracking_url} target="_blank" rel="noopener noreferrer" className="underline" style={{ color: "#1D1D1F" }}>
+                {order.tracking_number}
+              </a>
+            ) : (
+              <span style={{ color: "#1D1D1F" }}>{order.tracking_number}</span>
+            )}
+          </span>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="mt-3 p-3 rounded-xl space-y-2" style={box}>
+      <div className="flex flex-wrap items-center gap-3">
+        <button
+          onClick={() => create(fix ?? undefined)}
+          disabled={busy}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-opacity hover:opacity-75 disabled:opacity-40"
+          style={{ background: "#1D1D1F", color: "#FFFFFF" }}
+        >
+          {busy ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Truck className="w-3.5 h-3.5" />}
+          {busy ? "Creating label…" : `Create UPS label · ${service.replace("UPS ", "")}`}
+        </button>
+        <span className="text-xs" style={{ color: "#6E6E73" }}>Buys the label, emails tracking to the customer and marks the order shipped.</span>
+      </div>
+      {error && <p className="text-xs" style={{ color: "#DC2626" }}>{error}</p>}
+      {fix && (
+        <div className="grid grid-cols-2 sm:grid-cols-6 gap-2">
+          <input className={`${input} col-span-2 sm:col-span-3`} style={inputStyle} placeholder="Street" value={fix.street1}
+            onChange={(e) => setFix({ ...fix, street1: e.target.value })} />
+          <input className={`${input} col-span-2 sm:col-span-3`} style={inputStyle} placeholder="Apt / suite (optional)" value={fix.street2 ?? ""}
+            onChange={(e) => setFix({ ...fix, street2: e.target.value })} />
+          <input className={`${input} col-span-2 sm:col-span-3`} style={inputStyle} placeholder="City" value={fix.city}
+            onChange={(e) => setFix({ ...fix, city: e.target.value })} />
+          <input className={input} style={inputStyle} placeholder="ST" maxLength={2} value={fix.state}
+            onChange={(e) => setFix({ ...fix, state: e.target.value.toUpperCase() })} />
+          <input className={`${input} sm:col-span-2`} style={inputStyle} placeholder="ZIP" maxLength={10} value={fix.zip}
+            onChange={(e) => setFix({ ...fix, zip: e.target.value })} />
+        </div>
+      )}
+    </div>
+  );
+}
+
 function OrdersTab({
   orders,
   onStatusChange,
   onSaveTracking,
+  onLabelCreated,
 }: {
   orders: Order[];
   onStatusChange: (id: string, status: string) => void;
   onSaveTracking: (id: string, tracking_number: string, tracking_url: string) => Promise<void>;
+  onLabelCreated: (id: string, label: { labelUrl: string; trackingNumber?: string; trackingUrl?: string }) => void;
 }) {
   const [search, setSearch] = useState("");
   const [filterStatus, setFilterStatus] = useState("all");
@@ -454,7 +574,8 @@ function OrdersTab({
                     </div>
                   </div>
                 </div>
-                {order.status === "shipped" && (
+                {order.payment_status === "paid" && <LabelPanel order={order} onCreated={onLabelCreated} />}
+                {order.status === "shipped" && !order.label_url && (
                   <TrackingForm order={order} onSave={onSaveTracking} />
                 )}
               </div>
