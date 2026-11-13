@@ -21,3 +21,9 @@ SELECT column_name, data_type, is_nullable
 FROM information_schema.columns
 WHERE table_name = 'affiliate_applications'
 ORDER BY ordinal_position;
+
+-- Columns that already existed may have no default: new applications start as pending.
+ALTER TABLE affiliate_applications ALTER COLUMN status     SET DEFAULT 'pending';
+ALTER TABLE affiliate_applications ALTER COLUMN created_at SET DEFAULT NOW();
+UPDATE affiliate_applications SET status = 'pending' WHERE status IS NULL;
+UPDATE affiliate_applications SET created_at = NOW() WHERE created_at IS NULL;

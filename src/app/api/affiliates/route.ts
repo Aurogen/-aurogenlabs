@@ -45,12 +45,13 @@ export async function POST(req: NextRequest) {
       email,
       website: (firstUrl?.value as string | undefined) ?? null,
       answers,
+      // Set explicitly: older tables have these columns without defaults.
+      status: "pending",
+      created_at: new Date().toISOString(),
     };
 
     // A rejected (or older) application from the same email goes back to review with the new answers.
-    const record: Record<string, unknown> = previous
-      ? { ...row, status: "pending", reviewed_at: null, created_at: new Date().toISOString() }
-      : row;
+    const record: Record<string, unknown> = previous ? { ...row, reviewed_at: null } : row;
     const save = (r: Record<string, unknown>) =>
       previous
         ? supabase.from("affiliate_applications").update(r).eq("id", previous.id)
