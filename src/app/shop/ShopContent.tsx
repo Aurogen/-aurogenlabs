@@ -121,14 +121,17 @@ function ShopInner({ initialProducts }: Props) {
               {lang === "es" ? c.label_es : c.name}
             </button>
           ))}
-          <button
-            onClick={() => setInStockOnly(!inStockOnly)}
-            className="shrink-0 h-9 px-4 rounded-full text-[13px] font-medium whitespace-nowrap"
-            style={chip(inStockOnly)}
-            aria-pressed={inStockOnly}
-          >
-            {t("In stock", "En stock")}
-          </button>
+          {/* Only useful when something is sold out; otherwise it would change nothing. */}
+          {initialProducts.some((p) => !p.inStock) && (
+            <button
+              onClick={() => setInStockOnly(!inStockOnly)}
+              className="shrink-0 h-9 px-4 rounded-full text-[13px] font-medium whitespace-nowrap"
+              style={chip(inStockOnly)}
+              aria-pressed={inStockOnly}
+            >
+              {t("In stock", "En stock")}
+            </button>
+          )}
         </div>
       </div>
 
