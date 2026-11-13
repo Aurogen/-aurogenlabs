@@ -6,7 +6,7 @@ import { useLanguage } from "@/context/LanguageContext";
 
 const SRC = "/audio/ambient.mp3";
 const KEY = "aurogen_music"; // "off" once the visitor mutes it
-const VOLUME = 0.22;
+const VOLUME = 0.12;
 
 /**
  * Soft ambient music across the site. Browsers only allow sound after the visitor interacts,
