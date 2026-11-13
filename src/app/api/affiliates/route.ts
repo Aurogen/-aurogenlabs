@@ -26,14 +26,15 @@ export async function POST(req: NextRequest) {
     const { answers } = checked;
 
     const supabase = getServiceClient();
-    const [{ data: pending }, { data: partner }] = await Promise.all([
-      supabase.from("affiliate_applications").select("id").eq("email", email).eq("status", "pending").limit(1).maybeSingle(),
+    const [{ data: previous }, { data: partner }] = await Promise.all([
+      // One application per email (the table has a unique email): a new one reuses the old row.
+      supabase.from("affiliate_applications").select("id, status").eq("email", email).limit(1).maybeSingle(),
       supabase.from("affiliate_codes").select("id").eq("email", email).limit(1).maybeSingle(),
     ]);
     if (partner) {
       return NextResponse.json({ error: "This email is already a partner. Sign in to open your affiliate portal." }, { status: 409 });
     }
-    if (pending) {
+    if (previous?.status === "pending") {
       return NextResponse.json({ error: "We already have a pending application for this email. We'll reply soon." }, { status: 409 });
     }
 
@@ -46,12 +47,27 @@ export async function POST(req: NextRequest) {
       answers,
     };
 
-    let { error } = await supabase.from("affiliate_applications").insert(row);
+    // A rejected (or older) application from the same email goes back to review with the new answers.
+    const save = (r: Record<string, unknown>) =>
+      previous
+        ? supabase
+            .from("affiliate_applications")
+            .update({ ...r, status: "pending", reviewed_at: null, created_at: new Date().toISOString() })
+            .eq("id", previous.id)
+        : supabase.from("affiliate_applications").insert(r);
+
+    let { error } = await save(row);
     // Before the migration runs there is no answers column; keep the answers readable in message.
-    if (error && /answers/.test(error.message)) {
+    if (error && /answers|reviewed_at/.test(error.message)) {
       delete row.answers;
       row.message = summary.slice(0, 5000);
-      ({ error } = await supabase.from("affiliate_applications").insert(row));
+      ({ error } = previous
+        ? await supabase.from("affiliate_applications").update({ ...row, status: "pending" }).eq("id", previous.id)
+        : await supabase.from("affiliate_applications").insert(row));
+    }
+    // Two submits at the same moment: the first one won.
+    if (error?.code === "23505") {
+      return NextResponse.json({ error: "We already have a pending application for this email. We'll reply soon." }, { status: 409 });
     }
     if (error) {
       console.error("Affiliate insert error:", error);
