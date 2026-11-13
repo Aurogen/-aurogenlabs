@@ -55,7 +55,11 @@ export async function POST(req: NextRequest) {
     }
     if (error) {
       console.error("Affiliate insert error:", error);
-      return NextResponse.json({ error: "We couldn't save your application. Please try again." }, { status: 500 });
+      // The database error code (no details) helps us find the cause from a screenshot.
+      return NextResponse.json(
+        { error: `We couldn't save your application. Please try again. (ref ${error.code ?? "db"})` },
+        { status: 500 },
+      );
     }
 
     await Promise.allSettled([

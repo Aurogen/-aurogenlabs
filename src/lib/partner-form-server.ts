@@ -1,5 +1,5 @@
 import { getServiceClient } from "@/lib/supabase-server";
-import { DEFAULT_PARTNER_FORM, sanitizeFormConfig, type PartnerFormConfig } from "@/lib/partner-form";
+import { COUNTRIES, DEFAULT_PARTNER_FORM, sanitizeFormConfig, type PartnerFormConfig } from "@/lib/partner-form";
 
 const SETTINGS_KEY = "partner_form";
 
@@ -12,7 +12,12 @@ export async function loadPartnerForm(): Promise<PartnerFormConfig> {
     .eq("key", SETTINGS_KEY)
     .maybeSingle();
   if (error || !data?.value) return DEFAULT_PARTNER_FORM;
-  return sanitizeFormConfig(data.value);
+  const config = sanitizeFormConfig(data.value);
+  // Forms saved before the country list existed asked for the country as free text.
+  config.fields = config.fields.map((f) =>
+    f.id === "country" && f.type === "text" ? { ...f, type: "select", options: [...COUNTRIES] } : f,
+  );
+  return config;
 }
 
 export async function savePartnerForm(config: PartnerFormConfig) {

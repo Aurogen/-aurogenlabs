@@ -65,7 +65,19 @@ export default function PartnersPage() {
         setStatus("success");
         window.scrollTo({ top: 0, behavior: "smooth" });
       } else {
-        setError(data.error ?? t("Something went wrong. Please try again.", "Algo salió mal. Inténtalo de nuevo."));
+        const msg: string | undefined = data.error;
+        const ref = msg?.match(/\(ref [^)]+\)/)?.[0] ?? "";
+        setError(
+          !msg
+            ? t("Something went wrong. Please try again.", "Algo salió mal. Inténtalo de nuevo.")
+            : lang === "es" && msg.startsWith("We couldn't save")
+              ? `No pudimos guardar tu solicitud. Inténtalo de nuevo. ${ref}`.trim()
+              : lang === "es" && msg.startsWith("We already have a pending")
+                ? "Ya tenemos una solicitud pendiente con este correo. Te responderemos pronto."
+                : lang === "es" && msg.startsWith("This email is already a partner")
+                  ? "Este correo ya es partner. Inicia sesión para abrir tu portal de afiliado."
+                  : msg,
+        );
         setStatus("idle");
       }
     } catch {
