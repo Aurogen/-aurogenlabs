@@ -48,22 +48,23 @@ export async function POST(req: NextRequest) {
     };
 
     // A rejected (or older) application from the same email goes back to review with the new answers.
+    const record: Record<string, unknown> = previous
+      ? { ...row, status: "pending", reviewed_at: null, created_at: new Date().toISOString() }
+      : row;
     const save = (r: Record<string, unknown>) =>
       previous
-        ? supabase
-            .from("affiliate_applications")
-            .update({ ...r, status: "pending", reviewed_at: null, created_at: new Date().toISOString() })
-            .eq("id", previous.id)
+        ? supabase.from("affiliate_applications").update(r).eq("id", previous.id)
         : supabase.from("affiliate_applications").insert(r);
 
-    let { error } = await save(row);
-    // Before the migration runs there is no answers column; keep the answers readable in message.
-    if (error && /answers|reviewed_at/.test(error.message)) {
-      delete row.answers;
-      row.message = summary.slice(0, 5000);
-      ({ error } = previous
-        ? await supabase.from("affiliate_applications").update({ ...row, status: "pending" }).eq("id", previous.id)
-        : await supabase.from("affiliate_applications").insert(row));
+    // Older tables may miss some columns (PostgREST PGRST204 names the column): drop it and retry,
+    // keeping the answers readable in `message` if `answers` is the one missing.
+    let { error } = await save(record);
+    for (let i = 0; error?.code === "PGRST204" && i < 6; i++) {
+      const missing = error.message.match(/'([^']+)' column/)?.[1];
+      if (!missing || !(missing in record)) break;
+      delete record[missing];
+      if (missing === "answers" && !("message" in record)) record.message = summary.slice(0, 5000);
+      ({ error } = await save(record));
     }
     // Two submits at the same moment: the first one won.
     if (error?.code === "23505") {
